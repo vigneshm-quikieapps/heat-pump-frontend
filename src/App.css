@@ -2,3 +2,8 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+*{
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
