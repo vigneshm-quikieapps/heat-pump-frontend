@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
 import "./RCA1.css";
-import InputUnstyled from '@mui/base/InputUnstyled';
 import { makeStyles } from '@material-ui/core';
-import { Button, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { customerDetailsAction } from '../../../Redux/customerDetails/customerDetails.action';
 
 const useStyles = makeStyles({
     heading:{
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
  }
 
-function RCA1() {
+function RCA1({customerDetails,customerDetailsAction}) {
     const classes = useStyles();
     const [inputValues, setInputValues] = useState(inputnames)
   
@@ -42,7 +42,7 @@ function RCA1() {
     
  const changeHandler = (e) => {
    e.preventDefault();
-   setInputValues({...inputValues,[e.target.name]:e.target.value})
+  customerDetailsAction({[e.target.name]:e.target.value})
 }
     
   return (
@@ -59,10 +59,10 @@ function RCA1() {
 
         <div  style={{margin:"10px 0px 0px 100px",width:"590px",fontWeight:"300",marginTop:"30px"}} >Your Name and Contact Details</div>       
         <form action="">
-          <input className='inputfields' type="text" value={inputValues.fullName} onChange={changeHandler} name="fullName" placeholder ="Full Name" />
-          <input className='inputfields' type="email" value={inputValues.emailAddress} onChange={changeHandler} name="emailAddress" placeholder ="Email Adress" />
-          <input className='inputfields' type="password" value={inputValues.password} onChange={changeHandler} name="password" placeholder ="Password" />
-          <input className='inputfields' type="number" value={inputValues.mobileNumber} onChange={changeHandler} name="mobileNumber" placeholder ="Mobile Number" />
+          <input className='inputfields' type="text" value={customerDetails.name} onChange={changeHandler} name="name" placeholder ="Full Name" />
+          <input className='inputfields' type="email" value={customerDetails.email} onChange={changeHandler} name="email" placeholder ="Email Address" />
+          <input className='inputfields' type="password" value={customerDetails.password} onChange={changeHandler} name="password" placeholder ="Password" />
+          <input className='inputfields' type="number" value={customerDetails.mobile} onChange={changeHandler} name="mobile" placeholder ="Mobile Number" />
 
         </form>
 
@@ -77,5 +77,14 @@ function RCA1() {
     </div>
   )
 }
+const mapStateToProps = (state) => ({
+  customerDetails:state.cdr
+  
+})
 
-export default RCA1
+const mapDispatchToProps = dispatch => ({
+ customerDetailsAction:keypair => dispatch(customerDetailsAction(keypair)),
+
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(RCA1);

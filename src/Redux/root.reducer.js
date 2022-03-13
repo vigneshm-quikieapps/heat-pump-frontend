@@ -2,18 +2,18 @@ import {combineReducers} from "redux";
 import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
 
-import nameReducer from "./name/name.reducer";
 import emailNumReducer from "./emailNum/emailNum.reducer";
+import customerDetailsReducer from "./customerDetails/customerDetails.reducer";
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist:["fp"]
+    whitelist:["fp","cdr"]
   }
 
 const rootReducer = combineReducers({
-    name:nameReducer,
-    fp:emailNumReducer
+    fp:emailNumReducer,
+    cdr:customerDetailsReducer,
    
 })
 

@@ -1,6 +1,6 @@
 .sidebar{
     
-    height: 100vh;
+    height: 100vw;
     margin-left: 0px;
     background-color: linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);
     
@@ -29,7 +29,8 @@ li{
     
     background-image:linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);
     width: 290px;
-    
+    height: 100;
+   
     border-top-right-radius: 5px;
 }
 
