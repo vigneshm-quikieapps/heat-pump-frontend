@@ -62,9 +62,9 @@ function OTP({ emailNum }) {
     setOtp(e);
   };
   useEffect(() => {
-    if (otp.length < 4) {
+    /* if (otp.length < 4) {
       setStatus("");
-    }
+    } */
     if (otp.length === 4) {
       const otp_token =JSON.parse(localStorage.getItem("otp_token"));
       console.log(otp_token)
@@ -84,8 +84,11 @@ function OTP({ emailNum }) {
           if (res.success) {
             localStorage.setItem("reset_token", JSON.stringify(res.data.reset_token));
             setStatus(true);
-            navigate("/newpassword");
-            toast.success(res.data.message);
+            setTimeout(() => {
+              navigate("/newpassword");
+            }, 2000);
+            
+            //toast.success(res.data.message);
           }
           else{
             // toast.error(res.data.message);

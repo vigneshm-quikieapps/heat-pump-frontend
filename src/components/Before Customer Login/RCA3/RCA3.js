@@ -7,46 +7,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles({
-    heading:{
-      margin:"25px 0px 0px 100px",
-      fontSize: "50px",
-      fontWeight: "600",
-      fontStretch: "normal",
-      fontStyle: "normal",
-      lineHeight: "normal",
-      letterSpacing: "0.41px",
-      textAlign: "left",
-      color:" #000",
-      display:"block"
-    },
-    subtitle:{
-        margin:"30px 0px 0px 100px",
-        fontSize:"15px",
-        width:"600px",
-        fontWeight:"600",
-        fontSize:"16px",
-        color:" #000"
-    },
-    button:{
-        position:"absolute",
-        left:"100px",
-        top:"380px",
-        backgroundColor:"black",
-        color:"white",
-        width:"200px",
-        height:"50px",
-        borderRadius:"32.5px",
-        textTransform:"none",
-        "&:hover":{
-         background:"black",
-         color:"white"
-       } }
- })
+
 
 function RCA3() {
 
-    const classes = useStyles();
+
 
   return (
     <div>

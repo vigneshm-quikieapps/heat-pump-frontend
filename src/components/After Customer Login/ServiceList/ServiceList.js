@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ServiceList.css";
 import { Pagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1";
 
 const ServiceList = () => {
   const list = [
@@ -91,7 +92,7 @@ const ServiceList = () => {
               type={"text"}
               placeholder="Service Request No."
             />
-            <input className="  select-box box1" value={"Title"} />
+            <input className="  select-box box1" placeholder="Title" />
             <select className="  select-box box1">
               <option>Updated</option>
               <option>one</option>
@@ -132,11 +133,11 @@ const ServiceList = () => {
                   return (
                     <tr
                       key={index}
-                      style={{ borderBottom: "solid 1px #d3d3d3;" }}
+                      style={{ borderBottom: "solid 1px #d3d3d3" }}
                     >
                       <td scope="row">
                         {" "}
-                        <div class="roundcircle">H</div>{" "}
+                        <div className="roundcircle">H</div>{" "}
                       </td>
                       <td>{item.srno}</td>
                       <td>{item.title}</td>
@@ -156,6 +157,7 @@ const ServiceList = () => {
             display: "flex",
             justifyContent: "center",
             marginTop: "15px",
+         
           }}
         >
           <Pagination

@@ -7,7 +7,7 @@ import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { Triangle } from "react-loader-spinner";
@@ -253,7 +253,7 @@ function NewPassword() {
           <hr className="line" />
           <div className="subtitle">
             <span>Need more help?</span>
-            <span className="learnMore">Learn More</span>
+            <Link to = "/"><span className="learnMore">Learn More</span></Link>
           </div>
         </div>
 

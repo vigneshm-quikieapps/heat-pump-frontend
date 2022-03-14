@@ -5,26 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { customerDetailsAction } from '../../../Redux/customerDetails/customerDetails.action';
 
-const useStyles = makeStyles({
-    heading:{
-      margin:"25px 0px 0px 100px",
-      fontSize: "50px",
-      fontWeight: "600",
-      fontStretch: "normal",
-      fontStyle: "normal",
-      lineHeight: "normal",
-      letterSpacing: "0.41px",
-      textAlign: "left",
-      color:" #000",
-      display:"block"
-    },
-    subtitle:{
-        margin:"30px 0px 0px 100px",
-        fontWeight:"600",
-        fontSize:"17px"
-        
-    }   
- })
+
 
  const inputnames = {
     fullName:"",
@@ -35,7 +16,7 @@ const useStyles = makeStyles({
  }
 
 function RCA1({customerDetails,customerDetailsAction}) {
-    const classes = useStyles();
+
     const [inputValues, setInputValues] = useState(inputnames)
   
 

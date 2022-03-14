@@ -52,7 +52,7 @@ const useStyles = makeStyles({
   },
 });
 
-const business = {
+/* const business = {
   registeredName: "",
   tradeName: "",
   type: "",
@@ -64,7 +64,7 @@ const address = {
   line1: "",
   line2: "",
   city: "",
-};
+}; */
 
 function RCA2({ customerDetails, customerDetailsAction }) {
   // const [inputBusiness, setInputBusiness] = useState(business);
@@ -123,7 +123,13 @@ function RCA2({ customerDetails, customerDetailsAction }) {
   };
   const classes = useStyles();
   return (
+   
     <div>
+       {loader && (
+      <div className="customLoader">
+        <Triangle color="#007bff" height="130" width="130" />
+      </div>
+    )}
       <div className="rca2">
         <div className="rca2firstHalf">
           <div className="rca2HPD">
@@ -253,12 +259,19 @@ function RCA2({ customerDetails, customerDetailsAction }) {
               required
               value={customerDetails.postcode}
               className="rca2inputfields top"
-              type="number"
+              type="text"
               onChange={changeHandler}
               name="postcode"
               placeholder="Postcode*"
               disabled={checked === false ? true : false}
             />
+            <img
+            src={require("../../../Img/ellipse1.png")}
+            height="360px"
+            width={"250px"}
+            alt=""
+            className="rca2ellipse1"
+          />
 
             <Button
               type="submit"

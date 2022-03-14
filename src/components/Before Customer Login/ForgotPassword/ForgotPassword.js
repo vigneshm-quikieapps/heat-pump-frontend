@@ -1,7 +1,7 @@
 import "./ForgotPassword.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button,} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     color: "white",
     width: "180px",
     height: "50px",
+    fontFamily:"outfit",
     borderRadius: "32.5px",
     textTransform: "none",
     "&:hover": {
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
     border: "solid 1px #d3d3d3",
     backgroundColor: "#f9f9f9",
     color: " #000",
+    fontFamily:"outfit",
     width: "200px",
     height: "50px",
     textTransform: "none",
@@ -72,6 +74,7 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
         .then((response) => {
           const res =response.data
           setLoader(false);
+          console.log(res.otp_not_to_display);
           if (res.success) {
             localStorage.setItem("otp_token", JSON.stringify(res.data.otp_token));
             setLoader(false);
@@ -152,8 +155,10 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
               }}
             />
           </div>
+          <hr className="fphr" />
+          <div style={{margin:"5px 0px 0px 100px",fontWeight:"600",fontSize:"15px"}} >Need more Help?<Link to = "/" className="learnmore" ><span>Learn more</span></Link></div>
         </div>
-
+         
         <div class="fpRectangle-side">
           {" "}
           <img

@@ -13,8 +13,10 @@ import NewPassword from "./components/Before Customer Login/NewPassword/NewPassw
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
+
 import ServiceList from "./components/After Customer Login/ServiceList/ServiceList";
 import CreateList from "./components/After Customer Login/CreateList/CreateList";
+import CreateListSubmitted from "./components/After Customer Login/CreateListSubmitted/CreateListSubmitted";
 
 import AccountRequest from "./components/admin/account requests/AccountRequest";
 
@@ -37,6 +39,7 @@ function App({ name, changeName, addName }) {
           <Route path="/common" element={<Common />}>
             <Route path="servicerequest" element={<ServiceList />} />
             <Route path="createservice" element={<CreateList />} />
+            <Route path="requestsubmitted" element={<CreateListSubmitted />} />
             <Route path="accountrequest" element={<AccountRequest />} />
           </Route>
         </Routes>

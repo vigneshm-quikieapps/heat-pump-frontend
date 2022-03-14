@@ -169,3 +169,7 @@ th {
   font-weight: 100;
   margin-top: 25px;
 }
+
+.pagination{
+  color: white;
+}
