@@ -3,3 +3,9 @@ export const customerDetailsAction = keyvalue => ({
     payload:keyvalue
 })
 
+
+export const customerDetailsAutoSuggestion = singleList => ({
+    type:"ADD_DETAILS_AUTOSUGGESTION",
+    payload:singleList
+})
+

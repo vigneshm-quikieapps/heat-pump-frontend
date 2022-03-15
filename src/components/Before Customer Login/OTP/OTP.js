@@ -81,8 +81,9 @@ function OTP({ emailNum }) {
         .then((response) => {
           setLoader(false);
           const res =response.data
-          if (res.success) {
-            localStorage.setItem("reset_token", JSON.stringify(res.data.reset_token));
+          debugger
+          if (res.message == "verified") {
+            localStorage.setItem("reset_token", JSON.stringify(res.reset_token));
             setStatus(true);
             setTimeout(() => {
               navigate("/newpassword");
@@ -114,7 +115,7 @@ function OTP({ emailNum }) {
         <div className="otpfirstHalf">
           <div className="otpHPD">
             <img
-              src={require("../../../Img/HPD.png")}
+              src={require("../../../Img/HPDD.jpeg")}
               height="50px"
               width={"50px"}
             />

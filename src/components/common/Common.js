@@ -8,12 +8,12 @@ function Common() {
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("redbar1");
   return (
-    <>
-      <div style={{ display: "flex" }}>
+   
+      <div style={{ display: "flex",height:"100%" }}>
         <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
           <div className="HPDSideBar">
             <img
-              src={require("../../Img/HPD.png")}
+              src={require("../../Img/HPDD.jpeg")}
               height="40px"
               width={"40px"}
             />
@@ -173,7 +173,7 @@ function Common() {
           <Outlet />
         </div>
       </div>
-    </>
+    
   );
 }
 

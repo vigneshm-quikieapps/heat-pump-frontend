@@ -94,7 +94,7 @@ const Login = () => {
         <div className="firstHalf">
           <div className="HPD-Existing-Logo---01-1">
             <img
-              src={require("../../../Img/HPD.png")}
+              src={require("../../../Img/HPDD.jpeg")}
               height="50px"
               width={"50px"}
               className="HBD"

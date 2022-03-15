@@ -23,6 +23,16 @@ const customerDetailsReducer = (state = INITIAL_STATE,action) => {
             }
             
             break;
+            case "ADD_DETAILS_AUTOSUGGESTION":
+            return {
+                ...state,
+                postcode:action.payload.postcode,
+                city:action.payload.posttown ,
+                address_1:action.payload.addressline1,
+                address_2:action.payload.addressline2
+                }
+            
+            break;
         default:
             return state;
     }

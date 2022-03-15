@@ -17,7 +17,7 @@ function RCA3() {
     <div>
         <div className='rca3' >
         <div className='rca3firstHalf' >
-        <div className ="rca3HPD"><img src={require("../../../Img/HPD.png")} height="50px" width={"50px"}  /></div>
+        <div className ="rca3HPD"><img src={require("../../../Img/HPDD.jpeg")} height="50px" width={"50px"}  /></div>
         
         <h1 className='rca3div1' >Request a Customer Account</h1>
         

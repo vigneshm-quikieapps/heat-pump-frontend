@@ -102,7 +102,7 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
         <div className="fpfirstHalf">
           <div className="fpHPD">
             <img
-              src={require("../../../Img/HPD.png")}
+              src={require("../../../Img/HPDD.jpeg")}
               height="50px"
               width={"50px"}
             />

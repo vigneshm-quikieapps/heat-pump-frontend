@@ -4,17 +4,18 @@ import storage from 'redux-persist/lib/storage';
 
 import emailNumReducer from "./emailNum/emailNum.reducer";
 import customerDetailsReducer from "./customerDetails/customerDetails.reducer";
+import suggestionListReducer from "./suggestionList/suggestionList.reducer";
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist:["fp","cdr"]
+    whitelist:["fp","cdr","sl"]
   }
 
 const rootReducer = combineReducers({
     fp:emailNumReducer,
     cdr:customerDetailsReducer,
-   
+    sl:suggestionListReducer
 })
 
 export default persistReducer(persistConfig,rootReducer)

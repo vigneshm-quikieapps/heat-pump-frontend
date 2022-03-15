@@ -30,7 +30,7 @@ function RCA1({customerDetails,customerDetailsAction}) {
     <div>
        <div className='rca1' >
         <div className='rca1firstHalf' >
-        <div className ="rca1HPD"><img src={require("../../../Img/HPD.png")} height="50px" width={"50px"}  /></div>
+        <div className ="rca1HPD"><img src={require("../../../Img/HPDD.jpeg")} height="50px" width={"50px"}  /></div>
             
         <h1 className='rca1div1' >Request a Customer Account</h1>
         

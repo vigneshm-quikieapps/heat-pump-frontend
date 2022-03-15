@@ -62,7 +62,7 @@ function RequestACustomerAccount() {
     <div >
       <div className='request-a-customer-account' >
       <div className='firstHalf1' >
-      <div className ="HPD-Existing-Logo"><img src={require("../../../Img/HPD.png")} height="50px" width={"50px"}  /></div>
+      <div className ="HPD-Existing-Logo"><img src={require("../../../Img/HPDD.jpeg")} height="50px" width={"50px"}  /></div>
      
       
       <h1 className='div1'  >Request a Customer Account</h1>

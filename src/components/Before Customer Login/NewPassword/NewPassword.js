@@ -131,16 +131,16 @@ function NewPassword() {
       setLoader(true);
       axios
         .post(URL + globalAPI.changePassword, data)
-        .then((response) => {
-          const res = response.data
+        .then((res) => {
+          
           setLoader(false);
           // toast.success(response.data.message);
           if (res.success) {
-            toast.success(res.data.message)
+            toast.success(res.message)
             navigate("/");
           }
           else{
-            toast.error(res.data.message)
+            toast.error(res.message)
           }
         })
         .catch((err) => {
@@ -161,7 +161,7 @@ function NewPassword() {
         <div className="npfirstHalf">
           <div className="npHPD">
             <img
-              src={require("../../../Img/HPD.png")}
+              src={require("../../../Img/HPDD.jpeg")}
               height="50px"
               width={"50px"}
             />

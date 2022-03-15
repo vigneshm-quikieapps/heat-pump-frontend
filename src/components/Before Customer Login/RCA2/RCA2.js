@@ -1,5 +1,5 @@
 import "./RCA2.css";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core";
 import { Typography, Button } from "@material-ui/core";
@@ -17,6 +17,8 @@ import globalAPI from "../../../GlobalApi";
 import { connect } from "react-redux";
 
 import { customerDetailsAction } from "../../../Redux/customerDetails/customerDetails.action";
+import { customerDetailsAutoSuggestion } from "../../../Redux/customerDetails/customerDetails.action";
+import { setSuggestionListAction } from "../../../Redux/suggestionList/suggestionList.action";
 
 const useStyles = makeStyles({
   subtitle: {
@@ -45,7 +47,8 @@ const useStyles = makeStyles({
     height: "40px",
     marginTop: "10px",
     borderRadius: "32.5px",
-    "&:hover": {
+    textTransform:"none",
+    "&:hover":{
       background: "black",
       color: "white",
     },
@@ -66,13 +69,16 @@ const address = {
   city: "",
 }; */
 
-function RCA2({ customerDetails, customerDetailsAction }) {
+function RCA2({ customerDetails, customerDetailsAction,suggestionList,setSuggestionListAction,customerDetailsAutoSuggestion }) {
   // const [inputBusiness, setInputBusiness] = useState(business);
   // const [inputAddress, setInputAddress] = useState(address);
   const [searchValue, setsearchValue] = useState("");
   const [checked, setChecked] = useState(false);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
+  const filtered = searchValue && suggestionList.suggestionList.filter(suggestion => { return  suggestion.summaryline.toLowerCase().includes(searchValue.toLowerCase()); });
+  const filtered1 = searchValue && suggestionList.suggestionList.filter(suggestion => { return  !suggestion.summaryline.toLowerCase().includes(searchValue.toLowerCase()); });
+  const filtered2 = [...filtered,...filtered1];
 
   const changeHandler = (e) => {
     e.preventDefault();
@@ -83,6 +89,42 @@ function RCA2({ customerDetails, customerDetailsAction }) {
     e.preventDefault();
     setsearchValue(e.target.value);
   };
+
+  useEffect(() => {
+    if(searchValue.length > 2){
+   axios.get(`https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWFQ-4NFQ9-PZY8R-574WR`)
+   //axios.get(`https://ws.postcoder.com/pcw/PCWFQ-4NFQ9-PZY8R-574WR/street/uk/${code}`)
+   .then(res =>setSuggestionListAction(res.data))}
+   
+  }, [searchValue])
+ 
+  useEffect(() => {
+    console.log(customerDetails);
+    
+    }, [customerDetails])
+  
+
+  const clickHandler1 = (e) => {
+    if(!parseInt(e.target.id)){
+     axios.get(`https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWFQ-4NFQ9-PZY8R-574WR&pathfilter=${e.target.id}`)
+     .then(res =>{setSuggestionListAction(res.data)})
+     
+   }
+   else{
+     axios.get(`https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWFQ-4NFQ9-PZY8R-574WR&lines=3&include=posttown,postcode`)
+     .then((res) => res.data[0])
+     .then(resp => customerDetailsAutoSuggestion( resp))
+     /* .then(respo => setpostc(respo.postcode)) */
+   
+     //setInputAddress(state => ({...state,posttown:resp.posttown ,address_1:resp.addresslane1,address_2:resp.addresslane2 }))
+ 
+    
+    console.log("hello");
+    setSuggestionListAction([]);
+    setsearchValue("")
+     
+   }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -121,7 +163,27 @@ function RCA2({ customerDetails, customerDetailsAction }) {
       });
      }
   };
+
   const classes = useStyles();
+  console.log(suggestionList);
+  console.log(filtered2);
+
+  const Result = ({ result }) => {
+    return <li className="item" id = {`${result.id}`} onClick={(e) => clickHandler1(e)} >{`${result.summaryline} ${result.locationsummary&&result.locationsummary}`}</li>;
+  };
+  
+  const ResultBlock = ({ results }) => {
+    return (
+      <div className="result-block">
+        <ul>
+          {results.map((r, i) => (
+            <Result key={i} result={r} />
+          ))}
+        </ul>
+      </div>
+    );
+  };
+
   return (
    
     <div>
@@ -134,7 +196,7 @@ function RCA2({ customerDetails, customerDetailsAction }) {
         <div className="rca2firstHalf">
           <div className="rca2HPD">
             <img
-              src={require("../../../Img/HPD.png")}
+              src={require("../../../Img/HPDD.jpeg")}
               height="50px"
               width={"50px"}
             />
@@ -225,6 +287,11 @@ function RCA2({ customerDetails, customerDetailsAction }) {
               placeholder="Start typing address*"
               disabled={checked === true ? true : false}
             />
+             {filtered2.length === 0 ? (
+       ""
+      ) : (
+        <ResultBlock results={filtered2} />
+      )}
             <input
               required
               className="rca2inputfields"
@@ -283,7 +350,7 @@ function RCA2({ customerDetails, customerDetailsAction }) {
           </form>
         </div>
 
-        <div class="rca2Rectangle-side">
+        <div className="rca2Rectangle-side">
           {" "}
           <img
             src={require("../../../Img/RCA2.png")}
@@ -296,10 +363,13 @@ function RCA2({ customerDetails, customerDetailsAction }) {
 }
 const mapStateToProps = (state) => ({
   customerDetails: state.cdr,
+  suggestionList:state.sl
 });
 
 const mapDispatchToProps = (dispatch) => ({
   customerDetailsAction: (keypair) => dispatch(customerDetailsAction(keypair)),
+  setSuggestionListAction:list => dispatch(setSuggestionListAction(list)),
+  customerDetailsAutoSuggestion:singleList => dispatch(customerDetailsAutoSuggestion(singleList))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RCA2);
