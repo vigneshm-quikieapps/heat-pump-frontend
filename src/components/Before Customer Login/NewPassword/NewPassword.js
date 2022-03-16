@@ -116,13 +116,15 @@ function NewPassword() {
   };
 
   const submitHandler = () => {
+    debugger
+    console.log("hello")
     if (password.newPassword.length < 8) {
       setColor("red");
     }
     if (password.newPassword != password.confirmPassword) {
       setVisibility("");
     } else {
-      const reset_token =JSON.parse(localStorage.getItem("reset_token"));
+      const reset_token = JSON.parse(localStorage.getItem("reset_token"));
       const data = {
         reset_token:reset_token,
         new_password:password.newPassword,
@@ -131,16 +133,16 @@ function NewPassword() {
       setLoader(true);
       axios
         .post(URL + globalAPI.changePassword, data)
-        .then((res) => {
-          
+        .then((response) => {
+          const res = response.data
           setLoader(false);
           // toast.success(response.data.message);
           if (res.success) {
-            toast.success(res.message)
+            toast.success(res.data.message)
             navigate("/");
           }
           else{
-            toast.error(res.message)
+            toast.error(res.data.message)
           }
         })
         .catch((err) => {

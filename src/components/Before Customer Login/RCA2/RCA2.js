@@ -150,7 +150,7 @@ function RCA2({ customerDetails, customerDetailsAction,suggestionList,setSuggest
       .then((response) => {
         if (response.data.sucess) {
           setLoader(false);
-          toast.success('Account Created')
+          toast.success('Account Request Submitted')
           navigate("/rca3");
         }
         else{

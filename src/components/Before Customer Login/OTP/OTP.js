@@ -82,8 +82,8 @@ function OTP({ emailNum }) {
           setLoader(false);
           const res =response.data
           debugger
-          if (res.message == "verified") {
-            localStorage.setItem("reset_token", JSON.stringify(res.reset_token));
+          if (res.success) {
+            localStorage.setItem("reset_token", JSON.stringify(res.data.reset_token));
             setStatus(true);
             setTimeout(() => {
               navigate("/newpassword");
