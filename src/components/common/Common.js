@@ -80,6 +80,8 @@ function Common() {
               }
             />{" "}
           </li>
+          <Link to="servicerequest"
+            style={{ textDecoration: "none", color: "black" }}>
           <li
             onClick={() => setDisplay("redbar3")}
             style={
@@ -88,6 +90,7 @@ function Common() {
                 : { fontWeight: "300" }
             }
           >
+            
             {" "}
             <img
               src={require("../../Img/sidebar3.png")}
@@ -107,7 +110,8 @@ function Common() {
               }
             />{" "}
           </li>
-
+          </Link>
+          
           <img
             src={require("../../Img/ellipse.png")}
             height="360px"

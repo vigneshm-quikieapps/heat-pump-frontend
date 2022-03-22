@@ -1,12 +1,12 @@
 export const header = () => {
-    const userData = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('axisUserData')) : null
+    const userData = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
     if (userData === null || userData === undefined || userData === "") {
         return true
     } else {
         return {
             headers: {
-                'Content-Type': 'application/json',
-                "Token": userData
+                'Content-Type': 'multipart/form-data',
+                "Authorization": `Bearer ${userData}`
             }
         }
     }
@@ -15,7 +15,7 @@ export const header = () => {
 
 
 export const formDataHeader = () => {
-    const userData = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('axisUserData')) : null
+    const userData = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')) : null
     if (userData === null || userData === undefined || userData === "") {
         return true
     } else {

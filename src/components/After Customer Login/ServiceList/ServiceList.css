@@ -41,7 +41,7 @@
   position: relative;
   width: 250px;
 }
-.hrFirstline {
+/* .hrFirstline {
   width: 91.2%;
   position: relative;
   top: 90px;
@@ -70,7 +70,7 @@
   margin-left: 35px;
   background-color: #f2f3f2;
   border: 1.5px solid #f2f3f2;
-}
+} */
 .secondrow {
   display: flex;
   flex-direction: row;
@@ -88,6 +88,7 @@
   align-items: center;
   border-radius: 10px;
   background-color: #f4f2ea;
+  cursor: pointer;
 }
 .second-row-text {
   text-align: center;
@@ -135,16 +136,21 @@
 table {
   width: 100%;
   border-spacing: 30px;
+  border-collapse: collapse;
 }
+th,
 td {
-  text-align: center;
-  font-size: 14px;
+  border-bottom: 2px solid #f2f3f2;
+  text-align: left;
 }
-th {
-  text-align: center;
-  font-size: 18px;
+
+tr {
+  height: 60px;
 }
-.roundcircle {
+.sortable tr {
+  cursor: pointer;
+}
+.hroundcircle {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -154,8 +160,25 @@ th {
   padding-top: 5px;
   margin: auto;
 }
-.theadhr {
-  border-bottom: 1px solid #d3d3d3;
+.mroundcircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: black;
+  background-color: #ffe289;
+  padding-top: 5px;
+  margin: auto;
+}
+.lroundcircle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 15px;
+  color: black;
+  background-color: #c0f587;
+  padding-top: 5px;
+  margin: auto;
 }
 .btnjob {
   font-weight: 300;
@@ -168,4 +191,6 @@ th {
   border: #000;
   font-weight: 100;
   margin-top: 25px;
+  cursor: pointer;
 }
+

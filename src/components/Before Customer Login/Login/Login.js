@@ -62,6 +62,7 @@ const Login = () => {
         .then((response) => {
           const res =response.data
           if (res.sucess) {
+            localStorage.setItem("userData", JSON.stringify(res.data));
             localStorage.setItem("user", JSON.stringify(res.data.token));
             setLoader(false);
             navigate('/common/servicerequest');
@@ -80,7 +81,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(emailValue);
   }, [emailValue]);
 
   return (

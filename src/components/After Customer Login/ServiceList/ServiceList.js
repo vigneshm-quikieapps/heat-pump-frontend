@@ -1,72 +1,185 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./ServiceList.css";
 import { Pagination } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import URL from "../../../GlobalUrl";
+import globalAPI from "../../../GlobalApi";
+import {TailSpin} from "react-loader-spinner";
+import usePagination from "../../Pagination/Pagination";
+import moment from "moment";
 
 const ServiceList = () => {
-  const list = [
-    {
-      priority: "H",
-      srno: "SR12345678",
-      title: "heat pump",
-      site_details: "7 covaburn avenue,hamilton ML3 7TR",
-      sr_type: "SR Type",
-      time: "10/11/2021 05:00 PM",
-      status: "luthus working",
-    },
-    {
-      priority: "H",
-      srno: "SR12345678",
-      title: "heat pump",
-      site_details: "7 covaburn avenue,hamilton ML3 7TR",
-      sr_type: "SR Type",
-      time: "10/11/2021 05:00 PM",
-      status: "luthus working",
-    },
-    {
-      priority: "H",
-      srno: "SR12345678",
-      title: "heat pump",
-      site_details: "7 covaburn avenue,hamilton ML3 7TR",
-      sr_type: "SR Type",
-      time: "10/11/2021 05:00 PM",
-      status: "luthus working",
-    },
-  ];
+  // const list = [
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "SR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "SR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "SR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "NR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "NR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  //   {
+  //     priority: "H",
+  //     srno: "SR12345678",
+  //     title: "heat pump",
+  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
+  //     sr_type: "NR Type",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "luthus working",
+  //   },
+  // ];
   const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+  const [serviceno, setServiceno] = useState("");
+  const [title, setTitle] = useState("");
+  const [updated, setUpdated] = useState("");
+  const [priority, setPriority] = useState("");
+  const [box, setBox] = useState([]);
+  const [data, setData] = useState([]);
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 3;
+  const [count, setCount] = useState(1);
+  const _DATA = usePagination(data, PER_PAGE);
+  const [status, setStatus] = useState(1);
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userName = userData.name;
+
+  useEffect(() => {
+    fetchData();
+    fetchSeconddata();
+  }, [page,status]);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
+  function fetchData() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(URL + globalAPI.mystatus, config)
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        setBox(res.data);
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  function fetchSeconddata() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(
+        URL +
+          globalAPI.myreq +
+          `?page=${page}&perPage=${PER_PAGE}&status=${status}`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        if (response.data.success) {
+          const res = response.data.data;
+          setCount(res.total_pages);
+          setData(res.data);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  const manageService = (item) => {
+    navigate("/common/manageservice", { state: item._id });
+  };
+
   return (
     <div className="container">
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
       <div className="title">My Service Requests</div>
       <hr className="containerhr" />
       <div className="paper">
         <div className="firstrow">
-          <div className="names">Joe Bloggs</div>
+          <div className="names">{userName}</div>
           <div style={{ fontSize: "small" }}>Heat Pump Scotland,Glasgow</div>
           <hr className="hrFirst" />
         </div>
 
         <div className="secondrow">
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>0</h1>
+            <div className="squarebox" onClick={()=>setStatus(1)}>
+              <h1>{box.new}</h1>
             </div>
             <div className="second-row-text">New</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>1</h1>
+            <div className="squarebox" onClick={()=>setStatus(2)}>
+              <h1>{box.working}</h1>
             </div>
             <div className="second-row-text">Luths Working</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>2</h1>
+            <div className="squarebox" onClick={()=>setStatus(3)}>
+              <h1>{box.need_attention}</h1>
             </div>
             <div className="second-row-text">Need Your Attention</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>3</h1>
+            <div className="squarebox" onClick={()=>setStatus(4)}>
+              <h1>{box.closed}</h1>
             </div>
             <div className="second-row-text">Closed</div>
           </div>
@@ -81,21 +194,35 @@ const ServiceList = () => {
               justifyContent: "space-between",
             }}
           >
-            <select className=" select-box box1">
-              <option>Priority</option>
-              <option>one</option>
-              <option>one</option>
+            <select
+              className=" select-box box1"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <option value="one">High</option>
+              <option value="two">Medium</option>
+              <option value="three">Low</option>
             </select>
             <input
               className="  select-box box1"
-              type={"text"}
+              type="text"
               placeholder="Service Request No."
+              value={serviceno}
+              onChange={(e) => setServiceno(e.target.value)}
             />
-            <input className="  select-box box1" value={"Title"} />
-            <select className="  select-box box1">
-              <option>Updated</option>
-              <option>one</option>
-              <option>one</option>
+            <input
+              className="  select-box box1"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <select
+              className="  select-box box1"
+              value={updated}
+              onChange={(e) => setUpdated(e.target.value)}
+            >
+              <option value="one">one</option>
+              <option value="two">two</option>
+              <option value="three">three</option>
             </select>
           </div>
         </div>
@@ -104,70 +231,101 @@ const ServiceList = () => {
             Service Requests List
           </div>
           <hr className="hrFirst" />
-          <hr className="hrFirstline" />
-          <hr className="hrSecondline" />
-          <hr className="hrThirdline" />
           <table>
             <thead>
               <tr
-                className="theadhr"
-                style={{ borderBottom: "1.5px solid #f2f3f2 " }}
               >
-                <th>Priority</th>
-                <th>SR No.</th>
-                <th scope="col">Title</th>
-                <th scope="col">Site Details</th>
-                <th scope="col">SR Type</th>
-                <th scope="col">
+                <th style={{width:"90px"}}>Priority</th>
+                <th style={{width:"140px"}}>SR No.</th>
+                <th scope="col" style={{width:"290px"}}>Title</th>
+                <th scope="col" style={{ width: "220px" }}>
+                  Site Details
+                </th>
+                <th scope="col"style={{width:"160px"}}>SR Type</th>
+                <th scope="col" style={{width:"170px"}}>
                   Last Updated
                   <br />
                   Date & Time
                 </th>
-                <th scope="col">Status</th>
+                <th scope="col" style={{width:"135px"}}>Status</th>
               </tr>
             </thead>
-            <tbody>
-              {list &&
-                list.map((item, index) => {
-                  return (
-                    <tr
-                      key={index}
-                      style={{ borderBottom: "solid 1px #d3d3d3;" }}
-                    >
-                      <td scope="row">
+            <tbody className="sortable">
+              {_DATA.currentData().map((item, index) => {
+                return (
+                  <tr
+                    onClick={() => manageService(item)}
+                    key={index}
+                    style={{ borderBottom: "solid 1px #d3d3d3", }}
+                  >
+                    {item.priority == 1 && (
+                      <td style={{paddingLeft:"10px"}}>
                         {" "}
-                        <div class="roundcircle">H</div>{" "}
+                        <div class="hroundcircle">H</div>{" "}
                       </td>
-                      <td>{item.srno}</td>
-                      <td>{item.title}</td>
-                      <td>{item.site_details}</td>
-                      <td>{item.sr_type}</td>
-                      <td>{item.time}</td>
-                      <td>{item.status}</td>
-                    </tr>
-                  );
-                })}
+                    )}
+                    {item.priority == 2 && (
+                      <td style={{paddingLeft:"10px"}}>
+                        {" "}
+                        <div class="mroundcircle">M</div>{" "}
+                      </td>
+                    )}
+                    {item.priority == 3 && (
+                      <td style={{paddingLeft:"10px"}}>
+                        {" "}
+                        <div class="lroundcircle">L</div>{" "}
+                      </td>
+                    )}
+                    <td>{item.service_ref_number}</td>
+                    <td>{item.title}</td>
+                    <td>{item.details?item.details:"-"}</td>
+                    <td>{item.sr_type?item.sr_type:"-"}</td>
+                    <td>{moment(item.updatedAt).format('DD/MM/YYYY h:mm a')}</td>
+                    {/* <td>{item.status}</td> */}
+                    {item.status == 1 && <td>New</td>}
+                    {item.status == 2 && <td>Luths Working</td>}
+                    {item.status == 3 && <td>Need Your Attention</td>}
+                    {item.status == 4 && <td>Resolved</td>}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          <hr className="hrfourth" />
+          {/* {_DATA.currentData().length >= 3 && <hr className="hrfourth" />} */}
+          {_DATA.currentData().length == 0 && (
+            <h4
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "40px",
+              }}
+            >
+              No  matching records found
+            </h4>
+          )}
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "15px",
-          }}
+        {_DATA.currentData().length >= 1 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "15px",
+            }}
+          >
+            <Pagination
+              className="pagination"
+              count={count}
+              page={page}
+              variant="outlined"
+              onChange={handleChange}
+              color="standard"
+            />
+          </div>
+        )}
+        <button
+          className="btnjob"
+          onClick={(e) => navigate("/common/createservice")}
         >
-          <Pagination
-            className="pagination"
-            count={3}
-            color="primary"
-            variant="outlined "
-            page={1}
-            onChange={() => {}}
-          />
-        </div>
-        <button className="btnjob" onClick={(e) => navigate("/common/createservice")}>
           Create a Service Request
         </button>
       </div>

@@ -67,13 +67,11 @@ function OTP({ emailNum }) {
     }
     if (otp.length === 4) {
       const otp_token =JSON.parse(localStorage.getItem("otp_token"));
-      console.log(otp_token)
       const data = {
         email: emailNum,
         otp:parseInt(otp),
         otp_token:otp_token,
       };
-      console.log(data)
       setLoader(true);
 
       axios
@@ -99,7 +97,6 @@ function OTP({ emailNum }) {
     }
   }, [otp]);
 
-  console.log(status);
   return (
     <div>
       {loader && (
