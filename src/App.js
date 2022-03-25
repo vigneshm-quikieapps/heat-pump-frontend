@@ -17,7 +17,6 @@ import ServiceList from "./components/After Customer Login/ServiceList/ServiceLi
 import CreateList from "./components/After Customer Login/CreateList/CreateList";
 import ManageService from "./components/After Customer Login/ManageService/ManageService";
 
-import AccountRequest from "./components/admin/account requests/AccountRequest";
 
 import Common from "./components/common/Common";
 import NoPage from "./components/PageNotFound/NoPage";
@@ -65,7 +64,6 @@ function PriorityComponent() {
               <Route path="servicerequest" element={<ServiceList />} />
               <Route path="createservice" element={<CreateList />} />
               <Route path="manageservice" element={<ManageService />} />
-              <Route path="accountrequest" element={<AccountRequest />} />
           </Route>
           <Route path="*" element={<NoPage/>}/>
 

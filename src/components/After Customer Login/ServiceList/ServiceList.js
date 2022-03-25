@@ -6,77 +6,28 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
-import {TailSpin} from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import usePagination from "../../Pagination/Pagination";
 import moment from "moment";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {main:"#000000	"},
+  },
+});
 
 const ServiceList = () => {
-  // const list = [
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "SR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "SR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "SR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "NR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "NR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  //   {
-  //     priority: "H",
-  //     srno: "SR12345678",
-  //     title: "heat pump",
-  //     site_details: "7 covaburn avenue,hamilton ML3 7TR",
-  //     sr_type: "NR Type",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "luthus working",
-  //   },
-  // ];
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [serviceno, setServiceno] = useState("");
   const [title, setTitle] = useState("");
-  const [updated, setUpdated] = useState("");
+  // const [updated, setUpdated] = useState("");
   const [priority, setPriority] = useState("");
   const [box, setBox] = useState([]);
   const [data, setData] = useState([]);
   let [page, setPage] = useState(1);
-  const PER_PAGE = 3;
+  const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const [status, setStatus] = useState(1);
@@ -86,12 +37,8 @@ const ServiceList = () => {
   useEffect(() => {
     fetchData();
     fetchSeconddata();
-  }, [page,status]);
+  }, [page, status]);
 
-  const handleChange = (e, p) => {
-    setPage(p);
-    _DATA.jump(p);
-  };
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -120,7 +67,7 @@ const ServiceList = () => {
       .get(
         URL +
           globalAPI.myreq +
-          `?page=${page}&perPage=${PER_PAGE}&status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&status=${status}&f_title=${title}&f_priority=${priority}&f_srid=${serviceno}`,
         config
       )
       .then((response) => {
@@ -141,6 +88,11 @@ const ServiceList = () => {
   const manageService = (item) => {
     navigate("/common/manageservice", { state: item._id });
   };
+  const handleChange = (e, p) => {
+    console.log(count)
+    setPage(p);
+    _DATA.jump(p);
+  };
 
   return (
     <div className="container">
@@ -154,31 +106,31 @@ const ServiceList = () => {
       <div className="paper">
         <div className="firstrow">
           <div className="names">{userName}</div>
-          <div style={{ fontSize: "small" }}>Heat Pump Scotland,Glasgow</div>
+          <div style={{ fontSize: "small" }}>{userData.business_trade_name},{userData.city}</div>
           <hr className="hrFirst" />
         </div>
 
         <div className="secondrow">
           <div className="outerbox">
-            <div className="squarebox" onClick={()=>setStatus(1)}>
+            <div className="squarebox" onClick={() => setStatus(1)}>
               <h1>{box.new}</h1>
             </div>
             <div className="second-row-text">New</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox" onClick={()=>setStatus(2)}>
+            <div className="squarebox" onClick={() => setStatus(2)}>
               <h1>{box.working}</h1>
             </div>
             <div className="second-row-text">Luths Working</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox" onClick={()=>setStatus(3)}>
+            <div className="squarebox" onClick={() => setStatus(3)}>
               <h1>{box.need_attention}</h1>
             </div>
             <div className="second-row-text">Need Your Attention</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox" onClick={()=>setStatus(4)}>
+            <div className="squarebox" onClick={() => setStatus(4)}>
               <h1>{box.closed}</h1>
             </div>
             <div className="second-row-text">Closed</div>
@@ -197,33 +149,47 @@ const ServiceList = () => {
             <select
               className=" select-box box1"
               value={priority}
-              onChange={(e) => setPriority(e.target.value)}
+              onChange={(e) =>
+                setPriority(
+                  e.target.value == "1" ? 1 : e.target.value == "2" ? 2 : 3
+                )
+              }
             >
-              <option value="one">High</option>
-              <option value="two">Medium</option>
-              <option value="three">Low</option>
+              <option value="" defaultValue hidden disabled>
+                Priority
+              </option>
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
             </select>
             <input
               className="  select-box box1"
               type="text"
-              placeholder="Service Request No."
+              placeholder="Service Request No"
               value={serviceno}
               onChange={(e) => setServiceno(e.target.value)}
             />
             <input
               className="  select-box box1"
               value={title}
+              placeholder="Title"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <select
+            {/* <select
               className="  select-box box1"
               value={updated}
               onChange={(e) => setUpdated(e.target.value)}
             >
+              <option value="" defaultValue hidden disabled>
+                  Updated
+                </option>
               <option value="one">one</option>
               <option value="two">two</option>
               <option value="three">three</option>
-            </select>
+            </select> */}
+            <button className="searchbtn" onClick={() => fetchSeconddata()}>
+              Search
+            </button>
           </div>
         </div>
         <div className="fourth-row">
@@ -233,21 +199,26 @@ const ServiceList = () => {
           <hr className="hrFirst" />
           <table>
             <thead>
-              <tr
-              >
-                <th style={{width:"90px"}}>Priority</th>
-                <th style={{width:"140px"}}>SR No.</th>
-                <th scope="col" style={{width:"290px"}}>Title</th>
+              <tr>
+                <th style={{ width: "90px" }}>Priority</th>
+                <th style={{ width: "140px" }}>SR No.</th>
+                <th scope="col" style={{ width: "290px" }}>
+                  Title
+                </th>
                 <th scope="col" style={{ width: "220px" }}>
                   Site Details
                 </th>
-                <th scope="col"style={{width:"160px"}}>SR Type</th>
-                <th scope="col" style={{width:"170px"}}>
+                <th scope="col" style={{ width: "160px" }}>
+                  SR Type
+                </th>
+                <th scope="col" style={{ width: "170px" }}>
                   Last Updated
                   <br />
                   Date & Time
                 </th>
-                <th scope="col" style={{width:"135px"}}>Status</th>
+                <th scope="col" style={{ width: "135px" }}>
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="sortable">
@@ -256,31 +227,37 @@ const ServiceList = () => {
                   <tr
                     onClick={() => manageService(item)}
                     key={index}
-                    style={{ borderBottom: "solid 1px #d3d3d3", }}
+                    style={{ borderBottom: "solid 1px #d3d3d3" }}
                   >
                     {item.priority == 1 && (
-                      <td style={{paddingLeft:"10px"}}>
+                      <td style={{ paddingLeft: "10px" }}>
                         {" "}
-                        <div class="hroundcircle">H</div>{" "}
+                        <div className="hroundcircle">H</div>{" "}
                       </td>
                     )}
                     {item.priority == 2 && (
-                      <td style={{paddingLeft:"10px"}}>
+                      <td style={{ paddingLeft: "10px" }}>
                         {" "}
-                        <div class="mroundcircle">M</div>{" "}
+                        <div className="mroundcircle">M</div>{" "}
                       </td>
                     )}
                     {item.priority == 3 && (
-                      <td style={{paddingLeft:"10px"}}>
+                      <td style={{ paddingLeft: "10px" }}>
                         {" "}
-                        <div class="lroundcircle">L</div>{" "}
+                        <div className="lroundcircle">L</div>{" "}
                       </td>
                     )}
                     <td>{item.service_ref_number}</td>
                     <td>{item.title}</td>
-                    <td>{item.details?item.details:"-"}</td>
-                    <td>{item.sr_type?item.sr_type:"-"}</td>
-                    <td>{moment(item.updatedAt).format('DD/MM/YYYY h:mm a')}</td>
+                    <td>
+                      {item.job_reference_id
+                        ? item.job_reference_id.site_details
+                        : "-"}
+                    </td>
+                    <td>{item.type ? item.type : "-"}</td>
+                    <td>
+                      {moment(item.updatedAt).format("DD/MM/YYYY h:mm a")}
+                    </td>
                     {/* <td>{item.status}</td> */}
                     {item.status == 1 && <td>New</td>}
                     {item.status == 2 && <td>Luths Working</td>}
@@ -300,7 +277,7 @@ const ServiceList = () => {
                 marginTop: "40px",
               }}
             >
-              No  matching records found
+              No matching records found
             </h4>
           )}
         </div>
@@ -312,14 +289,16 @@ const ServiceList = () => {
               marginTop: "15px",
             }}
           >
-            <Pagination
-              className="pagination"
-              count={count}
-              page={page}
-              variant="outlined"
-              onChange={handleChange}
-              color="standard"
-            />
+            <ThemeProvider theme={theme}>
+              <Pagination
+                className="pagination"
+                count={count}
+                page={page}
+                // variant="outlined"
+                onChange={handleChange}
+                color="primary"
+              />
+            </ThemeProvider>
           </div>
         )}
         <button

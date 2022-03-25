@@ -4,15 +4,16 @@ const globalAPI = {
     forgotPassword:"api/v1/auth/forgot-password",
     otp:"api/v1/auth/verify-otp",
     changePassword:"api/v1/auth/change-password",
-    fileupload:"api/v1/common/uploads/pdf",
-    allreq:"api/v1/services/service-requests",
+    fileupload:"api/v1/common/uploads/documents",
+    // allreq:"api/v1/services/service-requests",
     mystatus:"api/v1/services/service-requests-status",
     myreq:"api/v1/services/service-requests",
     allnotes:"api/v1/services/service-requests-notes",
-    getFile:"api/v1/common/uploads/pdf",
-    textupdate:"api/v1/services/service-requests-notes-update",
+    getFile:"api/v1/common/uploads/documents",
     myjobs:"api/v1/services/jobs",
-    documentupdate:"api/v1/services/service-requests-notes-update-attachments",
+    addnotes:"api/v1/services/service-requests-notes",
+    accountlist:"api/v1/services/users",
+    accountstatus:"api/v1/services/users-count"
 }
 
 export default globalAPI;

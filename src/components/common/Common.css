@@ -128,3 +128,58 @@ li{
     left: 46px;
     visibility: visible;
 }
+
+
+.logoutmodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    overflow: auto;
+    border-radius: 25px;
+    outline: none;
+    padding: 20px 20px 20px 20px;
+    z-index: 1000;
+  }
+  
+  .myoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1000;
+  }
+  
+  .logclose {
+    text-align-last: right;
+  }
+  .log-row1 {
+    margin-left: 30px;
+  }
+  
+  .log-row2 {
+    margin-left: 30px;
+  }
+  .yesbtn {
+    width: 130px;
+    height: 40px;
+    border: #000;
+    border-radius: 50px;
+    background-color: #000;
+    color: white;
+    font-weight: 100;
+    cursor: pointer;
+  }
+  .nobtn {
+    margin-left: 10px;
+    width: 130px;
+    height: 40px;
+    border: grey ridge;
+    border-radius: 50px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }

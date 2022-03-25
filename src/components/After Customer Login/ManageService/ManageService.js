@@ -15,12 +15,12 @@ import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
-const fileTypes = ["PDF","PNG","JPEG"];
+const fileTypes = ["PDF", "PNG", "JPEG"];
 const ManageService = () => {
   const { state } = useLocation();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState({});
   const [attachments, setAttachments] = useState([]);
   const [openupdate, setOpenupdate] = useState(false);
   const [opensr, setOpensr] = useState(false);
@@ -58,7 +58,6 @@ const ManageService = () => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
-    // const params = { params: { srid: state } };
     setLoader(true);
     axios
       .get(URL + globalAPI.allnotes + `?srid=${state}`, config)
@@ -85,6 +84,7 @@ const ManageService = () => {
         setLoader(false);
         const res = response.data;
         setDetails(res.data);
+        console.log("details", details);
         setavailableFiles(res.data.attachments);
       })
       .catch((e) => {
@@ -95,13 +95,15 @@ const ManageService = () => {
 
   async function printTickets(index) {
     const { data } = await getTicketsPdf(index);
-    const blob = new Blob([data], { type: "application/pdf" });
-    saveAs(blob, `Application${index + 1}.pdf`);
+    const blob = new Blob([data],);
+    const att = availableFiles[index].split('.').pop();
+    saveAs(blob, `Application${index + 1}.${att}`);
   }
 
   async function getTicketsPdf(index) {
     const token = JSON.parse(localStorage.getItem("user"));
-    const att = availableFiles[index].slice(20, -4);
+    // const att = availableFiles[index].replace(`${details.creator_id}/`, "");
+    const att = availableFiles[index]
     return axios.get(URL + globalAPI.getFile + `?fp=${att}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -111,15 +113,32 @@ const ManageService = () => {
   }
 
   const removeFile = (index) => {
-    const newValue = [...files];
+    const newValue = [...availableFiles];
     newValue.splice(index, 1);
-    setFiles(newValue);
-
-    //removing attachments
-    const newAttachments = [...attachments];
-    newAttachments.splice(index, 1);
-    setAttachments(newAttachments);
-
+    setLoader(true);
+    const token = JSON.parse(localStorage.getItem("user"));
+    axios({
+      method: "patch",
+      url: URL + globalAPI.myreq + `/${state}`,
+      data: { attachments: newValue },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        if (res.success) {
+          fetchData();
+          fetchSeconddata();
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch(() => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
   };
 
   const addUpdate = (e) => {
@@ -129,9 +148,9 @@ const ManageService = () => {
       setNoupdate(false);
       const token = JSON.parse(localStorage.getItem("user"));
       axios({
-        method: "patch",
-        url: URL + globalAPI.textupdate + `?nrid=${state}`,
-        data: { description: text },
+        method: "post",
+        url: URL + globalAPI.addnotes + `?srid=${state}`,
+        data: { description: text, title: text, type: 1 },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -141,6 +160,9 @@ const ManageService = () => {
           setLoader(false);
           toggleModal();
           if (res.success) {
+            // toast.success("Successfully Added");
+            fetchData();
+            fetchSeconddata();
           } else {
             toast.error(res.data.message);
           }
@@ -193,13 +215,19 @@ const ManageService = () => {
   const newUpload = (e) => {
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
-    const data = {
-      attachments: attachments,
-    };
+    // const data = {
+    //   attachments: attachments,
+    // };
+    // const newVal = availableFiles.concat(attachments);
     axios({
       method: "post",
-      url: URL + globalAPI.documentupdate + `?nrid=${state}`,
-      data: data,
+      url: URL + globalAPI.addnotes + `?srid=${state}`,
+      data: {
+        description: "Added a new attachment",
+        title: "Added a new attachment",
+        attachments: attachments,
+        type: 1,
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -209,7 +237,9 @@ const ManageService = () => {
         togglefileModal();
         const res = response.data;
         if (res.success) {
-          toast.success("success");
+          // toast.success("success");
+          fetchData();
+            fetchSeconddata();
         } else {
           toast.error(res.data.message);
         }
@@ -219,6 +249,39 @@ const ManageService = () => {
         togglefileModal();
         toast.error("Something went wrong");
       });
+  };
+  const closingsr = (e) => {
+    debugger;
+    if (closetext.length >= 1) {
+      setLoader(true);
+      const token = JSON.parse(localStorage.getItem("user"));
+      axios({
+        method: "patch",
+        url: URL + globalAPI.myreq + `/${state}`,
+        data: { status: 2, description: closetext, type: 1 },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          setLoader(false);
+          togglesrModal();
+          const res = response.data;
+          if (res.success) {
+            fetchData();
+            fetchSeconddata();
+          } else {
+            toast.error(res.data.message);
+          }
+        })
+        .catch(() => {
+          setLoader(false);
+          togglesrModal();
+          toast.error("Something went wrong");
+        });
+    } else {
+      setNoclose(true);
+    }
   };
 
   return (
@@ -253,57 +316,58 @@ const ManageService = () => {
                 </div>
               )}
               <div>Status</div>
-              {details.status == 1 && <div className="displaygrid1">New</div>}
+              {details.status == 1 && <div className="displaygrid1">Luths Working</div>}
               {details.status == 2 && (
-                <div className="displaygrid1">Luths Working</div>
-              )}
-              {details.status == 3 && (
-                <div className="displaygrid1">Need Your Attention</div>
-              )}
-              {details.status == 4 && (
-                <div className="displaygrid1">Closed</div>
+                <div className="displaygrid1">Resolved</div>
               )}
               <div>Last Updated</div>
-              <div className="displaygrid1">{moment(details.updatedAt).format('DD/MM/YYYY h:mm a')}</div>
+              <div className="displaygrid1">
+                {moment(details.updatedAt).format("DD/MM/YYYY h:mm a")}
+              </div>
               <div>Created</div>
-              <div className="displaygrid1">{moment(details.createdAt).format('DD/MM/YYYY h:mm a')}</div>
+              <div className="displaygrid1">
+                {moment(details.createdAt).format("DD/MM/YYYY h:mm a")}
+              </div>
               <div>Job Reference</div>
               <div className="displaygrid1">
                 {details.job_reference_id
-                  ? details.job_reference_id
+                  ? details.job_reference_id.job_ref_number
                   : "-"}
               </div>
               <div>Site</div>
-              <div className="displaygrid1">{details.details?details.details:"-"}</div>
+              <div className="displaygrid1">
+                {details.job_reference_id
+                  ? details.job_reference_id.site_details
+                  : "-"}
+              </div>
             </div>
             <div className="msrtitle2">Attachments</div>
             <hr className="msrhr1" />
-            {availableFiles.map((item, index) => (
-              <div key={index} className="msrattachment">
-                <img
-                  src={require("../../../Img/attachIcon1.png")}
-                  className="msrattachIcon"
-                />
-                <div className="div-name" onClick={() => printTickets(index)}>
-                  Attachment {index + 1}.pdf
-                </div>
-                <span>
+            {availableFiles &&
+              availableFiles.map((item, index) => (
+                <div key={index} className="msrattachment">
                   <img
-                    src={require("../../../Img/cross1.png")}
-                    className="msrcross1"
-                    onClick={() => removeFile(index)}
+                    src={require("../../../Img/attachIcon1.png")}
+                    className="msrattachIcon"
                   />
-                </span>
-              </div>
-            ))}
+                  <div className="div-name" onClick={() => printTickets(index)}>
+                    Attachment {index + 1}.pdf
+                  </div>
+                  <span>
+                    <img
+                      src={require("../../../Img/cross1.png")}
+                      className="msrcross1"
+                      onClick={() => removeFile(index)}
+                    />
+                  </span>
+                </div>
+              ))}
           </div>
           <div className="msrgrid2">
             <div className="msrtitle3">
               {details.service_ref_number}-{details.title}
             </div>
-            <span className="msrspan1">
-              {details.description}
-            </span>
+            <span className="msrspan1">{details.description}</span>
             <div style={{ marginTop: "80px" }}>
               <button className="msrbutton1" onClick={() => toggleModal()}>
                 Add Update
@@ -317,78 +381,57 @@ const ManageService = () => {
             </div>
           </div>
           <div className="msrgrid3">
-            <div className="msrupdatesgrid">
-              <div className="image">
-                <img
-                  src={require("../../../Img/customerIcon.png")}
-                  className="msrCommonIcon"
-                />
-              </div>
-              <div>
-                <span className="msrspan21">Update from customer</span>
-                <span className="msrspan3"> 25/01/2022 10:00 AM</span>
-                <div className="msrdiv3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium ducimus rerum eius, facilis assumenda velit, fugit
-                  consectetur animi veritatis explicabo ab saepe minus
-                </div>
-              </div>
-            </div>
-            <hr className="msrhr1" />
-            <div className="msrupdatesgrid">
-              <div className="image">
-                <img
-                  src={require("../../../Img/headIcon.png")}
-                  className="msrCommonIcon"
-                />
-              </div>
-              <div>
-                <span className="msrspan21">Update from Luths Staff</span>
-                <span className="msrspan3"> 25/01/2022 10:00 AM</span>
-                <div className="msrdiv3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium ducimus rerum eius, facilis assumenda velit, fugit
-                  consectetur animi veritatis explicabo ab saepe minus
-                </div>
-              </div>
-            </div>
-            <hr className="msrhr1" />
-            {/* <div className="msrupdatesgrid">
-              <div className="image">
-                <img
-                  src={require("../../../Img/customerIcon.png")}
-                  className="msrCommonIcon"
-                />
-              </div>
-              <div>
-                <span className="msrspan21">Internal Notes</span>
-                <span className="msrspan3"> 25/01/2022 10:00 AM</span>
-                <div className="msrdiv3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium ducimus rerum eius, facilis assumenda velit, fugit
-                  consectetur animi veritatis explicabo ab saepe minus
-                </div>
-              </div>
-            </div> */}
-            {/* <hr className="msrhr1" /> */}
-            <div className="msrupdatesgrid">
-              <div className="image">
-                <img
-                  src={require("../../../Img/systemIcon.png")}
-                  className="msrCommonIcon"
-                />
-              </div>
-              <div>
-                <span className="msrspan21">System Update</span>
-                <span className="msrspan3"> 25/01/2022 10:00 AM</span>
-                <div className="msrdiv3">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Laudantium ducimus rerum eius, facilis assumenda velit, fugit
-                  consectetur animi veritatis explicabo ab saepe minus
-                </div>
-              </div>
-            </div>
-            <hr className="msrhr1" />
+            {notes &&
+              notes.map((item, index) => {
+                return (
+                  <>
+                    <div className="msrupdatesgrid" key={index}>
+                      <div className="msrimage">
+                        {item.type == 1 && (
+                          <img
+                            src={require("../../../Img/type1.png")}
+                            className="msrCommonIcon"
+                          />
+                        )}
+                        {item.type == 2 && (
+                          <img
+                            src={require("../../../Img/type2.png")}
+                            className="msrCommonIcon"
+                          />
+                        )}
+                        {item.type == 4 && (
+                          <img
+                            src={require("../../../Img/type4.png")}
+                            className="msrCommonIcon"
+                          />
+                        )}
+                      </div>
+                      <div className="msrbox1">
+                        {item.type == 1 && (
+                          <span className="msrspan21">
+                            Update from customer
+                          </span>
+                        )}
+                        {item.type == 2 && (
+                          <span className="msrspan21">
+                            Update from Luths Staff
+                          </span>
+                        )}
+                        {item.type == 3 && (
+                          <span className="msrspan21">System Update</span>
+                        )}
+                        <span className="msrspan3">
+                          {" "}
+                          {moment(item.updatedAt).format("DD/MM/YYYY h:mm a")}
+                        </span>
+                        <div className="msrdiv3">{item.description}</div>
+                      </div>
+                    </div>
+                    <hr className="msrhr1" />
+                  </>
+                );
+              })}
+              {notes.length===0&&<div style={{textAlign:"center"}} >No Notes Found</div>}
           </div>
         </div>
       </div>
@@ -419,7 +462,10 @@ const ManageService = () => {
               <textarea
                 className="modeltextarea"
                 value={text}
-                onChange={(e) => {setText(e.target.value);setNoupdate(false)}}
+                onChange={(e) => {
+                  setText(e.target.value);
+                  setNoupdate(false);
+                }}
                 placeholder="Update Details"
               ></textarea>
               {noupdate && (
@@ -431,7 +477,7 @@ const ManageService = () => {
                 <button className="submitbtn" onClick={(e) => addUpdate(e)}>
                   Submit
                 </button>
-                <button className="closebtn" onClick={()=> toggleModal()}>
+                <button className="closebtn" onClick={() => toggleModal()}>
                   Cancel
                 </button>
               </div>
@@ -470,12 +516,14 @@ const ManageService = () => {
               required
             ></textarea>
             {noclose && (
-                <span style={{ color: "red", display: "block" }}>
-                  No Update Given
-                </span>
-              )}
+              <span style={{ color: "red", display: "block" }}>
+                No Reason Given
+              </span>
+            )}
             <div style={{ marginTop: "10px" }}>
-              <button className="submitbtn">Submit</button>
+              <button className="submitbtn" onClick={() => closingsr()}>
+                Submit
+              </button>
               <button className="closebtn" onClick={() => togglesrModal()}>
                 Cancel
               </button>
@@ -511,7 +559,9 @@ const ManageService = () => {
                 handleChange={(e) => onFileUpload(e)}
                 name="file"
                 types={fileTypes}
-                onTypeError={(err) =>toast.error("Only pdf,png,jpeg files are allowed")}
+                onTypeError={(err) =>
+                  toast.error("Only pdf,png,jpeg files are allowed")
+                }
                 children={
                   <span className="dragndrop">
                     Drag and Drop Here
@@ -532,7 +582,9 @@ const ManageService = () => {
                   handleChange={(e) => onFileUpload(e)}
                   name="file"
                   types={fileTypes}
-                  onTypeError={(err) =>toast.error("Only pdf,png,jpeg files are allowed")}
+                  onTypeError={(err) =>
+                    toast.error("Only pdf,png,jpeg files are allowed")
+                  }
                   children={
                     <span className="browse">
                       <button className="browsebtn">Browse</button>

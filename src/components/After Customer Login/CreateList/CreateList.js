@@ -46,34 +46,34 @@ const CreateList = () => {
   const [servicetype, setServicetype] = useState("");
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState(1);
   const [attachments, setattachments] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [srno, setSrno] = useState("");
-  // const [data, setData] = useState([]);
-  const data = [
-    {
-      id: "JR12345678",
-      site: "10 windyridge Hamilton ML37TR",
-      status: "completed",
-    },
-    {
-      id: "JR90815678",
-      site: "7 Covalburn Avenue Hamilton ML37TR",
-      status: "inprogress",
-    },
-    {
-      id: "JR12345678",
-      site: "7 windyridge Avenue Hamilton ML37TR",
-      status: "completed",
-    },
-    { id: "4", site: "east", status: "new" },
-    { id: "5", site: "northeast", status: "admin look" },
-  ];
+  const [data, setData] = useState([]);
+  // const data = [
+  //   {
+  //     id: "JR12345678",
+  //     site: "10 windyridge Hamilton ML37TR",
+  //     status: "completed",
+  //   },
+  //   {
+  //     id: "JR90815678",
+  //     site: "7 Covalburn Avenue Hamilton ML37TR",
+  //     status: "inprogress",
+  //   },
+  //   {
+  //     id: "JR12345678",
+  //     site: "7 windyridge Avenue Hamilton ML37TR",
+  //     status: "completed",
+  //   },
+  //   { id: "4", site: "east", status: "new" },
+  //   { id: "5", site: "northeast", status: "admin look" },
+  // ];
   const [site,setSite] = useState("");
   const [jobid,setJobid]= useState("");
   let [page, setPage] = useState(1);
-  const PER_PAGE = 3;
+  const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -86,17 +86,17 @@ const CreateList = () => {
   const handleClick = (name) => {
     if (name === "high") {
       setHigh(true);
-      setPriority("1");
+      setPriority(1);
       setMedium(false);
       setLow(false);
     } else if (name === "medium") {
-      setPriority("2");
+      setPriority(2);
       setHigh(false);
       setMedium(true);
       setLow(false);
     } else {
       setHigh(false);
-      setPriority("3");
+      setPriority(3);
       setMedium(false);
       setLow(true);
     }
@@ -131,9 +131,9 @@ const CreateList = () => {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          // setCount(res.data.total_pages);
-          // setData(res.data.data);
-          setCount(2);
+          setCount(res.data.total_pages);
+          setData(res.data.data);
+          // setCount(2);
           setOpen(!open);
           if (res.data.data === []) {
           }
@@ -160,7 +160,6 @@ const CreateList = () => {
         url: URL + globalAPI.fileupload,
         data: formData,
         headers: {
-          // "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -194,12 +193,13 @@ const CreateList = () => {
       description: details,
       attachments: attachments,
       priority: priority,
-      job_reference_id: jobid,
+      job_reference_id: null,
       type: servicetype,
+      status:1,
     };
     axios({
       method: "post",
-      url: URL + globalAPI.allreq,
+      url: URL + globalAPI.myreq,
       data: data,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -227,8 +227,8 @@ const CreateList = () => {
     window.location.reload(false);
   };
   const settingJobref = (item) =>{
-    setJobid(item.id)
-    setSite(item.site)
+    setJobid(item.job_ref_number)
+    setSite(item.site_details)
     setOpen(!open);
   }
   return (
@@ -246,7 +246,7 @@ const CreateList = () => {
             <div className="clfirstrow">
               <div className="clnames">{userName}</div>
               <div style={{ fontSize: "small" }}>
-                Heat Pump Scotland,Glasgow
+              {userData.business_trade_name},{userData.city}
               </div>
               <hr className="clhrFirst" />
             </div>
@@ -272,15 +272,15 @@ const CreateList = () => {
                 <option value="" defaultValue hidden disabled>
                   Service Type
                 </option>
-                <option value="one" className="optiontag">
-                  Service 1
+                <option value="Enquiry" className="optiontag">
+                  Enquiry
                 </option>
-                <option value="two" className="optiontag">
-                  Service 2
+                <option value="Design Clarifications" className="optiontag">
+                  Design Clarifications
                 </option>
-                <option value="three" className="optiontag">
+                {/* <option value="three" className="optiontag">
                   Service 3
-                </option>
+                </option> */}
               </select>
               {/* <label className='clinput-label'>Service Type</label> */}
             </div>
@@ -348,7 +348,7 @@ const CreateList = () => {
                 />
               </div>
 
-              {files.map((item, index) => {
+              {files && files.map((item, index) => {
                 return (
                   <div
                     className="filemap"
@@ -436,7 +436,7 @@ const CreateList = () => {
             <div className="subfirstrow">
               <div className="subnames">{userName}</div>
               <div style={{ fontSize: "30px", fontWeight: "300" }}>
-                Heat Pump Scotland,Glasgow
+              {userData.business_trade_name},{userData.city}
               </div>
               <hr className="subhrFirst" />
 
@@ -492,8 +492,8 @@ const CreateList = () => {
                           onClick={() => settingJobref(item)}
                           className="sortabletr"
                         >
-                          <td className="">{item.id}</td>
-                          <td className="">{item.site}</td>
+                          <td className="">{item.job_ref_number}</td>
+                          <td className="">{item.site_details}</td>
                           <td className="">{item.status}</td>
                         </tr>
                       );

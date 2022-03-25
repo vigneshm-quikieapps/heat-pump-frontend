@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
-import ServiceList from "../After Customer Login/ServiceList/ServiceList";
-
+import Modal from "react-modal";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import "./Common.css";
 
 function Common() {
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("redbar1");
+  const [logout,setLogout] = useState(false);
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userName = userData.name;
+  const toggleModal = () => {
+    setLogout(!logout);
+  };
+  const signout = () =>{
+    localStorage.removeItem("user")
+    localStorage.removeItem("userData")
+  }
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -162,18 +173,50 @@ function Common() {
                       color: "rgba(0, 0, 0, 0.6)",
                     }}
                   >
-                    Nizam Mongal
+                    {userName}
                   </span>
                   <img
                     src={require("../../Img/account.png")}
                     height="40px"
                     width={"40px"}
                     className="account-icon"
+                    onClick={(e)=>setLogout(true)}
                   />
                 </div>
               </div>
             </div>
           </div>
+          <Modal
+        isOpen={logout}
+        className="logoutmodal"
+        overlayClassName="myoverlay"
+        closeTimeoutMS={500}
+      >
+        <div>
+          <form>
+            <div className="logclose">
+              <IconButton onClick={toggleModal}>
+                <CloseIcon sx={{ color: "black" }}></CloseIcon>
+              </IconButton>
+            </div>
+            <div className="log-row1">
+              <h5 style={{ fontSize: "22px", margin: "5px 0 0 0" }}>
+                Are you sure to logout?
+              </h5>
+            </div>
+            <div className="log-row2">
+              <div style={{ marginTop: "10px" }}>
+                <button className="yesbtn" onClick={()=>signout()}>
+                  yes
+                </button>
+                <button className="nobtn" onClick={toggleModal}>
+                  No
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Modal>
           <Outlet />
         </div>
       </div>
