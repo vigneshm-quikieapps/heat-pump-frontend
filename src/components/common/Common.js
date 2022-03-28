@@ -1,12 +1,39 @@
 import React, { useState } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
-import ServiceList from "../After Customer Login/ServiceList/ServiceList";
+
+import Modal from "react-modal";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+
+import { useNavigate } from "react-router-dom";
+
 
 import "./Common.css";
+import { connect } from "react-redux";
 
-function Common() {
+
+
+function Common({firstPageStatus}) {
+  const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("redbar1");
+  const [logout,setLogout] = useState(false);
+
+  const userInfo = JSON.parse(localStorage.getItem("userData"));
+
+  console.log(userInfo.name)
+
+  const toggleModal = () => {
+    setLogout(!logout);
+  };
+  const signout = () =>{
+    localStorage.removeItem("user")
+    localStorage.removeItem("userData")
+    /* localStorage.clear(); */
+    Navigate("/")
+
+  }
+  console.log(firstPageStatus)
   return (
    
       <div style={{ display: "flex",height:"100%" }}>
@@ -80,6 +107,10 @@ function Common() {
               }
             />{" "}
           </li>
+          <Link
+            to="servicerequest"
+            style={{ textDecoration: "none", color: "black" }}
+          >
           <li
             onClick={() => setDisplay("redbar3")}
             style={
@@ -107,6 +138,7 @@ function Common() {
               }
             />{" "}
           </li>
+          </Link>
 
           <img
             src={require("../../Img/ellipse.png")}
@@ -122,18 +154,21 @@ function Common() {
             <div>
               <img
                 src={require("../../Img/toggleSideBar.png")}
-                onClick={() => setCollapse(true)}
+                onClick={() => setCollapse(!collapse)}
                 height="40px"
                 width={"40px"}
                 className="collapse-icon"
               />
-              <img
+           { !firstPageStatus? (<Link 
+                to="servicerequest"
+                style={{ textDecoration: "none", color: "black" }} >
+               <img
                 src={require("../../Img/toggleback.png")}
-                onClick={() => setCollapse(false)}
+                onClick={() => {Navigate("servicerequest");setDisplay("redbar1")}}
                 height="40px"
                 width={"40px"}
                 className="collapse-left"
-              />
+              /> </Link>):null}
 
               <div style={{ float: "right", marginRight: "100px" }}>
                 <img
@@ -141,6 +176,7 @@ function Common() {
                   height="40px"
                   width={"40px"}
                   className="home-icon"
+                  onClick={() => toggleModal()}
                 />
                 <img
                   src={require("../../Img/bell.png")}
@@ -158,7 +194,7 @@ function Common() {
                       color: "rgba(0, 0, 0, 0.6)",
                     }}
                   >
-                    Nizam Mongal
+                    {userInfo.name}
                   </span>
                   <img
                     src={require("../../Img/account.png")}
@@ -170,6 +206,37 @@ function Common() {
               </div>
             </div>
           </div>
+          <Modal
+        isOpen={logout}
+        className="logoutmodal"
+        overlayClassName="myoverlay"
+        closeTimeoutMS={500}
+      >
+        <div>
+          <form>
+            <div className="logclose">
+              <IconButton onClick={toggleModal}>
+                <CloseIcon sx={{ color: "black" }}></CloseIcon>
+              </IconButton>
+            </div>
+            <div className="log-row1">
+              <h5 style={{ fontSize: "22px", margin: "5px 0 0 0" }}>
+                Are you sure you want to logout?
+              </h5>
+            </div>
+            <div className="log-row2">
+              <div style={{ marginTop: "10px" }}>
+                <button className="yesbtn" onClick={()=>signout()}>
+                  yes
+                </button>
+                <button className="nobtn" onClick={toggleModal}>
+                  No
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </Modal>
           <Outlet />
         </div>
       </div>
@@ -177,4 +244,8 @@ function Common() {
   );
 }
 
-export default Common;
+const mapStatetoProps = (state) => ({
+ firstPageStatus:state.fpr.firstPageStatus
+})
+
+export default connect(mapStatetoProps)(Common);

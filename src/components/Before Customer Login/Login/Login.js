@@ -2,11 +2,13 @@ import "./Login.css";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate,Link } from "react-router-dom";
-import { toast,} from "react-toastify";
-import { Triangle } from "react-loader-spinner";
+import { toast} from "react-toastify";
+import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
+import validator from 'validator'
+
 
 const passwords = {
   value: "",
@@ -18,7 +20,15 @@ const Login = () => {
   const [password, setPassword] = useState(passwords);
   const [emailValue, setEmailValue] = useState("");
   const [remember, setRemember] = useState(false);
+  const [visibility, setVisibility] = useState("hidden");
+
+  const [inputLogin1Error, setInputLogin1Error] = useState("")
+
+  const [inputLogin2Error, setInputLogin2Error] = useState("")
+
   const [loader, setLoader] = useState(false);
+  const [color, setColor] = useState("#a4a4a4");
+
   const navigate = useNavigate();
 
   const togglePassword = () => {
@@ -34,6 +44,8 @@ const Login = () => {
   };
 
   const changeHandler = (e) => {
+    setInputLogin1Error("");
+    setInputLogin2Error("");
     if (e.target.name === "password") {
       setPassword((state) => ({ ...state, value: e.target.value }));
     } else if (e.target.name === "email") {
@@ -42,16 +54,26 @@ const Login = () => {
   };
 
   const handleLogin = (e) => {
+    debugger
     e.preventDefault();
-    if (emailValue === "") {
-      toast.error("Please enter the Username...");
+    if(emailValue == ""){
+      setInputLogin1Error("Email Address cannot be Empty");
       return false;
     }
-    if (password.value === "") {
-      toast.error("Please enter the Password...");
+    if(password.value == ""){
+      setInputLogin2Error("Password cannot be Empty");
+      return false;
+    }
+    if (!validator.isEmail(emailValue)) {
+      setInputLogin1Error("Please enter valid Email");
+      return false;
+    }
+    if (!validator.isLength(password.value,{min:8,max:undefined})) {
+     setInputLogin2Error("Must be at least 8 characters");
       return false;
     }
     if (emailValue !== "" && password.value !== "" && !loader) {
+      debugger
       setLoader(true);
       const data = {
         email: emailValue,
@@ -61,9 +83,15 @@ const Login = () => {
         .post(URL + globalAPI.login, data)
         .then((response) => {
           const res =response.data
+          console.log(res);
           if (res.sucess) {
+            localStorage.setItem("userData", JSON.stringify(res.data));
             localStorage.setItem("user", JSON.stringify(res.data.token));
             setLoader(false);
+            if(res.data.admin){
+              navigate('/admincommon/accountrequest')
+              return
+            }
             navigate('/common/servicerequest');
           }
           else{
@@ -79,15 +107,15 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(emailValue);
-  }, [emailValue]);
+  }, [emailValue]); */
 
   return (
     <div>
       {loader && (
         <div className="customLoader">
-          <Triangle color="#007bff" height="130" width="130" />
+          <TailSpin color="#Fa5e00" height="100" width="100" />
         </div>
       )}
       <div className="-Login">
@@ -101,15 +129,17 @@ const Login = () => {
             />
           </div>
           <div className="Login">Login</div>
-          <form action="">
+          <form action=""  >
             <input
               type="text"
-              className="email"
+              className="email "
               value={emailValue}
               onChange={changeHandler}
               name="email"
-              placeholder="Email Address"
+              required
+              
             />
+            
             <img
               src={require("../../../Img/icon.png")}
               height="12px"
@@ -117,14 +147,17 @@ const Login = () => {
               alt=""
               className="emailIcon"
             />
-
+            <label className="email-label" >Email Address </label> <span className='inputLogin1Error inputLoginError' >{inputLogin1Error}</span>
+            <span style={{ visibility: `${visibility}` }} className="loginspan2">
+            Both passwords should match
+            </span>
             <input
               type={password.type}
               value={password.value}
               onChange={changeHandler}
               className="password"
               name="password"
-              placeholder="Password"
+              required
             />
             <img
               src={require("../../../Img/icon2.png")}
@@ -146,7 +179,10 @@ const Login = () => {
                 onClick={togglePassword}
               />
             )}
-
+            <label className="password-label" >Password</label> <span className='inputLogin2Error inputLoginError' >{inputLogin2Error}</span>
+            <span className="loginspan1" style={{ color: `${color}` }}>
+              Must be at least 8 characters
+            </span>
             <div className="icontick">
               {remember ? (
                 <div

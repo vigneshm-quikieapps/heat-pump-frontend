@@ -1,57 +1,157 @@
-import React from 'react';
-import './AccountRequest.css';
-import { Pagination } from '@mui/material';
+import React, { useState,useEffect } from "react";
+import axios from "axios";
+import "./AccountRequest.css";
+import usePagination from "../../Pagination/Pagination";
+import { Pagination } from "@mui/material";
+import { TailSpin } from "react-loader-spinner";
+import { toast } from "react-toastify";
+import URL from "../../../GlobalUrl";
+import globalAPI from "../../../GlobalApi";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
-const AccountRequest = () => {
-    const list = [
-        {
-          customer_name: "Joe Bloggs",
-          mobile_no: "9787668994",
-          email: "joe@gmail.com",
-          business_name: "Heat Pump Scotland,Glasgow",
-          time: "10/11/2021 05:00 PM",
-          status: "In Progress",
-        },
-        {
-            customer_name: "Joe Bloggs",
-          mobile_no: "9787668994",
-          email: "joe@gmail.com",
-          business_name: "Heat Pump Scotland,Glasgow",
-          time: "10/11/2021 05:00 PM",
-          status: "In Progress",
-        },
-        {
-            customer_name: "Joe Bloggs",
-          mobile_no: "9787668994",
-          email: "joe@gmail.com",
-          business_name: "Heat Pump Scotland,Glasgow",
-          time: "10/11/2021 05:00 PM",
-          status: "In Progress",
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+
+const theme = createTheme({
+  palette: {
+    primary: {main:"#000000	"},
+  },
+});
+
+const AccountRequest = ({adminFirstPageAction}) => {
+  // const list = [
+  //   {
+  //     customer_name: "Joe Bloggs",
+  //     mobile_no: "9787668994",
+  //     email: "joe@gmail.com",
+  //     business_name: "Heat Pump Scotland,Glasgow",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "In Progress",
+  //   },
+  //   {
+  //     customer_name: "Joe Bloggs",
+  //     mobile_no: "9787668994",
+  //     email: "joe@gmail.com",
+  //     business_name: "Heat Pump Scotland,Glasgow",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "In Progress",
+  //   },
+  //   {
+  //     customer_name: "Joe Bloggs",
+  //     mobile_no: "9787668994",
+  //     email: "joe@gmail.com",
+  //     business_name: "Heat Pump Scotland,Glasgow",
+  //     time: "10/11/2021 05:00 PM",
+  //     status: "In Progress",
+  //   },
+  // ];
+  const navigate = useNavigate();
+  const [loader, setLoader] = useState(false);
+  const [box, setBox] = useState([]);
+  const [search, setSearch] = useState("");
+  const [mobno, setMobno] = useState("");
+  const [business, setBusiness] = useState("");
+  const [data, setData] = useState([]);
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 5;
+  const [count, setCount] = useState(1);
+  const _DATA = usePagination(data, PER_PAGE);
+  const [status, setStatus] = useState(1);
+
+
+  useEffect(() => {
+    fetchData();
+    fetchSeconddata();
+  }, [page,status]);
+
+  useEffect(()=>{
+     adminFirstPageAction(true)
+  },[])
+
+  function fetchData() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(URL + globalAPI.accountstatus, config)
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        setBox(res.data);
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  function fetchSeconddata() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(
+        URL +
+          globalAPI.accountlist +
+          `?page=${page}&perPage=${PER_PAGE}&status=${status}`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        debugger
+        if (response) {
+          const res = response.data.data.data;
+          setCount(response.data.total_pages);
+          setData(res);
+          debugger
+        } else {
+          toast.error('error');
         }
-      ];
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
+  const manageService = (item) => {
+    navigate("/admincommon/adminRCA", {state:item});
+  };
   return (
     <div className="container">
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
       <div className="title">Customer Account Requests</div>
-      <hr className="containerhr"/>
+      <hr className="containerhr" />
       <div className="paper">
         <div className="secondrow">
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>1</h1>
+            <div className="squarebox" onClick={()=>setStatus(1)}>
+              <h1>{box.new?box.new:0}</h1>
             </div>
-            <div className="second-row-text" >
-              New
-            </div>
+            <div className="second-row-text">New</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>1</h1>
+            <div className="squarebox" onClick={()=>setStatus(2)}>
+              <h1>{box.inprogress?box.inprogress:0}</h1>
             </div>
             <div className="second-row-text">Inprogress</div>
           </div>
           <div className="outerbox">
-            <div className="squarebox">
-              <h1>1</h1>
+            <div className="squarebox" onClick={()=>setStatus(3)}>
+              <h1>{box.active?box.active:0}</h1>
             </div>
             <div className="second-row-text">Active</div>
           </div>
@@ -63,30 +163,51 @@ const AccountRequest = () => {
               width: "95%",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
-            <select className="select-box box1" placeholder="Status">
-              <option>New</option>
-              <option>Inprogress</option>
-              <option>Active</option>
+            <select
+              className="select-box box1"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            >
+              <option value="" defaultValue hidden disabled>
+                Status
+              </option>
+              <option value="one">New</option>
+              <option value="two">Inprogress</option>
+              <option value="three">Active</option>
             </select>
             <input
               className="select-box box1"
-              value={""}
+              value={mobno}
               placeholder="Mobile No."
+              onChange={(e) => setMobno(e.target.value)}
             />
-            <input className="select-box box1" value={""} placeholder="Business Name" />
-            
+            <input
+              className="select-box box1"
+              value={business}
+              placeholder="Business Name"
+              onChange={(e) => setBusiness(e.target.value)}
+            />
+            <button
+              className="adminsearchbtn"
+              type={"button"}
+              value={business}
+              placeholder="Search"
+              onChange={(e) => setBusiness(e.target.value)}
+            >Search </button>
           </div>
         </div>
         <div className="fourth-row">
-          <div style={{fontSize:"24px",fontWeight:"bold"}}>Customer Account Requests List</div>
-          <hr className="hrFirst"/>
+          <div style={{ fontSize: "24px", fontWeight: "bold" }}>
+            Customer Account Requests List
+          </div>
+          <hr className="hrFirst" />
           <table>
             <thead className="thead">
-              <tr className="theadhr" style={{borderBottom: "1.5px solid #f2f3f2 "}} >
-                <th  >Customer Name</th>
+              <tr>
+                <th>Customer Name</th>
                 <th>Mobile Number</th>
                 <th scope="col">Email</th>
                 <th scope="col">Business Name</th>
@@ -95,29 +216,67 @@ const AccountRequest = () => {
               </tr>
             </thead>
             <tbody className="tbody">
-              {list &&
-                list.map((item, index) => {
+              {_DATA &&
+                _DATA.currentData().map((item, index) => {
                   return (
-                    <tr key={index} style={{borderBottom: "solid 1px #d3d3d3;"}} >
-                      <td scope="row"> {item.customer_name}</td>
-                      <td>{item.mobile_no}</td>
+                    <tr
+                    onClick={() => manageService(item)}
+                    key={index}
+                    className="specifictr"
+                    >
+                      <td scope="row"> {item.name}</td>
+                      <td>{item.mobile}</td>
                       <td>{item.email}</td>
-                      <td>{item.business_name}</td>
-                      <td>{item.time}</td>
-                      <td>{item.status}</td>
+                      <td>{item.business_registered_name}</td>
+                      <td>{moment(item.createdAt).format('DD/MM/YYYY h:mm a')}</td>
+                      {item.status ==1 && <td>New</td>}
+                      {item.status ==2 && <td>Inprogress</td>}
+                      {item.status ==3 && <td>Active</td>}
                     </tr>
-                    
                   );
                 })}
             </tbody>
           </table>
+          {_DATA.currentData().length == 0 && (
+            <h4
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "40px",
+              }}
+            >
+              No  matching records found
+            </h4>
+          )}
         </div>
-        <div style={{ display: "flex", justifyContent: "center",marginTop:"15px" }}>
-          <Pagination className="pagination" count={3} color="primary"  variant="outlined "page={1} onChange={() => {}} />
-        </div>
+        
+        {_DATA.currentData().length >= 1 && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "15px",
+            }}
+          >
+             <ThemeProvider theme={theme}>
+              <Pagination
+                className="pagination"
+                count={count}
+                page={page}
+               /*  variant="outlined" */
+                onChange={handleChange}
+                color="primary"
+              />
+            </ThemeProvider>
+          </div>
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AccountRequest
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction:value => dispatch(adminFirstPageAction(value))
+})
+
+export default connect(null,mapDispatchToProps)(AccountRequest);

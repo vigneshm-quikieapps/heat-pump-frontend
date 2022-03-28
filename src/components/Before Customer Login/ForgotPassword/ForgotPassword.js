@@ -5,13 +5,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button,} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { changeEmailNum } from "../../../Redux/emailNum/emailNum.action";
+import { changeEmailNum,addCountryCode } from "../../../Redux/emailNum/emailNum.action";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
-import { Triangle } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
+
+import validator from 'validator'
 
 const useStyles = makeStyles({
   subtitle: {
@@ -57,18 +59,28 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
+  const [input13Error, setinput13Error] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (emailNum === "") {
-      toast.error("Please enter the Email...");
+     setinput13Error("Please enter the Email Address");
       return false;
     }
+   
+
+    if(!validator.isEmail(emailNum)){
+     setinput13Error("Invalid Email Address")
+      return false
+    }
+  
     if (emailNum !== "" && !loader) {
       setLoader(true);
       const data = {
         email: emailNum,
       };
+      debugger
       axios
         .post(URL + globalAPI.forgotPassword, data)
         .then((response) => {
@@ -88,14 +100,14 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
           setLoader(false);
           toast.error("Something Went Wrong");
         });
-    }
-  };
+    }}
+
 
   return (
     <div>
       {loader && (
         <div className="customLoader">
-          <Triangle color="#007bff" height="130" width="130" />
+          <TailSpin color="#Fa5e00" height="100" width="100" />
         </div>
       )}
       <div className="forgotpassword">
@@ -118,20 +130,20 @@ function ForgotPassword({ emailNum, changeEmailNum }) {
               marginTop: "30px",
             }}
           >
-            No worries, we’ll send you reset instructions. Enter any email or
-            phone number with country code you've used before and we'll try to
+            No worries, we’ll send you reset instructions. Enter Email you've used before and we'll try to
             find your account.
           </div>
 
           <input
-            className="fpinputfield"
+            className="fpinputfield input13"
             type="text"
             value={emailNum}
-            onChange={(e) => changeEmailNum(e.target.value)}
+            onChange={(e) => {changeEmailNum(e.target.value);setinput13Error("")}}
             name="emailNum"
-            placeholder="Email or Number"
-          />
-
+            required
+          /> <label className="input13-label" >Email Address</label>  <span className="input13Error" > {input13Error} </span>
+    
+          
           <div>
               <Button
                 className={classes.button}
@@ -177,6 +189,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeEmailNum: (emailNum) => dispatch(changeEmailNum(emailNum)),
+  addCountryCode: (emailNum) => dispatch(addCountryCode(emailNum))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

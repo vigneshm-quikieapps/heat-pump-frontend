@@ -9,3 +9,7 @@ export const customerDetailsAutoSuggestion = singleList => ({
     payload:singleList
 })
 
+export const customerDetailsReset = () => ({
+    type:"RESET_DETAILS",
+   
+})

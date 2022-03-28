@@ -8,9 +8,14 @@ const INITIAL_STATE = {
              return {
                 ...state,
                 emailNum:action.payload
-             }
-             
+             }    
              break;
+         case "ADD_COUNTRY_CODE":
+                return {
+                   ...state,
+                   emailNum:`+44 ${action.payload}`
+                }    
+                break;    
          
          default:
              return state;

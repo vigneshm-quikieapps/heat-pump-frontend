@@ -10,7 +10,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { Triangle } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
+
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 
@@ -156,7 +157,7 @@ function NewPassword() {
     <div>
       {loader && (
         <div className="customLoader">
-          <Triangle color="#007bff" height="130" width="130" />
+          <TailSpin color="#Fa5e00" height="100" width="100" />
         </div>
       )}
       <div className="newpassword">

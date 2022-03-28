@@ -23,6 +23,13 @@ const customerDetailsReducer = (state = INITIAL_STATE,action) => {
             }
             
             break;
+        case "RESET_DETAILS":
+                return {
+                    ...state,
+                   ...INITIAL_STATE
+                }
+                
+                break;
             case "ADD_DETAILS_AUTOSUGGESTION":
             return {
                 ...state,

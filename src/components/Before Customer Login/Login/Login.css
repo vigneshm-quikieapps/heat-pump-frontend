@@ -36,7 +36,7 @@
 }
 
 .firstHalf {
-  min-width: 760px;
+  min-width: 830px;
   display: inline-block;
   
 }
@@ -52,6 +52,23 @@
   border: solid 1px #cdcdcd;
   background-color: #fff;
 }
+.email-label{
+        color: #999;
+        position: absolute;
+        pointer-events: none;
+        left: 130px;
+        top: 295px;
+        transition: 0.2s;
+        font-size: 14px;
+}
+.email:focus ~ .email-label,.email:valid ~ .email-label{
+  top: 270px;
+  left: 120px;
+  font-size: small;
+  color: #525252;
+  background-color:#fff;
+  padding:0 5px 0 5px;
+}
 .emailIcon {
   position: relative;
   right: 430px;
@@ -60,12 +77,31 @@
 .password {
   width: 440px;
   height: 48px;
-  margin: 15px 0px 0px 55px;
+  margin: 5px 0px 0px 55px;
   padding-left: 30px;
   position: relative;
   border-radius: 10px;
   border: solid 1px #cdcdcd;
   background-color: #fff;
+}
+
+.password-label{
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 130px;
+  top: 377px;
+  transition: 0.2s;
+  font-size: 14px;
+
+}
+.password:focus ~ .password-label, .password:valid ~ .password-label{
+  top: 353px;
+  left: 120px;
+  font-size: small;
+  color: #525252;
+  background-color:#fff;
+  padding:0 5px 0 5px;
 }
 .passwordIcon {
   position: relative;
@@ -73,6 +109,27 @@
   top: 2px;
   height:16px;
   width:13px;
+}
+
+.loginspan1{
+  color:#a4a4a4 ;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 55px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 300;
+
+}
+.loginspan2{
+  color:red ;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 100px;
+  margin-bottom: 5px;
+ display: block;
+  font-weight: 300;
+
 }
 .eyeIcon {
   position: relative;
@@ -151,4 +208,14 @@
   position: absolute;
   bottom: 1px;
   
+}
+
+.inputLogin1Error{
+  color:  rgba(255, 0, 0, 0.699);
+}
+
+.inputLogin2Error{
+ color:  rgba(255, 0, 0, 0.699);
+ position: relative;
+ right: 15px;
 }
