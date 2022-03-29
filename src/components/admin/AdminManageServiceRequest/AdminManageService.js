@@ -368,7 +368,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
             </div>
 
             <div>
-                 <label htmlFor="" className='jobReferenceLabel' >JobReference</label> <br />
+                 <label htmlFor="" className='jobReferenceLabel' >Job Reference</label> <br />
                  <input className='admsrinput1' value={inputData.job_reference_id?inputData.job_reference_id.job_ref_number:""} onChange={stateHandler1} name="job_reference_id" id="" >
                  </input>
                  <img src={require("../../../Img/adminSearchIcon.png")} className={"adminSearchIcon"} />

@@ -1,7 +1,9 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import { connect } from 'react-redux';
 import "./BusinessUser.css"
+import { adminFirstPageAction } from '../../../Redux/AdminFirstPage/adminFirstPage.action';
 
-function BusinessUser() {
+function BusinessUser({adminFirstPageAction}) {
   const [businessUser, setBusinessUser] = useState([{
     business_admin_email:"sandeshadmin1@gmail.com",
     business_admin_mobile:"7123471234",
@@ -12,7 +14,10 @@ function BusinessUser() {
     business_admin_mobile:"8123481234",
     business_admin_fullName:"Navin",
     business_admin_status:false
-  }])
+  }]);
+  useEffect(()=>{
+    adminFirstPageAction(true)
+ },[]);
   return (
     <div className='bucontainer' >
       <h1 className='butitle' >Business Users</h1>
@@ -48,4 +53,8 @@ function BusinessUser() {
   )
 }
 
-export default BusinessUser
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction:(value) => dispatch(adminFirstPageAction(value))
+})
+
+export default connect(null,mapDispatchToProps)(BusinessUser);

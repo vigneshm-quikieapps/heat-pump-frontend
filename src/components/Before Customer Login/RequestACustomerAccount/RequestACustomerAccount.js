@@ -77,7 +77,7 @@ function RequestACustomerAccount() {
       </div>
 
       
-      <div class="Rectangle-side"> <img src={require("../../../Img/couple1.png")} className="couplesideImg" /> </div>
+      <div class="Rectangle-side"> <img src={require("../../../Img/couple1.png")} className="RACAcouplesideImg" /> </div>
       
       </div>
     </div>

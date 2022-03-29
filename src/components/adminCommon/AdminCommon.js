@@ -189,7 +189,7 @@ console.log(adminFirstPageStatus)
               />
               {!adminFirstPageStatus?(<img
                 src={require("../../Img/toggleback.png")}
-                onClick={() => {Navigate("accountrequest");setDisplay("redbar1")}}
+                onClick={() => {window.history.back();}}
                
                 height="40px"
                 width={"40px"}
@@ -202,7 +202,7 @@ console.log(adminFirstPageStatus)
                   height="40px"
                   width={"40px"}
                   className="adminhome-icon"
-                  onClick={() => toggleModal()}
+                  
                 />
                 <img
                   src={require("../../Img/bell.png")}
@@ -227,6 +227,7 @@ console.log(adminFirstPageStatus)
                     height="40px"
                     width={"40px"}
                     className="adminaccount-icon"
+                    onClick={() => toggleModal()}
                   />
                 </div>
               </div>

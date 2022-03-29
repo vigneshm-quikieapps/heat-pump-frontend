@@ -96,7 +96,7 @@ const AdminServiceList = ({adminFirstPageAction}) => {
   const userName = userData.name;
  
   useEffect(()=>{
-    adminFirstPageAction(false)
+    adminFirstPageAction(true)
  },[])
 
   useEffect(() => {

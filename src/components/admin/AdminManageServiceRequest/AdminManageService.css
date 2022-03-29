@@ -62,7 +62,7 @@
 }
 .admindisplaygrid {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 117px auto;
   row-gap: 20px;
   column-gap: 20px;
   margin-top: 10px;

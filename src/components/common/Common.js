@@ -159,16 +159,16 @@ function Common({firstPageStatus}) {
                 width={"40px"}
                 className="collapse-icon"
               />
-           { !firstPageStatus? (<Link 
+           { !firstPageStatus? (/* {<Link 
                 to="servicerequest"
-                style={{ textDecoration: "none", color: "black" }} >
+                style={{ textDecoration: "none", color: "black" }} >} */
                <img
                 src={require("../../Img/toggleback.png")}
-                onClick={() => {Navigate("servicerequest");setDisplay("redbar1")}}
+                onClick={() => {window.history.back()}}
                 height="40px"
                 width={"40px"}
                 className="collapse-left"
-              /> </Link>):null}
+              /> /* </Link> */):null}
 
               <div style={{ float: "right", marginRight: "100px" }}>
                 <img
@@ -176,7 +176,7 @@ function Common({firstPageStatus}) {
                   height="40px"
                   width={"40px"}
                   className="home-icon"
-                  onClick={() => toggleModal()}
+                  
                 />
                 <img
                   src={require("../../Img/bell.png")}
@@ -201,6 +201,7 @@ function Common({firstPageStatus}) {
                     height="40px"
                     width={"40px"}
                     className="account-icon"
+                    onClick={() => toggleModal()}
                   />
                 </div>
               </div>

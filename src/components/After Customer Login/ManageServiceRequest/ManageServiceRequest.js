@@ -138,7 +138,9 @@ const ManageServiceRequest = ({FirstPageAction}) => {
         if (res.success) {
           // toast.success("success");
           setTimeout(() => {
-            window.location.reload(false);
+           /*  window.location.reload(false); */
+           fetchData();
+           fetchSeconddata();
           }, 2000);
         } else {
           toast.error(res.data.message);
@@ -171,7 +173,9 @@ const ManageServiceRequest = ({FirstPageAction}) => {
           if (res.success) {
             // toast.success("Successfully Added");
             setTimeout(() => {
-              window.location.reload(false);
+              /* window.location.reload(false); */
+              fetchData();
+              fetchSeconddata();
             }, 2000);
           } else {
             toast.error(res.data.message);
@@ -249,7 +253,9 @@ const ManageServiceRequest = ({FirstPageAction}) => {
         if (res.success) {
           // toast.success("success");
           setTimeout(() => {
-            window.location.reload(false);
+            /* window.location.reload(false); */
+            fetchData();
+            fetchSeconddata();
           }, 2000);
         } else {
           toast.error(res.data.message);
@@ -280,7 +286,9 @@ const ManageServiceRequest = ({FirstPageAction}) => {
           const res = response.data;
           if (res.success) {
             setTimeout(() => {
-              window.location.reload(false);
+              /* window.location.reload(false); */
+              fetchData();
+              fetchSeconddata();
             }, 2000);
           } else {
             toast.error(res.data.message);
@@ -452,6 +460,7 @@ const ManageServiceRequest = ({FirstPageAction}) => {
               {notes.length===0&&<div style={{textAlign:"center"}} >No Notes Found</div>}
           </div>
         </div>
+        <div style={{height:"65px"}} ></div>
       </div>
 
       <Modal

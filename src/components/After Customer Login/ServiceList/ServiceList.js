@@ -212,21 +212,21 @@ const ServiceList = ({FirstPageAction}) => {
               <tr>
                 <th style={{ width: "90px" }}>Priority</th>
                 <th style={{ width: "140px" }}>SR No.</th>
-                <th scope="col" style={{ width: "290px" }}>
+                <th scope="col" style={{ width: "250px" }}>
                   Title
                 </th>
                 <th scope="col" style={{ width: "220px" }}>
                   Site Details
                 </th>
-                <th scope="col" style={{ width: "160px" }}>
+                <th scope="col" style={{ width: "200px" }}>
                   SR Type
                 </th>
-                <th scope="col" style={{ width: "170px" }}>
+                <th scope="col" style={{ width: "180px" }}>
                   Last Updated
                   <br />
                   Date & Time
                 </th>
-                <th scope="col" style={{ width: "135px" }}>
+                <th scope="col" style={{ width: "125px" }}>
                   Status
                 </th>
               </tr>
