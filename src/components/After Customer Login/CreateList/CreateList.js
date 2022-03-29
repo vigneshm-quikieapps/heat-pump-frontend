@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { IconButton, Pagination } from "@mui/material";
@@ -13,7 +13,6 @@ import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import usePagination from "../../Pagination/Pagination";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
 
 import { connect } from "react-redux";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
@@ -42,10 +41,10 @@ const jobs = [
 ];
 const theme = createTheme({
   palette: {
-    primary: {main:"#000000	"},
+    primary: { main: "#000000	" },
   },
 });
-const CreateList = ({FirstPageAction}) => {
+const CreateList = ({ FirstPageAction }) => {
   const navigate = useNavigate();
   const [high, setHigh] = useState(false);
   const [medium, setMedium] = useState(false);
@@ -80,8 +79,8 @@ const CreateList = ({FirstPageAction}) => {
   //   { id: "4", site: "east", status: "new" },
   //   { id: "5", site: "northeast", status: "admin look" },
   // ];
-  const [site,setSite] = useState("");
-  const [jobid,setJobid]= useState("");
+  const [site, setSite] = useState("");
+  const [jobid, setJobid] = useState("");
   let [page, setPage] = useState(1);
   const PER_PAGE = 3;
   const [count, setCount] = useState(1);
@@ -90,12 +89,12 @@ const CreateList = ({FirstPageAction}) => {
   const userName = userData.name;
 
   useEffect(() => {
-    FirstPageAction(false)
-  }, [])
-  
+    FirstPageAction(false);
+  }, []);
+
   useEffect(() => {
     jbModal();
-  }, [page])
+  }, [page]);
 
   const handleSelectChange = (event) => {
     setServicetype(event.target.value);
@@ -129,7 +128,6 @@ const CreateList = ({FirstPageAction}) => {
     const newAttachments = [...attachments];
     newAttachments.splice(index, 1);
     setattachments(newAttachments);
-
   };
 
   const handleChange = (e, p) => {
@@ -151,9 +149,7 @@ const CreateList = ({FirstPageAction}) => {
         if (res.success) {
           setCount(res.data.total_pages);
           setData(res.data.data);
-         
-        }
-        else {
+        } else {
           toast.error("Something went wrong");
           setOpen(!open);
         }
@@ -210,9 +206,9 @@ const CreateList = ({FirstPageAction}) => {
       attachments: attachments,
       priority: priority,
       job_ref_number: jobid,
-      site_details:site,
+      site_details: site,
       type: servicetype,
-      status:1,
+      status: 1,
     };
     axios({
       method: "post",
@@ -243,15 +239,15 @@ const CreateList = ({FirstPageAction}) => {
     setSubmitted(false);
     window.location.reload(false);
   };
-  const settingJobref = (item) =>{
-    setJobid(item.job_ref_number)
-    setSite(item.site_details)
+  const settingJobref = (item) => {
+    setJobid(item.job_ref_number);
+    setSite(item.site_details);
     setOpen(!open);
-  }
-  const toggleModal = () =>{
+  };
+  const toggleModal = () => {
     setOpen(!open);
     jbModal();
-  }
+  };
   return (
     <div>
       {loader && (
@@ -267,7 +263,7 @@ const CreateList = ({FirstPageAction}) => {
             <div className="clfirstrow">
               <div className="clnames">{userName}</div>
               <div style={{ fontSize: "small" }}>
-              {userData.business_trade_name},{userData.city}
+                {userData.business_trade_name},{userData.city}
               </div>
               <hr className="clhrFirst" />
             </div>
@@ -277,9 +273,9 @@ const CreateList = ({FirstPageAction}) => {
             <div className="gridmove">
               <div className="gridbox1">
                 <div>Site</div>
-                <div>{site?site:"-"}</div>
+                <div>{site ? site : "-"}</div>
                 <div>Job ID</div>
-                <div>{jobid?jobid:"-"}</div>
+                <div>{jobid ? jobid : "-"}</div>
               </div>
             </div>
 
@@ -369,34 +365,35 @@ const CreateList = ({FirstPageAction}) => {
                 />
               </div>
 
-              {files && files.map((item, index) => {
-                return (
-                  <div
-                    className="filemap"
-                    style={{ borderRadius: "30px" }}
-                    key={index}
-                  >
-                    <span style={{ float: "left", marginLeft: "15px" }}>
+              {files &&
+                files.map((item, index) => {
+                  return (
+                    <div
+                      className="filemap"
+                      style={{ borderRadius: "30px" }}
+                      key={index}
+                    >
+                      <span style={{ float: "left", marginLeft: "15px" }}>
+                        <img
+                          src={require("../../../Img/attachIcon.png")}
+                          height="20px"
+                          width={"15px"}
+                          style={{ marginLeft: "20px" }}
+                        />
+
+                        <span className="fileName">Attachment-{index + 1}</span>
+                      </span>
+
                       <img
-                        src={require("../../../Img/attachIcon.png")}
-                        height="20px"
-                        width={"15px"}
-                        style={{ marginLeft: "20px" }}
+                        src={require("../../../Img/iconDelete.png")}
+                        onClick={() => removeFile(index)}
+                        height="22px"
+                        width={"20px"}
+                        style={{ marginRight: "20px" }}
                       />
-
-                      <span className="fileName">Attachment-{index + 1}</span>
-                    </span>
-
-                    <img
-                      src={require("../../../Img/iconDelete.png")}
-                      onClick={() => removeFile(index)}
-                      height="22px"
-                      width={"20px"}
-                      style={{ marginRight: "20px" }}
-                    />
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
 
               <h4 className="name2">Priority</h4>
 
@@ -457,7 +454,7 @@ const CreateList = ({FirstPageAction}) => {
             <div className="subfirstrow">
               <div className="subnames">{userName}</div>
               <div style={{ fontSize: "30px", fontWeight: "300" }}>
-              {userData.business_trade_name},{userData.city}
+                {userData.business_trade_name},{userData.city}
               </div>
               <hr className="subhrFirst" />
 
@@ -515,7 +512,10 @@ const CreateList = ({FirstPageAction}) => {
                         >
                           <td className="">{item.job_ref_number}</td>
                           <td className="">{item.site_details}</td>
-                          <td className="">{item.status}</td>
+                          {item.status == 1 && <td>New</td>}
+                          {item.status == 2 && <td>Luths Working</td>}
+                          {item.status == 3 && <td>Need Your Attention</td>}
+                          {item.status == 4 && <td>Resolved</td>}
                         </tr>
                       );
                     })}
@@ -536,14 +536,14 @@ const CreateList = ({FirstPageAction}) => {
             {_DATA.currentData().length >= 1 && (
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <ThemeProvider theme={theme}>
-                <Pagination
-                  className="pagination"
-                  count={count}
-                  color="primary"
-                  // variant="outlined"
-                  page={page}
-                  onChange={handleChange}
-                />
+                  <Pagination
+                    className="pagination"
+                    count={count}
+                    color="primary"
+                    // variant="outlined"
+                    page={page}
+                    onChange={handleChange}
+                  />
                 </ThemeProvider>
               </div>
             )}
@@ -555,8 +555,7 @@ const CreateList = ({FirstPageAction}) => {
 };
 
 const mapDispatchtoProps = (dispatch) => ({
-  FirstPageAction:(value) => dispatch(FirstPageAction(value))
-  })
-  
-export default connect(null,mapDispatchtoProps)(CreateList);
-  
+  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+});
+
+export default connect(null, mapDispatchtoProps)(CreateList);
