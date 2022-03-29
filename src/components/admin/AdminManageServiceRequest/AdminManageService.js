@@ -37,6 +37,8 @@ const AdminManageService = ({adminFirstPageAction}) => {
   const [noclose, setNoclose] = useState(false);
   const[inputData,setInputData] = useState(useLocation().state)
 
+  const [updatedBy, setUpdatedBy] = useState("")
+
   
   const [d3, setd3] = useState(false)
   const [summary, setSummary] = useState({
@@ -171,6 +173,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
   console.log(state);
   const addUpdate = (e) => {
     e.preventDefault();
+    debugger
     if (text.length >= 1) {
       setLoader(true);
       setNoupdate(false);
@@ -187,6 +190,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
           const res = response.data;
           setLoader(false);
           toggleModal();
+          console.log(res)
           if (res.success) {
             // toast.success("Successfully Added");
             /* setTimeout(() => {
@@ -329,7 +333,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
     axios({
       method: "patch",
       url: URL + globalAPI.myreq + `/${state._id}`,
-      data: inputData,
+      data: details,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -337,12 +341,14 @@ const AdminManageService = ({adminFirstPageAction}) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
+        
         if (res.success) {
           setTimeout(() => {
+          
           navigate("/admincommon/adminsrl");
           }, 1000);
           toast.success('Updated Successfully')
-
+          
         } else {
           toast.error(res.data.message);
         }
@@ -354,12 +360,13 @@ const AdminManageService = ({adminFirstPageAction}) => {
   };
   const stateHandler = (e) => {
     e.target.blur();
-      setInputData(inputData => ({...inputData,[e.target.name]:e.target.value}))
+      setDetails(details => ({...details,[e.target.name]:e.target.value}))
   }
 
   
 const stateHandler2 = (e) => {
-  setInputData(inputData => ({...inputData,job_reference_id:{...inputData.job_reference_id,job_ref_number:e.target.value}}))
+  /* setInputData(inputData => ({...inputData,job_reference_id:{...inputData.job_reference_id,job_ref_number:e.target.value}})) */
+  setDetails(details => ({...details,job_ref_number:e.target.value,job_reference_id:{...details.job_reference_id,job_ref_number:e.target.value}}))
 }
 
 
@@ -382,9 +389,9 @@ const stateHandler2 = (e) => {
             <div>
                  <label htmlFor="" className='priorityLabel' >Priority</label> <br />
                  <select className='admsrselect1' name="priority" id=""  onChange={stateHandler} >
-                     <option value="3" selected={state.priority===3?true:false} > Low </option>
-                     <option value="2" selected={state.priority===2?true:false} > Medium </option>
-                     <option value="1" selected={state.priority===1?true:false}  > High </option>
+                     <option value="3" selected={details.priority===3?true:false} > Low </option>
+                     <option value="2" selected={details.priority===2?true:false} > Medium </option>
+                     <option value="1" selected={details.priority===1?true:false}  > High </option>
                  </select>
                  <img src={require("../../../Img/adminDropdown.png")} className={"adminDropdown"} />
             </div>
@@ -392,24 +399,24 @@ const stateHandler2 = (e) => {
             <div>
                  <label htmlFor="" className='statusLabel' >Status</label> <br />
                  <select className='admsrselect1' name="status" id=""  onChange={stateHandler} >
-                     <option value="1" selected={state.status===1?true:false} > New </option>
-                     <option value="2" selected={state.status===2?true:false} > Luths Working </option>
-                     <option value="3" selected={state.status===3?true:false} > Need Your Attention </option>
-                     <option value="4" selected={state.status===4?true:false} > Resolved </option>
+                     <option value="1" selected={details.status===1?true:false} > New </option>
+                     <option value="2" selected={details.status===2?true:false} > Luths Working </option>
+                     <option value="3" selected={details.status===3?true:false} > Need Your Attention </option>
+                     <option value="4" selected={details.status===4?true:false} > Resolved </option>
                  </select>
                  <img src={require("../../../Img/adminDropdown.png")} className="adminDropdown"  />
             </div>
 
             <div>
                  <label htmlFor="" className='jobReferenceLabel' >Job Reference</label> <br />
-                 <input className='admsrinput1' value={inputData.job_reference_id?inputData.job_reference_id.job_ref_number:""} onChange={stateHandler2} name="job_reference_id" id="" >
+                 <input className='admsrinput1' value={details.job_reference_id?details.job_reference_id.job_ref_number:""} onChange={stateHandler2} name="job_reference_id" id="" >
                  </input>
                  <img src={require("../../../Img/adminSearchIcon.png")} className={"adminSearchIcon"} />
             </div>  
 
             <div className="admindisplaygrid">
                      <div className="miniadmindisplaygrid1">Site</div>
-                     <div className="minidisplaygrid1">{inputData.job_reference_id?inputData.job_reference_id.site_details:"-"}</div>
+                     <div className="minidisplaygrid1">{details.job_reference_id?details.job_reference_id.site_details:"-"}</div>
             </div>  
 
             <div style={{marginTop:"30px"}} >
@@ -458,7 +465,7 @@ const stateHandler2 = (e) => {
                <div className="miniadmindisplaygrid1">Last Updated</div>
                      <div className="minidisplaygrid1">{moment(details.updatedAt).format("DD/MM/YYYY h:mm a")}</div>
                      <div className="miniadmindisplaygrid1">Last Updated by</div>
-                     <div className="minidisplaygrid1">{summary.lastUpdatedBy}</div>
+                     <div className="minidisplaygrid1">{details.last_updated_by?details.last_updated_by:"-"}</div>
                      <div className="miniadmindisplaygrid1">Created</div>
                      <div className="minidisplaygrid1">{moment(details.createdAt).format("DD/MM/YYYY h:mm a")}</div>
                      <div className="miniadmindisplaygrid1">Created By</div>

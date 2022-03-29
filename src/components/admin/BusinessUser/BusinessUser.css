@@ -28,7 +28,7 @@
 }
 
 .butable{
-    width: 960px;
+    width: 1000px;
     margin-top: 10px;
 }
 
@@ -38,15 +38,19 @@
 }
 
 .buiemail{
-    width: 340px;
+    width: 300px;
 }
 
 .buname{
-    width: 200px;
+    width: 180px;
+}
+
+.buPassData{
+   width: 150px;
 }
 
 .bunumber{
-    width: 200px;
+    width: 180px;
 }
 
 .bustatus{
@@ -54,6 +58,10 @@
 }
 .butr{
    border-bottom: none;
+}
+
+.butr:hover{
+  background-color:  #f2f2f2;
 }
 .buselecttag{
     width: 180px;
