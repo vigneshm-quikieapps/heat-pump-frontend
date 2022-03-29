@@ -289,16 +289,16 @@ const CreateList = ({ FirstPageAction }) => {
                 <option value="" defaultValue hidden disabled>
                   Service Type
                 </option>
-                <option value="Enquiry" className="optiontag">
+                <option style={{fontSize:"20px"}} value="Enquiry" className="optiontag">
                   Enquiry
-                </option>
-                <option value="Design Clarifications" className="optiontag">
+                </option  >
+                <option style={{fontSize:"20px"}} value="Design Clarifications" className="optiontag">
                   Design Clarifications
                 </option>
                 {/* <option value="three" className="optiontag">
                   Service 3
                 </option> */}
-              </select>
+              </select> <img src={require("../../../Img/adminDropdown.png")} className="clDropdown"  />
               {/* <label className='clinput-label'>Service Type</label> */}
             </div>
             <div>
