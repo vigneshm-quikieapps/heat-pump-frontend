@@ -450,10 +450,11 @@ const CreateList = ({ FirstPageAction }) => {
         )}
 
         {submitted && (
+          <>
           <div className="subpaper">
             <div className="subfirstrow">
               <div className="subnames">{userName}</div>
-              <div style={{ fontSize: "30px", fontWeight: "300" }}>
+              <div >
                 {userData.business_trade_name},{userData.city}
               </div>
               <hr className="subhrFirst" />
@@ -471,7 +472,12 @@ const CreateList = ({ FirstPageAction }) => {
               Close
             </button>
           </div>
+          <div style={{height:"160px"}}></div>
+
+          </>
+          
         )}
+        
 
         <Modal
           isOpen={open}
