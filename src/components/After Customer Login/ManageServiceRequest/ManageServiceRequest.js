@@ -19,8 +19,9 @@ import { connect } from "react-redux";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
-const ManageServiceRequest = ({FirstPageAction}) => {
+const ManageServiceRequest = ({ FirstPageAction }) => {
   const { state } = useLocation();
+  console.log(state)
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
   const [details, setDetails] = useState({});
@@ -57,8 +58,8 @@ const ManageServiceRequest = ({FirstPageAction}) => {
   };
 
   useEffect(() => {
-    FirstPageAction(false)
-  }, [])
+    FirstPageAction(false);
+  }, []);
 
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -102,15 +103,15 @@ const ManageServiceRequest = ({FirstPageAction}) => {
 
   async function printTickets(index) {
     const { data } = await getTicketsPdf(index);
-    const blob = new Blob([data],);
-    const att = availableFiles[index].split('.').pop();
+    const blob = new Blob([data]);
+    const att = availableFiles[index].split(".").pop();
     saveAs(blob, `Application${index + 1}.${att}`);
   }
 
   async function getTicketsPdf(index) {
     const token = JSON.parse(localStorage.getItem("user"));
     // const att = availableFiles[index].replace(`${details.creator_id}/`, "");
-    const att = availableFiles[index]
+    const att = availableFiles[index];
     return axios.get(URL + globalAPI.getFile + `?fp=${att}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -136,12 +137,8 @@ const ManageServiceRequest = ({FirstPageAction}) => {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          // toast.success("success");
-          setTimeout(() => {
-           /*  window.location.reload(false); */
-           fetchData();
-           fetchSeconddata();
-          }, 2000);
+          fetchData();
+          fetchSeconddata();
         } else {
           toast.error(res.data.message);
         }
@@ -172,11 +169,8 @@ const ManageServiceRequest = ({FirstPageAction}) => {
           toggleModal();
           if (res.success) {
             // toast.success("Successfully Added");
-            setTimeout(() => {
-              /* window.location.reload(false); */
-              fetchData();
-              fetchSeconddata();
-            }, 2000);
+            fetchData();
+            fetchSeconddata();
           } else {
             toast.error(res.data.message);
           }
@@ -252,11 +246,8 @@ const ManageServiceRequest = ({FirstPageAction}) => {
         const res = response.data;
         if (res.success) {
           // toast.success("success");
-          setTimeout(() => {
-            /* window.location.reload(false); */
-            fetchData();
-            fetchSeconddata();
-          }, 2000);
+          fetchData();
+          fetchSeconddata();
         } else {
           toast.error(res.data.message);
         }
@@ -275,7 +266,7 @@ const ManageServiceRequest = ({FirstPageAction}) => {
       axios({
         method: "patch",
         url: URL + globalAPI.myreq + `/${state}`,
-        data: { status: 2, description: closetext, type: 1 },
+        data: { status: 4, description: closetext, type: 1 },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -285,11 +276,8 @@ const ManageServiceRequest = ({FirstPageAction}) => {
           togglesrModal();
           const res = response.data;
           if (res.success) {
-            setTimeout(() => {
-              /* window.location.reload(false); */
-              fetchData();
-              fetchSeconddata();
-            }, 2000);
+            fetchData();
+            fetchSeconddata();
           } else {
             toast.error(res.data.message);
           }
@@ -336,7 +324,7 @@ const ManageServiceRequest = ({FirstPageAction}) => {
                 </div>
               )}
               <div>Status</div>
-              {details.status == 1 && <div className="displaygrid1">New</div>}
+              {details.status == 1 && (<div className="displaygrid1">New</div>)}
               {details.status == 2 && (
                 <div className="displaygrid1">Luths Working</div>
               )}
@@ -457,12 +445,15 @@ const ManageServiceRequest = ({FirstPageAction}) => {
                   </>
                 );
               })}
-              {notes.length===0&&<div style={{textAlign:"center"}} >No Notes Found</div>}
+            {notes.length === 0 && (
+              <div style={{ textAlign: "center" }}>No Notes Found</div>
+            )}
           </div>
         </div>
-        <div style={{height:"65px"}} ></div>
+        <div style={{height:"65px"}}>
+        </div>
       </div>
-
+      
       <Modal
         isOpen={openupdate}
         className="mymodal"
@@ -659,15 +650,13 @@ const ManageServiceRequest = ({FirstPageAction}) => {
           </div>
         </div>
       </Modal>
-      <div style={{height:"61px"}} ></div>
+      <div style={{ height: "61px" }}></div>
     </div>
   );
 };
 
 const mapDispatchtoProps = (dispatch) => ({
-  FirstPageAction:(value) => dispatch(FirstPageAction(value))
-  })
-  
-export default connect(null,mapDispatchtoProps)(ManageServiceRequest);
-  
+  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+});
 
+export default connect(null, mapDispatchtoProps)(ManageServiceRequest);

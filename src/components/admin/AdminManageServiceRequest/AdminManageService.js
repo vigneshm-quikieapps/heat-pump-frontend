@@ -1,6 +1,6 @@
 import "./AdminManageService.css";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -21,6 +21,7 @@ import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPa
 const fileTypes = ["PDF", "PNG", "JPEG"];
 const AdminManageService = ({adminFirstPageAction}) => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
   const [details, setDetails] = useState({});
@@ -113,6 +114,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
         toast.error("Something went wrong");
       });
   }
+  
 
   async function printTickets(index) {
     const { data } = await getTicketsPdf(index);
@@ -320,15 +322,44 @@ const AdminManageService = ({adminFirstPageAction}) => {
       setNoclose(true);
     }
   };
+  const updatingSR = (e) => {
+    debugger;
+    setLoader(true);
+    const token = JSON.parse(localStorage.getItem("user"));
+    axios({
+      method: "patch",
+      url: URL + globalAPI.myreq + `/${state._id}`,
+      data: inputData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        if (res.success) {
+          setTimeout(() => {
+          navigate("/admincommon/adminsrl");
+          }, 1000);
+          toast.success('Updated Successfully')
 
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch(() => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  };
   const stateHandler = (e) => {
     e.target.blur();
       setInputData(inputData => ({...inputData,[e.target.name]:e.target.value}))
   }
 
-  const stateHandler1 = (e) => {
-    e.target.blur();
-    setInputData(inputData => ({...inputData,job_reference_id:{...inputData.job_reference_id,job_ref_number:e.target.value}}))
+  
+const stateHandler2 = (e) => {
+  setInputData(inputData => ({...inputData,job_reference_id:{...inputData.job_reference_id,job_ref_number:e.target.value}}))
 }
 
 
@@ -361,15 +392,17 @@ const AdminManageService = ({adminFirstPageAction}) => {
             <div>
                  <label htmlFor="" className='statusLabel' >Status</label> <br />
                  <select className='admsrselect1' name="status" id=""  onChange={stateHandler} >
-                     <option value="1"> Luths Working </option>
-                     <option value="2"> Resolved </option>
+                     <option value="1" selected={state.status===1?true:false} > New </option>
+                     <option value="2" selected={state.status===2?true:false} > Luths Working </option>
+                     <option value="3" selected={state.status===3?true:false} > Need Your Attention </option>
+                     <option value="4" selected={state.status===4?true:false} > Resolved </option>
                  </select>
                  <img src={require("../../../Img/adminDropdown.png")} className="adminDropdown"  />
             </div>
 
             <div>
                  <label htmlFor="" className='jobReferenceLabel' >Job Reference</label> <br />
-                 <input className='admsrinput1' value={inputData.job_reference_id?inputData.job_reference_id.job_ref_number:""} onChange={stateHandler1} name="job_reference_id" id="" >
+                 <input className='admsrinput1' value={inputData.job_reference_id?inputData.job_reference_id.job_ref_number:""} onChange={stateHandler2} name="job_reference_id" id="" >
                  </input>
                  <img src={require("../../../Img/adminSearchIcon.png")} className={"adminSearchIcon"} />
             </div>  
@@ -433,7 +466,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
             </div>
 
             <div>
-                     <button className='adminUpdateStatusBtn' >Update Status</button>
+                     <button className='adminUpdateStatusBtn' onClick={(e)=>updatingSR(e)}>Update Status</button>
                      <button className='adminIgnoreBtn' >Ignore</button>
                  </div>
             <div className="adminmsrtitle2">Attachments</div>

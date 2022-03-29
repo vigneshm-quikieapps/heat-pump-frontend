@@ -56,7 +56,7 @@ const AccountRequest = ({adminFirstPageAction}) => {
   const [business, setBusiness] = useState("");
   const [data, setData] = useState([]);
   let [page, setPage] = useState(1);
-  const PER_PAGE = 5;
+  const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const [status, setStatus] = useState(1);

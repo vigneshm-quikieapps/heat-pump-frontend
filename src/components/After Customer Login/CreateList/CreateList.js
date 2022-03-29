@@ -255,7 +255,7 @@ const CreateList = ({FirstPageAction}) => {
             <div className="clfirstrow">
               <div className="clnames">{userName}</div>
               <div style={{ fontSize: "small" }}>
-               HeatPump ,scotland glasglow
+              {userData.business_trade_name},{userData.city}
               </div>
               <hr className="clhrFirst" />
             </div>
@@ -445,7 +445,7 @@ const CreateList = ({FirstPageAction}) => {
             <div className="subfirstrow">
               <div className="subnames">{userName}</div>
               <div style={{ fontSize: "30px", fontWeight: "300" }}>
-                Heat Pump Scotland,Glasgow
+              {userData.business_trade_name},{userData.city}
               </div>
               <hr className="subhrFirst" />
 
