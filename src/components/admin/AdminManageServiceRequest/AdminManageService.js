@@ -625,8 +625,8 @@ const stateHandler2 = (e) => {
                 placeholder="Update Details"
               ></textarea>
               <div style={{marginTop:"10px",marginBottom:"20px"}}>
-                <input type="checkbox"  onChange={handleChecked} />
-                <label style={{marginLeft:"10px"}}>Internal Notes</label>
+                <input className="admincheckbox" type="checkbox"  onChange={handleChecked} />
+                <label style={{marginLeft:"5px",position:"relative",bottom:"4px"}}>Internal Notes</label>
               </div>
               {noupdate && (
                 <span style={{ color: "red", display: "block" }}>

@@ -500,3 +500,8 @@
   position: relative;
   width: 170px;
 }
+
+.admincheckbox{
+  height: 18px;
+  width: 15px;
+}

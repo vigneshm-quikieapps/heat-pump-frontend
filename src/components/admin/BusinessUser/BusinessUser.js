@@ -25,11 +25,18 @@ function BusinessUser({adminFirstPageAction}) {
     adminFirstPageAction(true)
  },[]);
  const [popup,setPop] = useState(false);
+ const [popup1,setPop1] = useState(false);
+
   const onPopup = () =>{
     setPop(!popup);
   }
+  const onPopup1 = () =>{
+    setPop1(!popup1);
+  }
+
+
   useEffect(() =>{
-    console.log(modifyUser)
+    
   },[modifyUser])
   return (
     <div className="bucontainer">
@@ -49,20 +56,20 @@ function BusinessUser({adminFirstPageAction}) {
               {businessUser ?
                 businessUser.map((item) => {
                   return (
-                    <tr className="butr" onClick={() => {setModifyUser(item);console.log(item)}} key={item.business_admin_email} >
-                      <td className="buadminemailData">
+                    <tr className="butr"  key={item.business_admin_email} >
+                      <td className="buadminemailData" onClick={() => {setModifyUser(item);onPopup1()}}  >
                         {item.business_admin_email}
                       </td>{" "}
-                      <td className="bunameData">
+                      <td className="bunameData" onClick={() => {setModifyUser(item);onPopup1()}} >
                         {item.business_admin_fullName}
                       </td>
-                      <td className="buPasswordData">
+                      <td className="buPasswordData" onClick={() => {setModifyUser(item);onPopup1()}} >
                         {item.business_admin_password}
                       </td>
-                      <td className="bunumberData">
+                      <td className="bunumberData" onClick={() => {setModifyUser(item);onPopup1()}} >
                         {item.business_admin_mobile}
                       </td>
-                      <td className="bustatusdata">
+                      <td className="bustatusdata"  >
                         <select className="buselecttag">
                           <option
                             className="buoption1"
@@ -110,7 +117,7 @@ function BusinessUser({adminFirstPageAction}) {
           </div>
           <div className="bauserdialog-row1">
             <h5 style={{ fontSize: "22px", margin: "5px 0 0 0" }}>
-              New User
+              New Business User
             </h5>
             <hr className="clhrFirst" />
           </div>
@@ -179,20 +186,20 @@ function BusinessUser({adminFirstPageAction}) {
         </div>
       </Modal>
       <Modal
-        isOpen={popup}
+        isOpen={popup1}
         className="bausermodal"
         overlayClassName="bauseroverlay"
         closeTimeoutMS={500}
       >
         <div>
           <div className="bauserdialogclose">
-            <IconButton onClick={()=>onPopup()}>
+            <IconButton onClick={()=>onPopup1()}>
               <CloseIcon sx={{ color: "black" }}></CloseIcon>
             </IconButton>
           </div>
           <div className="bauserdialog-row1">
             <h5 style={{ fontSize: "22px", margin: "5px 0 0 0" }}>
-              New User
+              Modify Business User
             </h5>
             <hr className="clhrFirst" />
           </div>
@@ -202,7 +209,7 @@ function BusinessUser({adminFirstPageAction}) {
                 <input
                   type="text"
                   className="bainput"
-                  value={""}
+                  value={modifyUser.business_admin_fullName}
                   onChange={""}
                   required
                 />
@@ -211,7 +218,7 @@ function BusinessUser({adminFirstPageAction}) {
               <input
                 type="text"
                 className="ba2input"
-                value={""}
+                value={modifyUser.business_admin_email}
                 onChange={""}
                 required
               />
@@ -222,7 +229,7 @@ function BusinessUser({adminFirstPageAction}) {
                 <input
                   type="text"
                   className="bainput"
-                  value={""}
+                  value={modifyUser.business_admin_password}
                   onChange={""}
                   required
                 />
@@ -231,7 +238,7 @@ function BusinessUser({adminFirstPageAction}) {
               <input
                 type="text"
                 className="ba2input"
-                value={""}
+                value={modifyUser.business_admin_mobile}
                 onChange={""}
                 required
               />
@@ -242,7 +249,7 @@ function BusinessUser({adminFirstPageAction}) {
                 <input
                   type="text"
                   className="bainput"
-                  value={""}
+                  value={modifyUser.business_admin_status}
                   onChange={""}
                   required
                 />
@@ -253,7 +260,7 @@ function BusinessUser({adminFirstPageAction}) {
               <button className="submitbtn" onClick={""}>
                 Submit
               </button>
-              <button className="closebtn" onClick={()=>onPopup()}>
+              <button className="closebtn" onClick={()=>onPopup1()}>
                 Cancel
               </button>
             </div>
