@@ -12,6 +12,7 @@ import axios from "axios";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import usePagination from "../../Pagination/Pagination";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 
 import { connect } from "react-redux";
@@ -39,6 +40,11 @@ const jobs = [
   { id: "4", site: "east", status: "new" },
   { id: "5", site: "northeast", status: "admin look" },
 ];
+const theme = createTheme({
+  palette: {
+    primary: {main:"#000000	"},
+  },
+});
 const CreateList = ({FirstPageAction}) => {
   const navigate = useNavigate();
   const [high, setHigh] = useState(false);
@@ -50,7 +56,7 @@ const CreateList = ({FirstPageAction}) => {
   const [servicetype, setServicetype] = useState("");
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
-  const [priority, setPriority] = useState(1);
+  const [priority, setPriority] = useState("");
   const [attachments, setattachments] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [srno, setSrno] = useState("");
@@ -77,7 +83,7 @@ const CreateList = ({FirstPageAction}) => {
   const [site,setSite] = useState("");
   const [jobid,setJobid]= useState("");
   let [page, setPage] = useState(1);
-  const PER_PAGE = 10;
+  const PER_PAGE = 3;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -87,6 +93,9 @@ const CreateList = ({FirstPageAction}) => {
     FirstPageAction(false)
   }, [])
   
+  useEffect(() => {
+    jbModal();
+  }, [page])
 
   const handleSelectChange = (event) => {
     setServicetype(event.target.value);
@@ -128,7 +137,7 @@ const CreateList = ({FirstPageAction}) => {
     _DATA.jump(p);
   };
 
-  const toggleModal = () => {
+  const jbModal = () => {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
       headers: { Authorization: `Bearer ${token}` },
@@ -142,20 +151,18 @@ const CreateList = ({FirstPageAction}) => {
         if (res.success) {
           setCount(res.data.total_pages);
           setData(res.data.data);
-          // setCount(2);
-          setOpen(!open);
-          if (res.data.data === []) {
-          }
+         
         }
-        // else {
-        //   toast.error(response.data.message);
-        // }
+        else {
+          toast.error("Something went wrong");
+          setOpen(!open);
+        }
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
+        setOpen(!open);
       });
-    setOpen(!open);
   };
 
   const onFileUpload = (e) => {
@@ -202,7 +209,8 @@ const CreateList = ({FirstPageAction}) => {
       description: details,
       attachments: attachments,
       priority: priority,
-      job_reference_id: null,
+      job_ref_number: jobid,
+      site_details:site,
       type: servicetype,
       status:1,
     };
@@ -239,6 +247,10 @@ const CreateList = ({FirstPageAction}) => {
     setJobid(item.job_ref_number)
     setSite(item.site_details)
     setOpen(!open);
+  }
+  const toggleModal = () =>{
+    setOpen(!open);
+    jbModal();
   }
   return (
     <div>
@@ -523,14 +535,16 @@ const CreateList = ({FirstPageAction}) => {
             </div>
             {_DATA.currentData().length >= 1 && (
               <div style={{ display: "flex", justifyContent: "center" }}>
+                <ThemeProvider theme={theme}>
                 <Pagination
                   className="pagination"
                   count={count}
-                  color="standard"
-                  variant="outlined "
+                  color="primary"
+                  // variant="outlined"
                   page={page}
                   onChange={handleChange}
                 />
+                </ThemeProvider>
               </div>
             )}
           </div>

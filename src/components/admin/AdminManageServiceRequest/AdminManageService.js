@@ -38,6 +38,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
   const[inputData,setInputData] = useState(useLocation().state)
 
   const [updatedBy, setUpdatedBy] = useState("")
+  const [checkedtype, setCheckedType] = useState(2);
 
   
   const [d3, setd3] = useState(false)
@@ -181,7 +182,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
       axios({
         method: "post",
         url: URL + globalAPI.addnotes + `?srid=${state._id}`,
-        data: { description: text, title: text, type: 2 },
+        data: { description: text, title: text, type: checkedtype },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -196,7 +197,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
             /* setTimeout(() => {
               window.location.reload(false);
             }, 2000); */
-
+            setCheckedType(2)
             fetchData();
             fetchSeconddata();
             
@@ -371,6 +372,16 @@ const stateHandler2 = (e) => {
 
 
   console.log(inputData)
+  const handleChecked = (e) => {
+    debugger
+    if (e.target.checked) {
+      setCheckedType(3);
+      console.log("checked");
+    } else {
+      setCheckedType(2);
+      console.log("not checked");
+    }
+  };
 
   return (
     <div>
@@ -534,6 +545,12 @@ const stateHandler2 = (e) => {
                             className="adminmsrCommonIcon"
                           />
                         )}
+                        {item.type == 3 && (
+                          <img
+                            src={require("../../../Img/type3.png")}
+                            className="adminmsrCommonIcon"
+                          />
+                        )}
                         {item.type == 4 && (
                           <img
                             src={require("../../../Img/type4.png")}
@@ -553,6 +570,10 @@ const stateHandler2 = (e) => {
                           </span>
                         )}
                         {item.type == 3 && (
+                          <span className="adminmsrspan21">Internal Notes</span>
+                        )}
+                        
+                        {item.type == 4 && (
                           <span className="adminmsrspan21">System Update</span>
                         )}
                         <span className="adminmsrspan3">
@@ -603,6 +624,10 @@ const stateHandler2 = (e) => {
                 }}
                 placeholder="Update Details"
               ></textarea>
+              <div style={{marginTop:"10px",marginBottom:"20px"}}>
+                <input type="checkbox"  onChange={handleChecked} />
+                <label style={{marginLeft:"10px"}}>Internal Notes</label>
+              </div>
               {noupdate && (
                 <span style={{ color: "red", display: "block" }}>
                   No Updates Given

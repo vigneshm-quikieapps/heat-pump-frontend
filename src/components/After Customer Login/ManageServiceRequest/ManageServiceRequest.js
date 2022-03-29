@@ -1,7 +1,8 @@
 import "./ManageServiceRequest.css";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
+
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { saveAs } from "file-saver";
@@ -21,6 +22,7 @@ import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 const fileTypes = ["PDF", "PNG", "JPEG"];
 const ManageServiceRequest = ({ FirstPageAction }) => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   console.log(state)
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -276,8 +278,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           togglesrModal();
           const res = response.data;
           if (res.success) {
-            fetchData();
-            fetchSeconddata();
+            navigate("/common/servicerequest");
           } else {
             toast.error(res.data.message);
           }

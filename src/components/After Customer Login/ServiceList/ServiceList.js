@@ -197,7 +197,7 @@ const ServiceList = ({FirstPageAction}) => {
               <option value="two">two</option>
               <option value="three">three</option>
             </select> */}
-            <button className="searchbtn" onClick={() => fetchSeconddata()}>
+            <button className="searchbtn" onClick={() => {setPage(1);fetchSeconddata()}}>
               Search
             </button>
           </div>
