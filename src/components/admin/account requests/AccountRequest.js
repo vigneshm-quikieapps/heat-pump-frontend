@@ -11,6 +11,8 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { TextField } from "@mui/material";
+import { makeStyles } from '@mui/styles';
 
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
@@ -20,34 +22,22 @@ const theme = createTheme({
     primary: {main:"#000000	"},
   },
 });
-
+const useStyles = makeStyles({
+  textfield:{
+    '& label.Mui-focused': {
+      color: 'black',
+    },
+    '& .MuiOutlinedInput-root': {
+      borderRadius:"10px",
+      marginRight: "20px",
+      '&.Mui-focused fieldset': {
+        borderColor: 'black',
+      },
+    },
+  }
+})
 const AccountRequest = ({adminFirstPageAction}) => {
-  // const list = [
-  //   {
-  //     customer_name: "Joe Bloggs",
-  //     mobile_no: "9787668994",
-  //     email: "joe@gmail.com",
-  //     business_name: "Heat Pump Scotland,Glasgow",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "In Progress",
-  //   },
-  //   {
-  //     customer_name: "Joe Bloggs",
-  //     mobile_no: "9787668994",
-  //     email: "joe@gmail.com",
-  //     business_name: "Heat Pump Scotland,Glasgow",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "In Progress",
-  //   },
-  //   {
-  //     customer_name: "Joe Bloggs",
-  //     mobile_no: "9787668994",
-  //     email: "joe@gmail.com",
-  //     business_name: "Heat Pump Scotland,Glasgow",
-  //     time: "10/11/2021 05:00 PM",
-  //     status: "In Progress",
-  //   },
-  // ];
+  const classes = useStyles();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [box, setBox] = useState([]);
@@ -64,7 +54,7 @@ const AccountRequest = ({adminFirstPageAction}) => {
 
   useEffect(() => {
     fetchData();
-    fetchSeconddata();
+    // fetchSeconddata();
   }, [page,status]);
 
   useEffect(()=>{
@@ -83,6 +73,7 @@ const AccountRequest = ({adminFirstPageAction}) => {
         setLoader(false);
         const res = response.data;
         setBox(res.data);
+        fetchSeconddata();
       })
       .catch((e) => {
         setLoader(false);
@@ -178,7 +169,7 @@ const AccountRequest = ({adminFirstPageAction}) => {
               <option value="2">Inprogress</option>
               <option value="3">Active</option>
             </select>
-            <input
+            {/* <input
               className="select-box box1"
               value={mobno}
               placeholder="Mobile No."
@@ -189,7 +180,10 @@ const AccountRequest = ({adminFirstPageAction}) => {
               value={business}
               placeholder="Business Name"
               onChange={(e) => {setBusiness(e.target.value)}}
-            />
+            /> */}
+            <TextField label="Mobile No" className={classes.textfield} value={mobno} onChange={(e) => setMobno(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }}/>
+            <TextField label="Business Name" className={classes.textfield} value={business} onChange={(e) => setBusiness(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }}/>
+
             <button
               className="adminsearchbtn"
               type={"button"}

@@ -141,6 +141,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         if (res.success) {
           fetchData();
           fetchSeconddata();
+          toast.success("File Removed")
         } else {
           toast.error(res.data.message);
         }
@@ -170,9 +171,9 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           setLoader(false);
           toggleModal();
           if (res.success) {
-            // toast.success("Successfully Added");
             fetchData();
             fetchSeconddata();
+            toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
           }
@@ -206,7 +207,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           const res = response.data;
           setLoader(false);
           if (res.success) {
-            toast.success("File Added");
+            // toast.success("File Added");
             attachments.push(res.data.message[0]);
             setFiles([...files, e]);
           } else {
@@ -247,9 +248,9 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         togglefileModal();
         const res = response.data;
         if (res.success) {
-          // toast.success("success");
           fetchData();
           fetchSeconddata();
+          toast.success("File added successfully");
         } else {
           toast.error(res.data.message);
         }
@@ -278,7 +279,10 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           togglesrModal();
           const res = response.data;
           if (res.success) {
-            navigate("/common/servicerequest");
+            // navigate("/common/servicerequest");
+            fetchData();
+            fetchSeconddata();
+            toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
           }
@@ -366,7 +370,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                     className="msrattachIcon"
                   />
                   <div className="div-name" onClick={() => printTickets(index)}>
-                    Attachment {index + 1}.pdf
+                    Attachment {index + 1}
                   </div>
                   <span>
                     <img
@@ -380,7 +384,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           </div>
           <div className="msrgrid2">
             <div className="msrtitle3">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </div>
             <span className="msrspan1">{details.description}</span>
             <div style={{ marginTop: "80px" }}>
@@ -474,7 +478,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               </h5>
               <hr className="clhrFirst" />
               <h5 className="dialogname">
-                {details.service_ref_number}-{details.title}
+                {details.service_ref_number} - {details.title}
               </h5>
             </div>
             <div className="dialog-row2">
@@ -485,7 +489,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                   setText(e.target.value);
                   setNoupdate(false);
                 }}
-                placeholder="Update Details"
+                placeholder="Update details"
               ></textarea>
               {noupdate && (
                 <span style={{ color: "red", display: "block" }}>
@@ -523,7 +527,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </h5>
             <hr className="clhrFirst" />
             <h5 className="dialogname">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </h5>
           </div>
           <div className="dialog-row2">
@@ -531,7 +535,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               className="modeltextarea"
               value={closetext}
               onChange={(e) => setClosetext(e.target.value)}
-              placeholder="Reason for Closing"
+              placeholder="Reason for closing"
               required
             ></textarea>
             {noclose && (
@@ -569,7 +573,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </h5>
             <hr className="clhrFirst" />
             <h5 className="dialogname">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </h5>
           </div>
           <div className="dialog-row2">

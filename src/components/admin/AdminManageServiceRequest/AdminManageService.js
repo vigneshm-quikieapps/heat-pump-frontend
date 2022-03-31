@@ -18,8 +18,33 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  selectfield:{
+    '& label.Mui-focused': {
+      color: 'black',
+    },
+    '& .MuiOutlinedInput-root': {
+      borderRadius:"10px",
+      marginRight: "20px",
+      width:"285px",
+      height:"45px",
+      '&.Mui-focused fieldset': {
+        borderColor: 'black',
+      },
+    },
+  }
+})
+
 const fileTypes = ["PDF", "PNG", "JPEG"];
+
 const AdminManageService = ({adminFirstPageAction}) => {
+  const classes = useStyles();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -42,16 +67,6 @@ const AdminManageService = ({adminFirstPageAction}) => {
 
   
   const [d3, setd3] = useState(false)
-  const [summary, setSummary] = useState({
-      priority:"2",
-      status:"Luths Working",
-      lastUpdated:"25/01/2022 10:00 AM",
-      lastUpdatedBy:"Joe Bloggs",
-      created:"24/01/2022 10:00 AM",
-      createdBy:"Joe Bloggs",
-      jobReference:"JR12345678",
-      site:"29 Windyridge Hamilton,ML3 7PS"
-  })
 
   useEffect(() => {
     fetchData();
@@ -89,7 +104,8 @@ const AdminManageService = ({adminFirstPageAction}) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setNotes(res.data);
+        debugger
+        setNotes(res.data.reverse());
       })
       .catch((e) => {
         setLoader(false);
@@ -200,6 +216,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
             setCheckedType(2)
             fetchData();
             fetchSeconddata();
+            toast.success("Updated Successfully");
             
           } else {
             toast.error(res.data.message);
@@ -234,7 +251,7 @@ const AdminManageService = ({adminFirstPageAction}) => {
           const res = response.data;
           setLoader(false);
           if (res.success) {
-            toast.success("File Added");
+            // toast.success("File Added");
             attachments.push(res.data.message[0]);
             setFiles([...files, e]);
           } else {
@@ -275,12 +292,9 @@ const AdminManageService = ({adminFirstPageAction}) => {
         togglefileModal();
         const res = response.data;
         if (res.success) {
-          // toast.success("success");
-          setTimeout(() => {
-            /* window.location.reload(false); */
-            fetchData();
-            fetchSeconddata();
-          }, 2000);
+          fetchData();
+          fetchSeconddata();
+          toast.success("File added successfully");
         } else {
           toast.error(res.data.message);
         }
@@ -309,11 +323,9 @@ const AdminManageService = ({adminFirstPageAction}) => {
           togglesrModal();
           const res = response.data;
           if (res.success) {
-            setTimeout(() => {
-            /*   window.location.reload(false); */
             fetchData();
             fetchSeconddata();
-            }, 2000);
+            toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
           }
@@ -395,14 +407,14 @@ const stateHandler2 = (e) => {
         <hr className="adminmsrcontainerhr" />
         <div className="adminmsrpaper">
           <div className="adminmsrgrid1">
-          <div className="adminmsrtitle1">Service Request Summary <img src={require("../../../Img/adminballIcon.png")} className="adminballIcon" ></img> </div>
+          <div className="adminmsrtitle1">Service Request Summary </div>
             <hr className="adminmsrhr1" />
             <div>
                  <label htmlFor="" className='priorityLabel' >Priority</label> <br />
                  <select className='admsrselect1' name="priority" id=""  onChange={stateHandler} >
-                     <option value="3" selected={details.priority===3?true:false} > Low </option>
-                     <option value="2" selected={details.priority===2?true:false} > Medium </option>
-                     <option value="1" selected={details.priority===1?true:false}  > High </option>
+                     <option  value="3" selected={details.priority===3?true:false} > Low </option>
+                     <option  value="2" selected={details.priority===2?true:false} > Medium </option>
+                     <option  value="1" selected={details.priority===1?true:false}  > High </option>
                  </select>
                  <img src={require("../../../Img/adminDropdown.png")} className={"adminDropdown"} />
             </div>
@@ -413,9 +425,29 @@ const stateHandler2 = (e) => {
                      <option value="1" selected={details.status===1?true:false} > New </option>
                      <option value="2" selected={details.status===2?true:false} > Luths Working </option>
                      <option value="3" selected={details.status===3?true:false} > Need Your Attention </option>
+                     {/* <option value="4" selected={details.status===4?true:false} > Review Update</option> */}
                      <option value="4" selected={details.status===4?true:false} > Resolved </option>
                  </select>
                  <img src={require("../../../Img/adminDropdown.png")} className="adminDropdown"  />
+            </div>
+
+            <div>
+            
+    <FormControl className={classes.selectfield} >
+      <InputLabel id="demo-simple-select-label">Status</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        label="Status"
+        onChange={stateHandler}
+        value={details.status}
+      >
+        <MenuItem value="1" selected={details.status===1?true:false} > New </MenuItem>
+        <MenuItem value="2" selected={details.status===2?true:false} > Luths Working </MenuItem>
+        <MenuItem value="3" selected={details.status===3?true:false} > Need Your Attention </MenuItem>
+        <MenuItem value="4" selected={details.status===4?true:false} > Resolved </MenuItem>
+      </Select>
+    </FormControl>
             </div>
 
             <div>
@@ -431,6 +463,7 @@ const stateHandler2 = (e) => {
             </div>  
 
             <div style={{marginTop:"30px"}} >
+              <label htmlFor="" className='assignedtoLabel' >Assigned To</label> <br />
                  <select className='admsrselect1' name="" id="" onClick={() => setd3(!d3)} >
                      <option value="">Assigned </option>
                      <option value=""> Assigned1 </option>
@@ -485,7 +518,6 @@ const stateHandler2 = (e) => {
 
             <div>
                      <button className='adminUpdateStatusBtn' onClick={(e)=>updatingSR(e)}>Update Status</button>
-                     <button className='adminIgnoreBtn' >Ignore</button>
                  </div>
             <div className="adminmsrtitle2">Attachments</div>
             <hr className="adminmsrhr1" />
@@ -497,7 +529,7 @@ const stateHandler2 = (e) => {
                     className="adminmsrattachIcon"
                   />
                   <div className="admindiv-name" onClick={() => printTickets(index)}>
-                    Attachment {index + 1}.pdf
+                    Attachment {index + 1}
                   </div>
                   <span>
                     <img
@@ -511,7 +543,7 @@ const stateHandler2 = (e) => {
           </div>
           <div className="adminmsrgrid2">
             <div className="adminmsrtitle3">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </div>
             <span className="adminmsrspan1">{details.description}</span>
             <div style={{ marginTop: "80px" }}>
@@ -611,7 +643,7 @@ const stateHandler2 = (e) => {
               </h5>
               <hr className="adminclhrFirst" />
               <h5 className="admindialogname">
-                {details.service_ref_number}-{details.title}
+                {details.service_ref_number} - {details.title}
               </h5>
             </div>
             <div className="admindialog-row2">
@@ -622,7 +654,7 @@ const stateHandler2 = (e) => {
                   setText(e.target.value);
                   setNoupdate(false);
                 }}
-                placeholder="Update Details"
+                placeholder="Update details"
               ></textarea>
               <div style={{marginTop:"10px",marginBottom:"20px"}}>
                 <input className="admincheckbox" type="checkbox"  onChange={handleChecked} />
@@ -664,7 +696,7 @@ const stateHandler2 = (e) => {
             </h5>
             <hr className="adminclhrFirst" />
             <h5 className="admindialogname">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </h5>
           </div>
           <div className="admindialog-row2">
@@ -710,7 +742,7 @@ const stateHandler2 = (e) => {
             </h5>
             <hr className="adminclhrFirst" />
             <h5 className="admindialogname">
-              {details.service_ref_number}-{details.title}
+              {details.service_ref_number} - {details.title}
             </h5>
           </div>
           <div className="admindialog-row2">
