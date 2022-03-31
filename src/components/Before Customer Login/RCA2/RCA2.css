@@ -20,6 +20,7 @@
 
   .rca2firstHalf {
     min-width: 870px;
+    max-width: 870px;
     display: inline-block;
     
   }
