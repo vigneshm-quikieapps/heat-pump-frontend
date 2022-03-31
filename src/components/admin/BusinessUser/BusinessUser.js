@@ -59,7 +59,9 @@ function BusinessUser({adminFirstPageAction}) {
     setPop(!popup);
   }
   const onPopup1 = () =>{
+    console.log(modifyUser)
     setPop1(!popup1);
+    
   }
 
   useEffect(() =>{
@@ -158,6 +160,43 @@ function BusinessUser({adminFirstPageAction}) {
         const res = response.data;
         if (res.success) {
             fetchSeconddata();
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch(() => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+
+  const modifyUserdetails = (e) => {
+    setModifyUser(state => ({...state,[e.target.name]:e.target.value}))
+  }
+
+  const statusChange1 = (e) =>{
+    debugger
+    e.preventDefault();
+    setLoader(true);
+    const token = JSON.parse(localStorage.getItem("user"));
+   /*  const data = {
+      status:parseInt(e.target.value)
+    }; */
+    axios({
+      method: "patch",
+      url: URL + globalAPI.adminedituser + `?id=${modifyUser._id}`,
+      data: modifyUser,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        if (res.success) {
+            fetchSeconddata();
+            onPopup1()
+            toast.success("Data Updated Succesfully")
         } else {
           toast.error(res.data.message);
         }
@@ -364,7 +403,7 @@ function BusinessUser({adminFirstPageAction}) {
           </div>
           <div className="bauserdialog-row1">
             <h5 style={{ fontSize: "22px", margin: "5px 0 0 0" }}>
-              Modify Business User
+            Update Business User details
             </h5>
             <hr className="clhrFirst" />
           </div>
@@ -374,8 +413,9 @@ function BusinessUser({adminFirstPageAction}) {
                 <input
                   type="text"
                   className="bainput"
-                  value={modifyUser.business_admin_fullName}
-                  onChange={""}
+                  value={modifyUser.name}
+                  onChange={modifyUserdetails}
+                  name="name"
                   required
                 />
                 <label className="bainput-label">Full Name</label>
@@ -383,8 +423,9 @@ function BusinessUser({adminFirstPageAction}) {
               <input
                 type="text"
                 className="ba2input"
-                value={modifyUser.business_admin_email}
-                onChange={""}
+                value={modifyUser.email}
+                onChange={modifyUserdetails}
+                name="email"
                 required
               />
               <label className="ba2input-label">Email</label>
@@ -394,22 +435,24 @@ function BusinessUser({adminFirstPageAction}) {
                 <input
                   type="text"
                   className="bainput"
-                  value={modifyUser.business_admin_password}
-                  onChange={""}
+                  value={modifyUser.password}
+                  onChange={modifyUserdetails}
+                  name="password"
                   required
                 />
                 <label className="bainput-label">Password</label>
               </div>
               <input
-                type="text"
+                type="number"
                 className="ba2input"
-                value={modifyUser.business_admin_mobile}
-                onChange={""}
+                value={modifyUser.mobile}
+                onChange={modifyUserdetails}
+                name="mobile"
                 required
               />
               <label className="ba2input-label">Mobile No</label>
             </div>
-            <div>
+          {/*   <div>
               <div style={{ display: "inline-block" }}>
                 <input
                   type="text"
@@ -420,9 +463,9 @@ function BusinessUser({adminFirstPageAction}) {
                 />
                 <label className="bainput-label">Status</label>
               </div>
-            </div>
-            <div style={{ marginTop: "10px" }}>
-              <button className="submitbtn" onClick={""}>
+            </div> */}
+            <div style={{ marginTop: "20px" }}>
+              <button className="submitbtn" onClick={statusChange1}>
                 Submit
               </button>
               <button className="closebtn" onClick={()=>onPopup1()}>
