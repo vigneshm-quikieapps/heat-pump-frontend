@@ -43,7 +43,8 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
     fetchSeconddata();
   }, []);
 
-  const toggleModal = () => {
+  const toggleModal = (e) => {
+    e.preventDefault();
     setOpenupdate(!openupdate);
     setText("");
   };
@@ -169,7 +170,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          toggleModal();
+          toggleModal(e);
           if (res.success) {
             fetchData();
             fetchSeconddata();
@@ -180,7 +181,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         })
         .catch((err) => {
           setLoader(false);
-          toggleModal();
+          toggleModal(e);
           toast.error("Something Went Wrong");
         });
     } else {
@@ -388,7 +389,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </div>
             <span className="msrspan1">{details.description}</span>
             <div style={{ marginTop: "80px" }}>
-              <button className="msrbutton1" onClick={() => toggleModal()}>
+              <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
                 Add Update
               </button>
               <button className="msrbutton2" onClick={() => togglefileModal()}>
@@ -468,7 +469,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         <div>
           <form>
             <div className="dialogclose">
-              <IconButton onClick={toggleModal}>
+              <IconButton onClick={(e)=>toggleModal(e)}>
                 <CloseIcon sx={{ color: "black" }}></CloseIcon>
               </IconButton>
             </div>

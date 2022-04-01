@@ -12,6 +12,12 @@ import moment from "moment";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 import { makeStyles } from '@mui/styles';
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
@@ -31,12 +37,38 @@ const useStyles = makeStyles({
     '& .MuiOutlinedInput-root': {
       borderRadius:"10px",
       marginRight: "20px",
+      height:"50px",
       '&.Mui-focused fieldset': {
         borderColor: 'black',
       },
     },
+  },
+  selectfield: {
+    "& label.Mui-focused": {
+      color: "black",
+    },
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "10px",
+      marginRight: "20px",
+      width: "170px",
+      height: "50px",
+      fontWeight: "bolder",
+      fontFamily: "outfit",
+      backgroundColor: "white",
+
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+  },
+  selectinput:{
+    marginBottom:"5px",
+    fontFamily:"outfit",
+    fontWeight: "bolder",
+    
   }
 })
+
 
 const AdminServiceList = ({adminFirstPageAction}) => {
   const classes = useStyles();
@@ -57,6 +89,7 @@ const AdminServiceList = ({adminFirstPageAction}) => {
   
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
+  const [focused, setFocused] = React.useState("");
  
   useEffect(()=>{
     adminFirstPageAction(true)
@@ -172,19 +205,43 @@ const AdminServiceList = ({adminFirstPageAction}) => {
               justifyContent: "space-between",
             }}
           >
-            <select
-              className=" adminslselect-box adminslbox1"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            > <option value=""  > Priority </option>
-              <option value="1">High</option>
-              <option value="2">Medium</option>
-              <option value="3">Low</option>
-            </select>
-           
-            <TextField label="Service Request No" className={classes.textfield} value={serviceno} onChange={(e) => setServiceno(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
-            <TextField label="Customer Name" className={classes.textfield} value={customerName} onChange={(e) => setCustomerName(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
-            <TextField label="Title" className={classes.textfield} value={title} onChange={(e) => setTitle(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
+          {/* //   <select
+          //     className=" adminslselect-box adminslbox1"
+          //     value={priority}
+          //     onChange={(e) => setPriority(e.target.value)}
+          //   > <option value=""  > Priority </option>
+          //     <option value="1">High</option>
+          //     <option value="2">Medium</option>
+          //     <option value="3">Low</option>
+          //   </select> */}
+          <div style={{display:"inline-block",width:"200px"}}>
+            <FormControl className={classes.selectfield}>
+            <InputLabel id="demo-simple-select-label" className={classes.selectinput}>Priority</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={priority}
+                  onChange={(e) => setPriority(e.target.value)}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  label="Priority"
+                  IconComponent={() =>
+                    focused ? (
+                      <KeyboardArrowDownIcon />
+                    ) : (
+                      <KeyboardArrowUpIcon />
+                    )
+                  }
+                >
+                  <MenuItem value="1"> High </MenuItem>
+                  <MenuItem value="2"> Medium </MenuItem>
+                  <MenuItem value="3"> Low </MenuItem>
+                </Select>
+              </FormControl>
+              </div>
+            <TextField label="Service Request No" className={classes.textfield} value={serviceno} onChange={(e) => setServiceno(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"5px"} }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
+            <TextField label="Customer Name" className={classes.textfield} value={customerName} onChange={(e) => setCustomerName(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"5px" } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
+            <TextField label="Title" className={classes.textfield} value={title} onChange={(e) => setTitle(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"5px" } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
 
               <button className="adminsearchbtn" onClick={() => fetchSeconddata()}>
               Search

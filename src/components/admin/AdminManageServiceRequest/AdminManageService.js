@@ -18,7 +18,6 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -69,8 +68,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const [inputData, setInputData] = useState(useLocation().state);
   const [status, setStatus] = useState("");
   const [priority, setPriority] = useState("");
-  const [assigned,setAssigned] = useState("");
+  const [assigned, setAssigned] = useState("");
   const [focused, setFocused] = React.useState("");
+  const [baUser, setBauser] = useState([]);
 
   const [updatedBy, setUpdatedBy] = useState("");
   const [checkedtype, setCheckedType] = useState(2);
@@ -80,13 +80,16 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   useEffect(() => {
     fetchData();
     fetchSeconddata();
+    fetchUserAdmin();
   }, []);
 
   useEffect(() => {
     adminFirstPageAction(false);
   }, []);
 
-  const toggleModal = () => {
+  const toggleModal = (e) => {
+    debugger
+    e.preventDefault();
     setOpenupdate(!openupdate);
     setText("");
   };
@@ -145,7 +148,32 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         toast.error("Something went wrong");
       });
   }
-
+  function fetchUserAdmin() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(
+        URL + globalAPI.accountlist + `?page=1&perPage=10&status=1,6&badm=1`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        debugger;
+        if (response) {
+          const res = response.data.data.data;
+          setBauser(res);
+        } else {
+          toast.error("error");
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
   async function printTickets(index) {
     const { data } = await getTicketsPdf(index);
     const blob = new Blob([data]);
@@ -155,7 +183,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
   async function getTicketsPdf(index) {
     const token = JSON.parse(localStorage.getItem("user"));
-    // const att = availableFiles[index].replace(`${details.creator_id}/`, "");
     const att = availableFiles[index];
     return axios.get(URL + globalAPI.getFile + `?fp=${att}`, {
       headers: {
@@ -220,10 +247,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
           toggleModal();
           console.log(res);
           if (res.success) {
-            // toast.success("Successfully Added");
-            /* setTimeout(() => {
-              window.location.reload(false);
-            }, 2000); */
             setCheckedType(2);
             fetchData();
             fetchSeconddata();
@@ -280,10 +303,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const newUpload = (e) => {
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
-    // const data = {
-    //   attachments: attachments,
-    // };
-    // const newVal = availableFiles.concat(attachments);
     axios({
       method: "post",
       url: URL + globalAPI.addnotes + `?srid=${state._id}`,
@@ -323,7 +342,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       axios({
         method: "patch",
         url: URL + globalAPI.myreq + `/${state._id}`,
-        data: { status: 2, description: closetext, type: 2 },
+        data: { status: 4, description: closetext, type: 2 },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -366,9 +385,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         const res = response.data;
 
         if (res.success) {
-          // setTimeout(() => {
           //   navigate("/admincommon/adminsrl");
-          // }, 1000);
           toast.success("Updated Successfully");
         } else {
           toast.error(res.data.message);
@@ -537,7 +554,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               </div>
             </div>
 
-            <div style={{ marginLeft: "5px",marginTop:"20px" }}>
+            <div style={{ marginLeft: "5px", marginTop: "20px" }}>
               <label htmlFor="" className="statusLabel">
                 Assigned To
               </label>
@@ -558,10 +575,12 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     )
                   }
                 >
-                  <MenuItem value="1"> New </MenuItem>
-                  {/* <MenuItem value="2"> Luths Working </MenuItem>
-                  <MenuItem value="3"> Need Your Attention </MenuItem>
-                  <MenuItem value="4"> Resolved </MenuItem> */}
+                  {baUser &&
+                    baUser.map((item, index) => {
+                      return (
+                          <MenuItem key={item._id} value={item.name}> {item.name} </MenuItem>
+                      );
+                    })}
                 </Select>
               </FormControl>
             </div>
@@ -653,7 +672,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             </div>
             <span className="adminmsrspan1">{details.description}</span>
             <div style={{ marginTop: "80px" }}>
-              <button className="adminmsrbutton1" onClick={() => toggleModal()}>
+              <button className="adminmsrbutton1" onClick={(e) => toggleModal(e)}>
                 Add Update
               </button>
               <button
@@ -798,7 +817,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 >
                   Submit
                 </button>
-                <button className="adminclosebtn" onClick={() => toggleModal()}>
+                <button className="adminclosebtn" onClick={(e) => toggleModal(e)}>
                   Cancel
                 </button>
               </div>
