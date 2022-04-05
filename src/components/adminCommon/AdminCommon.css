@@ -17,7 +17,7 @@
     margin-top: 50px;
 }
 
-li{
+/* li{
     list-style: none;
     padding: 0.5rem 1rem;
     font-size: 14px;
@@ -25,7 +25,7 @@ li{
     align-items: center;
     gap: 1rem;
     cursor: pointer;
-}
+} */
 .adminsidebar1{
     
     background-image:linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);

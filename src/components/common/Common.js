@@ -80,11 +80,12 @@ function Common({firstPageStatus}) {
    
       <div style={{ display: "flex",height:"100%" }}>
         <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
-          <div className="HPDSideBar">
+          <div >
             <img
               src={require("../../Img/HPDD.jpeg")}
-              height="40px"
-              width={"40px"}
+              /* height="40px"
+              width={"40px"} */
+              className="HPDSideBar"
             />
           </div>
 
@@ -99,14 +100,14 @@ function Common({firstPageStatus}) {
                   ? { fontWeight: "600" }
                   : { fontWeight: "300" }
               }
-              className="firstli"
+              className="firstli li"
               onClick={() => setDisplay("redbar1")}
             >
               {" "}
               <img
                 src={require("../../Img/sidebar1.png")}
-                height="20px"
-                width={"20px"}
+             
+                className="sidbar-icon"
               />{" "}
               Get a Quote{" "}
               <img
@@ -129,12 +130,12 @@ function Common({firstPageStatus}) {
                 ? { fontWeight: "600" }
                 : { fontWeight: "300" }
             }
+            className="myquotes-text li"
           >
             {" "}
             <img
               src={require("../../Img/sidebar2.png")}
-              height="20px"
-              width={"20px"}
+              className="sidbar-icon"
             />{" "}
             My Quotes{" "}
             <img
@@ -160,12 +161,12 @@ function Common({firstPageStatus}) {
                 ? { fontWeight: "600" }
                 : { fontWeight: "300" }
             }
+            className="my-servicerequest li"
           >
             {" "}
             <img
               src={require("../../Img/sidebar3.png")}
-              height="20px"
-              width={"20px"}
+              className="sidbar-icon"
             />{" "}
             My Service Requests{" "}
             <img
@@ -184,8 +185,8 @@ function Common({firstPageStatus}) {
 
           <img
             src={require("../../Img/ellipse.png")}
-            height="360px"
-            width={"250px"}
+           /*  height="360px"
+            width={"250px"} */
             alt=""
             className="ellipse"
           />
@@ -197,8 +198,8 @@ function Common({firstPageStatus}) {
               <img
                 src={require("../../Img/toggleSideBar.png")}
                 onClick={() => setCollapse(!collapse)}
-                height="40px"
-                width={"40px"}
+                // height="40px"
+                // width={"40px"}
                 className="collapse-icon"
               />
            { !firstPageStatus? (/* {<Link 
@@ -207,36 +208,35 @@ function Common({firstPageStatus}) {
                <img
                 src={require("../../Img/toggleback.png")}
                 onClick={() => {window.history.back()}}
-                height="40px"
-                width={"40px"}
+                // height="40px"
+                // width={"40px"}
                 className="collapse-left"
               /> /* </Link> */):null}
 
-              <div style={{ float: "right", marginRight: "100px" }}>
+              <div style={{ float: "right", marginRight: "6.11vw" }}>
                 <img
                   src={require("../../Img/homeIcon.png")}
-                  height="40px"
-                  width={"40px"}
+                  // height="40px"
+                  // width={"40px"}
                   className="home-icon"
                   
                 />
                 <img
                   src={require("../../Img/bell.png")}
-                  height="40px"
-                  width={"40px"}
+                  // height="40px"
+                  // width={"40px"}
                   className="bell-icon"
                 />
 
                 <div className="name-icon">
-                  <span
+                <span
                     style={{
                       position: "relative",
-                    top: "17px",
-                    marginLeft: "10px",
-                    color: "rgba(0, 0, 0, 0.6)",
-                    display: "inline-block",
-                    float:"right",
-                    marginRight:"15px",
+                      // bottom: "2vh",
+                      top:"2.4vh",
+                      left: "4.55vw",
+                      color: "rgba(0, 0, 0, 0.6)",
+                      fontSize:"1vw"
                     }}
                   >
                     {userInfo.name}
@@ -250,19 +250,19 @@ function Common({firstPageStatus}) {
                     aria-haspopup="true"
                     onClick={handleToggle}
                     style={{
-                      width: "50px",
-                      height: "50px",
-                      marginLeft: "120px",
+                      width: "3.25vw",
+                      height: "6.71vh",
+                      marginLeft: "7.81vw",
                       position: "relative",
-                      bottom: "18px",
+                      bottom: "2vh",
                       display: "inline-block",
-                      left:"45px",
+                      left:"3vw",
                     }}
+                    size="small"
                   >
                     <img
                       src={require("../../Img/account.png")}
-                      height="40px"
-                      width={"40px"}
+                      className="account-icon"
                     />
                   </Button>
                   <Popper
