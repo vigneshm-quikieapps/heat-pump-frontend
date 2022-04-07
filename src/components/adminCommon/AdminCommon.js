@@ -240,12 +240,10 @@ function AdminCommon({ adminFirstPageStatus }) {
                   style={{
                     position: "relative",
                     top: "2.3vh",
-                 
                     color: "rgba(0, 0, 0, 0.6)",
-        
-                   
                     fontSize:"1vw",
-                   fontWeight:"600"
+                   fontWeight:"600",
+                   float:"right"
                   }}
                 >
                   {userInfo.name}
