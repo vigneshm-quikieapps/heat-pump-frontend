@@ -522,7 +522,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   }
                 >
                   <MenuItem value="1"> New </MenuItem>
-                  <MenuItem value="2"> HBD Working </MenuItem>
+                  <MenuItem value="2"> HPD Working </MenuItem>
                   <MenuItem value="3"> Need Your Attention </MenuItem>
                   <MenuItem value="4"> Resolved </MenuItem>
                 </Select>
@@ -705,7 +705,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                         )}
                         {item.type == 2 && (
                           <span className="adminmsrspan21">
-                            Update from HBD Staff
+                            Update from HPD Staff
                           </span>
                         )}
                         {item.type == 3 && (

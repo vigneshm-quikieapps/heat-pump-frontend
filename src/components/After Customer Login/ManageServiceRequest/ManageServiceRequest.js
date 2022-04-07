@@ -326,7 +326,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               <div className="displayleft">Status</div>
               {details.status == 1 && (<div className="displaygrid1">New</div>)}
               {details.status == 2 && (
-                <div className="displaygrid1">HBD Working</div>
+                <div className="displaygrid1">HPD Working</div>
               )}
               {details.status == 3 && (
                 <div className="displaygrid1">Need Your Attention</div>
@@ -428,7 +428,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                         )}
                         {item.type == 2 && (
                           <span className="msrspan21">
-                            Update from HBD Staff
+                            Update from HPD Staff
                           </span>
                         )}
                         {item.type == 3 && (
