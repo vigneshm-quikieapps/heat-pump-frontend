@@ -517,7 +517,7 @@ const CreateList = ({ FirstPageAction }) => {
                           <td className="">{item.job_ref_number}</td>
                           <td className="">{item.site_details}</td>
                           {item.status == 1 && <td>New</td>}
-                          {item.status == 2 && <td>Luths Working</td>}
+                          {item.status == 2 && <td>HBD Working</td>}
                           {item.status == 3 && <td>Need Your Attention</td>}
                           {item.status == 4 && <td>Resolved</td>}
                         </tr>

@@ -326,7 +326,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               <div className="displayleft">Status</div>
               {details.status == 1 && (<div className="displaygrid1">New</div>)}
               {details.status == 2 && (
-                <div className="displaygrid1">Luths Working</div>
+                <div className="displaygrid1">HBD Working</div>
               )}
               {details.status == 3 && (
                 <div className="displaygrid1">Need Your Attention</div>
@@ -410,7 +410,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                         {item.type == 2 && (
                           <img
                             src={require("../../../Img/type2.png")}
-                            className="msrCommonIcon"
+                            className="msrCommonIcon1"
                           />
                         )}
                         {item.type == 4 && (
@@ -423,12 +423,12 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                       <div className="msrbox1">
                         {item.type == 1 && (
                           <span className="msrspan21">
-                            Update from customer
+                            Update from Customer
                           </span>
                         )}
                         {item.type == 2 && (
                           <span className="msrspan21">
-                            Update from Luths Staff
+                            Update from HBD Staff
                           </span>
                         )}
                         {item.type == 3 && (

@@ -522,7 +522,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   }
                 >
                   <MenuItem value="1"> New </MenuItem>
-                  <MenuItem value="2"> Luths Working </MenuItem>
+                  <MenuItem value="2"> HBD Working </MenuItem>
                   <MenuItem value="3"> Need Your Attention </MenuItem>
                   <MenuItem value="4"> Resolved </MenuItem>
                 </Select>
@@ -614,7 +614,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 className="adminUpdateStatusBtn"
                 onClick={(e) => updatingSR(e)}
               >
-                Update Status
+                Save
               </button>
             </div>
             <div className="adminmsrtitle2">Attachments</div>
@@ -681,7 +681,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                         {item.type == 2 && (
                           <img
                             src={require("../../../Img/type2.png")}
-                            className="adminmsrCommonIcon"
+                            className="adminmsrCommonIcon1"
                           />
                         )}
                         {item.type == 3 && (
@@ -700,12 +700,12 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                       <div className="adminmsrbox1">
                         {item.type == 1 && (
                           <span className="adminmsrspan21">
-                            Update from customer
+                            Update from Customer
                           </span>
                         )}
                         {item.type == 2 && (
                           <span className="adminmsrspan21">
-                            Update from Luths Staff
+                            Update from HBD Staff
                           </span>
                         )}
                         {item.type == 3 && (
