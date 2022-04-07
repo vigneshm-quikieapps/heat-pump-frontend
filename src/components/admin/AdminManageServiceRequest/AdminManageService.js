@@ -93,7 +93,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   }, []);
 
   const toggleModal = (e) => {
-    debugger
     e.preventDefault();
     setOpenupdate(!openupdate);
     setText("");
@@ -249,9 +248,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          toggleModal();
           console.log(res);
           if (res.success) {
+            setText("");
+            setOpenupdate(!openupdate);
             setCheckedType(2);
             fetchData();
             fetchSeconddata();
@@ -323,9 +323,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     })
       .then((response) => {
         setLoader(false);
-        togglefileModal();
         const res = response.data;
         if (res.success) {
+        togglefileModal();
           fetchData();
           fetchSeconddata();
           toast.success("File added successfully");
@@ -354,9 +354,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       })
         .then((response) => {
           setLoader(false);
-          togglesrModal();
           const res = response.data;
           if (res.success) {
+            togglesrModal();
             fetchData();
             fetchSeconddata();
             toast.success("Updated Successfully");
@@ -919,7 +919,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   <span style={{ float: "left", marginLeft: "0.91vw" }}>
                     <img
                       src={require("../../../Img/attachIcon.png")}
-                      style={{ marginLeft: "1.22vw",height:"2.7vh",width:"0.9vw" }}
+                      style={{ marginLeft: "1.22vw",height:"2.68vh",width:"0.91vw"}}
                     />
 
                     <span className="adminfileName">
@@ -930,7 +930,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   <img
                     src={require("../../../Img/iconDelete.png")}
                     onClick={() => removeFile(index)}
-                    style={{ marginRight: "1.2vw",height:"2.95vh",width:"1.25vw" }}
+                    style={{ marginRight: "1.2vw",height:"2.68vh",width:"0.91vw" }}
                   />
                 </div>
               );

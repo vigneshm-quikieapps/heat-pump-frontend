@@ -621,9 +621,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                   <span style={{ float: "left", marginLeft: "0.9vw" }}>
                     <img
                       src={require("../../../Img/attachIcon.png")}
-                      height="2.68vh"
-                      width={"0.91vw"}
-                      style={{ marginLeft: "1.22vw" }}
+                      style={{ marginLeft: "1.22vw",height:"2.68vh",width:"0.91vw" }}
                     />
 
                     <span className="fileName">Attachment-{index + 1}</span>
@@ -632,9 +630,8 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                   <img
                     src={require("../../../Img/iconDelete.png")}
                     onClick={() => removeFile(index)}
-                    height="2.95vh"
-                    width={"1.22vw"}
-                    style={{ marginRight: "1.22vw" }}
+                    
+                    style={{ marginRight: "1.22vw",height:"2.68vh",width:"0.91vw" }}
                   />
                 </div>
               );
