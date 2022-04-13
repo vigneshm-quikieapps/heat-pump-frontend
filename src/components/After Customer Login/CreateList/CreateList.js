@@ -285,35 +285,7 @@ const CreateList = ({ FirstPageAction }) => {
             </div>
 
             <hr className="clhr1" />
-            {/* <div>
-              <select
-                className="servicetype"
-                value={servicetype}
-                onChange={handleSelectChange}
-              >
-                <option value="" defaultValue hidden disabled>
-                  Service Type
-                </option>
-                <option
-                  style={{ fontSize: "1.3vw" }}
-                  value="Enquiry"
-                  className="optiontag"
-                >
-                  Enquiry
-                </option>
-                <option
-                  style={{ fontSize: "1.3vw" }}
-                  value="Design Clarifications"
-                  className="optiontag"
-                >
-                  Design Clarifications
-                </option>
-              </select>{" "}
-              <img
-                src={require("../../../Img/adminDropdown.png")}
-                className="clDropdown"
-              />
-            </div> */}
+           
             <div style={{ marginTop: "4vh" }}>
               <FormControl className={classes.selectfield}>
                 <InputLabel

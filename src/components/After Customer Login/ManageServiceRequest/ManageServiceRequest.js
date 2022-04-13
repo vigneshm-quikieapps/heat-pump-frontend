@@ -431,7 +431,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                             Update from HPD Staff
                           </span>
                         )}
-                        {item.type == 3 && (
+                        {item.type == 4 && (
                           <span className="msrspan21">System Update</span>
                         )}
                         <span className="msrspan3">

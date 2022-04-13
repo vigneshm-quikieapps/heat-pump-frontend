@@ -5,6 +5,10 @@ import { Typography, Button } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import Step from "./QuoteSteps/Step";
+import FourthStep from "./FourthStep/FourthStep";
+import FirstStep from "./FirstStep/FirstStep";
+import FifthStep from "./FifthStep/FifthStep";
+import SixthStep from "./SixthStep/SixthStep";
 
 
 const useStyles = makeStyles({
@@ -122,8 +126,23 @@ class MainQuote extends React.Component {
         <h1 className="get-a-quote" >Get a Quotes</h1>
           <hr className="quote-hr" />
 
-          <Step/>
-  
+          {/* <Step/> */}
+          {/* <FirstStep/> */}
+          {/* <FourthStep/> */}
+          {/* <FifthStep/> */}
+          <SixthStep/>
+
+
+
+
+
+
+
+
+
+
+
+
         {/*   <Step1 
             currentStep={this.state.currentStep}
             email={this.state.email}
