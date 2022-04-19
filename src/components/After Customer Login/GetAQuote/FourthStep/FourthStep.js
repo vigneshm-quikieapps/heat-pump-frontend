@@ -110,7 +110,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -134,7 +134,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4browse">
@@ -186,7 +186,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -210,7 +210,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4browse">
@@ -262,7 +262,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -286,7 +286,7 @@ const FourthStep = () => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf,png,jpeg files are allowed")
+            toast.error("Only pdf, png, jpeg files are allowed")
           }
           children={
             <span className="s4browse">
