@@ -211,7 +211,7 @@ const FirstStep = ({
         Step 1 of 9
         <img src={require("../../../../Img/step1.png")} className="s1baricon" />
       </div>
-      <h4 style={{ fontSize: "1.2vw", marginTop: "10vh" }}>Site Details</h4>
+      <h4 style={{ fontSize: "1.4vw", marginTop: "10vh" }}>Site Details</h4>
       <hr className="s1hr2" />
       <Grid sx={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
         <StyledTextField

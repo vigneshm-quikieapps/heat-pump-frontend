@@ -31,11 +31,14 @@ const CustomContainer = styled(Box)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   cursor: "pointer",
-  border: 0,
+  borderTop: "1px solid #f2f1f6",
   height: 70,
-  "&:nth-of-type(odd)": {
+  "&:hover": {
     backgroundColor: "#f2f1f6",
   },
+  // "&:nth-of-type(odd)": {
+  //   backgroundColor: "#f2f1f6",
+  // },
   // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
@@ -75,65 +78,78 @@ const CustomTable = ({
   containerProps,
 }) => {
   return (
-    <CustomContainer {...containerProps}>
-      {heading}
-      <TableContainer component={"div"}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {headers.map((header, index) => (
-                <StyledTableCell
-                  key={index}
-                  component="th"
-                  cellWidth={headerCellWidth}
-                >
-                  {header}
-                </StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isLoading ? (
-              <>
-                <StyledTableRow>
-                  <StyledTableCell colSpan={headers.length} rowSpan={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <CircularProgress />
-                    </Box>
+    <>
+      <CustomContainer {...containerProps}>
+        {heading}
+        <TableContainer component={"div"}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {headers.map((header, index) => (
+                  <StyledTableCell
+                    key={index}
+                    component="th"
+                    cellWidth={headerCellWidth}
+                  >
+                    {header}
                   </StyledTableCell>
-                </StyledTableRow>
-                <StyledTableRow />
-                <StyledTableRow />
-              </>
-            ) : (
-              rows.map((row, index) => (
-                <StyledTableRow key={row.id || index} onClick={row.onClick}>
-                  {row.items.map((item, index) => (
-                    <StyledTableCell
-                      sx={{
-                        color: "black",
-                        fontWeight: "bolder",
-                      }}
-                      key={index}
-                    >
-                      {item}
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody
+            // sx={{
+            //   border: `1px solid #f2f1f6`,
+            //   borderRadius: "20px",
+            //   borderCollapse: "collapse",
+            // }}
+            >
+              {isLoading ? (
+                <>
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={headers.length} rowSpan={3}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <CircularProgress />
+                      </Box>
                     </StyledTableCell>
-                  ))}
-                </StyledTableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {isFetching ? <LinearProgress /> : <Box sx={{ height: "4px" }} />}
-      <Box sx={{ m: 1 }}>{pagination}</Box>
-    </CustomContainer>
+                  </StyledTableRow>
+                  <StyledTableRow />
+                  <StyledTableRow />
+                </>
+              ) : (
+                rows.map((row, index) => (
+                  <StyledTableRow
+                    key={row.id || index}
+                    onClick={() => {
+                      row.onClick();
+                    }}
+                  >
+                    {row.items.map((item, index) => (
+                      <StyledTableCell
+                        sx={{
+                          color: "black",
+                          fontWeight: "bolder",
+                        }}
+                        key={index}
+                      >
+                        {item}
+                      </StyledTableCell>
+                    ))}
+                  </StyledTableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {isFetching ? <LinearProgress /> : <Box sx={{ height: "4px" }} />}
+        <Box sx={{ m: 1 }}>{pagination}</Box>
+      </CustomContainer>
+    </>
   );
 };
 export default CustomTable;

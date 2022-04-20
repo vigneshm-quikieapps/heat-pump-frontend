@@ -148,10 +148,10 @@ const ThirdStep = () => {
 
   const pagination = (
     <Pagination
-      count={data.length}
+      count={1}
       disabled={false}
       onChange={() => {
-        setOpenModal(false);
+        // setOpenModal(false);
       }}
     />
   );
