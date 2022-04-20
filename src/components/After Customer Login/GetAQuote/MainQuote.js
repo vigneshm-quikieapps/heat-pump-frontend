@@ -10,6 +10,8 @@ import FirstStep from "./FirstStep/FirstStep";
 import FifthStep from "./FifthStep/FifthStep";
 import SixthStep from "./SixthStep/SixthStep";
 import ThirdStep from "./ThirdStep/ThirdStep";
+import SecondStep from "./SecondStep/SecondStep";
+import SecondSubStep from "./SecondStep/SecondSubStep";
 
 const useStyles = makeStyles({
   radio: {
