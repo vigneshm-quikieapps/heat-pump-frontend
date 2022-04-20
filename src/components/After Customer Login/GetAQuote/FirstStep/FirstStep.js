@@ -9,8 +9,10 @@ import { connect } from "react-redux";
 import { customerDetailsAction } from "../../../../Redux/customerDetails/customerDetails.action";
 import { customerDetailsAutoSuggestion } from "../../../../Redux/customerDetails/customerDetails.action";
 import { customerDetailsReset } from "../../../../Redux/customerDetails/customerDetails.action";
-import { styled, TextField, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import StyledTextField from "../../../../common/textfield";
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card, Grid, Radio } from "../../../../common";
 
 const useStyles = makeStyles((theme) =>
@@ -303,6 +305,20 @@ const FirstStep = ({
         />
         <div></div>
       </Grid>
+      <Box sx={{ display: "flex" }}>
+        <button variant="contained" className="btn-house btn-icon">
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+          <span style={{ marginLeft: "100px" }}>Previous</span>
+        </button>
+        <button variant="contained" className="btn-house Add btn-icon">
+          <span style={{ marginRight: "100px" }}>Continue</span>
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+        </button>
+      </Box>
       {/*<span className=" rca2inputError input12Error">{input12Error}</span>*/}
     </Card>
   );

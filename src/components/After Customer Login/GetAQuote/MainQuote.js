@@ -11,6 +11,7 @@ import FifthStep from "./FifthStep/FifthStep";
 import SixthStep from "./SixthStep/SixthStep";
 import SecondStep from "./SecondStep/SecondStep";
 import SecondSubStep from "./SecondStep/SecondSubStep";
+import ThirdStep from "./ThirdStep/ThirdStep";
 
 const useStyles = makeStyles({
   radio: {
@@ -125,6 +126,7 @@ class MainQuote extends React.Component {
 
         {/* <Step/> */}
         <FirstStep />
+        <ThirdStep />
         {/* <FourthStep/> */}
         {/* <FifthStep/> */}
         {/*<SixthStep/>*/}

@@ -13,6 +13,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Card, Checkbox } from "../../../../common";
 import TableWeek from "./TableWeek";
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import StyledTextField from "../../../../common/textfield";
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -386,6 +388,20 @@ const SecondStep = () => {
         <MenuItem value="3">3</MenuItem>
         <MenuItem value="OTHER">Other</MenuItem>
       </StyledTextField>
+      <Box sx={{ display: "flex" }}>
+        <button variant="contained" className="btn-house btn-icon">
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+          <span style={{ marginLeft: "100px" }}>Previous</span>
+        </button>
+        <button variant="contained" className="btn-house Add btn-icon">
+          <span style={{ marginRight: "100px" }}>Continue</span>
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+        </button>
+      </Box>
     </Card>
   );
 };
