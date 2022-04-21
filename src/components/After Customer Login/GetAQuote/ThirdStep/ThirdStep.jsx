@@ -177,11 +177,11 @@ const ThirdStep = () => {
             <TailSpin color="#fa5e00" height="100" width="100" />
           </div>
         )}
-        <div className="s6text1">
+        <div className="s3text1">
           Step 3 of 9
           <img
             src={require("../../../../Img/step3.jpeg")}
-            className="s6baricon"
+            className="s3baricon"
           />
         </div>
 

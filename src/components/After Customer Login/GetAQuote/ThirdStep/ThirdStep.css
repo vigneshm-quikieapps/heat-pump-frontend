@@ -1,4 +1,4 @@
-.s6Paper {
+.s3Paper {
   border-style: solid;
   border-radius: 1.95vw;
   border-color: #f2f3f2;
@@ -8,12 +8,12 @@
   width: 90%;
 }
 
-.s6text1 {
+.s3text1 {
   font-size: 17.07px;
   font-weight: bold;
   display: inline;
 }
-.s6baricon {
+.s3baricon {
   margin-left: 3vw;
   position: relative;
   top: 1vh;

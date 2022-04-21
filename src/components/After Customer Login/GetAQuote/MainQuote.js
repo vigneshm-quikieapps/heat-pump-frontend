@@ -12,6 +12,8 @@ import SixthStep from "./SixthStep/SixthStep";
 import SecondStep from "./SecondStep/SecondStep";
 import SecondSubStep from "./SecondStep/SecondSubStep";
 import ThirdStep from "./ThirdStep/ThirdStep";
+import SeventhStep from "./SeventhStep/SeventhStep";
+import EightStep from "./EightStep/EightStep";
 
 const useStyles = makeStyles({
   radio: {
@@ -125,13 +127,16 @@ class MainQuote extends React.Component {
         <hr className="quote-hr" />
 
         {/* <Step/> */}
-        <FirstStep />
-        <ThirdStep />
+        {/* <FirstStep /> */}
+        {/* <ThirdStep /> */}
+        {/* <FirstStep /> */}
         {/* <FourthStep/> */}
         {/* <FifthStep/> */}
-        {/*<SixthStep/>*/}
-        {/*<SecondStep />*/}
-        {/*<SecondSubStep />*/}
+        <SixthStep/>
+        {/* <SecondStep /> */}
+        {/* <SecondSubStep /> */}
+        {/* <SeventhStep/> */}
+        {/* <EightStep/> */}
 
         {/*   <Step1 
             currentStep={this.state.currentStep}
@@ -152,67 +157,67 @@ class MainQuote extends React.Component {
   }
 }
 
-function Step1(props) {
-  if (props.currentStep !== 1) {
-    return null;
-  }
-  return (
-    <div className="form-group">
-      <label htmlFor="email">Email address</label>
-      <input
-        className="form-control"
-        id="email"
-        name="email"
-        type="text"
-        placeholder="Enter email"
-        value={props.email}
-        onChange={props.handleChange}
-      />
-    </div>
-  );
-}
+// function Step1(props) {
+//   if (props.currentStep !== 1) {
+//     return null;
+//   }
+//   return (
+//     <div className="form-group">
+//       <label htmlFor="email">Email address</label>
+//       <input
+//         className="form-control"
+//         id="email"
+//         name="email"
+//         type="text"
+//         placeholder="Enter email"
+//         value={props.email}
+//         onChange={props.handleChange}
+//       />
+//     </div>
+//   );
+// }
 
-function Step2(props) {
-  if (props.currentStep !== 2) {
-    return null;
-  }
-  return (
-    <div className="form-group">
-      <label htmlFor="username">Username</label>
-      <input
-        className="form-control"
-        id="username"
-        name="username"
-        type="text"
-        placeholder="Enter username"
-        value={props.username}
-        onChange={props.handleChange}
-      />
-    </div>
-  );
-}
+// function Step2(props) {
+//   if (props.currentStep !== 2) {
+//     return null;
+//   }
+//   return (
+//     <div className="form-group">
+//       <label htmlFor="username">Username</label>
+//       <input
+//         className="form-control"
+//         id="username"
+//         name="username"
+//         type="text"
+//         placeholder="Enter username"
+//         value={props.username}
+//         onChange={props.handleChange}
+//       />
+//     </div>
+//   );
+// }
 
-function Step3(props) {
-  if (props.currentStep !== 3) {
-    return null;
-  }
-  return (
-    <React.Fragment>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          className="form-control"
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Enter password"
-          value={props.password}
-          onChange={props.handleChange}
-        />
-      </div>
-      <button className="btn btn-success btn-block">Sign up</button>
-    </React.Fragment>
-  );
-}
+// function Step3(props) {
+//   if (props.currentStep !== 3) {
+//     return null;
+//   }
+//   return (
+//     <React.Fragment>
+//       <div className="form-group">
+//         <label htmlFor="password">Password</label>
+//         <input
+//           className="form-control"
+//           id="password"
+//           name="password"
+//           type="password"
+//           placeholder="Enter password"
+//           value={props.password}
+//           onChange={props.handleChange}
+//         />
+//       </div>
+//       <button className="btn btn-success btn-block">Sign up</button>
+//     </React.Fragment>
+//   );
+// }
 
 export default MainQuote;
