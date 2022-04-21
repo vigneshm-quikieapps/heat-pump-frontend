@@ -31,10 +31,10 @@ const SecondStep = () => {
   const [focused, setFocused] = React.useState("");
   const [loader, setLoader] = useState(false);
   const [selectedAdultOccupants, setSelectedAdultOccupants] =
-    useState("Select");
+    useState("1_ADULT");
   const [selectedChildOccupants, setSelectedChildOccupants] =
-    useState("Select");
-  const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState("Select");
+    useState("1_CHILD");
+  const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState(1);
   function createData(name, Mon, Tues, Wed, Thur, Fri, Sat, Sun) {
     return { name, Mon, Tues, Wed, Thur, Fri, Sat, Sun };
   }
@@ -114,7 +114,16 @@ const SecondStep = () => {
         <img src={step2ProgressBar} className="s4baricon" alt="step 2" />
       </div>
 
-      <h4 style={{ fontSize: "1.4vw", marginTop: "10vh" }}>Occupancy</h4>
+      <Typography
+        style={{
+          fontSize: "30px",
+          fontFamily: "Outfit",
+          fontWeight: "600",
+          marginTop: "10vh",
+        }}
+      >
+        Occupancy
+      </Typography>
       <hr className="s2hr2" />
       <Typography
         sx={{
@@ -312,11 +321,11 @@ const SecondStep = () => {
           focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
         }
       >
-        <MenuItem value="1 ADULT">1 Adult</MenuItem>
-        <MenuItem value="2 ADULT">2 Adult</MenuItem>
-        <MenuItem value="3 ADULT">3 Adult</MenuItem>
-        <MenuItem value="4 ADULT">4 Adult</MenuItem>
-        <MenuItem value="5 ADULT">5 Adult</MenuItem>
+        <MenuItem value="1_ADULT">1 Adult</MenuItem>
+        <MenuItem value="2_ADULT">2 Adult</MenuItem>
+        <MenuItem value="3_ADULT">3 Adult</MenuItem>
+        <MenuItem value="4_ADULT">4 Adult</MenuItem>
+        <MenuItem value="5_ADULT">5 Adult</MenuItem>
         <MenuItem value="OTHER">Other</MenuItem>
       </StyledTextField>
 
@@ -342,11 +351,11 @@ const SecondStep = () => {
           focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
         }
       >
-        <MenuItem value="1 CHILD">1 Child</MenuItem>
-        <MenuItem value="2 CHILD">2 Child</MenuItem>
-        <MenuItem value="3 CHILD">3 Child</MenuItem>
-        <MenuItem value="4 CHILD">4 Child</MenuItem>
-        <MenuItem value="5 CHILD">5 Child</MenuItem>
+        <MenuItem value="1_CHILD">1 Child</MenuItem>
+        <MenuItem value="2_CHILD">2 Child</MenuItem>
+        <MenuItem value="3_CHILD">3 Child</MenuItem>
+        <MenuItem value="4_CHILD">4 Child</MenuItem>
+        <MenuItem value="5_CHILD">5 Child</MenuItem>
         <MenuItem value="OTHER">Other</MenuItem>
       </StyledTextField>
       <Typography

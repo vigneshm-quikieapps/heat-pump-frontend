@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
@@ -32,7 +32,16 @@ const EightStep = () => {
       </div>
 
       <div>
-        <h4 style={{ fontSize: "1.4vw", marginTop: "4%" }}>Other</h4>
+        <Typography
+          style={{
+            fontSize: "30px",
+            fontFamily: "Outfit",
+            fontWeight: "600",
+            marginTop: "10vh",
+          }}
+        >
+          Other
+        </Typography>
         <hr
           style={{
             backgroundColor: "#f2f3f2",

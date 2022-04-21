@@ -6,7 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
@@ -103,7 +103,16 @@ const FourthStep = () => {
         <img src={require("../../../../Img/step4.png")} className="s4baricon" />
       </div>
 
-      <h4 style={{ fontSize: "1.4vw", marginTop: "10vh" }}>Upload Drawings</h4>
+      <Typography
+        style={{
+          fontSize: "30px",
+          fontFamily: "Outfit",
+          fontWeight: "600",
+          marginTop: "10vh",
+        }}
+      >
+        Upload Drawings
+      </Typography>
       <hr className="s2hr2" />
       <h4 className="s4name1">Plans-GF/1F/2F</h4>
       <hr className="s4hr2" />

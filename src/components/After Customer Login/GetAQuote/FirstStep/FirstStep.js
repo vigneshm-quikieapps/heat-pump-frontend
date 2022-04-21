@@ -178,7 +178,6 @@ const FirstStep = ({
     );
   };
   const ResultBlock = ({ results }) => {
-    console.log("results", results);
     return (
       <div className="result-block">
         <ul>
@@ -211,7 +210,16 @@ const FirstStep = ({
         Step 1 of 9
         <img src={require("../../../../Img/step1.png")} className="s1baricon" />
       </div>
-      <h4 style={{ fontSize: "1.4vw", marginTop: "10vh" }}>Site Details</h4>
+      <Typography
+        style={{
+          fontSize: "30px",
+          fontFamily: "Outfit",
+          fontWeight: "600",
+          marginTop: "10vh",
+        }}
+      >
+        Site Details
+      </Typography>
       <hr className="s1hr2" />
       <Grid sx={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
         <StyledTextField

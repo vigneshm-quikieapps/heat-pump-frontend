@@ -5,24 +5,25 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, TextField, Typography, Box } from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card } from "../../../../common";
+import { Card, TextField } from "../../../../common";
+import StyledTextField from "../../../../common/textfield";
 
 const useStyles = makeStyles({
   textfield: {
     "& label.Mui-focused": {
       color: "black",
-      fontSize: "1vw",
+      fontSize: "18px",
     },
     "& .MuiOutlinedInput-root": {
       borderRadius: "0.46vw",
       marginRight: "3.73vw",
       height: "6.71vh",
-      fontSize: "1vw",
+      fontSize: "18px",
       "&.Mui-focused fieldset": {
         borderColor: "black",
       },
@@ -34,7 +35,9 @@ const useStyles = makeStyles({
     height: "1.5%",
     borderRadius: "2.5vw",
     marginTop: "5%",
-    fontSize: "1vw",
+    fontSize: "18px",
+    fontFamily: "Outfit",
+    fontWeight: "300",
   },
   button1: {
     backgroundColor: "white",
@@ -42,7 +45,9 @@ const useStyles = makeStyles({
     height: "1.5%",
     borderRadius: "2.5vw",
     marginTop: "5%",
-    fontSize: "1vw",
+    fontSize: "18px",
+    fontFamily: "Outfit",
+    fontWeight: "300",
     color: "black",
   },
   button2: {
@@ -51,7 +56,9 @@ const useStyles = makeStyles({
     height: "1.5%",
     borderRadius: "2.5vw",
     marginTop: "5%",
-    fontSize: "1vw",
+    fontSize: "18px",
+    fontFamily: "Outfit",
+    fontWeight: "300",
     marginLeft: "2%",
   },
 });
@@ -64,50 +71,23 @@ const SixthStep = () => {
   const Input = () => {
     return (
       <div style={{ marginTop: "2.5%" }}>
-        <TextField
+        <StyledTextField
+          sx={{ marginRight: "40px", width: "20%" }}
           label="Room Description"
-          className={classes.textfield}
           value={""}
           onChange={""}
-          size="small"
-          InputLabelProps={{
-            style: {
-              fontWeight: "bolder",
-              fontFamily: "outfit",
-              fontSize: "1vw",
-            },
-          }}
-          InputProps={{ style: { fontWeight: "bolder", fontFamily: "outfit" } }}
         />
-        <TextField
+        <StyledTextField
+          sx={{ marginRight: "40px", width: "20%" }}
           label="Radiator(H X W in mm)"
-          className={classes.textfield}
           value={""}
           onChange={""}
-          size="small"
-          InputLabelProps={{
-            style: {
-              fontWeight: "bolder",
-              fontFamily: "outfit",
-              fontSize: "1vw",
-            },
-          }}
-          InputProps={{ style: { fontWeight: "bolder", fontFamily: "outfit" } }}
         />
-        <TextField
+        <StyledTextField
+          sx={{ width: "20%" }}
           label="Window(H X W in mm)"
-          className={classes.textfield}
           value={""}
           onChange={""}
-          size="small"
-          InputLabelProps={{
-            style: {
-              fontWeight: "bolder",
-              fontFamily: "outfit",
-              fontSize: "1vw",
-            },
-          }}
-          InputProps={{ style: { fontWeight: "bolder", fontFamily: "outfit" } }}
         />
       </div>
     );
@@ -133,9 +113,16 @@ const SixthStep = () => {
         <img src={require("../../../../Img/step6.png")} className="s6baricon" />
       </div>
 
-      <h4 style={{ fontSize: "1.4vw", marginTop: "6%" }}>
+      <Typography
+        style={{
+          fontSize: "30px",
+          fontFamily: "Outfit",
+          fontWeight: "600",
+          marginTop: "10vh",
+        }}
+      >
         Radiator and Window Sizes
-      </h4>
+      </Typography>
       <hr className="s2hr2" />
       {inputList}
       <Typography>
@@ -148,7 +135,7 @@ const SixthStep = () => {
           Add Room
         </Button>
       </Typography>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", marginTop: "60px" }}>
         <button variant="contained" className="btn-house btn-icon">
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />

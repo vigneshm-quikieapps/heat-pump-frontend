@@ -185,7 +185,16 @@ const ThirdStep = () => {
           />
         </div>
 
-        <h4 style={{ fontSize: "1.4vw", marginTop: "6%" }}>Fabric details</h4>
+        <Typography
+          style={{
+            fontSize: "30px",
+            fontFamily: "Outfit",
+            fontWeight: "600",
+            marginTop: "10vh",
+          }}
+        >
+          Fabric details
+        </Typography>
         <hr className="quote" />
         {dataArr.map((fabric, index) => (
           <Box sx={{ marginTop: "2%" }} key={index}>
@@ -196,12 +205,13 @@ const ThirdStep = () => {
               }}
             >
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <div
+                <h4
                   style={{
                     width: "257px",
                     fontSize: "22px",
                     fontFamily: "Outfit",
                     letterSpacing: "0.03",
+                    fontWeight: "300",
                     color: "#fa5e00",
                     textAlign: "right",
                   }}
@@ -214,7 +224,7 @@ const ThirdStep = () => {
                       border: "0.1vw solid #f2f3f2",
                     }}
                   />
-                </div>
+                </h4>
               </Box>
               <Box
                 sx={{

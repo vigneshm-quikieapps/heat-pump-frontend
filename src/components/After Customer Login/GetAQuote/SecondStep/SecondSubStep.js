@@ -22,7 +22,7 @@ import HighEquipment from "./HighEquipment";
 const SecondSubStep = () => {
   const [loader, setLoader] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [selectedGuestInWinter, setSelectedGuestInWinter] = useState("Select");
+  const [selectedGuestInWinter, setSelectedGuestInWinter] = useState(1);
 
   return (
     <>
@@ -37,9 +37,16 @@ const SecondSubStep = () => {
           <img src={step2ProgressBar} className="s4baricon" alt="step 2" />
         </div>
 
-        <h4 style={{ fontSize: "1.4vw", marginTop: "10vh" }}>
+        <Typography
+          style={{
+            fontSize: "30px",
+            fontFamily: "Outfit",
+            fontWeight: "600",
+            marginTop: "10vh",
+          }}
+        >
           Guest/Additional People
-        </h4>
+        </Typography>
         <hr className="s2hr2" />
         <Typography
           sx={{
