@@ -127,16 +127,15 @@ class MainQuote extends React.Component {
         <hr className="quote-hr" />
 
         {/* <Step/> */}
-        {/* <FirstStep /> */}
-        {/* <ThirdStep /> */}
-        {/* <FirstStep /> */}
-        {/* <FourthStep/> */}
-        {/* <FifthStep/> */}
-        {/* <SixthStep/> */}
-        {/* <SecondStep /> */}
+        <FirstStep />
+        <SecondStep />
         <SecondSubStep />
-        {/* <SeventhStep/> */}
-        {/* <EightStep/> */}
+        <ThirdStep />
+        <FourthStep />
+        <FifthStep />
+        <SixthStep />
+        <SeventhStep />
+        <EightStep />
 
         {/*   <Step1 
             currentStep={this.state.currentStep}

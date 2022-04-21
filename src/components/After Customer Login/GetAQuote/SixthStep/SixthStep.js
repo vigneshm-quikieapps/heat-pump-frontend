@@ -5,11 +5,12 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, TextField, Typography,Box } from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
+import { Card } from "../../../../common";
 
 const useStyles = makeStyles({
   textfield: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles({
     borderRadius: "2.5vw",
     marginTop: "5%",
     fontSize: "1vw",
-    color:"black",
+    color: "black",
   },
   button2: {
     backgroundColor: "black",
@@ -51,20 +52,18 @@ const useStyles = makeStyles({
     borderRadius: "2.5vw",
     marginTop: "5%",
     fontSize: "1vw",
-    marginLeft:"2%",
+    marginLeft: "2%",
   },
 });
-
-
 
 const SixthStep = () => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   const [inputList, setInputList] = useState([]);
-  const Input = () =>{
-    return(
-    <div style={{ marginTop: "2.5%" }}>
+  const Input = () => {
+    return (
+      <div style={{ marginTop: "2.5%" }}>
         <TextField
           label="Room Description"
           className={classes.textfield}
@@ -110,19 +109,20 @@ const SixthStep = () => {
           }}
           InputProps={{ style: { fontWeight: "bolder", fontFamily: "outfit" } }}
         />
-      </div>);
-  }
+      </div>
+    );
+  };
 
   useEffect(() => {
-    setInputList(inputList.concat(<Input key={inputList.length} />)); 
-  }, [])
+    setInputList(inputList.concat(<Input key={inputList.length} />));
+  }, []);
 
-  const onAddBtnClick = event => {
+  const onAddBtnClick = (event) => {
     setInputList(inputList.concat(<Input key={inputList.length} />));
   };
 
   return (
-    <div className="s6Paper">
+    <Card>
       {loader && (
         <div className="customLoader">
           <TailSpin color="#fa5e00" height="100" width="100" />
@@ -136,6 +136,7 @@ const SixthStep = () => {
       <h4 style={{ fontSize: "1.4vw", marginTop: "6%" }}>
         Radiator and Window Sizes
       </h4>
+      <hr className="s2hr2" />
       {inputList}
       <Typography>
         <Button
@@ -147,25 +148,21 @@ const SixthStep = () => {
           Add Room
         </Button>
       </Typography>
-      <Box sx={{ display: "flex",marginTop:"7%" }}>
-          <Button
-          className={classes.button1}
-          onClick={onAddBtnClick}
-          variant="contained"
-          startIcon={<ChevronLeftSharpIcon style={{ height: "5vh", width: "2vw",marginRight:"4vw" }} />}
-        >
-          Previous
-        </Button>
-        <Button
-          className={classes.button2}
-          onClick={onAddBtnClick}
-          variant="contained"
-          endIcon={<ChevronRightSharpIcon style={{ height: "5vh", width: "2vw",marginLeft:"4vw" }} />}
-        >
-          Continue
-        </Button>
-       </Box>
-    </div>
+      <Box sx={{ display: "flex" }}>
+        <button variant="contained" className="btn-house btn-icon">
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+          <span style={{ marginLeft: "100px" }}>Previous</span>
+        </button>
+        <button variant="contained" className="btn-house Add btn-icon">
+          <span style={{ marginRight: "100px" }}>Continue</span>
+          <span style={{ height: "27px", width: "27px" }}>
+            <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
+          </span>
+        </button>
+      </Box>
+    </Card>
   );
 };
 

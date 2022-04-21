@@ -6,11 +6,11 @@ import { Box, MenuItem } from "@mui/material";
 
 const Equipment = () => {
   const [focused, setFocused] = useState(false);
-  const [selectedTV, setSelectedTV] = useState("Select");
-  const [selectedMonitors, setSelectedMonitors] = useState("Select");
-  const [selectedLaptops, setSelectedLaptops] = useState("Select");
-  const [selectedITServers, setSelectedITServers] = useState("Select");
-  const [selectedPhotocopiers, setSelectedPhotocopiers] = useState("Select");
+  const [selectedTV, setSelectedTV] = useState(1);
+  const [selectedMonitors, setSelectedMonitors] = useState(1);
+  const [selectedLaptops, setSelectedLaptops] = useState(1);
+  const [selectedITServers, setSelectedITServers] = useState(1);
+  const [selectedPhotocopiers, setSelectedPhotocopiers] = useState(1);
 
   console.log("selectedTV", selectedTV);
   return (

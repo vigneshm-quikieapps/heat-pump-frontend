@@ -185,9 +185,7 @@ const ThirdStep = () => {
           />
         </div>
 
-        <h4 style={{ fontSize: "23.897999999999996px", marginTop: "6%" }}>
-          Fabric details
-        </h4>
+        <h4 style={{ fontSize: "1.4vw", marginTop: "6%" }}>Fabric details</h4>
         <hr className="quote" />
         {dataArr.map((fabric, index) => (
           <Box sx={{ marginTop: "2%" }} key={index}>
@@ -202,6 +200,7 @@ const ThirdStep = () => {
                   style={{
                     width: "257px",
                     fontSize: "22px",
+                    fontFamily: "Outfit",
                     letterSpacing: "0.03",
                     color: "#fa5e00",
                     textAlign: "right",
@@ -259,7 +258,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["External Walls"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "22px" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["External Walls"]?.description}
@@ -268,7 +269,11 @@ const ThirdStep = () => {
 
                     {fabric["External Walls"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["External Walls"].detail}
                       </Typography>
                     )}
@@ -309,7 +314,11 @@ const ThirdStep = () => {
                   >
                     <Typography
                       variant="h6"
-                      sx={{ color: "#fa5e00", fontWeight: "bold" }}
+                      sx={{
+                        color: "#fa5e00",
+                        fontWeight: "bold",
+                        fontFamily: "Outfit",
+                      }}
                     >
                       {fabric["Internal Walls"]?.type}
                     </Typography>
@@ -317,7 +326,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["Internal Walls"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["Internal Walls"].description}
@@ -326,7 +337,11 @@ const ThirdStep = () => {
 
                     {fabric["Internal Walls"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["Internal Walls"].detail}
                       </Typography>
                     )}
@@ -367,7 +382,11 @@ const ThirdStep = () => {
                   >
                     <Typography
                       variant="h6"
-                      sx={{ color: "#fa5e00", fontWeight: "bold" }}
+                      sx={{
+                        color: "#fa5e00",
+                        fontWeight: "bold",
+                        fontFamily: "Outfit",
+                      }}
                     >
                       {fabric["Roof Type"]?.type}
                     </Typography>
@@ -375,7 +394,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["Roof Type"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["Roof Type"].description}
@@ -384,7 +405,11 @@ const ThirdStep = () => {
 
                     {fabric["Roof Type"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["Roof Type"].detail}
                       </Typography>
                     )}
@@ -425,7 +450,11 @@ const ThirdStep = () => {
                   >
                     <Typography
                       variant="h6"
-                      sx={{ color: "#fa5e00", fontWeight: "bold" }}
+                      sx={{
+                        color: "#fa5e00",
+                        fontWeight: "bold",
+                        fontFamily: "Outfit",
+                      }}
                     >
                       {fabric["Windows"]?.type}
                     </Typography>
@@ -433,7 +462,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["Windows"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["Windows"].description}
@@ -442,7 +473,11 @@ const ThirdStep = () => {
 
                     {fabric["Windows"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["Windows"].detail}
                       </Typography>
                     )}
@@ -483,7 +518,11 @@ const ThirdStep = () => {
                   >
                     <Typography
                       variant="h6"
-                      sx={{ color: "#fa5e00", fontWeight: "bold" }}
+                      sx={{
+                        color: "#fa5e00",
+                        fontWeight: "bold",
+                        fontFamily: "Outfit",
+                      }}
                     >
                       {fabric["Suspended Floors"]?.type}
                     </Typography>
@@ -491,7 +530,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["Suspended Floors"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["Suspended Floors"].description}
@@ -500,7 +541,11 @@ const ThirdStep = () => {
 
                     {fabric["Suspended Floors"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["Suspended Floors"].detail}
                       </Typography>
                     )}
@@ -541,7 +586,11 @@ const ThirdStep = () => {
                   >
                     <Typography
                       variant="h6"
-                      sx={{ color: "#fa5e00", fontWeight: "bold" }}
+                      sx={{
+                        color: "#fa5e00",
+                        fontWeight: "bold",
+                        fontFamily: "Outfit",
+                      }}
                     >
                       {fabric["Inner Floors"]?.type}
                     </Typography>
@@ -549,7 +598,9 @@ const ThirdStep = () => {
                   <Box sx={{ marginLeft: "5%" }}>
                     {fabric["Inner Floors"]?.description && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
                           Description:{" "}
                         </span>
                         {fabric["Inner Floors"].description}
@@ -558,7 +609,11 @@ const ThirdStep = () => {
 
                     {fabric["Inner Floors"]?.detail && (
                       <Typography>
-                        <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                        <span
+                          style={{ fontWeight: "bold", fontFamily: "Outfit" }}
+                        >
+                          Details:{" "}
+                        </span>{" "}
                         {fabric["Inner Floors"].detail}
                       </Typography>
                     )}
@@ -585,6 +640,7 @@ const ThirdStep = () => {
                 style={{
                   width: "257px",
                   fontSize: "22px",
+                  fontFamily:"Outfit",
                   letterSpacing: "0.03",
                   color: "#fa5e00",
                   textAlign: "right",
@@ -622,6 +678,7 @@ const ThirdStep = () => {
                   width: "50%",
                   marginLeft: "3%",
                   display: "flex",
+
                   alignItems: "center",
                   justifyContent: "space-around",
                 }}
@@ -635,12 +692,12 @@ const ThirdStep = () => {
                 </Box>
                 <Box>
                   <Typography>
-                    <span style={{ fontWeight: "bold" }}>Description: </span>
+                    <span style={{ fontWeight: "bold",fontFamily:"Outfit" }}>Description: </span>
                     {dataArr[0]["External Walls"].description}
                   </Typography>
 
                   <Typography>
-                    <span style={{ fontWeight: "bold" }}>Details: </span>{" "}
+                    <span style={{ fontWeight: "bold" ,fontFamily:"Outfit"}}>Details: </span>{" "}
                     {dataArr[0]["External Walls"].detail}
                   </Typography>
                 </Box>
@@ -744,11 +801,19 @@ const ThirdStep = () => {
             <Typography
               variant="h5"
               component="h2"
-              sx={{ color: "#fa5e00", fontWeight: "Bold" }}
+              sx={{
+                color: "#fa5e00",
+                fontWeight: "Bold",
+                fontFamily: "Outfit",
+              }}
             >
               External Walls
             </Typography>
-            <Typography variant="h5" component="h2" sx={{ fontWeight: "Bold" }}>
+            <Typography
+              variant="h5"
+              component="h2"
+              sx={{ fontFamily: "Outfit", fontWeight: "Bold" }}
+            >
               Fabric Details
             </Typography>
             <hr className="quote" style={{ width: "16%" }} />

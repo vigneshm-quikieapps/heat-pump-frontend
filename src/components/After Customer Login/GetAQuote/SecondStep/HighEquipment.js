@@ -6,11 +6,11 @@ import { Box, MenuItem } from "@mui/material";
 
 const HighEquipment = () => {
   const [focused, setFocused] = useState(false);
-  const [selectedSauna, setSelectedSauna] = useState("Select");
-  const [selectedHotTub, setSelectedHotTub] = useState("Select");
-  const [selectedSwimmingPool, setSelectedSwimmingPool] = useState("Select");
-  const [selectedKilns, setSelectedKilns] = useState("Select");
-  const [selectedOther, setSelectedOther] = useState("Select");
+  const [selectedSauna, setSelectedSauna] = useState(1);
+  const [selectedHotTub, setSelectedHotTub] = useState(1);
+  const [selectedSwimmingPool, setSelectedSwimmingPool] = useState(1);
+  const [selectedKilns, setSelectedKilns] = useState(1);
+  const [selectedOther, setSelectedOther] = useState(1);
   return (
     <>
       <Box sx={{ width: "80%" }}>

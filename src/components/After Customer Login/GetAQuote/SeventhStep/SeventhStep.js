@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, TextField, Typography,Box } from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -15,6 +15,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
+import { Card } from "../../../../common";
 
 const useStyles = makeStyles({
   textfield: {
@@ -58,17 +59,16 @@ const useStyles = makeStyles({
         borderColor: "black",
       },
     },
-    icons:{
-      fontSize:"0.5vw"
+    icons: {
+      fontSize: "0.5vw",
     },
   },
-  selectinput:{
-    marginBottom:"0.67vh",
-    fontFamily:"outfit",
+  selectinput: {
+    marginBottom: "0.67vh",
+    fontFamily: "outfit",
     fontWeight: "bolder",
-    fontSize:"1vw",
-    
-  }
+    fontSize: "1vw",
+  },
 });
 
 const SeventhStep = () => {
@@ -79,7 +79,7 @@ const SeventhStep = () => {
   const [priority, setPriority] = useState("Gas");
 
   return (
-    <div className="s7Paper">
+    <Card>
       {loader && (
         <div className="customLoader">
           <TailSpin color="#fa5e00" height="100" width="100" />
@@ -92,32 +92,54 @@ const SeventhStep = () => {
 
       <div>
         <h4 style={{ fontSize: "1.4vw", marginTop: "6%" }}>Heating System</h4>
+        <hr className="s2hr2" />
+
         <div style={{ marginTop: "2.5%" }}>
-        <FormControl className={classes.selectfield}>
-            <InputLabel id="demo-simple-select-label" className={classes.selectinput}>Select</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={priority}
-                  onChange={(e) => setPriority(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
-                  label="Priority"
-                  IconComponent={() =>
-                    focused ? (
-                      <KeyboardArrowUpIcon className={classes.icons}/>
-                    ) : (
-                      <KeyboardArrowDownIcon className={classes.icons} />
-                    )
-                  }
-                >
-                  <MenuItem value="Gas" style={{fontWeight:600}}> Gas </MenuItem>
-                  <MenuItem value="Heat Pump" style={{fontWeight:600}}> Heat Pump </MenuItem>
-                  <MenuItem value="Wood" style={{fontWeight:600}}> Wood </MenuItem>
-                  <MenuItem value="Oil" style={{fontWeight:600}}> Oil </MenuItem>
-                  <MenuItem value="LPG" style={{fontWeight:600}}> LPG </MenuItem>
-                </Select>
-              </FormControl>
+          <FormControl className={classes.selectfield}>
+            <InputLabel
+              id="demo-simple-select-label"
+              className={classes.selectinput}
+            >
+              Select
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              label="Priority"
+              IconComponent={() =>
+                focused ? (
+                  <KeyboardArrowUpIcon className={classes.icons} />
+                ) : (
+                  <KeyboardArrowDownIcon className={classes.icons} />
+                )
+              }
+            >
+              <MenuItem value="Gas" style={{ fontWeight: 600 }}>
+                {" "}
+                Gas{" "}
+              </MenuItem>
+              <MenuItem value="Heat Pump" style={{ fontWeight: 600 }}>
+                {" "}
+                Heat Pump{" "}
+              </MenuItem>
+              <MenuItem value="Wood" style={{ fontWeight: 600 }}>
+                {" "}
+                Wood{" "}
+              </MenuItem>
+              <MenuItem value="Oil" style={{ fontWeight: 600 }}>
+                {" "}
+                Oil{" "}
+              </MenuItem>
+              <MenuItem value="LPG" style={{ fontWeight: 600 }}>
+                {" "}
+                LPG{" "}
+              </MenuItem>
+            </Select>
+          </FormControl>
         </div>
 
         <div>
@@ -132,7 +154,7 @@ const SeventhStep = () => {
           <h3 style={{ fontSize: "1.1vw", marginTop: "2%", color: "#fa5e00" }}>
             Electrictiy & {priority} Annual Usage
           </h3>
-          <Typography sx={{marginTop:"1.8vh"}}>
+          <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               label="Amount of Electricity(kWh)"
               className={classes.textfield}
@@ -152,7 +174,7 @@ const SeventhStep = () => {
             />
           </Typography>
 
-          <Typography sx={{marginTop:"2vh"}}>
+          <Typography sx={{ marginTop: "2vh" }}>
             <TextField
               label={`Amount of ${priority}(kWh)`}
               className={classes.textfield}
@@ -174,7 +196,7 @@ const SeventhStep = () => {
           <h3 style={{ fontSize: "1.1vw", marginTop: "2%", color: "#fa5e00" }}>
             Electrictiy & {priority} Annual Spend
           </h3>
-          <Typography sx={{marginTop:"1.8vh"}}>
+          <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               label="Cost of Electricity(£)"
               className={classes.textfield}
@@ -194,7 +216,7 @@ const SeventhStep = () => {
             />
           </Typography>
 
-          <Typography sx={{marginTop:"2vh"}}>
+          <Typography sx={{ marginTop: "2vh" }}>
             <TextField
               label={`Cost of ${priority}(£)`}
               className={classes.textfield}
@@ -229,7 +251,7 @@ const SeventhStep = () => {
           </button>
         </Box>
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -31,8 +31,9 @@
   border-radius: 32.5px;
   border: solid 1px #d3d3d3;
   background-color: #f9f9f9;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: Outfit;
 }
 .Add {
   background-color: black;
