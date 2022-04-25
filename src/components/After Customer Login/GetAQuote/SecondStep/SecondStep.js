@@ -27,7 +27,7 @@ const StyledTableCell = withStyles((theme) => ({
     padding: "0px 16px",
   },
 }))(TableCell);
-const SecondStep = () => {
+const SecondStep = (props) => {
   const [focused, setFocused] = React.useState("");
   const [loader, setLoader] = useState(false);
   const [selectedAdultOccupants, setSelectedAdultOccupants] =
@@ -398,13 +398,21 @@ const SecondStep = () => {
         <MenuItem value="OTHER">Other</MenuItem>
       </StyledTextField>
       <Box sx={{ display: "flex" }}>
-        <button variant="contained" className="btn-house btn-icon">
+        <button
+          variant="contained"
+          className="btn-house btn-icon"
+          onClick={props.prev}
+        >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
           </span>
           <span style={{ marginLeft: "100px" }}>Previous</span>
         </button>
-        <button variant="contained" className="btn-house Add btn-icon">
+        <button
+          variant="contained"
+          className="btn-house Add btn-icon"
+          onClick={props.next}
+        >
           <span style={{ marginRight: "100px" }}>Continue</span>
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />

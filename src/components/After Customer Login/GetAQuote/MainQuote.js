@@ -59,7 +59,7 @@ class MainQuote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentStep: 1,
+      currentStep: 0,
       email: "",
       username: "",
       password: "",
@@ -75,7 +75,7 @@ class MainQuote extends React.Component {
 
   _next = () => {
     let currentStep = this.state.currentStep;
-    currentStep = currentStep >= 2 ? 3 : currentStep + 1;
+    currentStep = currentStep + 1;
     this.setState({
       currentStep: currentStep,
     });
@@ -83,7 +83,7 @@ class MainQuote extends React.Component {
 
   _prev = () => {
     let currentStep = this.state.currentStep;
-    currentStep = currentStep <= 1 ? 1 : currentStep - 1;
+    currentStep = currentStep < 0 ? 0 : currentStep - 1;
     this.setState({
       currentStep: currentStep,
     });
@@ -126,16 +126,33 @@ class MainQuote extends React.Component {
         <h1 className="get-a-quote">Get a Quotes</h1>
         <hr className="quote-hr" />
 
-        {/* <Step/> */}
-        <FirstStep />
-        <SecondStep />
-        <SecondSubStep />
-        <ThirdStep />
-        <FourthStep />
-        <FifthStep />
-        <SixthStep />
-        <SeventhStep />
-        <EightStep />
+        {this.state.currentStep === 0 && <FirstStep next={this._next} />}
+        {this.state.currentStep === 1 && (
+          <SecondStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 2 && (
+          <SecondSubStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 3 && (
+          <ThirdStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 4 && (
+          <FourthStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 5 && (
+          <FifthStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 6 && (
+          <SixthStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 7 && (
+          <SeventhStep prev={this._prev} next={this._next} />
+        )}
+        {this.state.currentStep === 8 && (
+          <EightStep prev={this._prev} next={this._next} />
+        )}
+
+        {/* <FirstStep name="akash" /> */}
 
         {/*   <Step1 
             currentStep={this.state.currentStep}

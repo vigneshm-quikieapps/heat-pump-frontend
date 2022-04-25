@@ -13,7 +13,7 @@ import { Card } from "../../../../common";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
-const FourthStep = () => {
+const FourthStep = (props) => {
   const [plans, setPlans] = useState([]);
   const [pattachments, setPattachments] = useState([]);
   const [elevations, setElevations] = useState([]);
@@ -342,13 +342,21 @@ const FourthStep = () => {
           );
         })}
       <Box sx={{ display: "flex" }}>
-        <button variant="contained" className="btn-house btn-icon">
+        <button
+          variant="contained"
+          className="btn-house btn-icon"
+          onClick={props.prev}
+        >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
           </span>
           <span style={{ marginLeft: "100px" }}>Previous</span>
         </button>
-        <button variant="contained" className="btn-house Add btn-icon">
+        <button
+          variant="contained"
+          className="btn-house Add btn-icon"
+          onClick={props.next}
+        >
           <span style={{ marginRight: "100px" }}>Continue</span>
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />

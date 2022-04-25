@@ -18,8 +18,11 @@ const StyledTableCell = styled(TableCell, {
 })(({ cellWidth }) => ({
   [`&.${tableCellClasses.head}`]: {
     color: "black",
-    fontWeight: "bolder",
+
     width: cellWidth ? cellWidth : undefined,
+    fontWeight: "bolder",
+    fontFamily: "Outfit",
+    lineHeight: "normal",
   },
   [`&.${tableCellClasses.root}`]: { border: 0 },
 }));
@@ -87,6 +90,7 @@ const CustomTable = ({
               <TableRow>
                 {headers.map((header, index) => (
                   <StyledTableCell
+                    sx={{ textAlign: "center" }}
                     key={index}
                     component="th"
                     cellWidth={headerCellWidth}
@@ -132,8 +136,10 @@ const CustomTable = ({
                     {row.items.map((item, index) => (
                       <StyledTableCell
                         sx={{
+                          textAlign: "center",
                           color: "black",
                           fontWeight: "bolder",
+                          fontFamily: "Outfit",
                         }}
                         key={index}
                       >

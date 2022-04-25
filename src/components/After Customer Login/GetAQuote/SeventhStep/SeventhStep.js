@@ -72,7 +72,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SeventhStep = () => {
+const SeventhStep = (props) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
@@ -200,13 +200,13 @@ const SeventhStep = () => {
           </Typography>
         </div>
         <Box sx={{ display: "flex", marginTop: "30px" }}>
-          <button variant="contained" className="btn-house btn-icon">
+          <button variant="contained" className="btn-house btn-icon" onClick={props.prev}>
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
             </span>
             <span style={{ marginLeft: "100px" }}>Previous</span>
           </button>
-          <button variant="contained" className="btn-house Add btn-icon">
+          <button variant="contained" className="btn-house Add btn-icon" onClick={props.next}>
             <span style={{ marginRight: "100px" }}>Continue</span>
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />

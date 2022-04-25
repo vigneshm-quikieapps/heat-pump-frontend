@@ -19,7 +19,7 @@ import StyledTextField from "../../../../common/textfield";
 import Equipment from "./Equipment";
 import HighEquipment from "./HighEquipment";
 
-const SecondSubStep = () => {
+const SecondSubStep = (props) => {
   const [loader, setLoader] = useState(false);
   const [focused, setFocused] = useState(false);
   const [selectedGuestInWinter, setSelectedGuestInWinter] = useState(1);
@@ -710,13 +710,21 @@ const SecondSubStep = () => {
           </Box>
         </Box>
         <Box sx={{ display: "flex" }}>
-          <button variant="contained" className="btn-house btn-icon">
+          <button
+            variant="contained"
+            className="btn-house btn-icon"
+            onClick={props.prev}
+          >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
             </span>
             <span style={{ marginLeft: "100px" }}>Previous</span>
           </button>
-          <button variant="contained" className="btn-house Add btn-icon">
+          <button
+            variant="contained"
+            className="btn-house Add btn-icon"
+            onClick={props.next}
+          >
             <span style={{ marginRight: "100px" }}>Continue</span>
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
