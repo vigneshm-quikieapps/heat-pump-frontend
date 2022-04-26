@@ -140,12 +140,26 @@ const FirstStep = ({
     setsearchValue(e.target.value);
     console.log("ddd", e.target.value);
   };
+
+  useEffect(() => {
+    if(searchValue.length > 2){
+   axios.get(`https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5`)
+   //axios.get(`https://ws.postcoder.com/pcw/PCWFQ-4NFQ9-PZY8R-574WR/street/uk/${code}`)
+   .then(res =>setSuggestionListAction(res.data))}
+   
+  }, [searchValue])
+ 
+  useEffect(() => {
+    console.log(customerDetails);
+    
+    }, [customerDetails])
+  
   const clickHandler1 = (e) => {
     //Request failed with status code 403PCWBY-K73QV-5TPTP-7H75B
     if (!parseInt(e.target.id)) {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWBY-K73QV-5TPTP-7H75B&pathfilter=${e.target.id}`
+          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}`
         )
         .then((res) => {
           setSuggestionListAction(res.data);
@@ -153,7 +167,7 @@ const FirstStep = ({
     } else {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWBY-K73QV-5TPTP-7H75B&lines=3&include=posttown,postcode`
+          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&lines=3&include=posttown,postcode`
         )
         .then((res) => res.data[0])
         .then((resp) => customerDetailsAutoSuggestion(resp));
