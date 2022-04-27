@@ -610,7 +610,7 @@ const TableWeek = (props) => {
                 }}
                 align="center"
               >
-                1 week
+                &#60; 1 week
               </StyledTableCell>
               <StyledTableCell
                 sx={{
