@@ -8,7 +8,11 @@ import axios from "axios";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import validator from "validator";
-
+import { Box, Button, InputAdornment, Typography } from "@mui/material";
+import StyledTextField from "../../../common/textfield";
+// import MailIcon from "../../../Img/icon.png";
+import EmailIcon from "@mui/icons-material/Email";
+import LockIcon from "@mui/icons-material/Lock";
 const passwords = {
   value: "",
   type: "password",
@@ -150,7 +154,46 @@ const Login = () => {
 
           <form action="">
             <div style={{ position: "relative" }}>
-              <input
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "0 0 0 60px" }}
+                required
+                type="text"
+                value={emailValue}
+                onChange={changeHandler}
+                name="email"
+                label="Email Address"
+                onBlur={blurFunc}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment
+                      sx={{ fontSize: "22px", fontWeight: "800" }}
+                      position="start"
+                    >
+                      <EmailIcon sx={{ color: "#000 !important" }} />
+                    </InputAdornment>
+                  ),
+                }}
+                InputLabelProps={{
+                  style: { background: "#fff" },
+                }}
+              />
+              {/* <img
+                src={require("../../../Img/icon.png")}
+                alt=""
+                className="emailIcon"
+              /> */}
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  margin: "1px 0px 0px 62px",
+                  color: "red",
+                }}
+              >
+                {inputLogin1Error}
+              </Typography>
+              {/* <input
                 type="text"
                 className="email "
                 value={emailValue}
@@ -173,10 +216,60 @@ const Login = () => {
                 className="loginspan2"
               >
                 Both passwords should match
-              </span>
+              </span> */}
             </div>
             <div style={{ position: "relative" }}>
-              <input
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "8px 0 0 60px" }}
+                required
+                label="Password"
+                type="password"
+                value={password.value}
+                onChange={changeHandler}
+                onBlur={blurFunc1}
+                name="password"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment
+                      sx={{ fontSize: "22px", fontWeight: "800" }}
+                      position="start"
+                    >
+                      <LockIcon sx={{ color: "#000 !important" }} />
+                    </InputAdornment>
+                  ),
+                }}
+                InputLabelProps={{
+                  style: { background: "#fff" },
+                }}
+              />
+              {password.showpassword ? (
+                <img
+                  src={require("../../../Img/iconEyeOpen.png")}
+                  alt=""
+                  className="npeyeIconOpen"
+                  onClick={togglePassword}
+                />
+              ) : (
+                <img
+                  src={require("../../../Img/icon3.png")}
+                  alt=""
+                  className="npeyeIcon"
+                  onClick={togglePassword}
+                />
+              )}
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  margin: "1px 0px 0px 62px",
+                  color: "red",
+                }}
+              >
+                {inputLogin2Error}
+              </Typography>
+
+              {/* <input
                 type={password.type}
                 value={password.value}
                 onChange={changeHandler}
@@ -211,32 +304,36 @@ const Login = () => {
               </span>
               <span className="loginspan1" style={{ color: `${color}` }}>
                 Must be at least 8 characters
-              </span>
+              </span> */}
             </div>
             <div className="icontick">
-              {remember ? (
-                <div
-                  style={{
-                    border: "0.12vw solid black",
-                    display: "inline-block",
-                  }}
-                  className="remember-me1"
-                  onClick={() => setRemember(false)}
-                />
-              ) : (
-                <img
-                  src={require("../../../Img/icontick.png")}
-                  /*  height="12px"
+              <div>
+                {remember ? (
+                  <div
+                    style={{
+                      border: "1px solid black",
+                      // display: "inline-block",
+                    }}
+                    className="remember-me1"
+                    onClick={() => setRemember(false)}
+                  />
+                ) : (
+                  <img
+                    src={require("../../../Img/icontick.png")}
+                    /*  height="12px"
                   width={"12px"} */
-                  className="remember-me1"
-                  alt=""
-                  onClick={() => setRemember(true)}
-                />
-              )}
-              <span className="remember">Remember me</span>
-              <Link to="/forgotpassword" style={{ margin: "0px" }}>
-                <span className="Forgot-password">Forgot password?</span>{" "}
-              </Link>
+                    className="remember-me1"
+                    alt=""
+                    onClick={() => setRemember(true)}
+                  />
+                )}
+                <span className="remember">Remember me</span>
+              </div>
+              <div>
+                <Link to="/forgotpassword" style={{ margin: "0px" }}>
+                  <span className="Forgot-password">Forgot password?</span>{" "}
+                </Link>
+              </div>
             </div>
 
             <button className="login-button" onClick={(e) => handleLogin(e)}>
@@ -244,22 +341,20 @@ const Login = () => {
             </button>
           </form>
 
-          <div style={{ margin: "2vh 0px 0px 11vw" }}>
+          <div style={{ margin: "auto" }}>
             <span
               class="Dont-have-an-account-Sign-Up"
-              style={{ fontWeight: "600" }}
+              style={{ fontWeight: "600", marginLeft: "16%" }}
             >
               Don’t have an account?
-              <Link
-                to="/signup"
-                style={{ color: "#fa5e00", marginLeft: "0.12vw" }}
-              >
+              <Link to="/signup" style={{ color: "#fa5e00", marginLeft: "1%" }}>
                 <span
                   style={{
                     fontWeight: 600,
                     color: "#fa5e00",
                     cursor: "pointer",
-                    fontSize: "1vw",
+                    fontSize: "18px",
+                    fontFamily: "Outfit",
                   }}
                 >
                   {" "}
@@ -271,9 +366,11 @@ const Login = () => {
 
           <div
             style={{
-              margin: "4.02vh 0px 0px 12vw",
-              fontSize: "0.85vw",
+              marginLeft: "20%",
+              marginTop: "3%",
+              fontSize: "14px",
               fontWeight: "600",
+              fontFamily: "Outfit",
             }}
           >
             <span>By continuing, you agree to our</span>
@@ -281,7 +378,7 @@ const Login = () => {
 
           <div className="terms-policies">
             <span style={{ fontWeight: "300" }}>Terms of Service</span>
-            <span style={{ marginLeft: "0.33vw", fontWeight: "300" }}>
+            <span style={{ marginLeft: "1%", fontWeight: "300" }}>
               Privacy Policy
             </span>
           </div>
