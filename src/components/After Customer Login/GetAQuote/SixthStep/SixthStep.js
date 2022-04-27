@@ -174,6 +174,11 @@ const SixthStep = (props) => {
 
       <Typography>
         <Button
+          sx={{
+            "&:hover": {
+              background: "#000",
+            },
+          }}
           className={classes.button}
           onClick={onAddBtnClick}
           variant="contained"
