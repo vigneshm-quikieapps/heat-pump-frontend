@@ -358,14 +358,14 @@ const ServiceList = ({ FirstPageAction }) => {
                       <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }}>SR No.</TableCell>
                       <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }} >Title</TableCell>
                       <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }}>Site Details</TableCell>
-                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }}>SR Type</TableCell>
-                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }}>
+                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600,width:"163px" }}>SR Type</TableCell>
+                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600,width:"168px" }}>
                         {" "}
                         Last Updated
                         <br />
                         Date & Time
                       </TableCell>
-                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600 }}>Status</TableCell>
+                      <TableCell style={{ fontSize: "16px",fontFamily:"Outfit",color:"#000",fontWeight:600,width:"128px" }}>Status</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
