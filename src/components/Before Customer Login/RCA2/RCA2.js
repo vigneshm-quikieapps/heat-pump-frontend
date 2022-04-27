@@ -415,9 +415,7 @@ function RCA2({
             Request a Customer Account
           </Typography>
           <Box style={{ position: "relative" }}>
-            <Box className="left-bar"></Box>
-            <Box className="circle"></Box>
-            <Box className="right-bar"></Box>
+          <img src={require("../../../../src/Img/step8.png")} className="s8baricon" />
           </Box>
           <Typography
             style={{
