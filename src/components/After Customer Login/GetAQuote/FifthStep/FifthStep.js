@@ -217,7 +217,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -293,7 +293,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -369,7 +369,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -445,7 +445,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -521,7 +521,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -597,7 +597,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">Attachment-{index + 1}</span>
+                <span className="s5fileName">{item.name}</span>
               </span>
 
               <img
@@ -627,7 +627,22 @@ const FifthStep = (props) => {
         <button
           variant="contained"
           className="btn-house Add btn-icon"
-          onClick={props.next}
+          onClick={() => {
+            props.getPayloadData(
+              ["photos"],
+              [
+                {
+                  walls: walls,
+                  roof: roof,
+                  windows: windows,
+                  existing_boiler: eb,
+                  existing_radiator: er,
+                  pipework: pw,
+                },
+              ]
+            );
+            props.next();
+          }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>
           <span style={{ height: "27px", width: "27px" }}>

@@ -71,14 +71,21 @@ const useStyles = makeStyles({
     fontSize: "1vw",
   },
 });
-
+const heatValue = {
+  Gas: 1,
+  "Heat Pump": 2,
+  Wood: 3,
+  Oil: 4,
+  LPG: 5,
+};
 const SeventhStep = (props) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   const [focused, setFocused] = React.useState("");
   const [priority, setPriority] = useState("Gas");
-
+  const [priorityValue, setPriorityValue] = useState();
+  const [currnetBills, setCurrentBills] = useState({});
   return (
     <Card>
       {loader && (
@@ -109,7 +116,10 @@ const SeventhStep = (props) => {
             select
             sx={{ width: "20%" }}
             value={priority}
-            onChange={(e) => setPriority(e.target.value)}
+            onChange={(e) => {
+              setPriority(e.target.value);
+              setPriorityValue(heatValue[e.target.value]);
+            }}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             IconComponent={() =>
@@ -156,18 +166,26 @@ const SeventhStep = (props) => {
           <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               sx={{ width: "30%" }}
-              label="Amount of Electricity(kWh)"
-              value={""}
-              onChange={""}
+              label="Amount of Electricity (kWh)"
+              value={currnetBills?.amount_of_electricity}
+              onChange={(e) => {
+                let temp = currnetBills;
+                temp["amount_of_electricity"] = e.target.value;
+                setCurrentBills(temp);
+              }}
             />
           </Typography>
 
           <Typography sx={{ marginTop: "2vh" }}>
             <TextField
               sx={{ width: "30%" }}
-              label={`Amount of ${priority}(kWh)`}
-              value={""}
-              onChange={""}
+              label={`Amount of ${priority} (kWh)`}
+              value={currnetBills?.amount_of_gas}
+              onChange={(e) => {
+                let temp = currnetBills;
+                temp["amount_of_gas"] = e.target.value;
+                setCurrentBills(temp);
+              }}
             />
           </Typography>
           <h3
@@ -184,29 +202,63 @@ const SeventhStep = (props) => {
           <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               sx={{ width: "30%" }}
-              label="Cost of Electricity(£)"
-              value={""}
-              onChange={""}
+              label="Cost of Electricity (£)"
+              value={currnetBills?.cost_of_electricity}
+              onChange={(e) => {
+                let temp = currnetBills;
+                temp["cost_of_electricity"] = e.target.value;
+                setCurrentBills(temp);
+              }}
             />
           </Typography>
 
           <Typography sx={{ marginTop: "2vh" }}>
             <TextField
               sx={{ width: "30%" }}
-              label={`Cost of ${priority}(£)`}
-              value={""}
-              onChange={""}
+              label={`Cost of ${priority} (£)`}
+              value={currnetBills?.cost_of_gas}
+              onChange={(e) => {
+                let temp = currnetBills;
+                temp["cost_of_gas"] = e.target.value;
+                setCurrentBills(temp);
+              }}
             />
           </Typography>
         </div>
         <Box sx={{ display: "flex", marginTop: "30px" }}>
-          <button variant="contained" className="btn-house btn-icon" onClick={props.prev}>
+          <button
+            variant="contained"
+            className="btn-house btn-icon"
+            onClick={props.prev}
+          >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
             </span>
             <span style={{ marginLeft: "100px" }}>Previous</span>
           </button>
-          <button variant="contained" className="btn-house Add btn-icon" onClick={props.next}>
+          <button
+            variant="contained"
+            className="btn-house Add btn-icon"
+            onClick={() => {
+              props.getPayloadData(
+                [
+                  "heating_system",
+                  "amount_of_electricity",
+                  "amount_of_gas",
+                  "cost_of_electricity",
+                  "cost_of_gas",
+                ],
+                [
+                  priorityValue,
+                  currnetBills.amount_of_electricity,
+                  currnetBills.amount_of_gas,
+                  currnetBills.cost_of_electricity,
+                  currnetBills.cost_of_gas,
+                ]
+              );
+              props.next();
+            }}
+          >
             <span style={{ marginRight: "100px" }}>Continue</span>
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
