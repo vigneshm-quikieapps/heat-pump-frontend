@@ -34,7 +34,8 @@ const FourthStep = (props) => {
         url: URL + globalAPI.fileupload,
         data: formData,
         headers: {
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDFmNTFlZDYxZTAxNTg3ZGY3MTNlMCIsIm5hbWUiOiJCcmVuZGFuIERlbmVzaWsiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsImFkbWluIjpmYWxzZSwiYnVzaW5lc3NfYWRtaW4iOmZhbHNlLCJpYXQiOjE2NTA5NzYyNDIsImV4cCI6MTY1MTAxOTQ0Mn0.8eLacwL7GghZFr4lfeWdfzS1fQWBKy6-oejq3ojBvEQ`,
         },
       })
         .then((response) => {
@@ -44,8 +45,7 @@ const FourthStep = (props) => {
             if (name == "plans") {
               pattachments.push(res.data.message[0]);
               setPlans([...plans, e]);
-            }
-            if (name == "sections") {
+            } else if (name == "sections") {
               sattachments.push(res.data.message[0]);
               setSections([...sections, e]);
             } else {
@@ -91,6 +91,7 @@ const FourthStep = (props) => {
       setSattachments(newAttachments);
     }
   };
+  console.log(plans);
   return (
     <Card>
       {loader && (
@@ -173,7 +174,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">Attachment-{index + 1}</span>
+                <span className="s4fileName">{item.name}</span>
               </span>
 
               <img
@@ -249,7 +250,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">Attachment-{index + 1}</span>
+                <span className="s4fileName">{item.name}</span>
               </span>
 
               <img
@@ -325,7 +326,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">Attachment-{index + 1}</span>
+                <span className="s4fileName">{item.name}</span>
               </span>
 
               <img
@@ -355,7 +356,13 @@ const FourthStep = (props) => {
         <button
           variant="contained"
           className="btn-house Add btn-icon"
-          onClick={props.next}
+          onClick={() => {
+            props.getPayloadData(
+              ["drawings"],
+              [{ plans: plans, elevations: elevations, sections: sections }]
+            );
+            props.next();
+          }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>
           <span style={{ height: "27px", width: "27px" }}>

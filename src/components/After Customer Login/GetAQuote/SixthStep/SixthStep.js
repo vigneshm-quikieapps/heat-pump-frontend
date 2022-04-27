@@ -67,7 +67,13 @@ const SixthStep = (props) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  const [inputList, setInputList] = useState([]);
+  const [inputList, setInputList] = useState([
+    {
+      room_desc: "",
+      radiator_size: "",
+      window_size: "",
+    },
+  ]);
   const Input = () => {
     return (
       <div style={{ marginTop: "2.5%" }}>
@@ -79,13 +85,13 @@ const SixthStep = (props) => {
         />
         <StyledTextField
           sx={{ marginRight: "40px", width: "20%" }}
-          label="Radiator(H X W in mm)"
+          label="Radiator (H x W in mm)"
           value={""}
           onChange={""}
         />
         <StyledTextField
           sx={{ width: "20%" }}
-          label="Window(H X W in mm)"
+          label="Window (H x W in mm)"
           value={""}
           onChange={""}
         />
@@ -94,13 +100,24 @@ const SixthStep = (props) => {
   };
 
   useEffect(() => {
-    setInputList(inputList.concat(<Input key={inputList.length} />));
+    // setInputList(inputList.concat(<Input key={inputList.length} />));
   }, []);
 
   const onAddBtnClick = (event) => {
-    setInputList(inputList.concat(<Input key={inputList.length} />));
+    // setInputList(inputList.concat(<Input key={inputList.length} />));
+    let temp = [...inputList];
+    temp.push({
+      room_desc: "",
+      radiator_size: "",
+      window_size: "",
+    });
+    setInputList(temp);
   };
-
+  const setData = (index, field, newValue) => {
+    let temp = [...inputList];
+    temp[index][field] = newValue;
+    setInputList(temp);
+  };
   return (
     <Card>
       {loader && (
@@ -124,7 +141,37 @@ const SixthStep = (props) => {
         Radiator and Window Sizes
       </Typography>
       <hr className="s2hr2" />
-      {inputList}
+      {/* {inputList} */}
+      {inputList.length &&
+        inputList?.map((item, index) => (
+          <div style={{ marginTop: "2.5%" }} key={`inputList${index}`}>
+            <StyledTextField
+              sx={{ marginRight: "40px", width: "20%" }}
+              label="Room Description"
+              value={item?.room_desc || ""}
+              onChange={(e) => {
+                setData(index, "room_desc", e.target.value);
+              }}
+            />
+            <StyledTextField
+              sx={{ marginRight: "40px", width: "20%" }}
+              label="Radiator (H x W in mm)"
+              value={item?.radiator_size || ""}
+              onChange={(e) => {
+                setData(index, "radiator_size", e.target.value);
+              }}
+            />
+            <StyledTextField
+              sx={{ width: "20%" }}
+              label="Window (H x W in mm)"
+              value={item?.window_size || ""}
+              onChange={(e) => {
+                setData(index, "window_size", e.target.value);
+              }}
+            />
+          </div>
+        ))}
+
       <Typography>
         <Button
           className={classes.button}
@@ -149,7 +196,10 @@ const SixthStep = (props) => {
         <button
           variant="contained"
           className="btn-house Add btn-icon"
-          onClick={props.next}
+          onClick={() => {
+            props.getPayloadData(["radiator_and_window_sizes"], [inputList]);
+            props.next();
+          }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>
           <span style={{ height: "27px", width: "27px" }}>

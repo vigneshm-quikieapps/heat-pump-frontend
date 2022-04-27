@@ -70,7 +70,14 @@ const EightStep = (props) => {
           </span>
           <span style={{ marginLeft: "100px" }}>Previous</span>
         </button>
-        <button variant="contained" className="btn-house Add btn-icon">
+        <button
+          variant="contained"
+          className="btn-house Add btn-icon"
+          onClick={() => {
+            props.getPayloadData(["other_details"], [text]);
+            props._addNewQuote();
+          }}
+        >
           <span style={{ marginRight: "100px" }}>Submit</span>
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />

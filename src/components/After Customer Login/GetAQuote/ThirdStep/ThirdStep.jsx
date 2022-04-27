@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
+import { getFabric } from "../../../../services/services";
 const style = {
   position: "absolute",
   top: "50%",
@@ -59,34 +60,34 @@ const demoData = [
   {
     label: "Main Building",
     "External Walls": {
-      type: "Type 1",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
     "Internal Walls": {
-      type: "Type 2",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
     "Roof Type": {
-      type: "Type 3",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
     Windows: {
-      type: "Type 4",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
     "Suspended Floors": {
-      type: "Type 45",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
     "Inner Floors": {
-      type: "Type 19",
-      description: "Solid brick wall, dense plaster",
-      detail: "Brick 102mm, plaster",
+      type: "",
+      description: "",
+      detail: "",
     },
   },
 ];
@@ -138,10 +139,14 @@ const ThirdStep = (props) => {
     setDataArr(temp);
   };
 
-  const onSelect = () => {
-    setOpenModal(false);
+  const onSelect = (type, description, detail) => {
+    let temp = dataArr;
+    temp[0]["External Walls"].type = type;
+    temp[0]["External Walls"].description = description;
+    temp[0]["External Walls"].detail = detail;
+    setDataArr(temp);
   };
-
+  console.log(dataArr);
   const onClose = () => {
     setOpenModal(false);
   };
@@ -160,7 +165,7 @@ const ThirdStep = (props) => {
       (data &&
         data?.map(({ type, description, detail, image }) => ({
           onClick: () => {
-            onSelect();
+            onSelect(type, description, detail);
             onClose();
           },
           items: [type, description, detail, image],
@@ -168,7 +173,9 @@ const ThirdStep = (props) => {
       []
     );
   }, [onSelect, onClose]);
-
+  useEffect(() => {
+    console.log(getFabric().then((res) => res));
+  });
   return (
     <>
       <Card>
@@ -278,7 +285,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["External Walls"]?.type}
+                        Type {fabric["External Walls"]?.type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -376,7 +383,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["Internal Walls"]?.type}
+                        Type {fabric["Internal Walls"]?.type}
                       </Typography>
                     </Box>
                     <Box
@@ -481,7 +488,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["Roof Type"]?.type}
+                        Type {fabric["Roof Type"]?.type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -571,7 +578,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["Windows"]?.type}
+                        Type {fabric["Windows"]?.type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -633,6 +640,8 @@ const ThirdStep = (props) => {
                   <button
                     style={{
                       fontFamily: "Outfit",
+                      lineHeight: "normal",
+                      padding: "0px",
                     }}
                     variant="contained"
                     className="btn-house"
@@ -669,7 +678,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["Suspended Floors"]?.type}
+                        Type {fabric["Suspended Floors"]?.type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -760,7 +769,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        {fabric["Inner Floors"]?.type}
+                        Type {fabric["Inner Floors"]?.type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
