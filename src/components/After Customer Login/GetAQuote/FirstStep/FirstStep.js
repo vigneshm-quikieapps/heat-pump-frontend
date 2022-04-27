@@ -151,7 +151,6 @@ const FirstStep = ({
  
   useEffect(() => {
     console.log(customerDetails);
-    
     }, [customerDetails])
   
   const clickHandler1 = (e) => {

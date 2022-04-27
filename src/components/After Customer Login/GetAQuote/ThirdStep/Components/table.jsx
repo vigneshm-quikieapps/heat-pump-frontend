@@ -34,7 +34,7 @@ const CustomContainer = styled(Box)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   cursor: "pointer",
-  borderTop: "1px solid #f2f1f6",
+  borderTop: "1px solid #f2f2f2",
   height: 70,
   "&:hover": {
     backgroundColor: "#f2f1f6",
