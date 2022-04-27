@@ -598,7 +598,7 @@ const TableWeek = () => {
                 }}
                 align="right"
               >
-                1 week
+                &#60; 1 week
               </StyledTableCell>
               <StyledTableCell
                 sx={{
