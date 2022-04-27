@@ -179,9 +179,10 @@ function RCA1({ customerDetails, customerDetailsAction }) {
             Request a Customer Account
           </Typography>
           <Box style={{ position: "relative" }}>
-            <Box className="left-bar"></Box>
+            {/* <Box className="left-bar"></Box>
             <Box className="circle"></Box>
-            <Box className="right-bar"></Box>
+            <Box className="right-bar"></Box> */}
+            <img src={require("../../../../src/Img/step4.png")} className="s5baricon" />
           </Box>
           <Typography
             style={{

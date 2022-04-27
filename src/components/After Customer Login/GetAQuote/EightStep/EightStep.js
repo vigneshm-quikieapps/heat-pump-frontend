@@ -28,7 +28,7 @@ const EightStep = (props) => {
       )}
       <div className="s8text1">
         Step 8 of 9
-        <img src={require("../../../../Img/step6.png")} className="s8baricon" />
+        <img src={require("../../../../Img/step8.png")} className="s8baricon" />
       </div>
 
       <div>
