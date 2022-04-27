@@ -48,6 +48,13 @@ function RCA3() {
             className="greentick"
           />
         </Box>
+        {/* <Box style={{ position: "relative" }}>
+          <div className="rca3left-bar"></div>{" "}
+          <img
+            src={require("../../../Img/greentick.png")}
+            className="greentick"
+          />
+        </Box> */}
         <Box>
           <p className="Text">
             We have received your request to create an account. We will keep you

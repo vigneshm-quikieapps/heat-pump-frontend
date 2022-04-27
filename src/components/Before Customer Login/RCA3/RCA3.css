@@ -31,10 +31,10 @@ body {
 }
 
 .rca3left-bar {
-  width: 29.3vw;
-  height: 0.9vh;
+  width: 500.151px;
+  height: 7.254px;
   background-color: rgba(250, 96, 0, 0.664);
-  margin: 0px 0px 0px 6.7vw;
+  margin: 0px 0px 0px 55px;
   border-top-left-radius: 0.26vw;
   border-bottom-left-radius: 0.26vw;
   display: inline-block;
@@ -113,12 +113,12 @@ body {
   font-size: 0.9vw;
 }
 .Text {
-  width: 70%;
+  width: 760px;
   height: 56px;
   flex-grow: 0;
   margin: 4% 0 98px 6%;
   font-family: Outfit;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 300;
   font-stretch: normal;
   font-style: normal;
