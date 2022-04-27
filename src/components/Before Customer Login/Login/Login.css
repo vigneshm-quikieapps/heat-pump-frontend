@@ -217,7 +217,7 @@
   width: 247px;
   height: 65px;
   flex-grow: 0;
-  margin: 47px 363px 25px 149px;
+  margin: 47px 363px 25px 180px;
   padding: 21px 74px 21px 73px;
   border-radius: 32.5px;
   background-color: #000;
@@ -229,7 +229,7 @@
 
 .terms-policies {
   text-decoration: underline;
-  margin: 1% 0px 0px 20%;
+  margin: 1% 0px 0px 23%;
   font-size: 14px;
 
   cursor: pointer;

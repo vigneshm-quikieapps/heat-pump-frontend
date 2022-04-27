@@ -533,109 +533,111 @@ function RCA2({
                 }}
               />
             </div>
-            <StyledTextField
-              // className="step1inputfields input1"
-              sx={{
-                width: "500px",
-                height: "63px",
-                margin: "0 0 15px 60px",
-              }}
-              type="text"
-              value={searchValue}
-              onChange={changeHandler1}
-              name="startAddress"
-              required
-              label="Start typing address"
-              // variant="outlined"
-              disabled={checked === true ? true : false}
-            />
-            {/* <span className=" rca2inputError input8Error">{input8Error}</span>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <StyledTextField
+                // className="step1inputfields input1"
+                sx={{
+                  width: "500px",
+                  height: "63px",
+                  margin: "0 0 15px 60px",
+                }}
+                type="text"
+                value={searchValue}
+                onChange={changeHandler1}
+                name="startAddress"
+                required
+                label="Start typing address"
+                // variant="outlined"
+                disabled={checked === true ? true : false}
+              />
+              {/* <span className=" rca2inputError input8Error">{input8Error}</span>
             {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />} */}
 
-            <StyledTextField
-              sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
-              required
-              // className="step1inputfields input2"
-              type="text"
-              variant="outlined"
-              value={customerDetails.address_1}
-              onChange={changeHandler}
-              name="address_1"
-              label="Address Line 1"
-              placeholder={checked === false ? "Address line 1*" : ""}
-              disabled={checked == false ? true : false}
-            />
-            <Typography
-              style={{
-                fontSize: "18px",
-                fontFamily: "Outfit",
-                position: "relative",
-                margin: "1px 0px 0px 62px",
-                color: "red",
-              }}
-            >
-              {input9Error}
-            </Typography>
-            <StyledTextField
-              sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
-              // className="step1inputfields input2"
-              type="text"
-              value={customerDetails.address_2}
-              onChange={changeHandler}
-              name="address_2"
-              label="Address Line 2"
-              variant="outlined"
-              placeholder={checked === false ? "Address line 2" : ""}
-              disabled={checked === false ? true : false}
-            />
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
+                required
+                // className="step1inputfields input2"
+                type="text"
+                variant="outlined"
+                value={customerDetails.address_1}
+                onChange={changeHandler}
+                name="address_1"
+                label="Address Line 1"
+                placeholder={checked === false ? "Address line 1*" : ""}
+                disabled={checked == false ? true : false}
+              />
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  margin: "1px 0px 0px 62px",
+                  color: "red",
+                }}
+              >
+                {input9Error}
+              </Typography>
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
+                // className="step1inputfields input2"
+                type="text"
+                value={customerDetails.address_2}
+                onChange={changeHandler}
+                name="address_2"
+                label="Address Line 2"
+                variant="outlined"
+                placeholder={checked === false ? "Address line 2" : ""}
+                disabled={checked === false ? true : false}
+              />
 
-            <StyledTextField
-              sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
-              required
-              // className="step1inputfields input2"
-              type="text"
-              value={customerDetails.city}
-              onChange={changeHandler}
-              name="city"
-              label="City/Town"
-              variant="outlined"
-              placeholder={checked === false ? "City/Town*" : ""}
-              disabled={checked === false ? true : false}
-            />
-            <Typography
-              style={{
-                fontSize: "18px",
-                fontFamily: "Outfit",
-                position: "relative",
-                margin: "1px 0px 0px 62px",
-                color: "red",
-              }}
-            >
-              {input11Error}
-            </Typography>
-            <StyledTextField
-              sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
-              required
-              value={customerDetails.postcode}
-              type="text"
-              onChange={changeHandler}
-              name="postcode"
-              label="Postcode"
-              variant="outlined"
-              placeholder={checked === false ? "PostCode*" : ""}
-              disabled={checked === false ? true : false}
-            />
-            <Typography
-              style={{
-                fontSize: "18px",
-                fontFamily: "Outfit",
-                position: "relative",
-                margin: "1px 0px 0px 62px",
-                color: "red",
-              }}
-            >
-              {input12Error}
-            </Typography>
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
+                required
+                // className="step1inputfields input2"
+                type="text"
+                value={customerDetails.city}
+                onChange={changeHandler}
+                name="city"
+                label="City/Town"
+                variant="outlined"
+                placeholder={checked === false ? "City/Town*" : ""}
+                disabled={checked === false ? true : false}
+              />
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  margin: "1px 0px 0px 62px",
+                  color: "red",
+                }}
+              >
+                {input11Error}
+              </Typography>
+              <StyledTextField
+                sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
+                required
+                value={customerDetails.postcode}
+                type="text"
+                onChange={changeHandler}
+                name="postcode"
+                label="Postcode"
+                variant="outlined"
+                placeholder={checked === false ? "PostCode*" : ""}
+                disabled={checked === false ? true : false}
+              />
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  margin: "1px 0px 0px 62px",
+                  color: "red",
+                }}
+              >
+                {input12Error}
+              </Typography>
+            </Box>
           </form>
           <Button
             sx={{

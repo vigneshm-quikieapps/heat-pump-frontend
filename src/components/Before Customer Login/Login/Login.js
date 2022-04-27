@@ -344,7 +344,7 @@ const Login = () => {
           <div style={{ margin: "auto" }}>
             <span
               class="Dont-have-an-account-Sign-Up"
-              style={{ fontWeight: "600", marginLeft: "16%" }}
+              style={{ fontWeight: "600", marginLeft: "19%" }}
             >
               Don’t have an account?
               <Link to="/signup" style={{ color: "#fa5e00", marginLeft: "1%" }}>
@@ -378,7 +378,7 @@ const Login = () => {
 
           <div className="terms-policies">
             <span style={{ fontWeight: "300" }}>Terms of Service</span>
-            <span style={{ marginLeft: "1%", fontWeight: "300" }}>
+            <span style={{ marginLeft: "3%", fontWeight: "300" }}>
               Privacy Policy
             </span>
           </div>
