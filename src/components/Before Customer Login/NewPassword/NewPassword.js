@@ -170,6 +170,7 @@ function NewPassword() {
             fontFamily: "Outfit",
             width: "783px",
             height: "88px",
+            position: "relative",
             margin: "0 197px 40px 55px",
           }}
         >
@@ -182,6 +183,7 @@ function NewPassword() {
             fontFamily: "Outfit",
             width: "597px",
             lineHeight: "normal",
+            position: "relative",
             letterSpacing: "0.03px",
             height: "84px",
             margin: "0px 434px 20px 59px",
@@ -195,6 +197,7 @@ function NewPassword() {
             fontFamily: "Outfit",
             fontWeight: "300",
             margin: "0 385px 5px 59px",
+            position: "relative",
             color: "#a4a4a4",
           }}
         >
@@ -227,7 +230,7 @@ function NewPassword() {
             color: `${color}`,
             fontFamily: "Outfit",
             fontSize: "18px",
-            margin: "1px 0px 0px 60px",
+            margin: "-11px 0px 0px 60px",
           }}
         >
           Must be atleast 8 characters
@@ -239,6 +242,7 @@ function NewPassword() {
             fontWeight: "300",
             margin: "30px 385px 5px 59px",
             color: "#a4a4a4",
+            width: "250px",
           }}
         >
           Confirm Password
@@ -266,9 +270,18 @@ function NewPassword() {
             onClick={togglePassword1}
           />
         )}
-        <span style={{ visibility: `${visibility}` }} className="npspan2">
+        <Typography
+          style={{
+            visibility: `${visibility}`,
+            fontSize: "18px",
+            fontFamily: "Outfit",
+            position: "relative",
+            margin: "-11px 0px 0px 62px",
+            color: "red",
+          }}
+        >
           Both passwords should match
-        </span>
+        </Typography>
         <Box style={{ marginTop: "4vh" }}>
           <Button className={classes.button} onClick={submitHandler}>
             Reset Password

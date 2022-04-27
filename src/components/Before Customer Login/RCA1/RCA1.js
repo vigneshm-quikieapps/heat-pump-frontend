@@ -173,6 +173,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
               width: "783px",
               height: "88px",
               margin: "0 197px 0px 55px",
+              position: "relative",
             }}
           >
             Request a Customer Account
@@ -187,6 +188,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
               fontSize: "22px",
               fontFamily: "Outfit",
               margin: "40px 70px 20px 59px",
+              position: "relative",
             }}
           >
             Your Name and Contact Details

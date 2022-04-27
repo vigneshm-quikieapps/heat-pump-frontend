@@ -46,6 +46,7 @@ const useStyles = makeStyles({
     fontFamily: "Outfit",
     fontSize: "18px",
     height: "65px",
+    position: "absolute",
     borderRadius: "2.11vw",
     "&:hover": {
       backgroundColor: "#f9f9f9",
@@ -139,6 +140,7 @@ function OTP({ emailNum }) {
             fontFamily: "Outfit",
             width: "783px",
             height: "88px",
+            position: "relative",
             margin: "0 197px 20px 55px",
           }}
         >
@@ -153,6 +155,7 @@ function OTP({ emailNum }) {
             lineHeight: "normal",
             letterSpacing: "0.03px",
             height: "84px",
+            position: "relative",
             margin: "0px 379px -24px 59px",
           }}
         >
@@ -185,6 +188,7 @@ function OTP({ emailNum }) {
                 fontSize: "18px",
                 fontFamily: "Outfit",
                 fontWeight: "normal",
+                position: "relative",
               }}
             >
               Verification Complete
@@ -203,6 +207,7 @@ function OTP({ emailNum }) {
                 margin: "5px 0 10px 0px",
                 fontSize: "18px",
                 fontFamily: "Outfit",
+                position: "relative",
                 fontWeight: "normal",
               }}
             >

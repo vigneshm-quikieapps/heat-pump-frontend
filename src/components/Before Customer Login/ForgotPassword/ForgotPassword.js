@@ -40,6 +40,8 @@ const useStyles = makeStyles({
     fontFamily: "Outfit",
     borderRadius: "2vw",
     textTransform: "none",
+    position: "absolute",
+
     fontSize: "22px",
     "&:hover": {
       textTransform: "none",
@@ -55,6 +57,8 @@ const useStyles = makeStyles({
     fontFamily: "Outfit",
     width: "254px",
     height: "59px",
+    position: "relative",
+
     textTransform: "none",
     borderRadius: "2vw",
     fontSize: "22px",
@@ -139,6 +143,7 @@ function Fpass({ emailNum, changeEmailNum }) {
               fontSize: "60px",
               fontWeight: "300",
               fontFamily: "Outfit",
+              position: "relative",
               width: "783px",
               height: "88px",
               margin: "0 197px 40px 55px",
@@ -155,6 +160,7 @@ function Fpass({ emailNum, changeEmailNum }) {
               lineHeight: "normal",
               letterSpacing: "0.03px",
               height: "84px",
+              position: "relative",
               margin: "0px 379px 25px 59px",
             }}
           >
@@ -172,7 +178,17 @@ function Fpass({ emailNum, changeEmailNum }) {
             name="emailNum"
             required
           />{" "}
-          <span className="input13Error"> {input13Error} </span>
+          <Typography
+            style={{
+              fontSize: "18px",
+              fontFamily: "Outfit",
+              position: "relative",
+              margin: "1px 0px 0px 62px",
+              color: "red",
+            }}
+          >
+            {input13Error}
+          </Typography>
           <div style={{ marginTop: "2vh" }}>
             <Button
               className={classes.buttons}

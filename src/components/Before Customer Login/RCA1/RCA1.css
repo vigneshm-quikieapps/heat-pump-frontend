@@ -69,10 +69,11 @@ body {
   width: 285px;
   height: 10px;
   background-color: #e1e1e1;
-  margin: 0px 0px 0px 0px;
+  margin: 6px 0px 0px 0px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   display: inline-block;
+  position: absolute;
 }
 
 .rca1div1 {
