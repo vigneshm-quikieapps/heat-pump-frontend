@@ -117,7 +117,7 @@ const SecondStep = (props) => {
     ),
 
     createData(
-      "0600 -  0800",
+      "0600 - 0800",
       <Checkbox
         defaultChecked={weeklySlots.slot2[0]}
         onChange={() => {
@@ -162,7 +162,7 @@ const SecondStep = (props) => {
       />
     ),
     createData(
-      "0800 -  1000",
+      "0800 - 1000",
       <Checkbox
         defaultChecked={weeklySlots.slot3[0]}
         onChange={() => {
@@ -406,6 +406,7 @@ const SecondStep = (props) => {
                   fontSize: "22px",
                   fontWeight: "300",
                   fontFamily: "Outfit",
+                  textAlign: "center",
                 }}
                 align="right"
               >
@@ -417,6 +418,7 @@ const SecondStep = (props) => {
                   fontSize: "22px",
                   fontWeight: "300",
                   fontFamily: "Outfit",
+                  textAlign: "center",
                 }}
                 align="right"
               >
@@ -428,6 +430,7 @@ const SecondStep = (props) => {
                   fontSize: "22px",
                   fontWeight: "300",
                   fontFamily: "Outfit",
+                  textAlign: "center",
                 }}
                 align="right"
               >
@@ -439,6 +442,7 @@ const SecondStep = (props) => {
                   fontSize: "22px",
                   fontWeight: "300",
                   fontFamily: "Outfit",
+                  textAlign: "center",
                 }}
                 align="right"
               >
@@ -450,6 +454,7 @@ const SecondStep = (props) => {
                   fontSize: "22px",
                   fontWeight: "300",
                   fontFamily: "Outfit",
+                  textAlign: "center",
                 }}
                 align="right"
               >
@@ -457,6 +462,7 @@ const SecondStep = (props) => {
               </StyledTableCell>
               <StyledTableCell
                 sx={{
+                  textAlign: "center",
                   borderBottom: "none",
                   fontSize: "22px",
                   fontWeight: "300",
@@ -468,6 +474,7 @@ const SecondStep = (props) => {
               </StyledTableCell>
               <StyledTableCell
                 sx={{
+                  textAlign: "center",
                   borderBottom: "none",
                   fontSize: "22px",
                   fontWeight: "300",

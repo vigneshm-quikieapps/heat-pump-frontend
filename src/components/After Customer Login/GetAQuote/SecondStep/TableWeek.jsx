@@ -586,7 +586,7 @@ const TableWeek = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                 }}
-                align="right"
+                align="center"
               >
                 All weeks
               </StyledTableCell>
@@ -597,7 +597,7 @@ const TableWeek = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                 }}
-                align="right"
+                align="center"
               >
                 1-2 weeks
               </StyledTableCell>
@@ -608,7 +608,7 @@ const TableWeek = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                 }}
-                align="right"
+                align="center"
               >
                 1 week
               </StyledTableCell>
@@ -619,7 +619,7 @@ const TableWeek = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                 }}
-                align="right"
+                align="center"
               >
                 Weekends
               </StyledTableCell>
@@ -630,7 +630,7 @@ const TableWeek = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                 }}
-                align="right"
+                align="center"
               >
                 Not Occupied
               </StyledTableCell>
