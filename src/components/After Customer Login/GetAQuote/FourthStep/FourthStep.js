@@ -10,9 +10,10 @@ import { Box, Typography } from "@mui/material";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
+import { set } from "react-hook-form";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
-
+// let flag = false;
 const FourthStep = (props) => {
   const [plans, setPlans] = useState([]);
   const [pattachments, setPattachments] = useState([]);
@@ -22,7 +23,7 @@ const FourthStep = (props) => {
   const [sattachments, setSattachments] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-
+  const [flag, setFlag] = useState(false);
   const onFileUpload = (e, name) => {
     console.log(name);
     if (e) {
@@ -34,8 +35,8 @@ const FourthStep = (props) => {
         url: URL + globalAPI.fileupload,
         data: formData,
         headers: {
-          // Authorization: `Bearer ${token}`,
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDFmNTFlZDYxZTAxNTg3ZGY3MTNlMCIsIm5hbWUiOiJCcmVuZGFuIERlbmVzaWsiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsImFkbWluIjpmYWxzZSwiYnVzaW5lc3NfYWRtaW4iOmZhbHNlLCJpYXQiOjE2NTA5NzYyNDIsImV4cCI6MTY1MTAxOTQ0Mn0.8eLacwL7GghZFr4lfeWdfzS1fQWBKy6-oejq3ojBvEQ`,
+          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDFmNTFlZDYxZTAxNTg3ZGY3MTNlMCIsIm5hbWUiOiJCcmVuZGFuIERlbmVzaWsiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsImFkbWluIjpmYWxzZSwiYnVzaW5lc3NfYWRtaW4iOmZhbHNlLCJpYXQiOjE2NTA5NzYyNDIsImV4cCI6MTY1MTAxOTQ0Mn0.8eLacwL7GghZFr4lfeWdfzS1fQWBKy6-oejq3ojBvEQ`,
         },
       })
         .then((response) => {
@@ -156,6 +157,7 @@ const FourthStep = (props) => {
           }
         />
       </div>
+
       {plans &&
         plans.map((item, index) => {
           return (
@@ -342,6 +344,11 @@ const FourthStep = (props) => {
             </div>
           );
         })}
+      {flag && (
+        <span style={{ fontSize: "20px", color: "red", marginBottom: "5%" }}>
+          At least 1 drawing is mandatory for each topics
+        </span>
+      )}
       <Box sx={{ display: "flex" }}>
         <button
           variant="contained"
@@ -357,11 +364,21 @@ const FourthStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(
-              ["drawings"],
-              [{ plans: plans, elevations: elevations, sections: sections }]
-            );
-            props.next();
+            // flag = true;
+            if (
+              plans.length < 1 ||
+              sections.length < 1 ||
+              elevations.length < 1
+            ) {
+              setFlag(true);
+            } else {
+              setFlag(false);
+              props.getPayloadData(
+                ["drawings"],
+                [{ plans: plans, elevations: elevations, sections: sections }]
+              );
+              props.next();
+            }
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>

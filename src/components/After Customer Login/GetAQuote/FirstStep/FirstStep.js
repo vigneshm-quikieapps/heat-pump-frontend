@@ -269,6 +269,7 @@ const FirstStep = ({
         <StyledTextField
           // className="step1inputfields input1"
           type="text"
+          error={!checked && searchValue === "" && true}
           value={searchValue}
           onChange={changeHandler1}
           name="startAddress"
@@ -276,6 +277,7 @@ const FirstStep = ({
           label="Start typing address"
           variant="outlined"
           disabled={checked === true ? true : false}
+          helperText={!checked && searchValue === "" && "Address in mandatory"}
         />
         {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
         {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
@@ -314,7 +316,7 @@ const FirstStep = ({
           <StyledTextField
             sx={{ mb: 1.5 }}
             required
-            // className="step1inputfields input2"
+            error={customerDetails.address_1 === "" ? true : false}
             type="text"
             variant="outlined"
             value={customerDetails.address_1}
@@ -323,11 +325,15 @@ const FirstStep = ({
             label="Address Line 1"
             placeholder={checked === false ? "Address line 1*" : ""}
             disabled={checked == false ? true : false}
+            helperText={
+              customerDetails.address_1 === "" && "Address Line 1 in mandatory"
+            }
           />
           {/*<span className=" rca2inputError input9Error">{input9Error}</span>*/}
           <StyledTextField
             sx={{ mb: 1.5 }}
             // className="step1inputfields input2"
+
             type="text"
             value={customerDetails.address_2}
             onChange={changeHandler}
@@ -341,6 +347,7 @@ const FirstStep = ({
             sx={{ mb: 1.5 }}
             required
             // className="step1inputfields input2"
+            error={customerDetails.city === "" ? true : false}
             type="text"
             value={customerDetails.city}
             onChange={changeHandler}
@@ -349,10 +356,14 @@ const FirstStep = ({
             variant="outlined"
             placeholder={checked === false ? "City/Town*" : ""}
             disabled={checked === false ? true : false}
+            helperText={
+              customerDetails.city === "" && "City/Country in mandatory"
+            }
           />
           <StyledTextField
             sx={{ mb: 1.5 }}
             required
+            error={customerDetails.postcode === "" ? true : false}
             value={customerDetails.postcode}
             type="text"
             onChange={changeHandler}
@@ -361,6 +372,9 @@ const FirstStep = ({
             variant="outlined"
             placeholder={checked === false ? "PostCode*" : ""}
             disabled={checked === false ? true : false}
+            helperText={
+              customerDetails.postcode === "" && "Postcode in mandatory"
+            }
           />
         </Box>
       </Grid>
@@ -379,19 +393,27 @@ const FirstStep = ({
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            const { address_1, address_2, city, postcode } = site_details;
-            myProps.getPayloadData(
-              ["site_details"],
-              [
-                {
-                  address_1,
-                  address_2,
-                  city,
-                  postcode,
-                },
-              ]
-            );
-            myProps.next();
+            if (
+              customerDetails.address_1 === "" ||
+              customerDetails.postcode === "" ||
+              customerDetails.city === ""
+            ) {
+              return;
+            } else {
+              const { address_1, address_2, city, postcode } = site_details;
+              myProps.getPayloadData(
+                ["site_details"],
+                [
+                  {
+                    address_1,
+                    address_2,
+                    city,
+                    postcode,
+                  },
+                ]
+              );
+              myProps.next();
+            }
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>

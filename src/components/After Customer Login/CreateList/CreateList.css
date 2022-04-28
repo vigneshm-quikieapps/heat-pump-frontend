@@ -8,7 +8,6 @@
   margin-left: 40px;
   margin-right: 50px;
   width: 85%;
-
 }
 
 .cltitle {
@@ -35,8 +34,8 @@
 
 .clnames {
   color: #fa5e00;
-    font-size: 28px;
-    font-weight:600;
+  font-size: 28px;
+  font-weight: 600;
 }
 .clfirstrow {
   display: flex;
@@ -52,14 +51,17 @@
 
 .btnjob {
   margin-top: 32px;
-    border-radius: 32px;
-    background-color: #000;
-    width: 205px;
-    height: 43px;
-    color: white;
-    position: relative;
-    border: #000;
-    font-weight: 100;
+  border-radius: 32px;
+  background-color: #000;
+  width: 275px;
+  height: 65px;
+  color: white;
+  position: relative;
+  border: #000;
+  font-weight: 100;
+  font-family: Outfit;
+  font-size: 18px !important;
+  font-weight: 300;
 }
 
 .gridmove {
@@ -89,10 +91,9 @@
   margin-top: 30px;
   padding-left: 10px;
   color: #000;
-  
 }
 
-.servicetype:focus ~ .clDropdown{
+.servicetype:focus ~ .clDropdown {
   transform: rotate(180deg);
 }
 
@@ -122,7 +123,7 @@
   padding-left: 10px;
   padding-top: 15px;
   font-weight: "bolder";
-      font-family: "outfit",
+  font-family: "outfit";
 }
 
 .name1 {
@@ -148,23 +149,26 @@
 .clor {
   position: relative;
   left: 55%;
-  bottom: 95px;
+  bottom: 100px;
 }
 
 .clbrowse {
   position: relative;
   left: 60%;
-  bottom: 95px;
+  bottom: 100px;
 }
 
 .clbrowsebtn {
-  width: 130px;
-  height: 50px;
+  width: 180px;
+  height: 65.5px;
   border: #000;
   border-radius: 50px;
   background-color: #000;
   color: white;
   font-weight: 100;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
 }
 
 .clhr2 {
@@ -195,12 +199,12 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width:1200px) {
-  .filemapblock{
+@media screen and (max-width: 1200px) {
+  .filemapblock {
     /* display: block;
     margin-left: 0px;
     margin-top: 10px; */
-    width: 45%
+    width: 45%;
   }
 }
 
@@ -214,11 +218,15 @@
 }
 
 .highBtn {
-  height: 50px;
-  width: 120px;
+  width: 180px;
+  height: 65px;
   border-radius: 50px;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
   border: solid 1px #d3d3d3;
   background-color: #fff;
+  margin-right: 5%;
 }
 
 .highBtnActive {
@@ -226,12 +234,15 @@
 }
 
 .mediumBtn {
-  height: 50px;
-  width: 120px;
+  width: 180px;
+  height: 65px;
   border-radius: 50px;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
   border: solid 1px #d3d3d3;
   background-color: #fff;
-  margin-left: 30px;
+  margin-right: 5%;
 }
 
 .mediumBtnActive {
@@ -239,12 +250,15 @@
 }
 
 .lowBtn {
-  height: 50px;
-  width: 120px;
+  width: 180px;
+  height: 65px;
   border-radius: 50px;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
   border: solid 1px #d3d3d3;
   background-color: #fff;
-  margin-left: 30px;
+  margin-right: 5%;
 }
 
 .lowBtnActive {
@@ -252,8 +266,8 @@
 }
 
 .submitBtn {
-  height: 50px;
-  width: 120px;
+  width: 180px;
+  height: 65px;
   border-radius: 50px;
   border: solid 1px #d3d3d3;
   background-color: #000;
@@ -261,7 +275,10 @@
   margin-top: 40px;
   margin-bottom: 40px;
   color: white;
-  font-weight: 100;
+  /* font-weight: 100; */
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
 }
 
 .createmodal {
@@ -314,7 +331,6 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 2%;
-  
 }
 .subhrFirst {
   background-color: #f2f3f2;
@@ -399,14 +415,14 @@ td {
 .sortabletr:hover {
   background-color: #f2f2f2;
 }
-.sortabletr{
+.sortabletr {
   cursor: pointer;
 }
-button{
+button {
   cursor: pointer;
 }
 
-.admsrselect1{
+.admsrselect1 {
   width: 100%;
   height: 45px;
   border-color: #cdcdcd;
@@ -415,23 +431,21 @@ button{
   padding-left: 5px;
 }
 
-.admsrselect1:focus ~ .clDropdown{
+.admsrselect1:focus ~ .clDropdown {
   transform: rotate(180deg);
 }
 
-.clDropdown{
-   height: 10px;
-   width: 15px;
- 
-   
-   right: 25px;
-   transition: all .1s ease-in-out;
-   position: relative;
+.clDropdown {
+  height: 10px;
+  width: 15px;
+
+  right: 25px;
+  transition: all 0.1s ease-in-out;
+  position: relative;
 }
 
 /* DropDown Styles */
 
-  
 .cldropdown {
   width: 400px;
   height: 43px;
@@ -443,98 +457,99 @@ button{
   border: solid 1px #cdcdcd;
   background-color: #fff;
   color: #505050;
- 
 }
 
 .cldropdown-header {
-padding-top: 10px;
-cursor: pointer;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  padding-top: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cldropdown-body {
-padding: 5px;
-border-top: 1px solid #E5E8EC;
-display: none;
+  padding: 5px;
+  border-top: 1px solid #e5e8ec;
+  display: none;
 }
 
 .cldropdown-body.clopen {
-display: block;
-position: absolute;
-background-color: white;
-z-index: 100000;
-width: 400px;
-left:20px;
-top:28.3%;
-border-radius: 10px;
-border: solid 1px #cdcdcd;
+  display: block;
+  position: absolute;
+  background-color: white;
+  z-index: 100000;
+  width: 400px;
+  left: 20px;
+  top: 28.3%;
+  border-radius: 10px;
+  border: solid 1px #cdcdcd;
 }
 
 .cldropdown-item {
-padding: 10px;
+  padding: 10px;
 }
 
 .cldropdown-item:hover {
-cursor: pointer;
-background-color: #f2f2f2;
+  cursor: pointer;
+  background-color: #f2f2f2;
 }
 
 .cldropdown-item-dot {
-opacity: 0;
-color: #91A5BE;
-transition: all .2s ease-in-out;
+  opacity: 0;
+  color: #91a5be;
+  transition: all 0.2s ease-in-out;
 }
 
 .cldropdown-item-dot.selected {
-opacity: 1;
+  opacity: 1;
 }
 
 .clicon {
-font-size: 13px;
-color: #91A5BE;
-transform: rotate(270deg);
-transition: all .2s ease-in-out;
+  font-size: 13px;
+  color: #91a5be;
+  transform: rotate(270deg);
+  transition: all 0.2s ease-in-out;
 }
 
 .clicon.open {
-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
-.clcommondropdown{
+.clcommondropdown {
   position: relative;
   right: 15px;
   width: 15px;
   height: 9px;
-  
- transition: all 100ms ease-in-out;
+
+  transition: all 100ms ease-in-out;
 }
 
-.clcommondropdownrotate{
-transform: rotate(180deg);
+.clcommondropdownrotate {
+  transform: rotate(180deg);
 }
 
-.error1{
-  color:  rgba(255, 0, 0, 0.699);
+.error1 {
+  color: rgba(255, 0, 0, 0.699);
   font-size: 16px;
-  position:relative;
-  top:35px
+  left: 15px;
+  position: relative;
+  top: 30px;
 }
 
-.error2{
-  color:  rgba(255, 0, 0, 0.699);
+.error2 {
+  color: rgba(255, 0, 0, 0.699);
   font-size: 16px;
-  position:relative;
-  top:33px
+  left: 15px;
+  position: relative;
+  top: 30px;
 }
-.error3{
-  color:  rgba(255, 0, 0, 0.699);
+.error3 {
+  color: rgba(255, 0, 0, 0.699);
   font-size: 16px;
-  position:relative;
-  top: 115px;
+  position: relative;
+  top: 90px;
 }
-.error4{
-  color:  rgba(255, 0, 0, 0.699);
+.error4 {
+  color: rgba(255, 0, 0, 0.699);
   font-size: 16px;
 }

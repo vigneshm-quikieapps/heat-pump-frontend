@@ -27,6 +27,7 @@ const FifthStep = (props) => {
   const [pw, setPW] = useState([]);
   const [pwattachments, setPWattachments] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [flag, setFlag] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
 
   const onFileUpload = (e, name) => {
@@ -613,6 +614,11 @@ const FifthStep = (props) => {
             </div>
           );
         })}
+      {flag && (
+        <span style={{ fontSize: "20px", color: "red", marginBottom: "5%" }}>
+          At least 1 photo is mandatory for each topics
+        </span>
+      )}
       <Box sx={{ display: "flex" }}>
         <button
           variant="contained"
@@ -628,20 +634,32 @@ const FifthStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(
-              ["photos"],
-              [
-                {
-                  walls: walls,
-                  roof: roof,
-                  windows: windows,
-                  existing_boiler: eb,
-                  existing_radiator: er,
-                  pipework: pw,
-                },
-              ]
-            );
-            props.next();
+            if (
+              walls.length < 1 ||
+              roof.length < 1 ||
+              windows.length < 1 ||
+              er.length < 1 ||
+              eb.length < 1 ||
+              pw.length < 1
+            ) {
+              setFlag(true);
+            } else {
+              setFlag(false);
+              props.getPayloadData(
+                ["photos"],
+                [
+                  {
+                    walls: walls,
+                    roof: roof,
+                    windows: windows,
+                    existing_boiler: eb,
+                    existing_radiator: er,
+                    pipework: pw,
+                  },
+                ]
+              );
+              props.next();
+            }
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>

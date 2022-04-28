@@ -31,7 +31,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import { makeStyles } from "@mui/styles";
-
+import StyledTextField from "../../../../src/common/textfield";
+import StyledTextArea from "../../../../src/common/textarea";
 Modal.setAppElement("#root");
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
       borderRadius: "9px",
       marginRight: "17px",
       width: "400px",
-      height: "50px",
+      height: "45px",
       fontWeight: "bolder",
       fontFamily: "outfit",
       backgroundColor: "white",
@@ -80,26 +81,31 @@ const useStyles = makeStyles({
   },
   rowfield: {
     "& label.Mui-focused": {
-      color: "black",
-      fontFamily: "outfit",
-      fontWeight: "bold",
-      fontSize: "16px",
+      color: "red",
+      background: "#fff",
     },
     "& .MuiFormLabel-root": {
-      fontWeight: "bold",
-      fontSize: "16px",
+      fontWeight: "300",
+      fontSize: "18px",
       fontFamily: "outfit",
     },
     "& .MuiOutlinedInput-root": {
       borderRadius: "9px",
       marginRight: "17px",
-      width: "400px",
+      width: "500px",
       fontWeight: "bolder",
       fontFamily: "outfit",
       backgroundColor: "white",
 
       "&.Mui-focused fieldset": {
-        borderColor: "black",
+        borderColor: "#cdcdcd",
+      },
+      "& .MuiFilledInput-root": {
+        backgroundColor: "white",
+        "&::after ,::before": { display: "none" },
+        "& .MuiFilledInput-input": {
+          "&:focus": { backgroundColor: "transparent" },
+        },
       },
     },
     icons: {
@@ -358,20 +364,18 @@ const CreateList = ({ FirstPageAction }) => {
                   </Typography>
                   <Typography>
                     <div style={{ fontSize: "18px", fontWeight: 700 }}>
-                      {userData.business_trade_name} , {userData.city}
+                      {userData.business_trade_name}, {userData.city}
                     </div>
                     <hr className="clhrFirst" />
                   </Typography>
 
-                  <Typography>
-                    <button
-                      className="btnjob"
-                      style={{ fontSize: "13px" }}
-                      onClick={toggleModal}
-                    >
-                      Job Reference
-                    </button>
-                  </Typography>
+                  <button
+                    className="btnjob"
+                    style={{ fontSize: "13px" }}
+                    onClick={toggleModal}
+                  >
+                    Job Reference
+                  </button>
                 </Stack>
               </Grid>
               <Grid item xs={6}>
@@ -399,8 +403,33 @@ const CreateList = ({ FirstPageAction }) => {
             <hr className="clhr1" />
             <Grid>
               <Typography style={{ marginTop: "10px" }}>
-                <FormControl className={classes.selectfield}>
-                  <InputLabel
+                <FormControl
+                // className={classes.selectfield}
+                >
+                  <StyledTextField
+                    select
+                    sx={{
+                      width: "500px",
+                      height: "63px",
+                      margin: "8px 0 0 0",
+                    }}
+                    required
+                    label="Service Type"
+                    // onBlur={blurFunc3}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setFocused(false)}
+                    onChange={(e) => {
+                      setServicetype(e.target.value);
+                      setError1("");
+                    }}
+                    name="business_type"
+                  >
+                    <MenuItem value="Enquiry">Enquiry</MenuItem>
+                    <MenuItem value="Design Clarifications">
+                      Design Clarifications
+                    </MenuItem>
+                  </StyledTextField>
+                  {/* <InputLabel
                     id="demo-simple-select-label"
                     className={classes.selectinput}
                   >
@@ -429,13 +458,31 @@ const CreateList = ({ FirstPageAction }) => {
                       {" "}
                       Design Clarifications{" "}
                     </MenuItem>
-                  </Select>
+                  </Select> */}
                 </FormControl>
                 <span className="error1">{error1}</span>
               </Typography>
 
               <Typography>
-                <TextField
+                <StyledTextField
+                  sx={{
+                    width: "500px",
+                    height: "63px",
+                    margin: "8px 0 0 0",
+                  }}
+                  // className="step1inputfields input2"
+
+                  type="text"
+                  value={title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    setError2("");
+                  }}
+                  name="title"
+                  label="Title"
+                  // variant="outlined"
+                />
+                {/* <TextField
                   label="Title"
                   variant="outlined"
                   value={title}
@@ -445,12 +492,31 @@ const CreateList = ({ FirstPageAction }) => {
                     setError2("");
                   }}
                   sx={{ marginTop: "20px" }}
-                />
+                /> */}
                 <span className="error2">{error2}</span>
               </Typography>
 
               <br />
               <Typography>
+                {/* <StyledTextArea
+                sx={{
+                  width: "500px",
+                  height: "300px",
+                  margin: "8px 0 0 0",
+                }}
+                // className="step1inputfields input2"
+                multiline
+                rows={8}
+                type="text"
+                value={details}
+                onChange={(e) => {
+                  setDetails(e.target.value);
+                  setError3("");
+                }}
+                name="details"
+                label="Details"
+                // variant="outlined"
+              /> */}
                 <TextField
                   label="Details"
                   variant="outlined"
@@ -467,7 +533,7 @@ const CreateList = ({ FirstPageAction }) => {
               </Typography>
 
               <Typography>
-                <h4 className="name1" style={{ fontSize: "18px" }}>
+                <h4 className="name1" style={{ fontSize: "22px" }}>
                   Attachments
                 </h4>
                 <hr className="clhr2" />
@@ -547,13 +613,21 @@ const CreateList = ({ FirstPageAction }) => {
                     );
                   })}
 
-                <h4 className="name2" style={{ fontSize: "20px" }}>
+                <h4 className="name2" style={{ fontSize: "22px" }}>
                   Priority
                 </h4>
 
                 <hr className="clhr2" />
 
-                <div style={{ display: "inline-block", marginRight: "17px" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    marginRight: "17px",
+                    width: "auto",
+                    flexDirection: "row",
+                    // justifyContent: "space-around",
+                  }}
+                >
                   <button
                     className={high ? "highBtnActive highBtn " : " highBtn"}
                     value="high"
@@ -598,30 +672,30 @@ const CreateList = ({ FirstPageAction }) => {
         {submitted && (
           <>
             <div className="subpaper">
-                <div className="subfirstrow">
+              <div className="subfirstrow">
                 <Typography>
-                    <div className="clnames">{userName}</div>
-                  </Typography>
-                  <Typography>
-                    <div style={{ fontSize: "18px", fontWeight: 700 }}>
-                      {userData.business_trade_name} , {userData.city}
-                    </div>
-                    <hr className="clhrFirst" />
-                  </Typography>
-                  {/* <hr className="subhrFirst" /> */}
-
-                  <div className="subtext">
-                    Your enquiry submission is successful. Ref:{srno}. You can
-                    track the status of your service request using{" "}
-                    <Link to="/common/servicerequest" className="subspan">
-                      {" "}
-                      <span>My Service Requests</span>
-                    </Link>
+                  <div className="clnames">{userName}</div>
+                </Typography>
+                <Typography>
+                  <div style={{ fontSize: "18px", fontWeight: 700 }}>
+                    {userData.business_trade_name} , {userData.city}
                   </div>
+                  <hr className="clhrFirst" />
+                </Typography>
+                {/* <hr className="subhrFirst" /> */}
+
+                <div className="subtext">
+                  Your enquiry submission is successful. Ref:{srno}. You can
+                  track the status of your service request using{" "}
+                  <Link to="/common/servicerequest" className="subspan">
+                    {" "}
+                    <span>My Service Requests</span>
+                  </Link>
                 </div>
-                <button className="submitBtn" onClick={() => closeSubmitted()}>
-                  Close
-                </button>
+              </div>
+              <button className="submitBtn" onClick={() => closeSubmitted()}>
+                Close
+              </button>
             </div>
             <div style={{ height: "160px" }}></div>
           </>
@@ -664,12 +738,26 @@ const CreateList = ({ FirstPageAction }) => {
                           onClick={() => settingJobref(item)}
                           className="sortabletr"
                         >
-                          <td style={{fontSize:"18px"}}>{item.job_ref_number}</td>
-                          <td style={{fontSize:"18px"}}>{item.site_details}</td>
-                          {item.status == 1 && <td style={{fontSize:"18px"}}>New</td>}
-                          {item.status == 2 && <td style={{fontSize:"18px"}}>HPD Working</td>}
-                          {item.status == 3 && <td style={{fontSize:"18px"}}>Need Your Attention</td>}
-                          {item.status == 4 && <td style={{fontSize:"18px"}}>Resolved</td>}
+                          <td style={{ fontSize: "18px" }}>
+                            {item.job_ref_number}
+                          </td>
+                          <td style={{ fontSize: "18px" }}>
+                            {item.site_details}
+                          </td>
+                          {item.status == 1 && (
+                            <td style={{ fontSize: "18px" }}>New</td>
+                          )}
+                          {item.status == 2 && (
+                            <td style={{ fontSize: "18px" }}>HPD Working</td>
+                          )}
+                          {item.status == 3 && (
+                            <td style={{ fontSize: "18px" }}>
+                              Need Your Attention
+                            </td>
+                          )}
+                          {item.status == 4 && (
+                            <td style={{ fontSize: "18px" }}>Resolved</td>
+                          )}
                         </tr>
                       );
                     })}

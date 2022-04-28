@@ -124,7 +124,7 @@ const ThirdStep = (props) => {
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   const [dataArr, setDataArr] = useState(demoData);
-
+  const [flag, setFlag] = useState(false);
   const addNewFabric = () => {
     let temp = [...dataArr];
     temp.push({
@@ -141,9 +141,9 @@ const ThirdStep = (props) => {
 
   const onSelect = (type, description, detail) => {
     let temp = dataArr;
-    temp[0]["External Walls"].type = type;
-    temp[0]["External Walls"].description = description;
-    temp[0]["External Walls"].detail = detail;
+    temp[temp.length - 1]["External Walls"].type = type;
+    temp[temp.length - 1]["External Walls"].description = description;
+    temp[temp.length - 1]["External Walls"].detail = detail;
     setDataArr(temp);
   };
   console.log(dataArr);
@@ -257,6 +257,7 @@ const ThirdStep = (props) => {
                     External Walls
                   </button>
                 </Box>
+
                 {fabric["External Walls"]?.type && (
                   <Box
                     sx={{
