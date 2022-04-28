@@ -80,6 +80,16 @@ const useStyles = makeStyles({
     fontSize: "16px",
   },
   rowfield: {
+    "&:hover": {
+      borderColor: "#cdcdcd !important",
+    },
+    "& .MuiFilledInput-root": {
+      backgroundColor: "white",
+      "&::after ,::before": { display: "none" },
+      "& .MuiFilledInput-input": {
+        "&:focus": { backgroundColor: "transparent" },
+      },
+    },
     "& label.Mui-focused": {
       color: "red",
       background: "#fff",
@@ -100,12 +110,10 @@ const useStyles = makeStyles({
       "&.Mui-focused fieldset": {
         borderColor: "#cdcdcd",
       },
-      "& .MuiFilledInput-root": {
-        backgroundColor: "white",
-        "&::after ,::before": { display: "none" },
-        "& .MuiFilledInput-input": {
-          "&:focus": { backgroundColor: "transparent" },
-        },
+
+      "&::after ,::before": { display: "none" },
+      "& .MuiFilledInput-input": {
+        "&:focus": { backgroundColor: "transparent" },
       },
     },
     icons: {
@@ -117,7 +125,7 @@ const CreateList = ({ FirstPageAction }) => {
   const classes = useStyles();
   const [high, setHigh] = useState(false);
   const [medium, setMedium] = useState(false);
-  const [low, setLow] = useState(false);
+  const [low, setLow] = useState(true);
   const [files, setFiles] = useState([]);
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -521,6 +529,9 @@ const CreateList = ({ FirstPageAction }) => {
                 // variant="outlined"
               /> */}
                 <TextField
+                  sx={{
+                    "&:hover": { borderColor: "none" },
+                  }}
                   label="Details"
                   variant="outlined"
                   multiline
