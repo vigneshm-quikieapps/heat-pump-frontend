@@ -29,9 +29,9 @@
 }
 .names {
   color: #fa5e00;
-  font-size: 22px;
   font-size: 28px;
-  font-weight:600;
+  font-weight: 600;
+  font-family: Outfit;
 }
 .firstrow {
   display: flex;
@@ -42,7 +42,7 @@
   background-color: #f2f3f2;
   border: 1.5px solid #f2f3f2;
   position: relative;
-  width: 250px;
+  width: 322px;
 }
 .secondrow {
   display: flex;
@@ -55,8 +55,8 @@
 
 .squarebox {
   border: 1px solid #d3d3d3;
-  height: 60px;
-  width: 63px;
+  width: 95px;
+  height: 95px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,7 +69,8 @@
   display: table-caption;
   display: -ms-grid;
   -ms-grid-columns: min-content;
-  font-size: 13px;
+  font-family: Outfit;
+  font-size: 18px;
   font-weight: 600;
 }
 .outerbox {
@@ -81,10 +82,10 @@
 }
 
 .third-row {
-/*   display: flex;
+  /*   display: flex;
   flex-direction: row;
   justify-content: space-between; */
- width: 90%;
+  width: 90%;
   margin-top: 3%;
   margin-bottom: 3%;
 }
@@ -99,12 +100,12 @@
 .search-by {
   height: 50px;
   width: 130px;
-  margin-right: 3.5%;
+  margin-right: 0%;
   padding-top: 8px;
   text-align: center;
-  display:"inline-block";
+  display: "inline-block";
   font-size: 22px;
-    font-weight:600;
+  font-weight: 600;
 }
 .box1 {
   width: 18%;
@@ -128,34 +129,45 @@ tr {
   cursor: pointer;
 }
 .hroundcircle {
-  width: 30px;
+  /* width: 30px;
   height: 30px;
   border-radius: 50%;
   font-size: 15px;
   color: black;
   background-color: #ff8282;
   padding-top: 5px;
+  margin: auto; */
+  width: 50px !important;
+  height: 50px !important;
+  flex-grow: 0;
+  font-size: 18px !important;
+  font-family: Outfit;
+  border-radius: 50%;
   margin: auto;
+  padding: 13px 19px 14px 20px !important;
+  background-color: #ff8282;
 }
 .mroundcircle {
-  width: 30px;
-  height: 30px;
+  width: 50px !important;
+  height: 50px !important;
+  flex-grow: 0;
+  font-size: 18px !important;
+  font-family: Outfit;
   border-radius: 50%;
-  font-size: 15px;
-  color: black;
-  background-color: #ffe289;
-  padding-top: 5px;
   margin: auto;
+  padding: 13px 19px 14px 20px !important;
+  background-color: #ffe289;
 }
 .lroundcircle {
-  width: 30px;
-  height: 30px;
+  width: 50px !important;
+  height: 50px !important;
+  flex-grow: 0;
+  font-size: 18px !important;
+  font-family: Outfit;
   border-radius: 50%;
-  font-size: 15px;
-  color: black;
-  background-color: #c0f587;
-  padding-top: 5px;
   margin: auto;
+  padding: 13px 19px 14px 20px !important;
+  background-color: #c0f587;
 }
 .btnjob {
   font-weight: 300;
@@ -171,11 +183,12 @@ tr {
   cursor: pointer;
 }
 .searchbtn {
-  width: 115px;
+  width: 156px;
   border: #000;
   border-radius: 50px;
   background-color: #000;
   color: white;
-  font-weight: 100;
-  height: 40px;
+  font-size: 18px;
+  font-weight: 300;
+  height: 63px;
 }

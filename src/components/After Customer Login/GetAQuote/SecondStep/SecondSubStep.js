@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 
 import step2ProgressBar from "../../../../Img/step2.png";
@@ -30,6 +30,9 @@ const SecondSubStep = (props) => {
     itServers: "0",
     PhotoCopiers: "0",
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [highEnergyEquipments, setHighEnergyEquipments] = useState({
     sauna: "0",
     swimmingPool: "0",

@@ -22,7 +22,9 @@ const FourthStep = (props) => {
   const [sattachments, setSattachments] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const onFileUpload = (e, name) => {
     console.log(name);
     if (e) {

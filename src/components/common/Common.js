@@ -7,7 +7,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom";
 
-
 import "./Common.css";
 import { connect } from "react-redux";
 import Button from "@mui/material/Button";
@@ -19,30 +18,27 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 
-
-
-function Common({firstPageStatus}) {
+function Common({ firstPageStatus }) {
   const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("redbar1");
-  const [logout,setLogout] = useState(false);
+  const [logout, setLogout] = useState(false);
 
   const userInfo = JSON.parse(localStorage.getItem("userData"));
 
-  console.log(userInfo.name)
+  console.log(userInfo.name);
 
   const toggleModal = () => {
     setLogout(!logout);
   };
-  const signout = () =>{
-    localStorage.removeItem("user")
-    localStorage.removeItem("userData")
+  const signout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userData");
     /* localStorage.clear(); */
-    Navigate("/")
+    Navigate("/");
+  };
+  console.log(firstPageStatus);
 
-  }
-  console.log(firstPageStatus)
-  
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -77,83 +73,79 @@ function Common({firstPageStatus}) {
     prevOpen.current = open;
   }, [open]);
   return (
-   
-      <div style={{ display: "flex",height:"100%" }}>
-        <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
-          <div   className="HPDSideBar" >
-            <img
-              src={require("../../Img/HPDD.jpeg")}
-              /* height="40px"
-              width={"40px"} */
-             style={{height:"6.5vh"}}
-            />
-          </div>
+    <div style={{ display: "flex", height: "100%" }}>
+      <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
+        <div className="HPDSideBar">
+          <img
+            style={{
+              width: "70px",
+              height: "70px",
+              margin: "1px 915px 0px 0px;",
+            }}
+            src={require("../../Img/HPDD.jpeg")}
+            alt="HPD"
+          />
+        </div>
 
-          <Link
-            to="getaquote"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            {" "}
-            <li
-              style={
-                display == "redbar1"
-                  ? { fontWeight: "600" }
-                  : { fontWeight: "300" }
-              }
-              className="firstli li"
-              onClick={() => setDisplay("redbar1")}
-            >
-              {" "}
-              <img
-                src={require("../../Img/sidebar1.png")}
-             
-                className="sidbar-icon"
-              />{" "}
-              Get a Quote{" "}
-              <img
-                src={require("../../Img/redbar.png")}
-                height="50px"
-                width={"10px"}
-                className="redbar1"
-                style={
-                  display == "redbar1"
-                    ? { visibility: "visible" }
-                    : { visibility: "hidden" }
-                }
-              />{" "}
-            </li>{" "}
-          </Link>
+        <Link to="getaquote" style={{ textDecoration: "none", color: "black" }}>
+          {" "}
           <li
-            onClick={() => setDisplay("redbar2")}
             style={
-              display == "redbar2"
+              display == "redbar1"
                 ? { fontWeight: "600" }
                 : { fontWeight: "300" }
             }
-            className="myquotes-text li"
+            className="firstli li"
+            onClick={() => setDisplay("redbar1")}
           >
             {" "}
             <img
-              src={require("../../Img/sidebar2.png")}
+              src={require("../../Img/sidebar1.png")}
               className="sidbar-icon"
             />{" "}
-            My Quotes{" "}
+            Get a Quote{" "}
             <img
               src={require("../../Img/redbar.png")}
               height="50px"
               width={"10px"}
-              className="redbar2"
+              className="redbar1"
               style={
-                display == "redbar2"
+                display == "redbar1"
                   ? { visibility: "visible" }
                   : { visibility: "hidden" }
               }
             />{" "}
-          </li>
-          <Link
-            to="servicerequest"
-            style={{ textDecoration: "none", color: "black" }}
-          >
+          </li>{" "}
+        </Link>
+        <li
+          onClick={() => setDisplay("redbar2")}
+          style={
+            display == "redbar2" ? { fontWeight: "600" } : { fontWeight: "300" }
+          }
+          className="myquotes-text li"
+        >
+          {" "}
+          <img
+            src={require("../../Img/sidebar2.png")}
+            className="sidbar-icon"
+          />{" "}
+          My Quotes{" "}
+          <img
+            src={require("../../Img/redbar.png")}
+            height="50px"
+            width={"10px"}
+            className="redbar2"
+            style={
+              display == "redbar2"
+                ? { visibility: "visible" }
+                : { visibility: "hidden" }
+            }
+          />{" "}
+        </li>
+        <Link
+          to="servicerequest"
+          style={{ textDecoration: "none", color: "black" }}
+        >
           <li
             onClick={() => setDisplay("redbar3")}
             style={
@@ -181,62 +173,60 @@ function Common({firstPageStatus}) {
               }
             />{" "}
           </li>
-          </Link>
+        </Link>
 
-          <img
-            src={require("../../Img/ellipse.png")}
-           /*  height="360px"
+        <img
+          src={require("../../Img/ellipse.png")}
+          /*  height="360px"
             width={"250px"} */
-            alt=""
-            className="ellipse"
-          />
-        </div>
+          alt=""
+          className="ellipse"
+        />
+      </div>
 
-        <div style={{ width: "100%" }}>
-          <div className={`${collapse ? "navbar1" : "navbar"}`}>
-            <div>
-              <img
-                src={require("../../Img/toggleSideBar.png")}
-                onClick={() => setCollapse(!collapse)}
-                className="collapse-icon"
-              />
-           { !firstPageStatus? (/* {<Link 
+      <div style={{ width: "100%" }}>
+        <div className={`${collapse ? "navbar1" : "navbar"}`}>
+          <div>
+            <img
+              src={require("../../Img/toggleSideBar.png")}
+              onClick={() => setCollapse(!collapse)}
+              className="collapse-icon"
+            />
+            {!firstPageStatus /* {<Link 
                 to="servicerequest"
-                style={{ textDecoration: "none", color: "black" }} >} */
-               <img
+                style={{ textDecoration: "none", color: "black" }} >} */ ? (
+              <img
                 src={require("../../Img/toggleback.png")}
-                onClick={() => {window.history.back()}}
+                onClick={() => {
+                  window.history.back();
+                }}
                 className="collapse-left"
-              /> ):null}
+              />
+            ) : null}
 
-              <div style={{ float: "right", marginRight: "6.11vw" }}>
-                <img
-                  src={require("../../Img/homeIcon.png")}
-                
-                  className="home-icon"
-                  
-                />
-                <img
-                  src={require("../../Img/bell.png")}
-                
-                  className="bell-icon"
-                />
+            <div style={{ float: "right", marginRight: "6.11vw" }}>
+              <img
+                src={require("../../Img/homeIcon.png")}
+                className="home-icon"
+              />
+              <img src={require("../../Img/bell.png")} className="bell-icon" />
 
-                <div className="name-icon">
+              <div className="name-icon">
                 <span
-                    style={{
-                      position: "relative",
-                      // bottom: "2vh",
-                      top:"2.4vh",
-                      left: "4.55vw",
-                      color: "rgba(0, 0, 0, 0.6)",
-                      fontSize:"1vw",
-                      fontWeight:"600"
-                    }}
-                  >
-                    {userInfo.name}
-                  </span>
-                  <div>
+                  style={{
+                    position: "absolute",
+                    // bottom: "2vh",
+                    // top: "3vh",
+                    // left: "2.55vw",
+                    marginLeft: "17px",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    fontSize: "18px",
+                    fontWeight: "600",
+                  }}
+                >
+                  {userInfo.name}
+                </span>
+                <div>
                   <Button
                     ref={anchorRef}
                     id="composition-button"
@@ -245,13 +235,13 @@ function Common({firstPageStatus}) {
                     aria-haspopup="true"
                     onClick={handleToggle}
                     style={{
-                      width: "3.25vw",
-                      height: "6.71vh",
+                      // width: "3.25vw",
+                      // height: "6.71vh",
                       marginLeft: "7.81vw",
                       position: "relative",
-                      bottom: "2vh",
+                      bottom: "3vh",
                       display: "inline-block",
-                      left:"3vw",
+                      left: "3vw",
                     }}
                     size="small"
                   >
@@ -286,11 +276,22 @@ function Common({firstPageStatus}) {
                               aria-labelledby="composition-button"
                               onKeyDown={handleListKeyDown}
                             >
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={handleClose}>Profile</MenuItem>
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={handleClose}>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={handleClose}
+                              >
+                                Profile
+                              </MenuItem>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={handleClose}
+                              >
                                 My account
                               </MenuItem>
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={() => toggleModal()}>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={() => toggleModal()}
+                              >
                                 Logout
                               </MenuItem>
                             </MenuList>
@@ -300,51 +301,55 @@ function Common({firstPageStatus}) {
                     )}
                   </Popper>
                 </div>
-                  
-                </div>
               </div>
             </div>
           </div>
-          <Modal
-        isOpen={logout}
-        className="logoutmodal"
-        overlayClassName="myoverlay"
-        closeTimeoutMS={500}
-      >
-        <div>
-          <form>
-            <div className="logclose">
-              <IconButton onClick={toggleModal}>
-                <CloseIcon sx={{ color: "black" }}></CloseIcon>
-              </IconButton>
-            </div>
-            <div className="log-row1">
-              <h5 style={{ fontSize: "1.43vw", margin: "0.67vh 0 0 0" }}>
-                Are you sure you want to logout?
-              </h5>
-            </div>
-            <div className="log-row2">
-              <div style={{ marginTop: "1.6vh" }}>
-                <button className="yesbtn" onClick={()=>signout()}>
-                  yes
-                </button>
-                <button className="nobtn" onClick={toggleModal}>
-                  No
-                </button>
+        </div>
+        <Modal
+          isOpen={logout}
+          className="logoutmodal"
+          overlayClassName="myoverlay"
+          closeTimeoutMS={500}
+        >
+          <div>
+            <form>
+              <div className="logclose">
+                <IconButton onClick={toggleModal}>
+                  <CloseIcon sx={{ color: "black" }}></CloseIcon>
+                </IconButton>
               </div>
-            </div>
-          </form>
-        </div>
-      </Modal>
-          <Outlet />
-        </div>
+              <div className="log-row1">
+                <h5
+                  style={{
+                    fontSize: "22px",
+                    fontFamily: "Outfit",
+                    margin: "0.67vh 0 0 0",
+                  }}
+                >
+                  Are you sure you want to logout?
+                </h5>
+              </div>
+              <div className="log-row2">
+                <div style={{ marginTop: "1.6vh" }}>
+                  <button className="yesbtn" onClick={() => signout()}>
+                    Yes
+                  </button>
+                  <button className="nobtn" onClick={toggleModal}>
+                    No
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </Modal>
+        <Outlet />
       </div>
-    
+    </div>
   );
 }
 
 const mapStatetoProps = (state) => ({
- firstPageStatus:state.fpr.firstPageStatus
-})
+  firstPageStatus: state.fpr.firstPageStatus,
+});
 
 export default connect(mapStatetoProps)(Common);

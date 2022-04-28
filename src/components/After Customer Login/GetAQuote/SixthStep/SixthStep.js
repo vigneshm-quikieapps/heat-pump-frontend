@@ -99,10 +99,12 @@ const SixthStep = (props) => {
     );
   };
 
+  // useEffect(() => {
+  //   // setInputList(inputList.concat(<Input key={inputList.length} />));
+  // }, []);
   useEffect(() => {
-    // setInputList(inputList.concat(<Input key={inputList.length} />));
+    window.scrollTo(0, 0);
   }, []);
-
   const onAddBtnClick = (event) => {
     // setInputList(inputList.concat(<Input key={inputList.length} />));
     let temp = [...inputList];

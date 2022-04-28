@@ -143,6 +143,9 @@ const CreateList = ({ FirstPageAction }) => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     jbModal();
   }, [page]);
 
@@ -598,30 +601,30 @@ const CreateList = ({ FirstPageAction }) => {
         {submitted && (
           <>
             <div className="subpaper">
-                <div className="subfirstrow">
+              <div className="subfirstrow">
                 <Typography>
-                    <div className="clnames">{userName}</div>
-                  </Typography>
-                  <Typography>
-                    <div style={{ fontSize: "18px", fontWeight: 700 }}>
-                      {userData.business_trade_name} , {userData.city}
-                    </div>
-                    <hr className="clhrFirst" />
-                  </Typography>
-                  {/* <hr className="subhrFirst" /> */}
-
-                  <div className="subtext">
-                    Your enquiry submission is successful. Ref:{srno}. You can
-                    track the status of your service request using{" "}
-                    <Link to="/common/servicerequest" className="subspan">
-                      {" "}
-                      <span>My Service Requests</span>
-                    </Link>
+                  <div className="clnames">{userName}</div>
+                </Typography>
+                <Typography>
+                  <div style={{ fontSize: "18px", fontWeight: 700 }}>
+                    {userData.business_trade_name} , {userData.city}
                   </div>
+                  <hr className="clhrFirst" />
+                </Typography>
+                {/* <hr className="subhrFirst" /> */}
+
+                <div className="subtext">
+                  Your enquiry submission is successful. Ref:{srno}. You can
+                  track the status of your service request using{" "}
+                  <Link to="/common/servicerequest" className="subspan">
+                    {" "}
+                    <span>My Service Requests</span>
+                  </Link>
                 </div>
-                <button className="submitBtn" onClick={() => closeSubmitted()}>
-                  Close
-                </button>
+              </div>
+              <button className="submitBtn" onClick={() => closeSubmitted()}>
+                Close
+              </button>
             </div>
             <div style={{ height: "160px" }}></div>
           </>
@@ -664,12 +667,26 @@ const CreateList = ({ FirstPageAction }) => {
                           onClick={() => settingJobref(item)}
                           className="sortabletr"
                         >
-                          <td style={{fontSize:"18px"}}>{item.job_ref_number}</td>
-                          <td style={{fontSize:"18px"}}>{item.site_details}</td>
-                          {item.status == 1 && <td style={{fontSize:"18px"}}>New</td>}
-                          {item.status == 2 && <td style={{fontSize:"18px"}}>HPD Working</td>}
-                          {item.status == 3 && <td style={{fontSize:"18px"}}>Need Your Attention</td>}
-                          {item.status == 4 && <td style={{fontSize:"18px"}}>Resolved</td>}
+                          <td style={{ fontSize: "18px" }}>
+                            {item.job_ref_number}
+                          </td>
+                          <td style={{ fontSize: "18px" }}>
+                            {item.site_details}
+                          </td>
+                          {item.status == 1 && (
+                            <td style={{ fontSize: "18px" }}>New</td>
+                          )}
+                          {item.status == 2 && (
+                            <td style={{ fontSize: "18px" }}>HPD Working</td>
+                          )}
+                          {item.status == 3 && (
+                            <td style={{ fontSize: "18px" }}>
+                              Need Your Attention
+                            </td>
+                          )}
+                          {item.status == 4 && (
+                            <td style={{ fontSize: "18px" }}>Resolved</td>
+                          )}
                         </tr>
                       );
                     })}
