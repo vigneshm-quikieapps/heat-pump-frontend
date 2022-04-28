@@ -2,12 +2,7 @@
   box-sizing: border-box;
 }
 .-Login {
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-wrap: nowrap;
-  padding: 0 0 0 3vw;
-  background-color: #fff;
 }
 
 .HPD-Existing-Logo---01-11 {
@@ -20,9 +15,10 @@
   width: 783px;
   height: 88px;
   flex-grow: 0;
-  margin: 0 0 64px;
+  margin: 0 197px 40px 75px;
+  position: relative;
   font-family: Outfit;
-  font-size: 70px;
+  font-size: 60px;
   font-weight: 300;
   font-stretch: normal;
   font-style: normal;
@@ -30,11 +26,18 @@
   letter-spacing: 0.41px;
   text-align: left;
   color: #000;
+  /* fontSize: "60px",
+              fontWeight: "300",
+              fontFamily: "Outfit",
+              position: "relative",
+              width: "783px",
+              height: "88px",
+              margin: "0 197px 40px 55px", */
 }
 
 .firstHalf {
-  min-width: 911.78px;
-  display: inline-block;
+  width: 60%;
+  /* display: inline-block; */
 }
 
 .email {
@@ -148,7 +151,7 @@
   /* margin: 4.3vh 0px 0px 3.58vw; */
   margin: 0px;
   margin-top: 2%;
-  margin-left: 6%;
+  margin-left: 75px;
   display: inline-flex;
   width: 500px;
   /* display: flex; */
@@ -181,8 +184,8 @@
   float: left; */
 }
 .remember-me1 {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   /* flex-grow: 0; */
   /* margin: 50px 10px 47px 6px; */
   /* object-fit: contain;
@@ -190,6 +193,8 @@
   /* width: 0.78vw;
   height: 1.61vh; */
   float: left;
+  font-family: Outfit;
+  font-size: 18px;
   /* margin-top: 0.08vw; */
   margin-left: 15px;
 }
@@ -207,7 +212,7 @@
   cursor: pointer;
   font-size: 18px;
   display: inline-block;
-
+  font-family: Outfit;
   position: relative;
   top: "0.2vw";
   margin-bottom: 1.34vh;
@@ -229,17 +234,18 @@
 
 .terms-policies {
   text-decoration: underline;
-  margin: 1% 0px 0px 23%;
+  margin: 1% 0px 0px 205px;
   font-size: 14px;
-
+  display: flex;
   cursor: pointer;
   color: #000;
 }
 
 .Rectangle-2 {
-  min-width: 43vw;
-  height: 100vh;
-  margin-left: auto;
+  width: 40%;
+  height: 791px;
+  margin: 0px 0 0 0px;
+  padding: 487px 105px 31.2px 106px;
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
 }
 
@@ -250,11 +256,11 @@
 } */
 
 .couple1Img {
-  width: 32vw;
-  height: 35.6vh;
-  margin-left: 6vw;
+  width: 30vw;
+  height: 62.4vh;
+  margin-left: 0vw;
   position: absolute;
-  bottom: 1px;
+  bottom: 0.15vh;
 }
 
 .inputLogin1Error {

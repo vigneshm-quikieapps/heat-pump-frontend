@@ -8,6 +8,7 @@ import axios from "axios";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import validator from "validator";
+import HPD from "../../../Img/HPDD.jpeg";
 import { Box, Button, InputAdornment, Typography } from "@mui/material";
 import StyledTextField from "../../../common/textfield";
 // import MailIcon from "../../../Img/icon.png";
@@ -144,10 +145,13 @@ const Login = () => {
         <div className="firstHalf">
           <div className="HPD-Existing-Logo---01-11">
             <img
-              src={require("../../../Img/HPDD.jpeg")}
-              /* height="50px"
-              width={"50px"} */
-              style={{ height: "6.5vh" }}
+              style={{
+                width: "70px",
+                height: "70px",
+                margin: "40px 965px 60px 45px",
+              }}
+              src={HPD}
+              alt="HPD"
             />
           </div>
           <div className="Login">Login</div>
@@ -155,7 +159,7 @@ const Login = () => {
           <form action="">
             <div style={{ position: "relative" }}>
               <StyledTextField
-                sx={{ width: "500px", height: "63px", margin: "0 0 0 60px" }}
+                sx={{ width: "500px", height: "63px", margin: "0 0 0 75px" }}
                 required
                 type="text"
                 value={emailValue}
@@ -220,7 +224,7 @@ const Login = () => {
             </div>
             <div style={{ position: "relative" }}>
               <StyledTextField
-                sx={{ width: "500px", height: "63px", margin: "8px 0 0 60px" }}
+                sx={{ width: "500px", height: "63px", margin: "8px 0 0 75px" }}
                 required
                 label="Password"
                 type="password"
@@ -344,7 +348,7 @@ const Login = () => {
           <div style={{ margin: "auto" }}>
             <span
               class="Dont-have-an-account-Sign-Up"
-              style={{ fontWeight: "600", marginLeft: "19%" }}
+              style={{ fontWeight: "600", marginLeft: "180px" }}
             >
               Don’t have an account?
               <Link to="/signup" style={{ color: "#fa5e00", marginLeft: "1%" }}>
@@ -364,23 +368,40 @@ const Login = () => {
             </span>
           </div>
 
-          <div
+          <Typography
             style={{
-              marginLeft: "20%",
+              marginLeft: "210px",
               marginTop: "3%",
               fontSize: "14px",
               fontWeight: "600",
               fontFamily: "Outfit",
             }}
           >
-            <span>By continuing, you agree to our</span>
-          </div>
+            By continuing, you agree to our
+          </Typography>
 
           <div className="terms-policies">
-            <span style={{ fontWeight: "300" }}>Terms of Service</span>
-            <span style={{ marginLeft: "3%", fontWeight: "300" }}>
+            <Typography
+              style={{
+                fontWeight: "300",
+                fontSize: "14px",
+                fontFamily: "Outfit",
+                color: "#000",
+              }}
+            >
+              Terms of Service
+            </Typography>
+            <Typography
+              style={{
+                marginLeft: "3%",
+                fontWeight: "300",
+                fontSize: "14px",
+                fontFamily: "Outfit",
+                color: "#000",
+              }}
+            >
               Privacy Policy
-            </span>
+            </Typography>
           </div>
         </div>
         <div class="Rectangle-2">
