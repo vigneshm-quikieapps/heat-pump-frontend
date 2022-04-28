@@ -3,7 +3,7 @@ import { Link, Outlet, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import Modal from "react-modal";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "./AdminCommon.css";
@@ -76,8 +76,7 @@ function AdminCommon({ adminFirstPageStatus }) {
         <div className="HPDSideBar">
           <img
             src={require("../../Img/HPDD.jpeg")}
-         
-            style={{height:"6.5vh"}}
+            style={{ height: "6.5vh" }}
           />
         </div>
 
@@ -98,7 +97,6 @@ function AdminCommon({ adminFirstPageStatus }) {
             {" "}
             <img
               src={require("../../Img/sidebaradmin1.png")}
-            
               className="adminsidbar-icon"
             />{" "}
             Account Requests{" "}
@@ -207,7 +205,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             <img
               src={require("../../Img/toggleSideBar.png")}
               onClick={() => setCollapse(!collapse)}
-          /*     height="5.5vh"
+              /*     height="5.5vh"
               width={"2.6vw"} */
               className="admincollapse-icon"
             />
@@ -217,7 +215,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 onClick={() => {
                   window.history.back();
                 }}
-            /*     height="40px"
+                /*     height="40px"
                 width={"40px"} */
                 className="admincollapse-left"
               />
@@ -226,12 +224,10 @@ function AdminCommon({ adminFirstPageStatus }) {
             <div style={{ float: "right", marginRight: "10.41vw" }}>
               <img
                 src={require("../../Img/homeIcon.png")}
-               
                 className="adminhome-icon"
               />
               <img
                 src={require("../../Img/bell.png")}
-           
                 className="adminbell-icon"
               />
 
@@ -241,9 +237,9 @@ function AdminCommon({ adminFirstPageStatus }) {
                     position: "relative",
                     top: "2.3vh",
                     color: "rgba(0, 0, 0, 0.6)",
-                    fontSize:"1vw",
-                   fontWeight:"600",
-                   float:"right"
+                    fontSize: "1vw",
+                    fontWeight: "600",
+                    float: "right",
                   }}
                 >
                   {userInfo.name}
@@ -264,12 +260,12 @@ function AdminCommon({ adminFirstPageStatus }) {
                       position: "relative",
                       bottom: "2.5vh",
                       display: "inline-block",
-                      left:"3.8vw",
+                      left: "3.8vw",
                     }}
                   >
                     <img
                       src={require("../../Img/account.png")}
-                       className="adminaccount-icon"
+                      className="adminaccount-icon"
                     />
                   </Button>
                   <Popper
@@ -298,11 +294,22 @@ function AdminCommon({ adminFirstPageStatus }) {
                               aria-labelledby="composition-button"
                               onKeyDown={handleListKeyDown}
                             >
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={handleClose}>Profile</MenuItem>
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={handleClose}>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={handleClose}
+                              >
+                                Profile
+                              </MenuItem>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={handleClose}
+                              >
                                 My account
                               </MenuItem>
-                              <MenuItem style={{fontWeight:600,fontSize:"1vw"}} onClick={() => toggleModal()}>
+                              <MenuItem
+                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                onClick={() => toggleModal()}
+                              >
                                 Logout
                               </MenuItem>
                             </MenuList>
@@ -331,14 +338,20 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </IconButton>
               </div>
               <div className="log-row1">
-                <h5 style={{ fontSize: "1.43vw", margin: "0.67vh 0 0 0" }}>
+                <Typography
+                  style={{
+                    fontSize: "22px",
+                    fontFamily: "Outfit",
+                    margin: "0.67vh 0 0 0",
+                  }}
+                >
                   Are you sure you want to logout?
-                </h5>
+                </Typography>
               </div>
               <div className="log-row2">
                 <div style={{ marginTop: "1.6vh" }}>
                   <button className="yesbtn" onClick={() => signout()}>
-                    yes
+                    Yes
                   </button>
                   <button className="nobtn" onClick={toggleModal}>
                     No

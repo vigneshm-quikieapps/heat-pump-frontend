@@ -125,6 +125,9 @@ const ThirdStep = (props) => {
   const token = JSON.parse(localStorage.getItem("user"));
   const [dataArr, setDataArr] = useState(demoData);
   const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const addNewFabric = () => {
     let temp = [...dataArr];
     temp.push({

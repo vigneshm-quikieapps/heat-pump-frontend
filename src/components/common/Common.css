@@ -25,11 +25,13 @@
 
 .li {
   list-style: none;
-  padding: 1.2vh 1.2vw;
-  font-size: 0.92vw;
+  /* padding: 1.2vh 1.2vw;
+  font-size: 0.92vw; */
+  padding: 3px 0px 0px 12px;
+  font-size: 18px;
   display: flex;
   align-items: center;
-  gap: 1.2vw;
+  gap: 0.5vw;
   cursor: pointer;
 }
 .sidebar1 {
@@ -60,23 +62,25 @@
   background-color: #fff;
   display: inline-block;
   height: 10vh;
-
+  margin-top: 27px;
   /* transition:all 0.5s ease; */
 }
 .navbar1 {
   width: 100%;
   height: 10vh;
-
+  margin-top: 27px;
   background-color: #fff;
   display: inline-block;
   /* transition:all 0.5s ease; */
 }
 
 .collapse-icon {
-  margin-top: 3vh;
+  margin-top: 0vh;
   margin-left: 2.44vw;
-  height: 5.36vh;
-  width: 2.6vw;
+  /* height: 5.36vh; */
+  /* width: 2.6vw; */
+  width: 55px;
+  height: 55px;
 }
 
 .collapse-left {
@@ -87,17 +91,21 @@
 }
 
 .home-icon {
-  margin-top: 3vh;
+  margin-top: 0vh;
   margin-left: 8vw;
-  height: 5.36vh;
-  width: 2.6vw;
+  /* height: 5.36vh; */
+  /* width: 2.6vw; */
+  width: 55px;
+  height: 55px;
 }
 
 .bell-icon {
-  margin-top: 3.35vh;
+  margin-top: 0vh;
   margin-left: 0.61vw;
-  height: 5.36vh;
-  width: 2.6vw;
+  /* height: 5.36vh; */
+  /* width: 2.6vw; */
+  width: 55px;
+  height: 55px;
 }
 
 .name-icon {
@@ -107,9 +115,12 @@
 
 .account-icon {
   /* margin-top: 2.35vh; */
+  /* margin-top: -2.6vh; */
   margin-left: 1.2vw;
-  height: 5.36vh;
-  width: 2.6vw;
+  /* height: 5.36vh; */
+  /* width: 2.6vw; */
+  width: 55px;
+  height: 55px;
 }
 
 .redbar1hidden {
@@ -121,11 +132,18 @@
 }
 
 .redbar1 {
-  position: relative;
+  /*
   left: 5.7vw;
-  visibility: visible;
+  
   height: 6.71vh;
-  width: 0.65vw;
+  width: 0.65vw; */
+  position: relative;
+  margin-left: auto;
+  visibility: visible;
+  /* height: 6.71vh; */
+  /* width: 0.65vw; */
+  width: 12px;
+  height: 70px;
 }
 
 .redbar2hidden {
@@ -138,10 +156,13 @@
 
 .redbar2 {
   position: relative;
-  left: 6.4vw;
+  /* left: 6.4vw; */
   visibility: visible;
-  height: 6.71vh;
-  width: 0.65vw;
+  /* height: 6.71vh;
+  width: 0.65vw; */
+  margin-left: auto;
+  width: 12px;
+  height: 70px;
 }
 
 .redbar3hidden {
@@ -154,10 +175,11 @@
 
 .redbar3 {
   position: relative;
-  left: 2.5vw;
+  /* left: 2.5vw; */
   visibility: visible;
-  height: 6.71vh;
-  width: 0.65vw;
+  margin-left: auto;
+  width: 12px;
+  height: 70px;
 }
 
 .logoutmodal {
@@ -194,6 +216,7 @@
 .log-row2 {
   margin-left: 1.8vw;
   margin-top: 6vh;
+  margin-bottom: 10px;
 }
 .yesbtn {
   width: 8vw;
@@ -203,13 +226,15 @@
   background-color: #000;
   color: white;
   font-weight: 100;
+  font-size: 18px;
   cursor: pointer;
 }
 .nobtn {
   margin-left: 0.66vw;
   width: 8vw;
   height: 6vh;
-  border: grey ridge;
+  font-size: 18px;
+  border: 1px solid grey;
   border-radius: 3.255vw;
   background-color: white;
   color: black;

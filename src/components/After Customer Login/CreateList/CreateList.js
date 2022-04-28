@@ -93,7 +93,7 @@ const useStyles = makeStyles({
       borderRadius: "9px",
       marginRight: "17px",
       width: "500px",
-      fontWeight: "bolder",
+      // fontWeight: "bolder",
       fontFamily: "outfit",
       backgroundColor: "white",
 
@@ -148,6 +148,9 @@ const CreateList = ({ FirstPageAction }) => {
     FirstPageAction(false);
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     jbModal();
   }, [page]);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 // import Checkbox from "../../../../common/checkbox";
 import step2ProgressBar from "../../../../Img/step2.png";
@@ -31,6 +31,9 @@ const StyledTableCell = withStyles((theme) => ({
 const SecondStep = (props) => {
   const [focused, setFocused] = React.useState("");
   const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [weeklySlots, setWeeklySlots] = useState({
     slot1: Array(7).fill(false),
     slot2: Array(7).fill(false),

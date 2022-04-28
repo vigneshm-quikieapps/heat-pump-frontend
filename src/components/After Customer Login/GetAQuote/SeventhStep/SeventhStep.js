@@ -86,6 +86,9 @@ const SeventhStep = (props) => {
   const [priority, setPriority] = useState("Gas");
   const [priorityValue, setPriorityValue] = useState();
   const [currnetBills, setCurrentBills] = useState({});
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Card>
       {loader && (
