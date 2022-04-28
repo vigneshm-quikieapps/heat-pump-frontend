@@ -16,7 +16,7 @@ import SecondSubStep from "./SecondStep/SecondSubStep";
 import ThirdStep from "./ThirdStep/ThirdStep";
 import SeventhStep from "./SeventhStep/SeventhStep";
 import EightStep from "./EightStep/EightStep";
-
+import NinethStep from "./NinethStep/NinethStep";
 const useStyles = makeStyles({
   radio: {
     height: "1vh",
@@ -67,8 +67,11 @@ const MainQuote = () => {
     username: "",
     password: "",
   });
-
+  const [res, setres] = useState();
   const { isLoading: isLoading, mutate: addQuote } = useAddQuote({
+    onSuccess: (response) => {
+      setres(response);
+    },
     onError: (error) => {
       setShowError(true);
       setError(error);
@@ -91,7 +94,9 @@ const MainQuote = () => {
         [name]: value
       })    
     } */
-
+  const _jumpToFirst = () => {
+    setCurrentStep(0);
+  };
   const _next = () => {
     let currentStep1 = currentStep;
     currentStep1 = currentStep1 + 1;
@@ -231,6 +236,7 @@ const MainQuote = () => {
           _addNewQuote={_addNewQuote}
         />
       )}
+      {currentStep === 9 && <NinethStep _jumpToFirst={_jumpToFirst} />}
     </React.Fragment>
   );
 };

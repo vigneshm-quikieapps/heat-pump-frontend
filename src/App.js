@@ -29,8 +29,8 @@ import AdminCommon from "./components/adminCommon/AdminCommon";
 import AdminRCA from "./components/admin/AdminRCA/AdminRCA";
 import AdminManageService from "./components/admin/AdminManageServiceRequest/AdminManageService";
 import AdminServiceList from "./components/admin/AdminServiceList/AdminServiceList";
-
-import { Navigate } from "react-router-dom";
+import { useJwt } from "react-jwt";
+import { Navigate, useHistory } from "react-router-dom";
 
 import NoPage from "./components/PageNotFound/NoPage";
 
@@ -69,7 +69,12 @@ function PriorityComponent() {
   console.log(userData);
   console.log(window.location.pathname);
 
+  const { isExpired } = useJwt(token);
   useEffect(() => {
+    // const history = useHistory();
+    if (isExpired === true) {
+      window.location.replace("/");
+    }
     if (window.location.pathname == "/common") {
       console.log(window.location.pathname);
       navigate("/common/servicerequest");
@@ -79,7 +84,12 @@ function PriorityComponent() {
       navigate("/admincommon/accountrequest");
     }
   }, []);
-
+  // const token = localStorage.getItem("tt");
+  // const { isExpired } = useJwt(token);
+  // // const history = useHistory();
+  // if (isExpired === true) {
+  //   window.location.replace("/");
+  // }
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>

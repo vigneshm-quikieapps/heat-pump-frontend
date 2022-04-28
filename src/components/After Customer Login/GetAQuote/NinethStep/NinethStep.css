@@ -1,0 +1,22 @@
+.greentick {
+  width: 24.0687px;
+  height: 24.18px;
+  position: relative;
+  right: 0.66vw;
+  top: 1vh;
+}
+.rca3left-bar {
+  width: 500.151px;
+  height: 7.254px;
+  background-color: rgba(250, 96, 0, 0.664);
+  margin: 0px 0px 0px 55px;
+  border-top-left-radius: 0.26vw;
+  border-bottom-left-radius: 0.26vw;
+  display: inline-block;
+  position: relative;
+}
+.s8text1 {
+  font-family: Outfit;
+  font-size: 30px;
+  display: inline;
+}

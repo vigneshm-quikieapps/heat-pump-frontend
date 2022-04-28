@@ -33,7 +33,7 @@
 }
 
 .firstHalf {
-  min-width: 911.78px;
+  min-width: 700.78px;
   display: inline-block;
 }
 
@@ -270,6 +270,9 @@
 }
 
 .Dont-have-an-account-Sign-Up {
+  margin: 47px 363px 25px 180px;
+  padding: 21px 74px 21px 73px;
   font-family: Outfit;
   font-size: 18px;
+  font-weight: 300;
 }

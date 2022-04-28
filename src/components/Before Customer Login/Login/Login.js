@@ -1,7 +1,7 @@
 import "./Login.css";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
@@ -13,6 +13,7 @@ import StyledTextField from "../../../common/textfield";
 // import MailIcon from "../../../Img/icon.png";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
+
 const passwords = {
   value: "",
   type: "password",
@@ -223,11 +224,11 @@ const Login = () => {
                 sx={{ width: "500px", height: "63px", margin: "8px 0 0 60px" }}
                 required
                 label="Password"
-                type="password"
+                type={password.type}
                 value={password.value}
                 onChange={changeHandler}
-                onBlur={blurFunc1}
                 name="password"
+                onBlur={blurFunc1}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment
@@ -341,10 +342,13 @@ const Login = () => {
             </button>
           </form>
 
-          <div style={{ margin: "auto" }}>
+          <div
+            class="Dont-have-an-account-Sign-Up"
+            // style={{ margin: "auto" }}
+          >
             <span
-              class="Dont-have-an-account-Sign-Up"
-              style={{ fontWeight: "600", marginLeft: "19%" }}
+            // class="Dont-have-an-account-Sign-Up"
+            // style={{ fontWeight: "600", marginLeft: "19%" }}
             >
               Don’t have an account?
               <Link to="/signup" style={{ color: "#fa5e00", marginLeft: "1%" }}>
