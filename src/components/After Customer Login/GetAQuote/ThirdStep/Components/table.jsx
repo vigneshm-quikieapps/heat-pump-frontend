@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell, {
   [`&.${tableCellClasses.head}`]: {
     color: "black",
 
-    width: cellWidth ? cellWidth : undefined,
+    width: cellWidth ? cellWidth : "200px",
     fontWeight: "bolder",
     fontFamily: "Outfit",
     lineHeight: "normal",

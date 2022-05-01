@@ -4,11 +4,12 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   Container,
   IconButton,
-  Pagination,
+  // Pagination,
   Typography,
   TextField,
   TextareaAutosize,
 } from "@mui/material";
+import Pagination from "../../../common/pagination";
 import Modal from "react-modal";
 import "./CreateList.css";
 import { toast } from "react-toastify";
