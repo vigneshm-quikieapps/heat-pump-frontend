@@ -2,8 +2,16 @@ import "./ManageServiceRequest.css";
 import React, { useState, useEffect } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
-
-import { IconButton, Container, Paper, Grid, Typography } from "@mui/material";
+import StyledTextField from "../../../../src/common/textfield";
+import {
+  IconButton,
+  Container,
+  Paper,
+  Grid,
+  Typography,
+  TextField,
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import { saveAs } from "file-saver";
 import { FileUploader } from "react-drag-drop-files";
@@ -20,10 +28,92 @@ import { connect } from "react-redux";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
+
+const useStyles = makeStyles({
+  selectfield: {
+    marginTop: "20px",
+    "& label.Mui-focused": {
+      color: "black",
+      fontFamily: "outfit",
+      fontWeight: "bold",
+      fontSize: "16px",
+    },
+    "& .MuiFormLabel-root": {
+      fontWeight: "bold",
+      fontSize: "16px",
+      fontFamily: "outfit",
+    },
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "9px",
+      marginRight: "17px",
+      width: "400px",
+      height: "45px",
+      fontWeight: "bolder",
+      fontFamily: "outfit",
+      backgroundColor: "white",
+
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
+      },
+    },
+    icons: {
+      fontSize: "8px",
+    },
+  },
+  selectinput: {
+    marginBottom: "4.5px",
+    fontFamily: "outfit",
+    fontWeight: "bold",
+    fontSize: "16px",
+  },
+  rowfield: {
+    "&:hover": {
+      borderColor: "#cdcdcd !important",
+    },
+    "& .MuiFilledInput-root": {
+      backgroundColor: "white",
+      "&::after ,::before": { display: "none" },
+      "& .MuiFilledInput-input": {
+        "&:focus": { backgroundColor: "transparent" },
+      },
+    },
+    "& label.Mui-focused": {
+      color: "red",
+      background: "#fff",
+    },
+    "& .MuiFormLabel-root": {
+      fontWeight: "300",
+      fontSize: "18px",
+      fontFamily: "outfit",
+    },
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "9px",
+      marginRight: "17px",
+      width: "500px",
+      // fontWeight: "bolder",
+      fontFamily: "outfit",
+      backgroundColor: "white",
+
+      "&.Mui-focused fieldset": {
+        borderColor: "#cdcdcd",
+      },
+
+      "&::after ,::before": { display: "none" },
+      "& .MuiFilledInput-input": {
+        "&:focus": { backgroundColor: "transparent" },
+      },
+    },
+    icons: {
+      fontSize: "8px",
+    },
+  },
+});
+
 const ManageServiceRequest = ({ FirstPageAction }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
   console.log(state);
+  const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
   const [details, setDetails] = useState({});
@@ -96,7 +186,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        debugger;
+        // debugger;
         setDetails(res.data);
         console.log("details", details);
         setavailableFiles(res.data.attachments);
@@ -356,185 +446,186 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         </div>
       )}
       <div className="msrcontainer">
-      {/* <Container> */}
+        {/* <Container> */}
         <div className="msrtitle">Manage Service Request</div>
         <hr className="msrcontainerhr" />
 
         {/* <Paper> */}
         <div className="msrpaper">
-            <div className="msrgrid1">
-              <div className="msrtitle1">Service Request Summary</div>
-              <hr className="msrhr1" />
-              <div className="displaygrid">
-                <div className="displayleft">Priority</div>
-                {details.priority == 1 && (
-                  <div className="displaygrid1">
-                    <div className="hroundcircle">H</div>
-                  </div>
-                )}
-                {details.priority == 2 && (
-                  <div className="displaygrid1">
-                    <div className="mroundcircle">M</div>
-                  </div>
-                )}
-                {details.priority == 3 && (
-                  <div className="displaygrid1">
-                    <div className="lroundcircle">L</div>
-                  </div>
-                )}
-                <div className="displayleft">Status</div>
-                {details.status == 1 && <div className="displaygrid1">New</div>}
-                {details.status == 2 && (
-                  <div className="displaygrid1">HPD Working</div>
-                )}
-                {details.status == 3 && (
-                  <div className="displaygrid1">Need Your Attention</div>
-                )}
-                {details.status == 4 && (
-                  <div className="displaygrid1">Closed</div>
-                )}
-                {details.status == 5 && (
-                  <div className="displaygrid1">HPD To Review</div>
-                )}
-                <div className="displayleft">Last Updated</div>
+          <div className="msrgrid1">
+            <div className="msrtitle1">Service Request Summary</div>
+            <hr className="msrhr1" />
+            <div className="displaygrid">
+              <div className="displayleft">Priority</div>
+              {details.priority == 1 && (
                 <div className="displaygrid1">
-                  {moment(details.updatedAt).format("DD/MM/YYYY h:mm a")}
+                  <div className="hroundcircle">H</div>
                 </div>
-                <div className="displayleft">Created</div>
+              )}
+              {details.priority == 2 && (
                 <div className="displaygrid1">
-                  {moment(details.createdAt).format("DD/MM/YYYY h:mm a")}
+                  <div className="mroundcircle">M</div>
                 </div>
-                <div className="displayleft">Job Reference</div>
+              )}
+              {details.priority == 3 && (
                 <div className="displaygrid1">
-                  {details.job_reference_id
-                    ? details.job_reference_id.job_ref_number
-                    : "-"}
+                  <div className="lroundcircle">L</div>
                 </div>
-                <div className="displayleft">Site</div>
-                <div className="displaygrid1">
-                  {details.job_reference_id
-                    ? details.job_reference_id.site_details
-                    : "-"}
-                </div>
+              )}
+              <div className="displayleft">Status</div>
+              {details.status == 1 && <div className="displaygrid1">New</div>}
+              {details.status == 2 && (
+                <div className="displaygrid1">HPD Working</div>
+              )}
+              {details.status == 3 && (
+                <div className="displaygrid1">Need Your Attention</div>
+              )}
+              {details.status == 4 && (
+                <div className="displaygrid1">Closed</div>
+              )}
+              {details.status == 5 && (
+                <div className="displaygrid1">HPD To Review</div>
+              )}
+              <div className="displayleft">Last Updated</div>
+              <div className="displaygrid1">
+                {moment(details.updatedAt).format("DD/MM/YYYY h:mm a")}
               </div>
-              <div className="msrtitle2">Attachments</div>
-              <hr className="msrhr1" />
-              {availableFiles &&
-                availableFiles.map((item, index) => (
-                  <div key={index} className="msrattachment">
-                    <img
-                      src={require("../../../Img/attachIcon1.png")}
-                      className="msrattachIcon"
-                    />
-                    <div
-                      className="div-name"
-                      onClick={() => printTickets(index)}
-                    >
-                      {efname[index]}
-                    </div>
-                    <span>
-                      <img
-                        src={require("../../../Img/cross1.png")}
-                        className="msrcross1"
-                        onClick={() => removeFile(index)}
-                      />
-                    </span>
-                  </div>
-                ))}
+              <div className="displayleft">Created</div>
+              <div className="displaygrid1">
+                {moment(details.createdAt).format("DD/MM/YYYY h:mm a")}
+              </div>
+              <div className="displayleft">Job Reference</div>
+              <div className="displaygrid1">
+                {details.job_reference_id
+                  ? details.job_reference_id.job_ref_number
+                  : "-"}
+              </div>
+              <div className="displayleft">Site</div>
+              <div className="displaygrid1">
+                {details.job_reference_id
+                  ? details.job_reference_id.site_details
+                  : "-"}
+              </div>
             </div>
-            <div className="msrgrid2">
-              <div style={{padding:"30px" }}>
+            <div className="msrtitle2">Attachments</div>
+            <hr className="msrhr1" />
+            {availableFiles &&
+              availableFiles.map((item, index) => (
+                <div key={index} className="msrattachment">
+                  <img
+                    src={require("../../../Img/attachIcon1.png")}
+                    className="msrattachIcon"
+                  />
+                  <div className="div-name" onClick={() => printTickets(index)}>
+                    {efname[index]}
+                  </div>
+                  <span>
+                    <img
+                      src={require("../../../Img/cross1.png")}
+                      className="msrcross1"
+                      onClick={() => removeFile(index)}
+                    />
+                  </span>
+                </div>
+              ))}
+          </div>
+          <div className="msrgrid2">
+            <div style={{ padding: "30px" }}>
               <div className="msrtitle3">
                 {details.service_ref_number} - {details.title}
               </div>
               <span className="msrspan1">{details.description}</span>
-              </div>
-              <div className="groupButton" style={{padding:"20px", }}>
-                <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
-                  Add Update
-                </button>
-                <button
-                  className="msrbutton2 msrbutton2block"
-                  onClick={() => togglefileModal()}
-                >
-                  Add Attachments
-                </button>
-                <button className="msrbutton3 msrbutton3block" onClick={() => togglesrModal()}>
-                  Close SR
-                </button>
-              </div>
             </div>
-            <div className="msrgrid3">
-              {notes &&
-                notes.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      {item.type != 3 && (
-                        <div className="msrupdatesgrid">
-                          <div className="msrimage">
-                            {item.type == 1 && (
-                              <img
-                                src={require("../../../Img/type1.png")}
-                                className="msrCommonIcon"
-                              />
-                            )}
-                            {item.type == 2 && (
-                              <img
-                                src={require("../../../Img/type2.png")}
-                                className="msrCommonIcon1"
-                              />
-                            )}
-                            {item.type == 4 && (
-                              <img
-                                src={require("../../../Img/type4.png")}
-                                className="msrCommonIcon"
-                              />
-                            )}
-                          </div>
-                          <div className="msrbox1">
-                            {item.type == 1 && (
-                              <span className="msrspan21">
-                                Update from Customer
-                              </span>
-                            )}
-                            {item.type == 2 && (
-                              <span className="msrspan21">
-                                Update from HPD Staff
-                              </span>
-                            )}
-                            {item.type == 4 && (
-                              <span className="msrspan21">System Update</span>
-                            )}
-                            <span className="msrspan3">
-                              {" "}
-                              {moment(item.updatedAt).format(
-                                "DD/MM/YYYY h:mm a"
-                              )}
-                            </span>
-                            <div className="msrdiv3">{item.description}</div>
-                          </div>
+            <div
+              style={{ padding: "20px", display: "flex", flexDirection: "row" }}
+            >
+              <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
+                Add Update
+              </button>
+              <button
+                className="msrbutton2 msrbutton2block"
+                onClick={() => togglefileModal()}
+              >
+                Add Attachments
+              </button>
+              <button
+                className="msrbutton3 msrbutton3block"
+                onClick={() => togglesrModal()}
+              >
+                Close SR
+              </button>
+            </div>
+          </div>
+          <div className="msrgrid3">
+            {notes &&
+              notes.map((item, index) => {
+                return (
+                  <div key={index}>
+                    {item.type != 3 && (
+                      <div className="msrupdatesgrid">
+                        <div className="msrimage">
+                          {item.type == 1 && (
+                            <img
+                              src={require("../../../Img/type1.png")}
+                              className="msrCommonIcon"
+                            />
+                          )}
+                          {item.type == 2 && (
+                            <img
+                              src={require("../../../Img/type2.png")}
+                              className="msrCommonIcon1"
+                            />
+                          )}
+                          {item.type == 4 && (
+                            <img
+                              src={require("../../../Img/type4.png")}
+                              className="msrCommonIcon"
+                            />
+                          )}
                         </div>
-                      )}
-                      {item.type != 3 && <hr className="msrhr11" />}
-                    </div>
-                  );
-                })}
-              {notes.length === 0 && (
-                <div style={{ textAlign: "center" }}>No Notes Found</div>
-              )}
-            </div>
+                        <div className="msrbox1">
+                          {item.type == 1 && (
+                            <span className="msrspan21">
+                              Update from Customer
+                            </span>
+                          )}
+                          {item.type == 2 && (
+                            <span className="msrspan21">
+                              Update from HPD Staff
+                            </span>
+                          )}
+                          {item.type == 4 && (
+                            <span className="msrspan21">System Update</span>
+                          )}
+                          <span className="msrspan3">
+                            {" "}
+                            {moment(item.updatedAt).format("DD/MM/YYYY h:mm a")}
+                          </span>
+                          <div className="msrdiv3">{item.description}</div>
+                        </div>
+                      </div>
+                    )}
+                    {item.type != 3 && <hr className="msrhr11" />}
+                  </div>
+                );
+              })}
+            {notes.length === 0 && (
+              <div style={{ textAlign: "center" }}>No Notes Found</div>
+            )}
+          </div>
         </div>
         {/* </Paper> */}
 
         <div style={{ height: "8.72vh" }}></div>
-      {/* </Container> */}
+        {/* </Container> */}
       </div>
 
       <Modal
         isOpen={openupdate}
-        className="mymodal"
+        className="mymodal1"
         overlayClassName="myoverlay"
         closeTimeoutMS={500}
+        sx={{ maxWidth: "60%" }}
       >
         <div>
           <form>
@@ -544,7 +635,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               </IconButton>
             </div>
             <div className="dialog-row1">
-              <h5 style={{ fontSize: "1.34vw", margin: "0.8vh 0 0 0" }}>
+              <h5 style={{ fontSize: "40px", margin: "6.448px 0 0 0" }}>
                 Add Update
               </h5>
               <hr className="clhrFirst" />
@@ -553,7 +644,23 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               </h5>
             </div>
             <div className="dialog-row2">
-              <textarea
+              <TextField
+                sx={{
+                  "&:hover": { borderColor: "none" },
+                }}
+                label="Details"
+                variant="outlined"
+                multiline
+                rows={5}
+                className={classes.rowfield}
+                value={text}
+                placeholder="Update details"
+                onChange={(e) => {
+                  setText(e.target.value);
+                  setNoupdate(false);
+                }}
+              />
+              {/* <textarea
                 className="modeltextarea"
                 value={text}
                 onChange={(e) => {
@@ -561,7 +668,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                   setNoupdate(false);
                 }}
                 placeholder="Update details"
-              ></textarea>
+              ></textarea> */}
               {noupdate && (
                 <span style={{ color: "red", display: "block" }}>
                   No Updates Given
@@ -593,7 +700,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </IconButton>
           </div>
           <div className="dialog-row1">
-            <h5 style={{ fontSize: "1.34vw", margin: "0.67vh 0 0 0" }}>
+            <h5 style={{ fontSize: "40px", margin: "0.67vh 0 0 0" }}>
               Close Service Request
             </h5>
             <hr className="clhrFirst" />
@@ -602,13 +709,27 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </h5>
           </div>
           <div className="dialog-row2">
-            <textarea
+            <TextField
+              sx={{
+                "&:hover": { borderColor: "none" },
+              }}
+              label="Details"
+              variant="outlined"
+              multiline
+              rows={5}
+              className={classes.rowfield}
+              value={closetext}
+              // placeholder="Update details"
+              onChange={(e) => setClosetext(e.target.value)}
+              placeholder="Reason for closing"
+            />
+            {/* <textarea
               className="modeltextarea"
               value={closetext}
               onChange={(e) => setClosetext(e.target.value)}
               placeholder="Reason for closing"
               required
-            ></textarea>
+            ></textarea> */}
             {noclose && (
               <span style={{ color: "red", display: "block" }}>
                 No Reason Given
@@ -648,7 +769,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </h5>
           </div>
           <div className="dialog-row2">
-            <div style={{height:"150px"}}>
+            <div style={{ height: "150px" }}>
               <FileUploader
                 handleChange={(e) => onFileUpload(e)}
                 name="file"
@@ -661,7 +782,11 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                     Drag and Drop Here
                     <img
                       src={require("../../../Img/iconcloud.png")}
-                      style={{ marginLeft: "1.22vw",height:"25px",width:"20px" }}
+                      style={{
+                        marginLeft: "1.22vw",
+                        height: "25px",
+                        width: "20px",
+                      }}
                     />
                   </span>
                 }
