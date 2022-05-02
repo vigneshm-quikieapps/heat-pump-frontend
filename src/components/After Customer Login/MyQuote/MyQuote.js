@@ -11,52 +11,72 @@ const userName = userData?.name;
 const MyQuote = () => {
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useGetAllQuotes();
+  const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   // const _DATA = usePagination(data, PER_PAGE);
   const [loader, setLoader] = useState(false);
   const temp = { 1: "New", 2: "Propasal Ready" };
-  console.log("daaaataa", data);
+
   const formatDate = (date) => {
     let temp = date.split("T")[0].split("-");
     let temp1 = temp[2] + "/" + temp[1] + "/" + temp[0];
     return temp1;
   };
+
+  useEffect(() => {
+    let temp;
+    if (data?.data.length > 10) {
+      temp = data?.data.slice(0, 10);
+      setDataArr(temp);
+    } else {
+      setDataArr(data?.data);
+    }
+  }, []);
+
+  const setDataOfTens = (page) => {
+    let temp;
+    if (data?.data.length > 10) {
+      temp = data?.data.slice(page * 10 - 10, page * 10 + 1);
+      setDataArr(temp);
+    }
+  };
+
   const pagination = (
     <Pagination
-      count={count}
+      count={Math.ceil(data?.data.length / 10)}
       page={page}
       disabled={false}
-      onChange={() => {
-        // setOpenModal(false);
+      onChange={(e) => {
+        setPage(Number(e.target.innerText));
+        setDataOfTens(Number(e.target.innerText));
       }}
     />
   );
-
+  console.log(dataArr);
   const tableRows = useMemo(() => {
     return (
-      (data &&
-        data?.data.map(
-          (
-            {
-              quote_reference_number,
-              //  { address_1, address_2, city, country, postcode }=site_details,
-              site_details,
-              updatedAt,
-              status,
-            },
-            index
-          ) => ({
+      (dataArr &&
+        dataArr.map(
+          ({
+            quote_reference_number,
+            //  { address_1, address_2, city, country, postcode }=site_details,
+            site_details,
+            updatedAt,
+            status,
+          }) => ({
             items: [
               quote_reference_number,
-              `${site_details?.address_1 || ""} ${
-                site_details?.address_2 || ""
-              } ${site_details?.city || ""} ${site_details?.country || ""} ${
-                site_details?.postcode || ""
-              } `,
+              `${
+                site_details?.address_1 ? site_details?.address_1 + "," : ""
+              } ${
+                site_details?.address_2 ? site_details?.address_2 + "," : ""
+              } ${site_details?.city ? site_details?.city + "," : ""} ${
+                site_details?.country ? site_details?.country + "," : ""
+              } ${site_details?.postcode || ""} `,
               formatDate(updatedAt),
-              "New",
+              `${status === 1 ? "New" : "Propasal Ready"}`,
               <Button
                 style={{
                   background: "Black",
@@ -76,7 +96,7 @@ const MyQuote = () => {
         )) ||
       []
     );
-  }, []);
+  }, [dataArr]);
   return (
     <Box>
       {" "}
