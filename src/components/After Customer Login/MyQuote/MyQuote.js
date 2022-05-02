@@ -33,7 +33,7 @@ const MyQuote = () => {
     } else {
       setDataArr(data?.data);
     }
-  }, []);
+  }, [data]);
 
   const setDataOfTens = (page) => {
     let temp;
