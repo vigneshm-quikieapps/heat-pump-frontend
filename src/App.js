@@ -39,6 +39,7 @@ import BusinessUser from "./components/admin/BusinessUser/BusinessUser";
 
 import Fpass from "./components/Before Customer Login/ForgotPassword/fpass";
 import MainQuote from "./components/After Customer Login/GetAQuote/MainQuote";
+import MyQuote from "./components/After Customer Login/MyQuote/MyQuote";
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
   return (
@@ -200,6 +201,7 @@ function PriorityComponent() {
               <Route path="manageservice" element={<ManageServiceRequest />} />
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="getaquote" element={<MainQuote />} />
+              <Route path="myQuote" element={<MyQuote />} />
             </Route>
           )}
 

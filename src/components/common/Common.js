@@ -117,31 +117,35 @@ function Common({ firstPageStatus }) {
             />{" "}
           </li>{" "}
         </Link>
-        <li
-          onClick={() => setDisplay("redbar2")}
-          style={
-            display == "redbar2" ? { fontWeight: "600" } : { fontWeight: "300" }
-          }
-          className="myquotes-text li"
-        >
-          {" "}
-          <img
-            src={require("../../Img/sidebar2.png")}
-            className="sidbar-icon"
-          />{" "}
-          My Quotes{" "}
-          <img
-            src={require("../../Img/redbar.png")}
-            height="50px"
-            width={"10px"}
-            className="redbar2"
+        <Link to="myQuote" style={{ textDecoration: "none", color: "black" }}>
+          <li
+            onClick={() => setDisplay("redbar2")}
             style={
               display == "redbar2"
-                ? { visibility: "visible" }
-                : { visibility: "hidden" }
+                ? { fontWeight: "600" }
+                : { fontWeight: "300" }
             }
-          />{" "}
-        </li>
+            className="myquotes-text li"
+          >
+            {" "}
+            <img
+              src={require("../../Img/sidebar2.png")}
+              className="sidbar-icon"
+            />{" "}
+            My Quotes{" "}
+            <img
+              src={require("../../Img/redbar.png")}
+              height="50px"
+              width={"10px"}
+              className="redbar2"
+              style={
+                display == "redbar2"
+                  ? { visibility: "visible" }
+                  : { visibility: "hidden" }
+              }
+            />{" "}
+          </li>
+        </Link>
         <Link
           to="servicerequest"
           style={{ textDecoration: "none", color: "black" }}
@@ -275,21 +279,34 @@ function Common({ firstPageStatus }) {
                               id="composition-menu"
                               aria-labelledby="composition-button"
                               onKeyDown={handleListKeyDown}
+                              sx={{ width: "150px" }}
                             >
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                  width: "150px",
+                                }}
                                 onClick={handleClose}
                               >
                                 Profile
                               </MenuItem>
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                  width: "150px",
+                                }}
                                 onClick={handleClose}
                               >
-                                My account
+                                My Account
                               </MenuItem>
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                  width: "150px",
+                                }}
                                 onClick={() => toggleModal()}
                               >
                                 Logout

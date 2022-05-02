@@ -1,6 +1,16 @@
 import axiosInstance from "../../src/services/axios-instance";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { queryClient } from "../App";
+import axios from "axios";
+export async function getFabric() {
+  try {
+    const api = `v1/services/fabric-details?page=1&perPage=2&type=1`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 // export async function getFabric() {
 //   try {
 //     const api = `v1/services/fabric-details?page=1&perPage=2&type=1`;
@@ -13,12 +23,22 @@ import { queryClient } from "../App";
 
 const addQuote = (data) =>
   axiosInstance.post(
-    `https://heat-pump-backend.herokuapp.com/api/v1/services/quote`,
+    `https://heat-pump-backend.herokuapp.com/api/v1/services/quote?page=1&perPage=2&type=1`,
     data
   );
 export const useAddQuote = (options) =>
   useMutation((data) => addQuote(data), options);
 
+const getAllQuotes = () =>
+  axiosInstance
+    .get(`https://heat-pump-backend.herokuapp.com/api/v1/services/all-quote`)
+    .then(({ data }) => data);
+
+export const useGetAllQuotes = (classId, options) =>
+  useQuery(["classes", classId], () => getAllQuotes(), {
+    enabled: true,
+    ...options,
+  });
 // const getFabricDetails = (data) =>
 //   axiosInstance.get(
 //     `https://heat-pump-backend.herokuapp.com/api/v1/services/quote`,
