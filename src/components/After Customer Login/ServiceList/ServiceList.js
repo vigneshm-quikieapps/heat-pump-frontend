@@ -152,7 +152,7 @@ const ServiceList = ({ FirstPageAction }) => {
           const res = response.data.data;
           setCount(res.total_pages);
           setData(res.data);
-          debugger;
+          // debugger;
         } else {
           toast.error(response.data.message);
         }
@@ -200,7 +200,7 @@ const ServiceList = ({ FirstPageAction }) => {
               <div className="names">{userName}</div>
               <div
                 style={{
-                  fontSize: "18px",
+                  fontSize: "30px",
                   fontFamily: "Outfit",
                   fontWeight: "bold",
                 }}

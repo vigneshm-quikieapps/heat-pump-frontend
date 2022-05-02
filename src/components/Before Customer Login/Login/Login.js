@@ -10,7 +10,7 @@ import globalAPI from "../../../GlobalApi";
 import validator from "validator";
 import HPD from "../../../Img/HPDD.jpeg";
 import { Box, Button, InputAdornment, Typography } from "@mui/material";
-import StyledTextField from "../../../common/textfield";
+import StyledTextField from "../Login/textfield";
 // import MailIcon from "../../../Img/icon.png";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
@@ -160,6 +160,7 @@ const Login = () => {
             <div style={{ position: "relative" }}>
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 0 75px" }}
+                variant="outlined"
                 required
                 type="text"
                 value={emailValue}
@@ -167,25 +168,25 @@ const Login = () => {
                 name="email"
                 label="Email Address"
                 onBlur={blurFunc}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment
-                      sx={{ fontSize: "22px", fontWeight: "800" }}
-                      position="start"
-                    >
-                      <EmailIcon sx={{ color: "#000 !important" }} />
-                    </InputAdornment>
-                  ),
-                }}
+                // InputProps={{
+                //   startAdornment: (
+                //     <InputAdornment
+                //       sx={{ fontSize: "22px", fontWeight: "800" }}
+                //       position="start"
+                //     >
+                //       <EmailIcon sx={{ color: "#000 !important" }} />
+                //     </InputAdornment>
+                //   ),
+                // }}
                 InputLabelProps={{
                   style: { background: "#fff" },
                 }}
               />
-              {/* <img
+              <img
                 src={require("../../../Img/icon.png")}
                 alt=""
                 className="emailIcon"
-              /> */}
+              />
               <Typography
                 style={{
                   fontSize: "18px",
@@ -233,12 +234,30 @@ const Login = () => {
                 name="password"
                 onBlur={blurFunc1}
                 InputProps={{
-                  startAdornment: (
+                  endAdornment: (
                     <InputAdornment
                       sx={{ fontSize: "22px", fontWeight: "800" }}
-                      position="start"
+                      position="end"
                     >
-                      <LockIcon sx={{ color: "#000 !important" }} />
+                      {password.showpassword ? (
+                        <img
+                          width="24px"
+                          height="24px"
+                          src={require("../../../Img/iconEyeOpen.png")}
+                          alt=""
+                          // className="npeyeIconOpen"
+                          onClick={togglePassword}
+                        />
+                      ) : (
+                        <img
+                          width="24px"
+                          height="24px"
+                          src={require("../../../Img/icon3.png")}
+                          alt=""
+                          // className="npeyeIcon"
+                          onClick={togglePassword}
+                        />
+                      )}
                     </InputAdornment>
                   ),
                 }}
@@ -246,7 +265,12 @@ const Login = () => {
                   style: { background: "#fff" },
                 }}
               />
-              {password.showpassword ? (
+              <img
+                src={require("../../../Img/icon2.png")}
+                alt=""
+                className="passwordIcon"
+              />
+              {/* {password.showpassword ? (
                 <img
                   src={require("../../../Img/iconEyeOpen.png")}
                   alt=""
@@ -260,7 +284,7 @@ const Login = () => {
                   className="npeyeIcon"
                   onClick={togglePassword}
                 />
-              )}
+              )} */}
               <Typography
                 style={{
                   fontSize: "18px",
