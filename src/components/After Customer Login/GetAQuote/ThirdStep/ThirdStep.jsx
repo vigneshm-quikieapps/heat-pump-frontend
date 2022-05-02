@@ -17,7 +17,8 @@ import IconButton from "@mui/material/IconButton";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
-import { getFabric } from "../../../../services/services";
+import { getFabricDetails } from "../../../../services/services";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -34,24 +35,56 @@ const TableHeading = (
     Enrolment Details
   </Typography>
 );
+const tempData = [
+  {
+    _id: "62691d4d59ece8b1bb5294a7",
+    type: 1,
+    wall_construction: "test",
+    details: "test details",
+    description: "test description",
+    image_url:
+      "https://i.picsum.photos/id/184/200/300.jpg?hmac=dCgm4a8do6DWvjUWcFvft3Kd1srf1f_TyIZoWGrgu48dfa",
+    fabric_type: 1,
+    shortness_of_suspended_floor: "123",
+    longness_of_suspended_floor: "123",
+    createdAt: "2022-04-27T10:39:09.765Z",
+    updatedAt: "2022-04-27T10:39:09.765Z",
+    __v: 0,
+  },
+  {
+    _id: "62691d4f59ece8b1bb5294ab",
+    type: 1,
+    wall_construction: "test",
+    details: "test details",
+    description: "test description",
+    image_url:
+      "https://i.picsum.photos/id/184/200/300.jpg?hmac=dCgm4a8do6DWvjUWcFvft3Kd1srf1f_TyIZoWGrgu48dfa",
+    fabric_type: 2,
+    shortness_of_suspended_floor: "123",
+    longness_of_suspended_floor: "123",
+    createdAt: "2022-04-27T10:39:11.919Z",
+    updatedAt: "2022-04-27T10:39:11.919Z",
+    __v: 0,
+  },
+];
 
 const data = [
   {
     type: "2",
     description: "Solid brick wall, dense plaster",
-    detail: "Brick 102mm, plaster",
+    details: "Brick 102mm, plaster",
     image: "No image found",
   },
   {
     type: "3",
     description: "Solid brick wall, dense plaster",
-    detail: "Brick 102mm, plaster",
+    details: "Brick 102mm, plaster",
     image: "No image found",
   },
   {
     type: "4",
     description: "Solid brick wall, dense plaster",
-    detail: "Brick 102mm, plaster",
+    details: "Brick 102mm, plaster",
     image: "No image found",
   },
 ];
@@ -125,6 +158,9 @@ const ThirdStep = (props) => {
   const token = JSON.parse(localStorage.getItem("user"));
   const [dataArr, setDataArr] = useState(demoData);
   const [flag, setFlag] = useState(false);
+  const [selectedFabricType, setSelectedFabricType] = useState("");
+  const [selectedBuildingIndex, setSelectedBuildingIndex] = useState("");
+  const [fabricDetails, setFabricDetails] = useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -142,43 +178,48 @@ const ThirdStep = (props) => {
     setDataArr(temp);
   };
 
+  const getFabricData = (type) => {
+    setLoader(true);
+    getFabricDetails(type).then((res) => {
+      if (res?.success) {
+        let temp = [...res?.data];
+        setFabricDetails(temp);
+      }
+      setLoader(false);
+    });
+  };
   const onSelect = (type, description, detail) => {
+    // console.log(selectedFabricType, selectedBuildingIndex);
     let temp = dataArr;
-    temp[temp.length - 1]["External Walls"].type = type;
-    temp[temp.length - 1]["External Walls"].description = description;
-    temp[temp.length - 1]["External Walls"].detail = detail;
+    temp[selectedBuildingIndex][selectedFabricType].type = type;
+    temp[selectedBuildingIndex][selectedFabricType].description = description;
+    temp[selectedBuildingIndex][selectedFabricType].detail = detail;
     setDataArr(temp);
   };
-  console.log(dataArr);
+
   const onClose = () => {
     setOpenModal(false);
   };
 
   const pagination = (
-    <Pagination
-      count={1}
-      disabled={false}
-      onChange={() => {
-        // setOpenModal(false);
-      }}
-    />
+    <Pagination count={1} disabled={false} onChange={(e) => {}} />
   );
   const tableRows = useMemo(() => {
     return (
-      (data &&
-        data?.map(({ type, description, detail, image }) => ({
+      (fabricDetails &&
+        fabricDetails?.map(({ type, description, details, image_url }) => ({
           onClick: () => {
-            onSelect(type, description, detail);
+            onSelect(type, description, details);
             onClose();
           },
-          items: [type, description, detail, image],
+          items: [type, description, details, image_url],
         }))) ||
       []
     );
   }, [onSelect, onClose]);
-  useEffect(() => {
-    console.log(getFabric().then((res) => res));
-  });
+  // useEffect(() => {
+
+  // });
   return (
     <>
       <Card>
@@ -255,7 +296,12 @@ const ThirdStep = (props) => {
                     }}
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("External Walls");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(1);
+                      setOpenModal(true);
+                    }}
                   >
                     External Walls
                   </button>
@@ -354,7 +400,12 @@ const ThirdStep = (props) => {
                     }}
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("Internal Walls");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(2);
+                      setOpenModal(true);
+                    }}
                   >
                     Internal Walls
                   </button>
@@ -459,7 +510,12 @@ const ThirdStep = (props) => {
                     }}
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("Roof Type");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(3);
+                      setOpenModal(true);
+                    }}
                   >
                     Roof Type
                   </button>
@@ -549,7 +605,12 @@ const ThirdStep = (props) => {
                     }}
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("Windows");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(4);
+                      setOpenModal(true);
+                    }}
                   >
                     Windows
                   </button>
@@ -649,7 +710,12 @@ const ThirdStep = (props) => {
                     }}
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("Suspended Floors");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(5);
+                      setOpenModal(true);
+                    }}
                   >
                     Suspended Floors
                   </button>
@@ -740,7 +806,12 @@ const ThirdStep = (props) => {
                   <button
                     variant="contained"
                     className="btn-house"
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => {
+                      setSelectedFabricType("Inner Floors");
+                      setSelectedBuildingIndex(index);
+                      getFabricData(6);
+                      setOpenModal(true);
+                    }}
                   >
                     Internal Floors
                   </button>
@@ -979,7 +1050,10 @@ const ThirdStep = (props) => {
           <button
             variant="contained"
             className="btn-house Add btn-icon"
-            onClick={props.next}
+            onClick={() => {
+              props.getPayloadData("fabric details", dataArr);
+              props.next();
+            }}
           >
             <span style={{ marginRight: "100px" }}>Continue</span>
             <span style={{ height: "27px", width: "27px" }}>
@@ -1013,7 +1087,7 @@ const ThirdStep = (props) => {
               component="h2"
               sx={{ color: "#fa5e00", fontWeight: "Bold", mb: 1.5 }}
             >
-              External Walls
+              {selectedFabricType}
             </Typography>
             <Typography
               variant="h5"
@@ -1032,6 +1106,7 @@ const ThirdStep = (props) => {
               pagination={pagination}
               isLoading={false}
               isFetching={false}
+              cellWidth="200xp"
             />
           </Box>
         </Box>
