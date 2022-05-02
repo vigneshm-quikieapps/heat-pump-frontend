@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ServiceList.css";
-import { Container } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import URL from "../../../GlobalUrl";
@@ -9,7 +9,7 @@ import globalAPI from "../../../GlobalApi";
 import { TailSpin } from "react-loader-spinner";
 import usePagination from "../../Pagination/Pagination";
 import moment from "moment";
-import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField, Typography, Grid, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
@@ -200,9 +200,10 @@ const ServiceList = ({ FirstPageAction }) => {
               <div className="names">{userName}</div>
               <div
                 style={{
-                  fontSize: "18px",
+                  fontSize: "30px",
                   fontFamily: "Outfit",
-                  fontWeight: "bold",
+                  fontWeight: "300",
+                  textTransform: "none",
                 }}
               >
                 {userData.business_trade_name}, {userData.city}
@@ -286,70 +287,75 @@ const ServiceList = ({ FirstPageAction }) => {
             </div>
           </div>
         </Grid>
-
-        <Grid>
-          <div className="third-row">
-            <div
+        <Grid sx={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+          <Box
+            sx={{ display: "flex", marginTop: "30px", marginBottom: "40px" }}
+          >
+            <Typography
               style={{
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                fontSize: "22px",
+                fontFamily: "Outfit",
+                width: "130px",
+                margin: "18px 10px 17px 0",
+                fontWeight: "600",
               }}
             >
-              <div className="search-by">Search By</div>
-              <FormControl>
-                <StyledTextField
-                  select
-                  sx={{ width: "215px", height: "63px" }}
-                  value={priority}
-                  onChange={(e) => setPriority(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
-                  label="Priority"
-                >
-                  <MenuItem value="1" style={{ fontWeight: 600 }}>
-                    High
-                  </MenuItem>
-                  <MenuItem value="2" style={{ fontWeight: 600 }}>
-                    Medium
-                  </MenuItem>
-                  <MenuItem value="3" style={{ fontWeight: 600 }}>
-                    Low
-                  </MenuItem>
-                </StyledTextField>
-              </FormControl>
-
+              Search By
+            </Typography>
+            <FormControl>
               <StyledTextField
-                sx={{ width: "215px", height: "63px" }}
-                label="Service Request No"
-                InputLabelProps={{ style: { marginTop: "10px" } }}
-                value={serviceno}
-                onChange={(e) => setServiceno(e.target.value)}
-                size="small"
-              />
-
-              <StyledTextField
-                sx={{ width: "275px", height: "63px" }}
-                label="Title"
-                value={title}
-                InputLabelProps={{ style: { marginTop: "10px" } }}
-                onChange={(e) => setTitle(e.target.value)}
-                size="small"
-              />
-
-              <button
-                className="searchbtn"
-                // onClick={() => {
-                //   setPage(1);
-                //   fetchSeconddata();
-                // }}
-                onClick={() => searchfilter()}
+                select
+                sx={{ width: "210px", height: "63px", margin: " 0 40px 0 0" }}
+                value={priority}
+                onChange={(e) => setPriority(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                label="Priority"
               >
-                Search
-              </button>
-            </div>
-          </div>
+                <MenuItem value="1" style={{ fontWeight: 600 }}>
+                  High
+                </MenuItem>
+                <MenuItem value="2" style={{ fontWeight: 600 }}>
+                  Medium
+                </MenuItem>
+                <MenuItem value="3" style={{ fontWeight: 600 }}>
+                  Low
+                </MenuItem>
+              </StyledTextField>
+            </FormControl>
+            <StyledTextField
+              sx={{ width: "210px", height: "63px", margin: "0 30px" }}
+              label="Service Request No"
+              // InputLabelProps={{ style: { marginTop: "10px" } }}
+              value={serviceno}
+              onChange={(e) => setServiceno(e.target.value)}
+              size="small"
+            />
+
+            <StyledTextField
+              sx={{ width: "275px", height: "63px", margin: "0 30px" }}
+              label="Title"
+              value={title}
+              // InputLabelProps={{ style: { marginTop: "10px" } }}
+              onChange={(e) => setTitle(e.target.value)}
+              size="small"
+            />
+            <Button
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                width: "130px",
+                height: "63px",
+                background: "black",
+                color: "white",
+                borderRadius: "50px",
+              }}
+              onClick={() => searchfilter()}
+            >
+              Search
+            </Button>
+          </Box>
         </Grid>
 
         <Grid>
