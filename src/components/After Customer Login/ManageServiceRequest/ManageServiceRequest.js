@@ -456,7 +456,12 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             <div className="msrtitle1">Service Request Summary</div>
             <hr className="msrhr1" />
             <div className="displaygrid">
-              <div className="displayleft">Priority</div>
+              <div
+                className="displayleft"
+                style={{ fontWeight: "500 !important" }}
+              >
+                Priority
+              </div>
               {details.priority == 1 && (
                 <div className="displaygrid1">
                   <div className="hroundcircle">H</div>

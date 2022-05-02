@@ -52,7 +52,7 @@
   color: #fa5e00;
   text-align: center;
   font-weight: bolder;
-  font-size: large;
+  font-size: 22px;
 }
 .msrhr1 {
   width: 220px;
@@ -72,7 +72,7 @@
   color: #fa5e00;
   text-align: center;
   font-weight: bolder;
-  font-size: large;
+  font-size: 22px;
   margin-top: 40px;
 }
 
@@ -109,12 +109,13 @@
   color: #fa5e00;
 
   font-weight: bolder;
-  font-size: large;
+  font-size: 22px;
 }
 .msrspan1 {
   display: inline-block;
   /* margin-top: 20px; */
   font-weight: 300;
+  font-size: 18px;
 }
 
 .msrbutton1 {
