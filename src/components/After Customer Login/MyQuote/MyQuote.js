@@ -4,15 +4,19 @@ import { TailSpin } from "react-loader-spinner";
 import { Grid, Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
 import { useGetAllQuotes } from "../../../services/services";
-
+import usePagination from "../../Pagination/Pagination";
 const userData = JSON.parse(localStorage.getItem("userData"));
-const userName = userData.name;
+const userName = userData?.name;
 
 const MyQuote = () => {
-  const [loader, setLoader] = useState(false);
-  const temp = { 1: "New", 2: "Propasal Ready" };
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useGetAllQuotes();
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 10;
+  const [count, setCount] = useState(1);
+  // const _DATA = usePagination(data, PER_PAGE);
+  const [loader, setLoader] = useState(false);
+  const temp = { 1: "New", 2: "Propasal Ready" };
   console.log("daaaataa", data);
   const formatDate = (date) => {
     let temp = date.split("T")[0].split("-");
@@ -21,7 +25,8 @@ const MyQuote = () => {
   };
   const pagination = (
     <Pagination
-      count={1}
+      count={count}
+      page={page}
       disabled={false}
       onChange={() => {
         // setOpenModal(false);
@@ -33,13 +38,16 @@ const MyQuote = () => {
     return (
       (data &&
         data?.data.map(
-          ({
-            quote_reference_number,
-            //  { address_1, address_2, city, country, postcode }=site_details,
-            site_details,
-            updatedAt,
-            status,
-          }) => ({
+          (
+            {
+              quote_reference_number,
+              //  { address_1, address_2, city, country, postcode }=site_details,
+              site_details,
+              updatedAt,
+              status,
+            },
+            index
+          ) => ({
             items: [
               quote_reference_number,
               `${site_details?.address_1 || ""} ${
@@ -108,7 +116,7 @@ const MyQuote = () => {
             fontWeight: "300",
           }}
         >
-          {userData.business_trade_name}, {userData.city}
+          {userData?.business_trade_name}, {userData?.city}
         </Typography>
         <hr className="hrFirst" />
 

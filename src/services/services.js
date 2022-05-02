@@ -4,7 +4,7 @@ import { queryClient } from "../App";
 import axios from "axios";
 export async function getFabric() {
   try {
-    const api = `v1/services/fabric-details?page=1&perPage=2&type=1`;
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`;
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {

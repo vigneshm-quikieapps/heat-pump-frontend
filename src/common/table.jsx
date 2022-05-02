@@ -23,6 +23,7 @@ const StyledTableCell = styled(TableCell, {
     fontWeight: "600",
     fontFamily: "Outfit",
     lineHeight: "normal",
+    maxWidth: "300px",
   },
   [`&.${tableCellClasses.root}`]: { border: 0 },
 }));
