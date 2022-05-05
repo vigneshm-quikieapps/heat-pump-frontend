@@ -56,3 +56,13 @@ export async function getFabricDetails(type) {
     throw error;
   }
 }
+
+export async function getQuote(qid) {
+  try {
+    const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/quote?qid=${qid}`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

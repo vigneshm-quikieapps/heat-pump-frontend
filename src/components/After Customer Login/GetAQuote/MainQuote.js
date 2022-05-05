@@ -17,6 +17,7 @@ import ThirdStep from "./ThirdStep/ThirdStep";
 import SeventhStep from "./SeventhStep/SeventhStep";
 import EightStep from "./EightStep/EightStep";
 import NinethStep from "./NinethStep/NinethStep";
+import ViewQuote from "../ViewQuote/ViewQuote";
 const useStyles = makeStyles({
   radio: {
     height: "1vh",
@@ -58,7 +59,7 @@ const useStyles = makeStyles({
 });
 
 const MainQuote = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(10);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [payload, setPayload] = useState({});
@@ -237,6 +238,7 @@ const MainQuote = () => {
         />
       )}
       {currentStep === 9 && <NinethStep _jumpToFirst={_jumpToFirst} />}
+      {currentStep === 10 && <ViewQuote />}
     </React.Fragment>
   );
 };

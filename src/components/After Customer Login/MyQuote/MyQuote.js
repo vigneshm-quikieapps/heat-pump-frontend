@@ -5,10 +5,13 @@ import { Grid, Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
 import { useGetAllQuotes } from "../../../services/services";
 import usePagination from "../../Pagination/Pagination";
+import { Navigate, useHistory } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 const userData = JSON.parse(localStorage.getItem("userData"));
 const userName = userData?.name;
 
 const MyQuote = () => {
+  const navigate = useNavigate();
   const { isLoading, isError, error, data, isFetching, isPreviousData } =
     useGetAllQuotes();
   const [dataArr, setDataArr] = useState([]);
@@ -65,6 +68,7 @@ const MyQuote = () => {
             site_details,
             updatedAt,
             status,
+            _id,
           }) => ({
             items: [
               quote_reference_number,
@@ -87,6 +91,10 @@ const MyQuote = () => {
                   fontSize: "18px",
                   fontFamily: "Outfit",
                   textTransform: "none",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/common/viewQuote/${_id}`);
                 }}
               >
                 View Proposal

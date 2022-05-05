@@ -31,7 +31,7 @@ import AdminManageService from "./components/admin/AdminManageServiceRequest/Adm
 import AdminServiceList from "./components/admin/AdminServiceList/AdminServiceList";
 import { useJwt } from "react-jwt";
 import { Navigate, useHistory } from "react-router-dom";
-
+import ViewQuote from "./components/After Customer Login/ViewQuote/ViewQuote";
 import NoPage from "./components/PageNotFound/NoPage";
 
 import { Dropdown } from "./components/Dropdown/Dropdown.js";
@@ -202,6 +202,7 @@ function PriorityComponent() {
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="getaquote" element={<MainQuote />} />
               <Route path="myQuote" element={<MyQuote />} />
+              <Route path="viewQuote/:id" element={<ViewQuote />} />
             </Route>
           )}
 
