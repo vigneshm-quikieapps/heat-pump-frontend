@@ -51,13 +51,14 @@ const MyQuote = () => {
       count={Math.ceil(data?.data.length / 10)}
       page={page}
       disabled={false}
-      onChange={(e) => {
-        setPage(Number(e.target.innerText));
-        setDataOfTens(Number(e.target.innerText));
+      onChange={(e, p) => {
+        console.log(p);
+        setPage(p);
+        setDataOfTens(p);
       }}
     />
   );
-  console.log(dataArr);
+
   const tableRows = useMemo(() => {
     return (
       (dataArr &&

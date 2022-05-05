@@ -51,19 +51,20 @@ function AdminRCA({ adminFirstPageAction }) {
   }, []);
 
   useEffect(() => {
-    console.log("inputdata",inputData)
+    console.log("inputdata", inputData);
     const newArray = [];
-        inputData && inputData.evidences.map((item,index)=>{
-          let a = item.slice(25)
-          if(a.length>20){
-            let b = a.slice(0,20);
-            let c = b + "...";
-            newArray.push(c);
-          }else{
-            newArray.push(a);
-          }
-        }) 
-        SetEFname(newArray)
+    inputData &&
+      inputData.evidences.map((item, index) => {
+        let a = item.slice(25);
+        if (a.length > 20) {
+          let b = a.slice(0, 20);
+          let c = b + "...";
+          newArray.push(c);
+        } else {
+          newArray.push(a);
+        }
+      });
+    SetEFname(newArray);
   }, [inputData]);
 
   const changeHandler = (e) => {
@@ -96,7 +97,7 @@ function AdminRCA({ adminFirstPageAction }) {
       initialRender.current = false;
     } else {
       setLoader(true);
-      debugger;
+
       const data = { ...inputData, status: status };
       setInputData({ ...inputData, status: status });
       axios({
@@ -147,10 +148,9 @@ function AdminRCA({ adminFirstPageAction }) {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          debugger
           if (res.success) {
-            toast.success('File Added')
-            inputData.evidences.push(res.data.message[0])
+            toast.success("File Added");
+            inputData.evidences.push(res.data.message[0]);
             const newUpload = [];
             let a = res.data.message[0].slice(25);
             if (a.length > 20) {
@@ -161,11 +161,11 @@ function AdminRCA({ adminFirstPageAction }) {
               newUpload.push(a);
             }
             const newName = [...fname];
-            newName.push(newUpload)
+            newName.push(newUpload);
             SetFname(newName);
 
             const newFile = [...efname];
-            newFile.push(newUpload)
+            newFile.push(newUpload);
             SetEFname(newFile);
             // efname.push(newUpload);
           } else {
@@ -229,7 +229,6 @@ function AdminRCA({ adminFirstPageAction }) {
         toast.error("Something went wrong");
       });
   };
-
 
   const classess = useStyles();
 
@@ -308,7 +307,15 @@ function AdminRCA({ adminFirstPageAction }) {
         </div>
 
         <div style={{ minWidth: "66.53vw" }}>
-          <div className="accordiantitle" onClick={() => seti(!i)}>
+          <div
+            className="accordiantitle"
+            onClick={() => {
+              seti(!i);
+              seti1(false);
+              seti2(false);
+              seti3(false);
+            }}
+          >
             <div className="arrow-wrapper">
               <img
                 src={require("../../../Img/adminarrow.png")}
@@ -369,7 +376,15 @@ function AdminRCA({ adminFirstPageAction }) {
         </div>
 
         <div style={{ minWidth: "66.53vw" }}>
-          <div className="accordiantitle" onClick={() => seti1(!i1)}>
+          <div
+            className="accordiantitle"
+            onClick={() => {
+              seti1(!i1);
+              seti(false);
+              seti2(false);
+              seti3(false);
+            }}
+          >
             <div className="arrow-wrapper">
               <img
                 src={require("../../../Img/adminarrow.png")}
@@ -443,7 +458,15 @@ function AdminRCA({ adminFirstPageAction }) {
         </div>
 
         <div style={{ minWidth: "66.53vw" }}>
-          <div className="accordiantitle" onClick={() => seti2(!i2)}>
+          <div
+            className="accordiantitle"
+            onClick={() => {
+              seti2(!i2);
+              seti1(false);
+              seti(false);
+              seti3(false);
+            }}
+          >
             <div className="arrow-wrapper">
               <img
                 src={require("../../../Img/adminarrow.png")}
@@ -545,7 +568,15 @@ function AdminRCA({ adminFirstPageAction }) {
         </div>
 
         <div style={{ minWidth: "66.53vw" }}>
-          <div className="accordiantitle" onClick={() => seti3(!i3)}>
+          <div
+            className="accordiantitle"
+            onClick={() => {
+              seti3(!i3);
+              seti1(false);
+              seti2(false);
+              seti(false);
+            }}
+          >
             <div className="arrow-wrapper">
               <img
                 src={require("../../../Img/adminarrow.png")}
@@ -717,7 +748,6 @@ function AdminRCA({ adminFirstPageAction }) {
                     </div>
                   );
                 })}
-                
             </div>
           </div>
         </Modal>

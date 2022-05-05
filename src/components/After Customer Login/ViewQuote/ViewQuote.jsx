@@ -11,10 +11,11 @@ const userName = userData?.name;
 function ViewQuote() {
   const { id: quoteId } = useParams();
   const [quoteData, setQuoteData] = useState();
-  console.log(typeof quoteId);
+
   useEffect(() => {
     getQuote(quoteId).then((res) => {
       console.log(res);
+      setQuoteData(res);
     });
   }, [quoteId]);
   return (
@@ -79,7 +80,15 @@ function ViewQuote() {
         <Box>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Site Details</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Site Details
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Grid
@@ -108,7 +117,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Occupancy</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Occupancy
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Grid
@@ -204,7 +221,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Fabric Details</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Fabric Details
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Box>
@@ -247,7 +272,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Drawings</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Drawings
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               {/* <Grid
@@ -275,7 +308,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Photos</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Photos
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               {/* <Grid
@@ -317,7 +358,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Heating System &#38; Current Bills </Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Heating System &#38; Current Bills{" "}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Grid
@@ -358,7 +407,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Radiator and Window Sizes</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Radiator and Window Sizes
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Grid
@@ -383,7 +440,15 @@ function ViewQuote() {
           </Accordion>
           <Accordion defaultExpanded={false}>
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
-              <Typography>Any Other Comments</Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Any Other Comments
+              </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Grid
