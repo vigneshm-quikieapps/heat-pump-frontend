@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 });
 
 const MainQuote = () => {
-  const [currentStep, setCurrentStep] = useState(10);
+  const [currentStep, setCurrentStep] = useState(0);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [payload, setPayload] = useState({});
@@ -238,7 +238,6 @@ const MainQuote = () => {
         />
       )}
       {currentStep === 9 && <NinethStep _jumpToFirst={_jumpToFirst} />}
-      {currentStep === 10 && <ViewQuote />}
     </React.Fragment>
   );
 };
