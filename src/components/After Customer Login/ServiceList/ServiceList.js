@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 import "./ServiceList.css";
 import { Box, Button } from "@mui/material";
@@ -18,8 +18,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
-import { Card, Pagination } from "../../../common";
-import Table from "@mui/material/Table";
+import { Card, Pagination, Table } from "../../../common";
+// import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -104,6 +104,12 @@ const ServiceList = ({ FirstPageAction }) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
   const [focused, setFocused] = React.useState("");
+  const formatDate = (date) => {
+    let temp = date.split("T")[0].split("-");
+    let temp1 =
+      temp[2] + "/" + temp[1] + "/" + temp[0] + "" + temp[3] + ":" + temp[4];
+    return temp1;
+  };
 
   useEffect(() => {
     fetchData();
@@ -162,9 +168,7 @@ const ServiceList = ({ FirstPageAction }) => {
         toast.error("Something went wrong");
       });
   }
-  const manageService = (item) => {
-    navigate("/common/manageservice", { state: item._id });
-  };
+
   const handleChange = (e, p) => {
     setPage(p);
     _DATA.jump(p);
@@ -174,6 +178,64 @@ const ServiceList = ({ FirstPageAction }) => {
     setPage(1);
     fetchSeconddata();
   };
+  const manageService = useCallback(
+    (id) => navigate("/common/manageservice", { state: id }),
+    [navigate]
+  );
+  console.log("_DATA.currentData().map", _DATA.currentData());
+  const tableRows = useMemo(() => {
+    return (
+      _DATA &&
+      _DATA
+        ?.currentData()
+        .map(
+          ({
+            priority,
+            _id,
+            service_ref_number,
+            title,
+            job_reference_id,
+            type,
+            updatedAt,
+            status,
+          }) => ({
+            onClick: () => manageService(_id),
+            key: { _id },
+            items: [
+              priority === 1 ? (
+                <div className="hroundcircle">H</div>
+              ) : priority === 2 ? (
+                <div className="mroundcircle">M</div>
+              ) : (
+                <div className="lroundcircle">L</div>
+              ),
+              service_ref_number,
+              title,
+              `${job_reference_id ? job_reference_id.site_details : "-"}`,
+              `${type ? type : "-"}`,
+              moment(updatedAt).format("DD/MM/YYYY h:mm a"),
+
+              status === 1
+                ? "New"
+                : status === 2
+                ? "HPD Working"
+                : status === 3
+                ? "Need Your Attention"
+                : status === 4
+                ? "Resolved"
+                : status === 5
+                ? "HPD To Review"
+                : "-",
+            ],
+          })
+        )
+    );
+  }, [_DATA, manageService]);
+
+  // const manageService = (item) => {
+  //   console.log("item", item);
+  //   navigate("/common/manageservice", { state: item._id });
+  // };
   return (
     <div>
       {loader && (
@@ -335,7 +397,6 @@ const ServiceList = ({ FirstPageAction }) => {
             // InputLabelProps={{ style: { marginTop: "10px" } }}
             value={serviceno}
             onChange={(e) => setServiceno(e.target.value)}
-            size="small"
           />
 
           <StyledTextField
@@ -344,7 +405,6 @@ const ServiceList = ({ FirstPageAction }) => {
             value={title}
             // InputLabelProps={{ style: { marginTop: "10px" } }}
             onChange={(e) => setTitle(e.target.value)}
-            size="small"
           />
           <Button
             style={{
@@ -355,7 +415,7 @@ const ServiceList = ({ FirstPageAction }) => {
               height: "63px",
               background: "black",
               color: "white",
-              borderRadius: "50px",
+              borderRadius: "32.5px",
             }}
             onClick={() => searchfilter()}
           >
@@ -370,226 +430,23 @@ const ServiceList = ({ FirstPageAction }) => {
               Service Requests List
             </div>
             <hr className="hrFirst" />
-            <div style={{ overflowX: "auto" }}>
-              <TableContainer component={Paper}>
-                <Table sx={{ width: "100%" }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                        }}
-                      >
-                        Priority
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                        }}
-                      >
-                        SR No.
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                        }}
-                      >
-                        Title
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                        }}
-                      >
-                        Site Details
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                          width: "163px",
-                        }}
-                      >
-                        SR Type
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                          width: "168px",
-                        }}
-                      >
-                        Last Updated
-                        <br />
-                        Date & Time
-                      </TableCell>
-                      <TableCell
-                        style={{
-                          fontSize: "22px",
-                          fontFamily: "Outfit",
-                          color: "#000",
-                          fontWeight: 600,
-                          width: "128px",
-                        }}
-                      >
-                        Status
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {_DATA.currentData().map((item, index) => (
-                      <TableRow
-                        onClick={() => manageService(item)}
-                        key={index}
-                        style={{
-                          borderBottom: "solid 1px #d3d3d3",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {item.priority == 1 && (
-                          <TableCell>
-                            <div className="hroundcircle">H</div>{" "}
-                          </TableCell>
-                        )}
-                        {item.priority == 2 && (
-                          <TableCell>
-                            <div className="mroundcircle">M</div>{" "}
-                          </TableCell>
-                        )}
-                        {item.priority == 3 && (
-                          <TableCell>
-                            <div className="lroundcircle">L</div>{" "}
-                          </TableCell>
-                        )}
-                        <TableCell
-                          align="left"
-                          style={{
-                            fontSize: "18px",
-                            fontFamily: "Outfit",
-                            color: "#000",
-                          }}
-                        >
-                          {item.service_ref_number}
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          style={{
-                            fontSize: "18px",
-                            fontFamily: "Outfit",
-                            color: "#000",
-                          }}
-                        >
-                          {item.title}
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          style={{
-                            fontSize: "18px",
-                            fontFamily: "Outfit",
-                            color: "#000",
-                          }}
-                        >
-                          {item.job_reference_id
-                            ? item.job_reference_id.site_details
-                            : "-"}
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          style={{
-                            fontSize: "18px",
-                            fontFamily: "Outfit",
-                            color: "#000",
-                          }}
-                        >
-                          {item.type ? item.type : "-"}
-                        </TableCell>
-                        <TableCell
-                          align="left"
-                          style={{
-                            fontSize: "18px",
-                            fontFamily: "Outfit",
-                            color: "#000",
-                          }}
-                        >
-                          {moment(item.updatedAt).format("DD/MM/YYYY h:mm a")}
-                        </TableCell>
-                        {item.status == 1 && (
-                          <TableCell
-                            style={{
-                              fontSize: "18px",
-                              fontFamily: "Outfit",
-                              color: "#000",
-                            }}
-                          >
-                            New
-                          </TableCell>
-                        )}
-                        {item.status == 2 && (
-                          <TableCell
-                            style={{
-                              fontSize: "18px",
-                              fontFamily: "Outfit",
-                              color: "#000",
-                            }}
-                          >
-                            HPD Working
-                          </TableCell>
-                        )}
-                        {item.status == 3 && (
-                          <TableCell
-                            style={{
-                              fontSize: "18px",
-                              fontFamily: "Outfit",
-                              color: "#000",
-                            }}
-                          >
-                            Need Your Attention
-                          </TableCell>
-                        )}
-                        {item.status == 4 && (
-                          <TableCell
-                            style={{
-                              fontSize: "18px",
-                              fontFamily: "Outfit",
-                              color: "#000",
-                            }}
-                          >
-                            Resolved
-                          </TableCell>
-                        )}
-                        {item.status == 5 && (
-                          <TableCell
-                            style={{
-                              fontSize: "18px",
-                              fontFamily: "Outfit",
-                              color: "#000",
-                            }}
-                          >
-                            HPD To Review
-                          </TableCell>
-                        )}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
+            <Box sx={{ marginTop: "1%" }}>
+              <Table
+                headers={[
+                  " Priority",
+                  "SR No.",
+                  "Title",
+                  "Site Details",
+                  "SR Type",
+                  "Last Updated Date & Time",
+                  "Status",
+                ]}
+                rows={tableRows}
+                // pagination={pagination}
+                isLoading={false}
+                // isFetching={false}
+              />
+            </Box>
             {_DATA.currentData().length == 0 && (
               <h4
                 style={{

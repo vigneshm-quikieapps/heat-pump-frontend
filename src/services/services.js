@@ -1,7 +1,7 @@
 import axiosInstance from "../../src/services/axios-instance";
 import { useMutation, useQuery } from "react-query";
-import { queryClient } from "../App";
-import axios from "axios";
+// import { queryClient } from "../App";
+// import axios from "axios";
 export async function getFabric() {
   try {
     const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`;
@@ -60,6 +60,7 @@ export async function getFabricDetails(type) {
 export async function getQuote(qid) {
   try {
     const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/quote?qid=${qid}`;
+    // /api/v1/services/quote?qid=62665c1df521ea9cf0c4747c
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {

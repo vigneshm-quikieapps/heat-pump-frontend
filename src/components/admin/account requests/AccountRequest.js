@@ -1,8 +1,8 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 import "./AccountRequest.css";
 import usePagination from "../../Pagination/Pagination";
-import { Pagination } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import URL from "../../../GlobalUrl";
@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,28 +22,28 @@ import InputLabel from "@mui/material/InputLabel";
 
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { Card, Grid, Pagination, Table } from "../../../common";
+import StyledTextField from "../../../common/textfield";
 
 const theme = createTheme({
   palette: {
-    primary: {main:"#000000	"},
+    primary: { main: "#000000	" },
   },
 });
 const useStyles = makeStyles({
-  textfield:{
-    fontSize:"1vw",
-    '& label.Mui-focused': {
-      color: 'black',
-
+  textfield: {
+    fontSize: "1vw",
+    "& label.Mui-focused": {
+      color: "black",
     },
-    '& .MuiOutlinedInput-root': {
-      borderRadius:"0.66vw",
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "0.66vw",
       marginRight: "1.33vw",
-      height:"6.71vh",
-      width:"16vw",
-     
-      '&.Mui-focused fieldset': {
-        borderColor: 'black',
-        
+      height: "6.71vh",
+      width: "16vw",
+
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
       },
     },
   },
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
       width: "13.67vw",
       height: "6.7vh",
       fontWeight: "bolder",
-      fontSize:"1vw",
+      fontSize: "1vw",
       fontFamily: "outfit",
       backgroundColor: "white",
 
@@ -66,15 +66,14 @@ const useStyles = makeStyles({
       },
     },
   },
-  selectinput:{
-    marginBottom:"0.67vh",
-    fontFamily:"outfit",
+  selectinput: {
+    marginBottom: "0.67vh",
+    fontFamily: "outfit",
     fontWeight: "bolder",
-    fontSize:"1.1vw"
-    
-  }
-})
-const AccountRequest = ({adminFirstPageAction}) => {
+    fontSize: "1.1vw",
+  },
+});
+const AccountRequest = ({ adminFirstPageAction }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -93,11 +92,11 @@ const AccountRequest = ({adminFirstPageAction}) => {
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
-  }, [page,status]);
+  }, [page, status]);
 
-  useEffect(()=>{
-     adminFirstPageAction(true)
-  },[])
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
 
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -133,14 +132,14 @@ const AccountRequest = ({adminFirstPageAction}) => {
       )
       .then((response) => {
         setLoader(false);
-        debugger
+        debugger;
         if (response) {
           const res = response.data.data.data;
           setCount(response.data.total_pages);
           setData(res);
-          debugger
+          debugger;
         } else {
-          toast.error('error');
+          toast.error("error");
         }
       })
       .catch((e) => {
@@ -152,14 +151,59 @@ const AccountRequest = ({adminFirstPageAction}) => {
     setPage(p);
     _DATA.jump(p);
   };
-  const manageService = (item) => {
-    navigate("/admincommon/adminRCA", {state:item});
-  };
-  const searchfilter = ()=>{
-    setStatus("1,2,3,4")
+  // const manageService = (item) => {
+  //   navigate("/admincommon/adminRCA", { state: item });
+  // };
+  const manageService = useCallback(
+    (id) => navigate("/admincommon/adminRCA", { state: id }),
+    [navigate]
+  );
+  const searchfilter = () => {
+    setStatus("1,2,3,4");
     setPage(1);
     fetchSeconddata();
-  }
+  };
+  console.log("_DATA.currentData()ssss", _DATA.currentData());
+  const tableRows = useMemo(() => {
+    return (
+      _DATA &&
+      _DATA
+        ?.currentData()
+        .map(
+          (
+            item,
+            index,
+            {
+              name,
+              _id,
+              mobile,
+              email,
+              business_registered_name,
+              createdAt,
+              status,
+            }
+          ) => ({
+            onClick: () => manageService(item),
+            key: { index },
+
+            items: [
+              item?.name,
+              item?.mobile,
+              item?.email,
+              item?.business_registered_name,
+              moment(item?.createdAt).format("DD/MM/YYYY h:mm a"),
+              item?.status === 1
+                ? "New"
+                : item?.status === 2
+                ? "Inprogress"
+                : item?.status === 3
+                ? "Active"
+                : "-",
+            ],
+          })
+        )
+    );
+  }, [_DATA, manageService]);
   return (
     <div className="arcontainer">
       {loader && (
@@ -167,31 +211,76 @@ const AccountRequest = ({adminFirstPageAction}) => {
           <TailSpin color="#fa5e00" height="100" width="100" />
         </div>
       )}
-      <div className="artitle">Customer Account Requests</div>
+      <Typography
+        variant="h6"
+        style={{
+          fontWeight: 300,
+          fontSize: "60px",
+          fontFamily: "outfit",
+          marginLeft: "40px",
+        }}
+      >
+        Customer Account Requests
+      </Typography>
       <hr className="arcontainerhr" />
-      <div className="arpaper">
+      <Card>
         <div className="arsecondrow">
-          <div className="arouterbox" onClick={()=>{setStatus(1);setPage(1)}} >
-            <div className="arsquarebox" >
-              <h1>{box.new?box.new:0}</h1>
+          <div
+            className="arouterbox"
+            onClick={() => {
+              setStatus(1);
+              setPage(1);
+            }}
+          >
+            <div className="arsquarebox">
+              <Typography style={{ fontSize: "40px", fontWeight: "600" }}>
+                {box.new ? box.new : 0}
+              </Typography>
             </div>
             <div className="arsecond-row-text">New</div>
           </div>
-          <div className="arouterbox" onClick={()=>{setStatus(2);setPage(1)}} >
-            <div className="arsquarebox" >
-              <h1>{box.inprogress?box.inprogress:0}</h1>
+          <div
+            className="arouterbox"
+            onClick={() => {
+              setStatus(2);
+              setPage(1);
+            }}
+          >
+            <div className="arsquarebox">
+              <Typography style={{ fontSize: "40px", fontWeight: "600" }}>
+                {box.inprogress ? box.inprogress : 0}
+              </Typography>
             </div>
             <div className="arsecond-row-text">Inprogress</div>
           </div>
-          <div className="arouterbox" onClick={()=>{setStatus(3);setPage(1)}} >
-            <div className="arsquarebox" >
-              <h1>{box.active?box.active:0}</h1>
+          <div
+            className="arouterbox"
+            onClick={() => {
+              setStatus(3);
+              setPage(1);
+            }}
+          >
+            <div className="arsquarebox">
+              <Typography style={{ fontSize: "40px", fontWeight: "600" }}>
+                {box.active ? box.active : 0}
+              </Typography>
             </div>
             <div className="arsecond-row-text">Active</div>
           </div>
         </div>
         <div className="arthird-row">
-          <div className="arsearch-by">Search By</div>
+          <Typography
+            style={{
+              fontSize: "22px",
+              fontFamily: "Outfit",
+              width: "130px",
+
+              fontWeight: "600",
+            }}
+            className="arsearch-by"
+          >
+            Search By
+          </Typography>
           <div
             style={{
               width: "85%",
@@ -212,51 +301,96 @@ const AccountRequest = ({adminFirstPageAction}) => {
               <option value="2">Inprogress</option>
               <option value="3">Active</option>
             </select> */}
-            <div style={{display:"inline-block",width:"1.4vw"}}>
-            <FormControl className={classes.selectfield}>
-            <InputLabel id="demo-simple-select-label" className={classes.selectinput}>Status</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setFocused(false)}
-                  label="Priority"
-                  IconComponent={() =>
-                    focused ? (
-                      <KeyboardArrowUpIcon />
-                    ) : (
-                      <KeyboardArrowDownIcon />
-                    )
-                  }
-                >
-                  <MenuItem value="1"> New </MenuItem>
-                  <MenuItem value="2"> Inprogress </MenuItem>
-                  <MenuItem value="3"> Active </MenuItem>
-                </Select>
-              </FormControl>
-              </div>
-            <TextField label="Mobile No" style={{marginLeft:"13vw"}}className={classes.textfield} value={mobno} onChange={(e) => setMobno(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"3px",fontSize:"1.1vw" } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }}/>
-            <TextField label="Business Name" style={{marginLeft:"5.2vw"}}className={classes.textfield} value={business} onChange={(e) => setBusiness(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"3px",fontSize:"1.1vw"} }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }}/>
 
-            <button
-              className="aradminsearchbtn"
+            <StyledTextField
+              select
+              sx={{ width: "210px", height: "63px" }}
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              label="Status"
+              IconComponent={() =>
+                focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+              }
+            >
+              <MenuItem value="1" style={{ fontWeight: 600 }}>
+                {" "}
+                New{" "}
+              </MenuItem>
+              <MenuItem value="2" style={{ fontWeight: 600 }}>
+                {" "}
+                Inprogress{" "}
+              </MenuItem>
+              <MenuItem value="3" style={{ fontWeight: 600 }}>
+                {" "}
+                Active{" "}
+              </MenuItem>
+            </StyledTextField>
+
+            <StyledTextField
+              label="Mobile No"
+              sx={{ width: "210px", height: "63px" }}
+              value={mobno}
+              onChange={(e) => setMobno(e.target.value)}
+            />
+            <StyledTextField
+              label="Business Name"
+              sx={{ width: "210px", height: "63px" }}
+              value={business}
+              onChange={(e) => setBusiness(e.target.value)}
+            />
+
+            <Button
               type={"button"}
               value={business}
-              placeholder="Search"
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                width: "130px",
+                height: "63px",
+                background: "black",
+                color: "white",
+                borderRadius: "32.5px",
+              }}
               onClick={() => searchfilter()}
-            >Search </button>
+            >
+              Search
+            </Button>
           </div>
         </div>
+
         <div className="arfourth-row">
-          <div style={{ fontSize: "1.7vw", fontWeight: "bold" }}>
+          <div
+            style={{
+              fontSize: "30px",
+              fontWeight: "600",
+              fontFamily: "Outfit",
+            }}
+          >
             Customer Account Requests List
           </div>
           <hr className="arhrFirst" />
-          <table>
+          <Box sx={{ marginTop: "1%" }}>
+            <Table
+              headers={[
+                "Customer Name",
+                "Mobile Number",
+                "Email",
+                "Business Name",
+                "Submitted Date Time",
+                "Status",
+              ]}
+              rows={tableRows}
+              // pagination={pagination}
+              isLoading={false}
+              // isFetching={false}
+            />
+          </Box>
+          {/*<table>
             <thead className="arthead">
-              <tr >
+              <tr>
                 <th>Customer Name</th>
                 <th>Mobile Number</th>
                 <th scope="col">Email</th>
@@ -268,25 +402,29 @@ const AccountRequest = ({adminFirstPageAction}) => {
             <tbody className="artbody">
               {_DATA &&
                 _DATA.currentData().map((item, index) => {
+                  console.log("itemmmm", item);
                   return (
                     <tr
-                    onClick={() => manageService(item)}
-                    key={index}
-                    className="arspecifictr"
+                      onClick={() => manageService(item)}
+                      key={index}
+                      className="arspecifictr"
                     >
                       <td scope="row"> {item.name}</td>
                       <td>{item.mobile}</td>
                       <td>{item.email}</td>
                       <td>{item.business_registered_name}</td>
-                      <td>{moment(item.createdAt).format('DD/MM/YYYY h:mm a')}</td>
-                      {item.status ==1 && <td>New</td>}
-                      {item.status ==2 && <td>Inprogress</td>}
-                      {item.status ==3 && <td>Active</td>}
+                      <td>
+                        {moment(item.createdAt).format("DD/MM/YYYY h:mm a")}
+                      </td>
+                      {item.status == 1 && <td>New</td>}
+                      {item.status == 2 && <td>Inprogress</td>}
+                      {item.status == 3 && <td>Active</td>}
                     </tr>
                   );
                 })}
             </tbody>
-          </table>
+              </table>*/}
+
           {_DATA.currentData().length == 0 && (
             <h4
               style={{
@@ -295,11 +433,11 @@ const AccountRequest = ({adminFirstPageAction}) => {
                 marginTop: "40px",
               }}
             >
-              No  matching records found
+              No matching records found
             </h4>
           )}
         </div>
-        
+
         {_DATA.currentData().length >= 1 && (
           <div
             style={{
@@ -308,25 +446,25 @@ const AccountRequest = ({adminFirstPageAction}) => {
               marginTop: "15px",
             }}
           >
-             <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
               <Pagination
                 className="pagination"
                 count={count}
                 page={page}
-               /*  variant="outlined" */
+                /*  variant="outlined" */
                 onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  adminFirstPageAction:value => dispatch(adminFirstPageAction(value))
-})
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default connect(null,mapDispatchToProps)(AccountRequest);
+export default connect(null, mapDispatchToProps)(AccountRequest);

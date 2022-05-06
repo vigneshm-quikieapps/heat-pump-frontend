@@ -42,18 +42,18 @@
 }
 
 .arsquarebox {
-  border: 0.134vh solid #d3d3d3;
-  height: 8.05vh;
-  min-width: 3.9vw;
-  width: fit-content;
-  padding:0 0.33vw 0 0.33vw;
+  border: 1px solid #d3d3d3;
+
+  width: 95px;
+  height: 95px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0.66vw;
-  background-color:#f4f2ea;
+  border-radius: 10px;
+  background-color: #f4f2ea;
+  cursor: pointer;
 }
-.arsquarebox:hover{
+.arsquarebox:hover {
   cursor: pointer;
 }
 .arsecond-row-text {
@@ -61,6 +61,9 @@
   display: table-caption;
   display: -ms-grid;
   -ms-grid-columns: min-content;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 600;
 }
 .arouterbox {
   width: 9.8vw;
@@ -106,25 +109,23 @@ table {
   font-size: 1vw;
 }
 td {
-  font-weight:300;
+  font-weight: 300;
 }
 th {
   font-size: 1.17vw;
 }
-.arspecifictr:hover{
+.arspecifictr:hover {
   cursor: pointer;
   background-color: #f2f2f2;
 }
 
-.aradminsearchbtn{
- 
-    width: 7.5vw;
-    border: #000;
-    border-radius: 3.3vw;
-    background-color: #000;
-    color: white;
-    font-weight: 100;
-    height: 5.4vh;
-    margin-left: 5vw;
-  
+.aradminsearchbtn {
+  width: 7.5vw;
+  border: #000;
+  border-radius: 3.3vw;
+  background-color: #000;
+  color: white;
+  font-weight: 100;
+  height: 5.4vh;
+  margin-left: 5vw;
 }

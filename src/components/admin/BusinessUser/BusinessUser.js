@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "./BusinessUser.css";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 import Modal from "react-modal";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import usePagination from "../../Pagination/Pagination";
 import { Pagination } from "@mui/material";
@@ -15,6 +15,7 @@ import globalAPI from "../../../GlobalApi";
 import validator from "validator";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Card } from "../../../common";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
@@ -100,7 +101,7 @@ function BusinessUser({ adminFirstPageAction }) {
     e.preventDefault();
     debugger;
     e.preventDefault();
-    
+
     if (email == "") {
       setInputLogin1Error("Email Address cannot be Empty");
     }
@@ -169,7 +170,7 @@ function BusinessUser({ adminFirstPageAction }) {
     _DATA.jump(p);
   };
   const statusChange = (item, e) => {
-    debugger
+    debugger;
     e.preventDefault();
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
@@ -188,7 +189,7 @@ function BusinessUser({ adminFirstPageAction }) {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          toast.success('Status Changed Successfully');
+          toast.success("Status Changed Successfully");
           fetchSeconddata();
         } else {
           toast.error(res.data.message);
@@ -290,8 +291,20 @@ function BusinessUser({ adminFirstPageAction }) {
           <TailSpin color="#fa5e00" height="100" width="100" />
         </div>
       )}
-      <h1 className="butitle">Business Users</h1>
+      <Typography
+        variant="h6"
+        style={{
+          fontWeight: 300,
+          fontSize: "60px",
+          fontFamily: "outfit",
+          marginLeft: "40px",
+        }}
+      >
+        Business Users
+        <hr className="containerhr" />
+      </Typography>
       <hr className=" bucontainerhr" />
+      <Card></Card>
       <div style={{ marginTop: "6vh" }}>
         <table className="butable">
           <thead className="buhead">
@@ -430,7 +443,7 @@ function BusinessUser({ adminFirstPageAction }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                onBlur={blurFunc4}
+                  onBlur={blurFunc4}
                 />
                 <label className="bainput-label">Full Name*</label>
                 {/* <span className='inputLogin2Error inputLoginError'  >{input4Error}</span> */}
@@ -454,8 +467,8 @@ function BusinessUser({ adminFirstPageAction }) {
               </span> */}
             </div>
             <div>
-            <span className="inputLogin1Error">{input4Error}</span>
-            <span
+              <span className="inputLogin1Error">{input4Error}</span>
+              <span
                 className="inputLogin1Error "
                 style={{ marginLeft: "25.45vw" }}
               >
@@ -491,22 +504,19 @@ function BusinessUser({ adminFirstPageAction }) {
                 )}
                 <label className="bainput-label">Password*</label>
                 <input
-                type="text"
-                className="ba2input"
-                value={mob}
-                onChange={(e) => setMob(e.target.value)}
-                required
-              />
-              <label className="ba2input-label">Mobile No</label>
-              <span
-                  className="inputLogin2Error inputLoginError"
-                >
+                  type="text"
+                  className="ba2input"
+                  value={mob}
+                  onChange={(e) => setMob(e.target.value)}
+                  required
+                />
+                <label className="ba2input-label">Mobile No</label>
+                <span className="inputLogin2Error inputLoginError">
                   {inputLogin2Error}
                 </span>
               </div>
-              
             </div>
-            
+
             <div style={{ marginTop: "1.37vh" }}>
               <button className="submitbtn" onClick={handleSubmit}>
                 Submit

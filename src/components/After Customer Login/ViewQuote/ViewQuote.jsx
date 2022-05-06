@@ -11,7 +11,16 @@ const userName = userData?.name;
 function ViewQuote() {
   const { id: quoteId } = useParams();
   const [quoteData, setQuoteData] = useState();
-
+  const [checkAccordion, setCheckAccordion] = useState({
+    acc1: false,
+    acc2: false,
+    acc3: false,
+    acc4: false,
+    acc5: false,
+    acc6: false,
+    acc7: false,
+    acc8: false,
+  });
   useEffect(() => {
     getQuote(quoteId).then((res) => {
       console.log(res);
@@ -78,7 +87,21 @@ function ViewQuote() {
         </Box>
         <div className="Rectangle-31"></div>
         <Box>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc1}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc1 = !temp.acc1;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -115,7 +138,21 @@ function ViewQuote() {
               </Grid>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc2}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc2 = !temp.acc2;
+              temp.acc1 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -219,7 +256,21 @@ function ViewQuote() {
               </Grid>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc3}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc3 = !temp.acc3;
+              temp.acc2 = false;
+              temp.acc1 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -270,7 +321,21 @@ function ViewQuote() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc4}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc4 = !temp.acc4;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc1 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -306,7 +371,21 @@ function ViewQuote() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc5}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc5 = !temp.acc5;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc1 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -356,7 +435,21 @@ function ViewQuote() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc6}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc6 = !temp.acc6;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc1 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -405,7 +498,21 @@ function ViewQuote() {
               </Grid>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc7}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc7 = !temp.acc7;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc1 = false;
+              temp.acc8 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
@@ -438,7 +545,21 @@ function ViewQuote() {
               </Grid>
             </AccordionDetails>
           </Accordion>
-          <Accordion defaultExpanded={false}>
+          <Accordion
+            expanded={checkAccordion.acc8}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc8 = !temp.acc8;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc1 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
             <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
               <Typography
                 sx={{
