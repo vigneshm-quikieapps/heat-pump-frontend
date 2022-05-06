@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminRCA.css";
-
+import { Box } from "@material-ui/core";
+// import { useParams } from "react-router";
+import {
+  Typography,
+  AccordionSummary,
+  AccordionDetails,
+  MenuItem,
+} from "@mui/material";
+import { Card, Accordion, ImgIcon, Grid } from "../../../common";
+import StyledTextField from "../../../common/textfield";
 import Radio from "@mui/material/Radio";
 import { makeStyles } from "@material-ui/core";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,7 +24,7 @@ import { FileUploader } from "react-drag-drop-files";
 import globalAPI from "../../../GlobalApi";
 import URL from "../../../GlobalUrl";
 import axios from "axios";
-
+import DropdownIcon from "../../../Img/icon dropdown.png";
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 
@@ -233,428 +242,485 @@ function AdminRCA({ adminFirstPageAction }) {
   const classess = useStyles();
 
   return (
-    <div className="adminRCAcontainer">
-      {loader && (
-        <div className="customLoader">
-          <TailSpin color="#fa5e00" height="100" width="100" />
-        </div>
-      )}
-      <div className="adminRCAtitle" style={{ fontSize: "2.9vw" }}>
+    <>
+      <div className="adminRCAcontainer">
+        {loader && (
+          <div className="customLoader">
+            <TailSpin color="#fa5e00" height="100" width="100" />
+          </div>
+        )}
+        <h1 className="get-a-quote">Manage Customer Account Request</h1>
+        <hr className="quote" />
+        {/* <div className="adminRCAtitle" style={{ fontSize: "2.9vw" }}>
         Manage Customer Account Request
-      </div>
-      <hr className="adminRCAcontainerhr" />
-      <div className="adminRCApaper">
-        <div className="adminRCAfirstrow">
-          <div className="adminRCAnames">{inputData.name}</div>{" "}
-          <div className="adminRCAnew">
-            {status == 1
-              ? "New"
-              : status == 2
-              ? "In Progress"
-              : status == 3
-              ? "Approved"
-              : status == 5
-              ? "Rejected"
-              : status == 6
-              ? "Inactive"
-              : "New"}
-          </div>
-          <div
-            style={{ fontSize: "1vw", marginTop: "0.67vh", fontWeight: "bold" }}
-          >{`${inputData.address_1}, ${inputData.city}`}</div>
-          <hr className="adminRCAhrFirst" />
-        </div>
-
-        <div>
-          <button
-            className={`${
-              status == 2 || status == 3 || status == 5
-                ? "disbtn"
-                : "progressbtn"
-            }`}
-            name="inprogress"
-            onClick={(e) => changestatus(e)}
-          >
-            In Progress
-          </button>
-          <button
-            className={`${
-              status == 3 || status == 5 ? "disbtn" : "approvebtn"
-            }`}
-            name="approve"
-            onClick={(e) => changestatus(e)}
-          >
-            Approve
-          </button>
-          <button
-            className={`${status == 3 || status == 5 ? "disbtn" : "rejectbtn"}`}
-            name="reject"
-            onClick={(e) => changestatus(e)}
-          >
-            Reject
-          </button>
-          <button
-            className={`${
-              status == 1 || status == 2 || status == 5
-                ? "disbtn"
-                : "Inactivebtn"
-            }`}
-            name="inactive"
-            onClick={(e) => changestatus(e)}
-          >
-            Inactive
-          </button>
-        </div>
-
-        <div style={{ minWidth: "66.53vw" }}>
-          <div
-            className="accordiantitle"
-            onClick={() => {
-              seti(!i);
-              seti1(false);
-              seti2(false);
-              seti3(false);
-            }}
-          >
-            <div className="arrow-wrapper">
-              <img
-                src={require("../../../Img/adminarrow.png")}
-                style={{ height: "1.1vh", width: "0.66vw" }}
-                className={
-                  i ? "fa fa-angle-down " : "fa fa-angle-down fa-rotate-180"
-                }
-              />
-            </div>
-            <span className="title-text">Customer Contact Details</span>
-          </div>
-          <div className={i ? "content content-open" : "content"}>
-            <div
-              className={i ? "content-text content-text-open" : "content-text"}
-            >
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields admininput1"
-                  onChange={changeHandler}
-                  value={inputData.name}
-                  type="text"
-                  name="name"
-                />{" "}
-                <label className="admininput1-label">Full Name</label>{" "}
-              </div>
-              <input
-                required
-                className="admininputfields admininput21 "
-                onChange={changeHandler}
-                value={inputData.email}
-                type="text"
-                name="email"
-              />{" "}
-              <label className="admininput21-label">Email Address</label>
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields admininput3 "
-                  onChange={changeHandler}
-                  value={inputData.password}
-                  type="password"
-                  name="password"
-                />{" "}
-                <label className="admininput3-label">Password*</label>{" "}
-              </div>
-              <input
-                required
-                className="admininputfields admininput4 "
-                onChange={changeHandler}
-                value={inputData.mobile}
-                type="text"
-                name="mobile"
-              />{" "}
-              <label className="admininput4-label">Mobile Number*</label>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ minWidth: "66.53vw" }}>
-          <div
-            className="accordiantitle"
-            onClick={() => {
-              seti1(!i1);
-              seti(false);
-              seti2(false);
-              seti3(false);
-            }}
-          >
-            <div className="arrow-wrapper">
-              <img
-                src={require("../../../Img/adminarrow.png")}
-                /*   height="8px"
-              width={"10px"} */
-                style={{ height: "1.1vh", width: "0.66vw" }}
-                className={
-                  i1 ? "fa fa-angle-down " : "fa fa-angle-down fa-rotate-180"
-                }
-              />
-            </div>
-            <span className="title-text">Business Details</span>
-          </div>
-          <div className={i1 ? "content content-open" : "content"}>
-            <div
-              className={i1 ? "content-text content-text-open" : "content-text"}
-            >
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields  admininput5"
-                  type="text"
-                  value={inputData.business_registered_name}
-                  onChange={changeHandler}
-                  name="business_registered_name"
-                />{" "}
-                <label className={"admininput5-label"}>
-                  Business Registered Name*
-                </label>{" "}
-              </div>
-              <input
-                required
-                className="admininputfields admininput6"
-                type="text"
-                value={inputData.business_trade_name}
-                onChange={changeHandler}
-                name="business_trade_name"
-              />{" "}
-              <label className="admininput6-label">Business Trade Name*</label>
-              <select
-                name="business_type"
-                id="cars"
-                className={`admininputfields admininput7`}
-                onChange={changeHandler2}
-                onClick={() => setIsOpend(!isOpend)}
-              >
-                <option value="" hidden className="optioncolor ">
-                  Business Type*
-                </option>
-                <option value="Limited Company" className="optioncolor option">
-                  Limited Company
-                </option>
-                <option
-                  value="Limited Liability Patnership"
-                  className="optioncolor option"
-                >
-                  Limited Liability Patnership
-                </option>
-                <option value="Sole Trader" className="optioncolor option">
-                  Sole Trader
-                </option>
-              </select>{" "}
-              <img
-                src={require("../../../Img/adminDropdown.png")}
-                className={`admincommondropdown ${
-                  isOpend && "admincommondropdownrotate"
-                }`}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div style={{ minWidth: "66.53vw" }}>
-          <div
-            className="accordiantitle"
-            onClick={() => {
-              seti2(!i2);
-              seti1(false);
-              seti(false);
-              seti3(false);
-            }}
-          >
-            <div className="arrow-wrapper">
-              <img
-                src={require("../../../Img/adminarrow.png")}
-                /*   height="8px"
-              width={"10px"} */
-                style={{ height: "1.1vh", width: "0.66vw" }}
-                className={
-                  i2 ? "fa fa-angle-down " : "fa fa-angle-down fa-rotate-180"
-                }
-              />
-            </div>
-            <span className="title-text">Business Address</span>
-          </div>
-          <div className={i2 ? "content content-open" : "content"}>
-            <div
-              className={i2 ? "content-text content-text-open" : "content-text"}
-            >
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields admininput1"
-                  onChange={changeHandler}
-                  value={inputData.name}
-                  type="text"
-                  name="name"
-                />{" "}
-                <label className="admininput1-label">Full Name</label>{" "}
-              </div>
-              <div className="adminrca2subtitle3">Enter Address manually</div>
-              <Radio
-                type="radio"
-                name="radio"
-                className={classess.radio}
-                checked={checked}
-                onClick={() => {
-                  checked ? setChecked(false) : setChecked(true);
-                  show === false && setShow(!show);
+      </div> */}
+        {/* <hr className="adminRCAcontainerhr" /> */}
+        <Card>
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ width: "60%" }}>
+              <Typography
+                style={{
+                  color: "#fa5e00",
+                  fontSize: "28px",
+                  fontWeight: "600",
+                  fontFamily: "Outfit",
                 }}
-              />{" "}
-              <br></br>
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields admininput9"
-                  type="text"
-                  value={inputData.address_1}
-                  onChange={changeHandler}
-                  name="address_1"
-                  placeholder={checked === false ? "Address line 1*" : ""}
-                  disabled={checked == false ? true : false}
-                />{" "}
-                {checked && (
-                  <label className="admininput9-label">Address line 1*</label>
-                )}{" "}
-              </div>
-              <input
-                required
-                className="admininputfields admininput10"
-                type="text"
-                value={inputData.address_2}
-                onChange={changeHandler}
-                name="address_2"
-                placeholder={checked === false ? "Address line 2*" : ""}
-                disabled={checked === false ? true : false}
-              />{" "}
-              {checked && (
-                <label className="admininput10-label">Address line 2*</label>
-              )}
-              <div style={{ display: "inline-block", width: "33.85vw" }}>
-                <input
-                  required
-                  className="admininputfields admininput11"
-                  type="text"
-                  value={inputData.city}
-                  onChange={changeHandler}
-                  name="city"
-                  placeholder={checked === false ? "City/Town*" : ""}
-                  disabled={checked === false ? true : false}
-                />{" "}
-                {checked && (
-                  <label className="admininput11-label">City/Town*</label>
-                )}{" "}
-              </div>
-              <input
-                required
-                value={inputData.postcode}
-                className="admininputfields top admininput12"
-                type="text"
-                onChange={changeHandler}
-                name="postcode"
-                placeholder={checked === false ? "PostCode*" : ""}
-                disabled={checked === false ? true : false}
-              />{" "}
-              {checked && (
-                <label className="admininput12-label">PostCode*</label>
-              )}
-            </div>
-          </div>
-        </div>
+              >
+                {inputData.name}
+              </Typography>
+              <Typography
+                style={{
+                  fontSize: "18px",
 
-        <div style={{ minWidth: "66.53vw" }}>
-          <div
-            className="accordiantitle"
-            onClick={() => {
-              seti3(!i3);
-              seti1(false);
-              seti2(false);
-              seti(false);
+                  fontFamily: "Outfit",
+                  fontWeight: "900",
+                }}
+              >
+                {`${inputData.address_1}, ${inputData.city}`}
+              </Typography>
+              <hr className="under_quote" />
+            </Box>
+            <Box>
+              <Typography
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "600",
+                  fontFamily: "Outfit",
+                }}
+              >
+                {status == 1
+                  ? "New"
+                  : status == 2
+                  ? "In Progress"
+                  : status == 3
+                  ? "Approved"
+                  : status == 5
+                  ? "Rejected"
+                  : status == 6
+                  ? "Inactive"
+                  : "New"}
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              mt: 2,
+              width: "70%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
             }}
           >
-            <div className="arrow-wrapper">
-              <img
-                src={require("../../../Img/adminarrow.png")}
-                /*   height="8px"
-              width={"10px"} */
-                style={{ height: "1.1vh", width: "0.66vw" }}
-                className={
-                  i3 ? "fa fa-angle-down " : "fa fa-angle-down fa-rotate-180"
-                }
-              />
-            </div>
-            <span className="title-text">Supporting Documents</span>
-          </div>
-          <div className={i3 ? "content content-open" : "content"}>
-            <div
-              className={i3 ? "content-text content-text-open" : "content-text"}
+            <button
+              className={`${
+                status == 2 || status == 3 || status == 5
+                  ? "disbtn"
+                  : "progressbtn"
+              }`}
+              name="inprogress"
+              onClick={(e) => changestatus(e)}
             >
-              <button
-                className="adminDocumentBtn"
-                onClick={() => togglefileModal()}
-              >
-                Add Supporting Documents
-              </button>
-              <h4 className="adminname1">Attachments</h4>
+              In Progress
+            </button>
+            <button
+              className={`${
+                status == 3 || status == 5 ? "disbtn" : "approvebtn"
+              }`}
+              name="approve"
+              onClick={(e) => changestatus(e)}
+            >
+              Approve
+            </button>
+            <button
+              className={`${
+                status == 3 || status == 5 ? "disbtn" : "rejectbtn"
+              }`}
+              name="reject"
+              onClick={(e) => changestatus(e)}
+            >
+              Reject
+            </button>
+            <button
+              className={`${
+                status == 1 || status == 2 || status == 5
+                  ? "disbtn"
+                  : "Inactivebtn"
+              }`}
+              name="inactive"
+              onClick={(e) => changestatus(e)}
+            >
+              Inactive
+            </button>
+          </Box>
+          <Box>
+            <Accordion
+              expanded={i}
+              onChange={() => {
+                seti(!i);
+                seti1(false);
+                seti2(false);
+                seti3(false);
+              }}
+            >
+              <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+                <Typography
+                  sx={{
+                    fontSize: "25px !important",
+                    fontWeight: "900 !important",
+                    fontFamily: "Outfit !important",
+                  }}
+                >
+                  Customer Contact Details
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 0 }}>
+                <Grid
+                  gridTemplateColumns="repeat(1, 1fr)"
+                  columnGap="10px"
+                  columnCount={2}
+                >
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.name}
+                      onChange={(e) => {
+                        changeHandler(e);
+                      }}
+                      name="name"
+                      label="Full Name"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      onChange={changeHandler}
+                      value={inputData.email}
+                      label="Email Address"
+                      name="email"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="password"
+                      onChange={changeHandler}
+                      value={inputData.password}
+                      name="password"
+                      label="Password"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      onChange={changeHandler}
+                      value={inputData.mobile}
+                      name="mobile"
+                      label="Mobile Number"
+                    />
+                  </Box>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={i1}
+              onChange={() => {
+                seti1(!i1);
+                seti(false);
+                seti2(false);
+                seti3(false);
+              }}
+            >
+              <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+                <Typography
+                  sx={{
+                    fontSize: "25px !important",
+                    fontWeight: "900 !important",
+                    fontFamily: "Outfit !important",
+                  }}
+                >
+                  Business Details
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 0 }}>
+                <Grid
+                  gridTemplateColumns="repeat(1, 1fr)"
+                  columnGap="10px"
+                  columnCount={2}
+                >
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.business_registered_name}
+                      onChange={changeHandler}
+                      name="business_registered_name"
+                      label="Business Registered Name"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.business_trade_name}
+                      onChange={changeHandler}
+                      name="business_trade_name"
+                      label="Business Trade Name"
+                    />
+                  </Box>
 
-              <hr className="adminclhr2" />
-              {efname ? (
-                efname.map((item, index) => {
-                  return (
-                    <div
-                      className="adminRCAfile"
-                      style={{ borderRadius: "1.9vw" }}
-                      key={index}
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      select
+                      onChange={changeHandler}
+                      value={inputData.business_type}
+                      name="business_type"
+                      label="Business Type"
                     >
-                      <span style={{ float: "left", marginLeft: "1vw" }}>
-                        <img
-                          src={require("../../../Img/attachIcon.png")}
-                          style={{
-                            height: "2.8vh",
-                            width: "1vw",
-                          }}
-                        />
+                      <MenuItem value="Limited Company">
+                        Limited Company
+                      </MenuItem>
+                      <MenuItem value="Limited Liability Patnership">
+                        Limited Liability Patnership
+                      </MenuItem>
+                      <MenuItem value="Sole Trader">Sole Trader</MenuItem>
+                    </StyledTextField>
+                  </Box>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={i2}
+              onChange={() => {
+                seti2(!i2);
+                seti1(false);
+                seti(false);
+                seti3(false);
+              }}
+            >
+              <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+                <Typography
+                  sx={{
+                    fontSize: "25px !important",
+                    fontWeight: "900 !important",
+                    fontFamily: "Outfit !important",
+                  }}
+                >
+                  Business Address
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 0 }}>
+                <Grid
+                  gridTemplateColumns="repeat(1, 1fr)"
+                  columnGap="10px"
+                  columnCount={2}
+                >
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.name}
+                      onChange={(e) => {
+                        changeHandler(e);
+                      }}
+                      name="name"
+                      label="Full Name"
+                    />
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Radio
+                      type="radio"
+                      name="radio"
+                      label="Enter Address manually"
+                      className={classess.radio}
+                      checked={checked}
+                      onClick={() => {
+                        checked ? setChecked(false) : setChecked(true);
+                        show === false && setShow(!show);
+                      }}
+                    />
+                    <Typography
+                      style={{
+                        fontSize: "18px",
+                        marginLeft: "2%",
+                        fontFamily: "Outfit",
+                        fontWeight: "900",
+                      }}
+                    >
+                      Enter Address manually
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.address_1}
+                      onChange={changeHandler}
+                      name="address_1"
+                      disabled={checked == false ? true : false}
+                      label="Address Line 1"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.address_2}
+                      onChange={changeHandler}
+                      name="address_2"
+                      disabled={checked === false ? true : false}
+                      label="Address Line 2"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.city}
+                      onChange={changeHandler}
+                      name="city"
+                      disabled={checked === false ? true : false}
+                      label="City/Town"
+                    />
+                  </Box>
+                  <Box>
+                    <StyledTextField
+                      sx={{ width: "450px", height: "60px" }}
+                      required
+                      type="text"
+                      value={inputData.postcode}
+                      onChange={changeHandler}
+                      name="postcode"
+                      disabled={checked === false ? true : false}
+                      label="Postcode"
+                    />
+                  </Box>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion
+              expanded={i3}
+              onChange={() => {
+                seti3(!i3);
+                seti1(false);
+                seti2(false);
+                seti(false);
+              }}
+            >
+              <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+                <Typography
+                  sx={{
+                    fontSize: "25px !important",
+                    fontWeight: "900 !important",
+                    fontFamily: "Outfit !important",
+                  }}
+                >
+                  Supporting Documents
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 0 }}>
+                <Box
+                  sx={{
+                    width: "300px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <button
+                    className="adminDocumentBtn"
+                    onClick={() => togglefileModal()}
+                  >
+                    Add Supporting Documents
+                  </button>
+                  <Typography
+                    sx={{
+                      mt: 2,
+                      color: "#fa5e00",
+                      fontSize: "22px",
+                      fontWeight: "600",
+                      fontFamily: "Outfit",
+                      textAlign: "center",
+                    }}
+                  >
+                    Attachments
+                  </Typography>
+                  <hr className="attach-Quote" />
+                  <Box sx={{ m: 0, p: 0 }}>
+                    {efname ? (
+                      efname.map((item, index) => {
+                        return (
+                          <div
+                            className="adminRCAfile"
+                            style={{ borderRadius: "1.9vw" }}
+                            key={index}
+                          >
+                            <span style={{ float: "left", marginLeft: "1vw" }}>
+                              <img
+                                src={require("../../../Img/attachIcon.png")}
+                                style={{
+                                  height: "25px",
+                                  width: "25px",
+                                }}
+                              />
 
-                        <span
-                          className="adminfileName"
-                          style={{ fontSize: "1vw" }}
-                        >
-                          {efname[index]}
-                        </span>
+                              <span
+                                className="adminfileName"
+                                style={{ fontSize: "18px" }}
+                              >
+                                {efname[index]}
+                              </span>
+                            </span>
+
+                            <img
+                              src={require("../../../Img/iconDelete.png")}
+                              onClick={() => removeFile(index)}
+                              height="22px"
+                              width={"20px"}
+                              style={{
+                                marginRight: "1.33vw",
+                                height: "3vh",
+                                width: "1.33vw",
+                              }}
+                            />
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <span style={{ marginLeft: "1.9vw", fontSize: "0.9vw" }}>
+                        No attachments found
                       </span>
-
-                      <img
-                        src={require("../../../Img/iconDelete.png")}
-                        onClick={() => removeFile(index)}
-                        height="22px"
-                        width={"20px"}
-                        style={{
-                          marginRight: "1.33vw",
-                          height: "3vh",
-                          width: "1.33vw",
-                        }}
-                      />
-                    </div>
-                  );
-                })
-              ) : (
-                <span style={{ marginLeft: "1.9vw", fontSize: "0.9vw" }}>
-                  No attachments found
-                </span>
-              )}
-              <br />
-            </div>
-          </div>
-          <button className="adminsavebtn" onClick={() => newUpload()}>
-            Save
-          </button>
-        </div>
-
+                    )}
+                  </Box>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <Box>
+              <button className="adminsavebtn" onClick={() => newUpload()}>
+                Save
+              </button>
+            </Box>
+          </Box>
+        </Card>
         <Modal
           isOpen={addfiles}
           className="myattachmodal"
@@ -668,7 +734,7 @@ function AdminRCA({ adminFirstPageAction }) {
               </IconButton>
             </div>
             <div className="dialog-row1">
-              <h5 style={{ fontSize: "1.4vw", margin: "0.67vh 0 0 0" }}>
+              <h5 style={{ fontSize: "22px", margin: "0.67vh 0 0 0" }}>
                 Add Attachment
               </h5>
               <hr className="clhrFirst" />
@@ -752,7 +818,7 @@ function AdminRCA({ adminFirstPageAction }) {
           </div>
         </Modal>
       </div>
-    </div>
+    </>
   );
 }
 

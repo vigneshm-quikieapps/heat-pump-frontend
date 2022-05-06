@@ -30,7 +30,7 @@ function ViewQuote() {
   return (
     <>
       <h1 className="get-a-quote">View Quote</h1>
-      <hr className="quote-hr" />
+      <hr className="quote" />
 
       <Card>
         <Box
