@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import "./BusinessUser.css";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 import Modal from "react-modal";
-import { IconButton, Typography } from "@mui/material";
+import { Box, IconButton, MenuItem, Typography, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import usePagination from "../../Pagination/Pagination";
-import { Pagination } from "@mui/material";
+// import { Pagination } from "@mui/material";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import URL from "../../../GlobalUrl";
@@ -15,7 +15,8 @@ import globalAPI from "../../../GlobalApi";
 import validator from "validator";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Card } from "../../../common";
+import { Card, Table, Pagination, Grid } from "../../../common";
+import StyledTextField from "../../../common/textfield";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
@@ -283,6 +284,36 @@ function BusinessUser({ adminFirstPageAction }) {
       return false;
     }
   };
+  console.log("_DATA.currentData().map", _DATA.currentData());
+  const tableRows = useMemo(() => {
+    return (
+      _DATA &&
+      _DATA
+        ?.currentData()
+        .map((item, index, { email, _id, name, mobile, status }) => ({
+          //  onClick: () => manageService(_id),
+          onClick: () => {
+            setModifyUser(item);
+            onPopup1();
+          },
+          key: { _id },
+          items: [
+            item?.email,
+            item?.name,
+            item?.mobile,
+            <StyledTextField
+              select
+              sx={{ width: "200px" }}
+              value={item.status}
+              onChange={(e) => statusChange(item?._id, e)}
+            >
+              <MenuItem value="3">Active</MenuItem>
+              <MenuItem value="6">Inactive</MenuItem>
+            </StyledTextField>,
+          ],
+        }))
+    );
+  }, [_DATA]);
 
   return (
     <div className="bucontainer">
@@ -303,229 +334,212 @@ function BusinessUser({ adminFirstPageAction }) {
         Business Users
         <hr className="containerhr" />
       </Typography>
-      <hr className=" bucontainerhr" />
-      <Card></Card>
-      <div style={{ marginTop: "6vh" }}>
-        <table className="butable">
-          <thead className="buhead">
-            <td className="buiemail">Email</td>{" "}
-            <td className="buname">Full Name</td>{" "}
-            <td className="bunumber">Mobile Number</td>{" "}
-            <td className="bustatus">Status</td>
-          </thead>
-          {
-            <tbody style={{ fontSize: "1vw" }}>
-              {_DATA.currentData() ? (
-                _DATA.currentData().map((item) => {
-                  return (
-                    <tr className="butr" key={item.business_admin_email}>
-                      <td
-                        className="buadminemailData"
-                        onClick={() => {
-                          setModifyUser(item);
-                          onPopup1();
-                        }}
-                      >
-                        {item.email}
-                      </td>{" "}
-                      <td
-                        className="bunameData"
-                        onClick={() => {
-                          setModifyUser(item);
-                          onPopup1();
-                        }}
-                      >
-                        {item.name}
-                      </td>
-                      <td
-                        className="bunumberData"
-                        onClick={() => {
-                          setModifyUser(item);
-                          onPopup1();
-                        }}
-                      >
-                        {item.mobile}
-                      </td>
-                      <td className="bustatusdata">
-                        <select
-                          className="buselecttag"
-                          onChange={(e) => statusChange(item._id, e)}
-                        >
-                          <option
-                            className="buoption1"
-                            selected={item.status == 3 ? true : false}
-                            value="3"
-                          >
-                            Active
-                          </option>
-                          <option
-                            className="buoption2"
-                            selected={item.status == 6 ? true : false}
-                            value="6"
-                          >
-                            Inactive
-                          </option>
-                        </select>{" "}
-                        <img
-                          className="budropdownimg"
-                          src={require("../../../Img/adminDropdown.png")}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
-                <div>No Business User exist</div>
-              )}
-            </tbody>
-          }
-        </table>
-        {_DATA.currentData().length == 0 && (
-          <h4
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "5.5vh",
-            }}
-          >
-            No matching records found
-          </h4>
-        )}
-      </div>
-      {_DATA.currentData().length >= 1 && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "2vh",
-          }}
-        >
-          <ThemeProvider theme={theme}>
-            <Pagination
-              className="pagination"
-              count={count}
-              page={page}
-              /*  variant="outlined" */
-              onChange={handleChange}
-              color="primary"
-            />
-          </ThemeProvider>
-        </div>
-      )}
 
-      <button className="bubtn" onClick={() => onPopup()}>
-        Create Business User
-      </button>
+      <Card>
+        {" "}
+        <Box sx={{ marginTop: "1%" }}>
+          <Table
+            headers={["Email", "Full Name", "Mobile Number", "Status"]}
+            rows={tableRows}
+            // pagination={pagination}
+            isLoading={false}
+            // isFetching={false}
+          />
+          {_DATA.currentData().length == 0 && (
+            <h4
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5.5vh",
+              }}
+            >
+              No matching records found
+            </h4>
+          )}
+          {_DATA.currentData().length >= 1 && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "2vh",
+              }}
+            >
+              <ThemeProvider theme={theme}>
+                <Pagination
+                  className="pagination"
+                  count={count}
+                  page={page}
+                  /*  variant="outlined" */
+                  onChange={handleChange}
+                  color="primary"
+                />
+              </ThemeProvider>
+            </div>
+          )}
+          <Button
+            sx={{
+              width: "300px",
+              height: "63px",
+              background: "black",
+              color: "white",
+              fontSize: "18px",
+              borderRadius: "32.5px",
+              fontFamily: "Outfit",
+              textTransform: "none",
+              "&:hover": { background: "black" },
+            }}
+            onClick={() => onPopup()}
+          >
+            Create Business User
+          </Button>
+        </Box>
+      </Card>
+
       <Modal
         isOpen={popup}
         className="bausermodal"
         overlayClassName="bauseroverlay"
         closeTimeoutMS={500}
       >
-        <div>
-          <div className="bauserdialogclose">
-            <IconButton onClick={() => onPopup()}>
-              <CloseIcon sx={{ color: "black" }}></CloseIcon>
-            </IconButton>
-          </div>
-          <div className="bauserdialog-row1">
-            <h5 style={{ fontSize: "1.5vw", margin: "0.67vh 0 0 0" }}>
-              New Business User
-            </h5>
-            <hr className="clhrFirst" />
-          </div>
-          <div className="bauserdialog-row2">
-            <div>
-              <div style={{ display: "inline-block" }}>
-                <input
-                  type="text"
-                  className="bainput"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  onBlur={blurFunc4}
-                />
-                <label className="bainput-label">Full Name*</label>
-                {/* <span className='inputLogin2Error inputLoginError'  >{input4Error}</span> */}
-              </div>
+        <div className="bauserdialogclose">
+          <IconButton onClick={() => onPopup()}>
+            <CloseIcon sx={{ color: "black" }}></CloseIcon>
+          </IconButton>
+        </div>
+        <div className="bauserdialog-row1">
+          <Typography
+            style={{
+              fontSize: "30px",
+              fontWeight: "600",
+              fontFamily: "Outfit",
+              margin: "10px 0 1px 0",
+            }}
+          >
+            New Business User
+          </Typography>
+          <hr className="clhrFirst" />
+        </div>
+        <Grid sx={{ gridTemplateColumns: "repeat(2, 1fr)", marginTop: "40px" }}>
+          <Box>
+            <StyledTextField
+              sx={{ width: "370px" }}
+              type="text"
+              // className="bainput"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              onBlur={blurFunc4}
+              label="Full Name"
+            />
+            <Typography
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                marginLeft: "20px",
+                color: "rgba(255, 0, 0, 0.699)",
+                position: "relative",
+              }}
+            >
+              {input4Error}
+            </Typography>
+          </Box>
+          <Box>
+            <StyledTextField
+              type="text"
+              sx={{ width: "370px" }}
+              // className="ba2input"
+              value={email}
+              name="email"
+              onChange={changeHandler}
+              onBlur={blurFunc}
+              required
+              label="Email"
+            />
+            <Typography
+              // className="inputLogin1Error "
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                marginLeft: "20px",
+                color: "rgba(255, 0, 0, 0.699)",
+                position: "relative",
+              }}
+            >
+              {inputLogin1Error}
+            </Typography>
+          </Box>
 
-              <input
-                type="text"
-                className="ba2input"
-                value={email}
-                name="email"
-                onChange={changeHandler}
-                onBlur={blurFunc}
-                required
+          {/*<div>
+            <span className="inputLogin1Error">{input4Error}</span>
+            <span
+              className="inputLogin1Error "
+              style={{ marginLeft: "25.45vw" }}
+            >
+              {inputLogin1Error}
+            </span>
+          </div>
+          */}
+          <Box>
+            <StyledTextField
+              // className="bainput"
+              sx={{ width: "370px" }}
+              type={password.type}
+              value={password.value}
+              onChange={changeHandler}
+              name="password"
+              onBlur={blurFunc1}
+              label="Password"
+              required
+            />
+            {password.showpassword ? (
+              <img
+                src={require("../../../Img/iconEyeOpen.png")}
+                alt=""
+                className="eyeeIconOpen"
+                onClick={togglePassword}
               />
-              <label className="ba2input-label">Email*</label>
-              {/* <span
-                className="inputLogin1Error "
-                style={{ marginLeft: "33.25vw" }}
-              >
-                {inputLogin1Error}
-              </span> */}
-            </div>
-            <div>
-              <span className="inputLogin1Error">{input4Error}</span>
-              <span
-                className="inputLogin1Error "
-                style={{ marginLeft: "25.45vw" }}
-              >
-                {inputLogin1Error}
-              </span>
-            </div>
-
-            <div>
-              <div style={{ display: "inline-block" }}>
-                <input
-                  className="bainput"
-                  type={password.type}
-                  value={password.value}
-                  onChange={changeHandler}
-                  name="password"
-                  onBlur={blurFunc1}
-                  required
-                />
-                {password.showpassword ? (
-                  <img
-                    src={require("../../../Img/iconEyeOpen.png")}
-                    alt=""
-                    className="eyeeIconOpen"
-                    onClick={togglePassword}
-                  />
-                ) : (
-                  <img
-                    src={require("../../../Img/icon3.png")}
-                    alt=""
-                    className="eyeeIcon"
-                    onClick={togglePassword}
-                  />
-                )}
-                <label className="bainput-label">Password*</label>
-                <input
-                  type="text"
-                  className="ba2input"
-                  value={mob}
-                  onChange={(e) => setMob(e.target.value)}
-                  required
-                />
-                <label className="ba2input-label">Mobile No</label>
-                <span className="inputLogin2Error inputLoginError">
-                  {inputLogin2Error}
-                </span>
-              </div>
-            </div>
-
-            <div style={{ marginTop: "1.37vh" }}>
-              <button className="submitbtn" onClick={handleSubmit}>
-                Submit
-              </button>
-              <button className="closebtn" onClick={() => onPopup()}>
-                Cancel
-              </button>
-            </div>
-          </div>
+            ) : (
+              <img
+                src={require("../../../Img/icon3.png")}
+                alt=""
+                className="eyeeIcon"
+                onClick={togglePassword}
+              />
+            )}
+            <Typography
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                marginLeft: "20px",
+                color: "rgba(255, 0, 0, 0.699)",
+                position: "relative",
+              }}
+            >
+              {inputLogin2Error}
+            </Typography>
+          </Box>
+          <Box>
+            <StyledTextField
+              sx={{ width: "370px" }}
+              type="text"
+              label="Mobile No"
+              // className="ba2input"
+              value={mob}
+              onChange={(e) => setMob(e.target.value)}
+              required
+            />
+          </Box>
+        </Grid>
+        <div style={{ marginTop: "40px" }}>
+          <button className="submitbtn" onClick={handleSubmit}>
+            Submit
+          </button>
+          <button className="closebtn" onClick={() => onPopup()}>
+            Cancel
+          </button>
         </div>
       </Modal>
       <Modal
@@ -541,56 +555,61 @@ function BusinessUser({ adminFirstPageAction }) {
             </IconButton>
           </div>
           <div className="bauserdialog-row1">
-            <h5 style={{ fontSize: "1.5vw", margin: "0.67vh 0 0 0" }}>
+            <Typography
+              style={{
+                fontSize: "30px",
+                fontWeight: "600",
+                fontFamily: "Outfit",
+                margin: "10px 0 1px 0",
+              }}
+            >
               Update Business User details
-            </h5>
+            </Typography>
             <hr className="clhrFirst" />
           </div>
           <div className="bauserdialog-row2">
-            <div>
-              <div style={{ display: "inline-block" }}>
-                <input
-                  type="text"
-                  className="bainput"
-                  value={modifyUser.name}
-                  onChange={modifyUserdetails}
-                  name="name"
-                  required
-                />
-                <label className="bainput-label">Full Name</label>
-              </div>
-              <input
+            <Grid
+              sx={{ gridTemplateColumns: "repeat(2, 1fr)", marginTop: "40px" }}
+            >
+              <StyledTextField
                 type="text"
-                className="ba2input"
+                // className="bainput"
+                value={modifyUser.name}
+                onChange={modifyUserdetails}
+                name="name"
+                label="Full Name"
+                required
+              />
+              <StyledTextField
+                type="text"
+                // className="ba2input"
                 value={modifyUser.email}
                 onChange={modifyUserdetails}
                 name="email"
                 required
+                label="Email"
               />
-              <label className="ba2input-label">Email</label>
-            </div>
-            <div>
-              <div style={{ display: "inline-block" }}>
-                <input
-                  type="text"
-                  className="bainput"
-                  value={modifyUser.password}
-                  onChange={modifyUserdetails}
-                  name="password"
-                  required
-                />
-                <label className="bainput-label">Password</label>
-              </div>
-              <input
+
+              <StyledTextField
+                type="text"
+                // className="bainput"
+                value={modifyUser.password}
+                onChange={modifyUserdetails}
+                name="password"
+                required
+                label="Password"
+              />
+
+              <StyledTextField
                 type="number"
-                className="ba2input"
+                // className="ba2input"
                 value={modifyUser.mobile}
                 onChange={modifyUserdetails}
                 name="mobile"
                 required
+                label="Mobile No"
               />
-              <label className="ba2input-label">Mobile No</label>
-            </div>
+            </Grid>
             {/*   <div>
               <div style={{ display: "inline-block" }}>
                 <input
