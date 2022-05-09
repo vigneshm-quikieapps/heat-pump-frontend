@@ -133,7 +133,7 @@ const CreateList = ({ FirstPageAction }) => {
   const [servicetype, setServicetype] = useState("");
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState("3");
   const [attachments, setattachments] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [srno, setSrno] = useState("");
@@ -346,7 +346,7 @@ const CreateList = ({ FirstPageAction }) => {
   const settingJobref = (item) => {
     setJobid(item.job_ref_number);
     setSite(item.site_details);
-    setId(item._id)
+    setId(item._id);
     setOpen(!open);
   };
   const toggleModal = () => {
