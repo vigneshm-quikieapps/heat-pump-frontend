@@ -47,7 +47,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
       /* return false */
     }
     if (!validator.isEmail(customerDetails.email)) {
-      setInput2Error("Please enter valid Email Address");
+      setInput2Error("Please enter a valid Email Address");
       /* return false; */
     }
     if (customerDetails.email == "") {
@@ -105,7 +105,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
       return false;
     }
     if (!validator.isEmail(customerDetails.email)) {
-      setInput2Error("Please enter valid Email Address");
+      setInput2Error("Please enter a valid Email Address");
       /* return false; */
     }
   };
@@ -182,7 +182,10 @@ function RCA1({ customerDetails, customerDetailsAction }) {
             {/* <Box className="left-bar"></Box>
             <Box className="circle"></Box>
             <Box className="right-bar"></Box> */}
-            <img src={require("../../../../src/Img/step4.png")} className="s5baricon" />
+            <img
+              src={require("../../../../src/Img/step4.png")}
+              className="s5baricon"
+            />
           </Box>
           <Typography
             style={{

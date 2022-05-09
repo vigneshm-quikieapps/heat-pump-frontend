@@ -2,7 +2,7 @@ import "./AdminManageService.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Modal from "react-modal";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { saveAs } from "file-saver";
 import { FileUploader } from "react-drag-drop-files";
@@ -512,6 +512,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       console.log("not checked");
     }
   };
+  console.log("detaillll", details);
 
   return (
     <div>
@@ -611,7 +612,17 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 </Select>
               </FormControl>
             </div>
-
+            <Typography
+              style={{
+                fontSize: "22px",
+                fontWeight: "600",
+                fontFamily: "Outfit",
+                marginTop: "11px",
+                color: "black",
+              }}
+            >
+              {details.creator_name}
+            </Typography>
             <div>
               <label htmlFor="" className="jobReferenceLabel">
                 Job Reference

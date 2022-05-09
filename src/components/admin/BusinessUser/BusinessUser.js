@@ -117,7 +117,7 @@ function BusinessUser({ adminFirstPageAction }) {
     }
 
     if (!validator.isEmail(email)) {
-      setInputLogin1Error("Please enter valid Email");
+      setInputLogin1Error("Please enter a valid Email");
     }
     if (!validator.isLength(password.value, { min: 8, max: undefined })) {
       setInputLogin2Error("Must be at least 8 characters");
@@ -261,7 +261,7 @@ function BusinessUser({ adminFirstPageAction }) {
       return false;
     }
     if (!validator.isEmail(email)) {
-      setInputLogin1Error("Please enter valid Email");
+      setInputLogin1Error("Please enter a valid Email");
       return false;
     }
   };
