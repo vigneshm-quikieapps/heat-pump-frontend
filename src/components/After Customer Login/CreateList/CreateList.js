@@ -427,6 +427,9 @@ const CreateList = ({ FirstPageAction }) => {
                     }}
                     required
                     label="Service Type"
+                    InputLabelProps={{
+                      style: { background: "#fff" },
+                    }}
                     // onBlur={blurFunc3}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}

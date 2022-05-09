@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import axios from "axios";
 import "./AdminServiceList.css";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import { TailSpin } from "react-loader-spinner";
 import usePagination from "../../Pagination/Pagination";
 import moment from "moment";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { Box, Button } from "@mui/material";
@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 
 import { Card, Pagination, Table } from "../../../common";
 import StyledTextField from "../../../common/textfield";
-
 
 // import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
@@ -151,7 +150,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
   }
 
   const manageService = (item) => {
-    console.log(item)
+    console.log(item);
     navigate("/admincommon/adminmsr", { state: item });
   };
   const handleChange = (e, p) => {
@@ -162,7 +161,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
     setStatus("1,2,3,4");
     setPage(1);
     fetchSeconddata();
-  }
+  };
   // const manageService = useCallback(
   //   (id) => navigate("/admincommon/adminmsr", { state: id }),
   //   [navigate]
@@ -238,25 +237,6 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
         <hr className="containerhr" />
       </Typography>
       <Card>
-        <Grid>
-          <Stack>
-            <Typography>
-              <div className="names">{userName}</div>
-              <div
-                style={{
-                  fontSize: "30px",
-                  fontFamily: "Outfit",
-                  fontWeight: "300",
-                  textTransform: "none",
-                }}
-              >
-                {userData.business_trade_name}, {userData.city}
-              </div>
-              <hr className="hrFirst" />
-            </Typography>
-          </Stack>
-        </Grid>
-
         <Grid>
           <div className="secondrow">
             <div className="outerbox">
@@ -400,6 +380,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
               height: "63px",
               background: "black",
               color: "white",
+              textTransform: "none",
               borderRadius: "32.5px",
             }}
             onClick={() => searchfilter()}

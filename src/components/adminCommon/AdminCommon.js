@@ -368,8 +368,13 @@ function AdminCommon({ adminFirstPageStatus }) {
       <div className={`${collapse ? " adminsidebar1" : "adminsidebar"}`}>
         <div className="HPDSideBar1">
           <img
+            style={{
+              width: "70px",
+              height: "70px",
+              margin: "1px 915px 0px 0px;",
+            }}
             src={require("../../Img/HPDD.jpeg")}
-            style={{ height: "6.5vh" }}
+            alt="HPD"
           />
         </div>
 
@@ -431,7 +436,7 @@ function AdminCommon({ adminFirstPageStatus }) {
               src={require("../../Img/sidebaradmin2.png")}
               className="adminsidbar-icon"
             />
-            <span style={{ marginRight: "20%" }}>Quotes Request</span>
+            <span style={{ marginRight: "20%" }}>Quote Requests</span>
 
             <img
               src={require("../../Img/redbar.png")}
@@ -640,11 +645,16 @@ function AdminCommon({ adminFirstPageStatus }) {
                 <span
                   style={{
                     position: "relative",
-                    top: "2.3vh",
+                    // top: "0.3vh",
+                    // color: "rgba(0, 0, 0, 0.6)",
+                    // fontSize: "18px",
+                    // fontWeight: "600",
+                    // float: "right",
+                    marginLeft: "30px",
                     color: "rgba(0, 0, 0, 0.6)",
-                    fontSize: "1vw",
+                    fontSize: "18px",
                     fontWeight: "600",
-                    float: "right",
+                    top: "23px",
                   }}
                 >
                   {userInfo.name}
@@ -659,13 +669,13 @@ function AdminCommon({ adminFirstPageStatus }) {
                     aria-haspopup="true"
                     onClick={handleToggle}
                     style={{
-                      width: "3.25vw",
-                      height: "6.71vh",
+                      // width: "3.25vw",
+                      // height: "6.71vh",
                       marginLeft: "7.81vw",
                       position: "relative",
-                      bottom: "2.5vh",
+                      bottom: "3vh",
                       display: "inline-block",
-                      left: "3.8vw",
+                      left: "3vw",
                     }}
                   >
                     <img
@@ -700,19 +710,28 @@ function AdminCommon({ adminFirstPageStatus }) {
                               onKeyDown={handleListKeyDown}
                             >
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                }}
                                 onClick={handleClose}
                               >
                                 Profile
                               </MenuItem>
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                }}
                                 onClick={handleClose}
                               >
-                                My account
+                                My Account
                               </MenuItem>
                               <MenuItem
-                                style={{ fontWeight: 600, fontSize: "1vw" }}
+                                style={{
+                                  fontWeight: 600,
+                                  fontSize: "18px",
+                                }}
                                 onClick={() => toggleModal()}
                               >
                                 Logout
