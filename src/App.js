@@ -40,6 +40,7 @@ import BusinessUser from "./components/admin/BusinessUser/BusinessUser";
 import Fpass from "./components/Before Customer Login/ForgotPassword/fpass";
 import MainQuote from "./components/After Customer Login/GetAQuote/MainQuote";
 import MyQuote from "./components/After Customer Login/MyQuote/MyQuote";
+import ExternalWall from "./components/admin/setup/ExternalWall";
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
   return (
@@ -213,6 +214,8 @@ function PriorityComponent() {
               <Route path="adminmsr" element={<AdminManageService />} />
               <Route path="adminsrl" element={<AdminServiceList />} />
               <Route path="businessuser" element={<BusinessUser />} />
+              <Route path="ewall" element={<ExternalWall />} />
+
             </Route>
           )}
 

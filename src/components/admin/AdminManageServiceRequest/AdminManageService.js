@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     "& .MuiOutlinedInput-root": {
       borderRadius: "0.61vw",
       marginRight: "2.68vw",
-      width: "17.15vw",
+      width: "285px",
       height: "6.04vh",
       fontWeight: "bolder",
       fontFamily: "outfit",
@@ -54,6 +54,7 @@ const fileTypes = ["PDF", "PNG", "JPEG"];
 const AdminManageService = ({ adminFirstPageAction }) => {
   const classes = useStyles();
   const { state } = useLocation();
+  console.log(state)
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -117,7 +118,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     };
     setLoader(true);
     axios
-      .get(URL + globalAPI.allnotes + `?srid=${state._id}`, config)
+      .get(URL + globalAPI.allnotes + `?srid=${state}`, config)
       .then((response) => {
         setLoader(false);
         const res = response.data;
@@ -137,7 +138,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     };
     setLoader(true);
     axios
-      .get(URL + globalAPI.myreq + `/${state._id}`, config)
+      .get(URL + globalAPI.myreq + `/${state}`, config)
       .then((response) => {
         setLoader(false);
         const res = response.data;
@@ -218,7 +219,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     const token = JSON.parse(localStorage.getItem("user"));
     axios({
       method: "patch",
-      url: URL + globalAPI.myreq + `/${state._id}`,
+      url: URL + globalAPI.myreq + `/${state}`,
       data: { attachments: newValue },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -266,7 +267,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       const token = JSON.parse(localStorage.getItem("user"));
       axios({
         method: "post",
-        url: URL + globalAPI.addnotes + `?srid=${state._id}`,
+        url: URL + globalAPI.addnotes + `?srid=${state}`,
         data: { description: text, title: text, type: checkedtype },
         headers: {
           Authorization: `Bearer ${token}`,
@@ -349,21 +350,34 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     }
   };
   const newUpload = (e) => {
-    if (attachments.length >= 1) {
-      setLoader(true);
-      const token = JSON.parse(localStorage.getItem("user"));
-      axios({
-        method: "post",
-        url: URL + globalAPI.addnotes + `?srid=${state._id}`,
-        data: {
-          description: "Added a new attachment",
-          title: "Added a new attachment",
-          attachments: attachments,
-          type: 2,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    if(attachments.length >= 1){
+    setLoader(true);
+    const token = JSON.parse(localStorage.getItem("user"));
+    axios({
+      method: "post",
+      url: URL + globalAPI.addnotes + `?srid=${state}`,
+      data: {
+        description: "Added a new attachment",
+        title: "Added a new attachment",
+        attachments: attachments,
+        type: 2,
+      },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        if (res.success) {
+        togglefileModal();
+          fetchData();
+          fetchSeconddata();
+          toast.success("File added successfully");
+          SetFname([]);
+        } else {
+          toast.error(res.data.message);
+        }
       })
         .then((response) => {
           setLoader(false);
@@ -393,8 +407,8 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       const token = JSON.parse(localStorage.getItem("user"));
       axios({
         method: "post",
-        url: URL + globalAPI.addnotes + `?srid=${state._id}`,
-        data: { description: closetext, type: 2, title: "--closed--" },
+        url: URL + globalAPI.addnotes + `?srid=${state}`,
+        data: {description: closetext, type: 2,title:"--closed--" },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -425,7 +439,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     const token = JSON.parse(localStorage.getItem("user"));
     axios({
       method: "patch",
-      url: URL + globalAPI.myreq + `/${state._id}`,
+      url: URL + globalAPI.myreq + `/${state}`,
       data: details,
       headers: {
         Authorization: `Bearer ${token}`,
@@ -725,21 +739,18 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               {details.service_ref_number} - {details.title}
             </div>
             <span className="adminmsrspan1">{details.description}</span>
-            <div style={{ marginTop: "10.7vh" }}>
-              <button
-                className="adminmsrbutton1"
-                onClick={(e) => toggleModal(e)}
-              >
+            <div style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
+              <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
                 Add Update
               </button>
               <button
-                className="adminmsrbutton2"
+                className="msrbutton2 msrbutton2block"
                 onClick={() => togglefileModal()}
               >
                 Add Attachments
               </button>
               <button
-                className="adminmsrbutton3"
+                className="msrbutton3 msrbutton3block"
                 onClick={() => togglesrModal()}
               >
                 Close SR
