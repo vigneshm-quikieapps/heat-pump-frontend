@@ -59,7 +59,7 @@ export async function getFabricDetails(type) {
 
 export async function getQuote(qid) {
   try {
-    const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/quote?qid=${qid}`;
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/quote?qid=${qid}`;
     // /api/v1/services/quote?qid=62665c1df521ea9cf0c4747c
     const response = await axiosInstance.get(api);
     return response;
