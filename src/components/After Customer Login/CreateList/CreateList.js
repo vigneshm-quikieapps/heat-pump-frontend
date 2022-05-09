@@ -141,6 +141,7 @@ const CreateList = ({ FirstPageAction }) => {
   const [focused, setFocused] = React.useState("");
   const [site, setSite] = useState("");
   const [jobid, setJobid] = useState("");
+  const [id, setId] = useState("");
   let [page, setPage] = useState(1);
   const PER_PAGE = 3;
   const [count, setCount] = useState(1);
@@ -305,7 +306,7 @@ const CreateList = ({ FirstPageAction }) => {
         description: details,
         attachments: attachments,
         priority: priority,
-        job_ref_number: jobid,
+        job_reference_id: id,
         site_details: site,
         type: servicetype,
         status: 1,
@@ -345,6 +346,7 @@ const CreateList = ({ FirstPageAction }) => {
   const settingJobref = (item) => {
     setJobid(item.job_ref_number);
     setSite(item.site_details);
+    setId(item._id)
     setOpen(!open);
   };
   const toggleModal = () => {
@@ -427,6 +429,9 @@ const CreateList = ({ FirstPageAction }) => {
                     }}
                     required
                     label="Service Type"
+                    InputLabelProps={{
+                      style: { background: "#fff" },
+                    }}
                     // onBlur={blurFunc3}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setFocused(false)}

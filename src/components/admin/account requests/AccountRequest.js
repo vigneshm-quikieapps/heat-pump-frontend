@@ -274,7 +274,6 @@ const AccountRequest = ({ adminFirstPageAction }) => {
               fontSize: "22px",
               fontFamily: "Outfit",
               width: "130px",
-
               fontWeight: "600",
             }}
             className="arsearch-by"
@@ -352,6 +351,8 @@ const AccountRequest = ({ adminFirstPageAction }) => {
                 height: "63px",
                 background: "black",
                 color: "white",
+                textTransform: "none",
+
                 borderRadius: "32.5px",
               }}
               onClick={() => searchfilter()}

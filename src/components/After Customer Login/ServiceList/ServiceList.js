@@ -415,6 +415,7 @@ const ServiceList = ({ FirstPageAction }) => {
               height: "63px",
               background: "black",
               color: "white",
+              textTransform: "none",
               borderRadius: "32.5px",
             }}
             onClick={() => searchfilter()}
