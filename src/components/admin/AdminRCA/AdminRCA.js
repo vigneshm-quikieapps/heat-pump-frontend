@@ -815,6 +815,26 @@ function AdminRCA({ adminFirstPageAction }) {
                   );
                 })}
             </div>
+            {/* <span className="browse"> */}
+            <button
+              className="browsebtn"
+              onClick={() => {
+                setAddfiles(false);
+              }}
+            >
+              Submit
+            </button>
+            {/* </span> */}
+            {/* <span className="browse"> */}
+            <button
+              className="cancel"
+              onClick={() => {
+                setAddfiles(false);
+              }}
+            >
+              Cancel
+            </button>
+            {/* </span> */}
           </div>
         </Modal>
       </div>
