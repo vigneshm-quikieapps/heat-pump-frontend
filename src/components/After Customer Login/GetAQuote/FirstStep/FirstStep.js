@@ -273,11 +273,10 @@ const FirstStep = ({
           value={searchValue}
           onChange={changeHandler1}
           name="startAddress"
-          required
           label="Start typing address"
           variant="outlined"
           disabled={checked === true ? true : false}
-          helperText={!checked && searchValue === "" && "Address in mandatory"}
+          // helperText={!checked && searchValue === "" && "Address in mandatory"}
         />
         {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
         {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}

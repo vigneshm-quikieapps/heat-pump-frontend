@@ -29,3 +29,14 @@
   text-align: right !important;
   font-size: 25px !important;
 }
+.file1 {
+  width: 27%;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #f6f6f6;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -431,7 +431,7 @@ function AdminCommon({ adminFirstPageStatus }) {
               src={require("../../Img/sidebaradmin2.png")}
               className="adminsidbar-icon"
             />
-            <span style={{ marginRight: "20%" }}>Quotes Request</span>
+            <span style={{ marginRight: "20%" }}>Quote Requests</span>
 
             <img
               src={require("../../Img/redbar.png")}

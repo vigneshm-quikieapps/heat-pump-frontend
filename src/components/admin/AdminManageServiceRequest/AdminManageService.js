@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
-
+// import { useGetAllQuotes } from "../../../services/services";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -52,9 +52,11 @@ const useStyles = makeStyles({
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
 const AdminManageService = ({ adminFirstPageAction }) => {
+  // const { isLoading, isError, error, allQuoteData, isFetching, isPreviousData } =
+  // useGetAllQuotes()
   const classes = useStyles();
   const { state } = useLocation();
-  console.log(state)
+  console.log(state);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -350,35 +352,35 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     }
   };
   const newUpload = (e) => {
-    if(attachments.length >= 1){
-    setLoader(true);
-    const token = JSON.parse(localStorage.getItem("user"));
-    axios({
-      method: "post",
-      url: URL + globalAPI.addnotes + `?srid=${state}`,
-      data: {
-        description: "Added a new attachment",
-        title: "Added a new attachment",
-        attachments: attachments,
-        type: 2,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setLoader(false);
-        const res = response.data;
-        if (res.success) {
-        togglefileModal();
-          fetchData();
-          fetchSeconddata();
-          toast.success("File added successfully");
-          SetFname([]);
-        } else {
-          toast.error(res.data.message);
-        }
+    if (attachments.length >= 1) {
+      setLoader(true);
+      const token = JSON.parse(localStorage.getItem("user"));
+      axios({
+        method: "post",
+        url: URL + globalAPI.addnotes + `?srid=${state}`,
+        data: {
+          description: "Added a new attachment",
+          title: "Added a new attachment",
+          attachments: attachments,
+          type: 2,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
+        .then((response) => {
+          setLoader(false);
+          const res = response.data;
+          if (res.success) {
+            togglefileModal();
+            fetchData();
+            fetchSeconddata();
+            toast.success("File added successfully");
+            SetFname([]);
+          } else {
+            toast.error(res.data.message);
+          }
+        })
         .then((response) => {
           setLoader(false);
           const res = response.data;
@@ -408,7 +410,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       axios({
         method: "post",
         url: URL + globalAPI.addnotes + `?srid=${state}`,
-        data: {description: closetext, type: 2,title:"--closed--" },
+        data: { description: closetext, type: 2, title: "--closed--" },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -739,7 +741,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               {details.service_ref_number} - {details.title}
             </div>
             <span className="adminmsrspan1">{details.description}</span>
-            <div style={{ padding: "20px", display: "flex", flexDirection: "row" }}>
+            <div
+              style={{ padding: "20px", display: "flex", flexDirection: "row" }}
+            >
               <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
                 Add Update
               </button>
