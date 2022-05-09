@@ -90,7 +90,7 @@ function OTP({ emailNum }) {
         .then((response) => {
           setLoader(false);
           const res = response.data;
-          debugger;
+
           if (res.success) {
             localStorage.setItem(
               "reset_token",

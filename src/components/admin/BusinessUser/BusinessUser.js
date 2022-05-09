@@ -82,12 +82,11 @@ function BusinessUser({ adminFirstPageAction }) {
       )
       .then((response) => {
         setLoader(false);
-        debugger;
+
         if (response) {
           const res = response.data.data.data;
           setCount(response.data.total_pages);
           setData(res);
-          debugger;
         } else {
           toast.error("error");
         }
@@ -99,7 +98,7 @@ function BusinessUser({ adminFirstPageAction }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
+
     e.preventDefault();
 
     if (email == "") {
@@ -170,7 +169,6 @@ function BusinessUser({ adminFirstPageAction }) {
     _DATA.jump(p);
   };
   const statusChange = (item, e) => {
-    debugger;
     e.preventDefault();
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
@@ -206,7 +204,6 @@ function BusinessUser({ adminFirstPageAction }) {
   };
 
   const statusChange1 = (e) => {
-    debugger;
     e.preventDefault();
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));

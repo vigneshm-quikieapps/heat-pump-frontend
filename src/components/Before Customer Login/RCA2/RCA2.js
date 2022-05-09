@@ -289,7 +289,7 @@ function RCA2({
       setInput6Error("Mandatory field cannot be empty");
       return false;
     }
-    debugger;
+
     if (
       !validator.isLength(customerDetails.business_type, {
         min: 1,
@@ -415,7 +415,10 @@ function RCA2({
             Request a Customer Account
           </Typography>
           <Box style={{ position: "relative" }}>
-          <img src={require("../../../../src/Img/step8.png")} className="s8baricon" />
+            <img
+              src={require("../../../../src/Img/step8.png")}
+              className="s8baricon"
+            />
           </Box>
           <Typography
             style={{

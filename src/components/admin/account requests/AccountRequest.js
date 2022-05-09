@@ -86,6 +86,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
+
   const [status, setStatus] = useState("1");
   const [focused, setFocused] = React.useState("");
 
@@ -132,12 +133,11 @@ const AccountRequest = ({ adminFirstPageAction }) => {
       )
       .then((response) => {
         setLoader(false);
-        debugger;
+
         if (response) {
           const res = response.data.data.data;
           setCount(response.data.total_pages);
           setData(res);
-          debugger;
         } else {
           toast.error("error");
         }
@@ -149,7 +149,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
   }
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
+    // _DATA.jump(p);
   };
   // const manageService = (item) => {
   //   navigate("/admincommon/adminRCA", { state: item });
@@ -163,7 +163,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
     setPage(1);
     fetchSeconddata();
   };
-  console.log("_DATA.currentData()ssss", _DATA.currentData());
+  // console.log("_DATA.currentData()ssss", _DATA.currentData());
   const tableRows = useMemo(() => {
     return (
       _DATA &&

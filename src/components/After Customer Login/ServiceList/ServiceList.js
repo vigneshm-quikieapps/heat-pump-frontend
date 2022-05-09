@@ -158,7 +158,7 @@ const ServiceList = ({ FirstPageAction }) => {
           const res = response.data.data;
           setCount(res.total_pages);
           setData(res.data);
-          // debugger;
+          //
         } else {
           toast.error(response.data.message);
         }

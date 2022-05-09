@@ -250,7 +250,7 @@ const CreateList = ({ FirstPageAction }) => {
           setLoader(false);
           if (res.success) {
             // toast.success("File Added");
-            debugger;
+
             attachments.push(res.data.message[0]);
             const newUpload = [];
             let a = res.data.message[0].slice(25);
@@ -321,7 +321,7 @@ const CreateList = ({ FirstPageAction }) => {
         .then((response) => {
           setLoader(false);
           const res = response.data;
-          debugger;
+
           if (res.success) {
             setSubmitted(true);
             setSrno(res.data.service_ref_number);

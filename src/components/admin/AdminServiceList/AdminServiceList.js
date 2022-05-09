@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
-import {TailSpin} from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import usePagination from "../../Pagination/Pagination";
 import moment from "moment";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,27 +22,25 @@ import InputLabel from "@mui/material/InputLabel";
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 
-
 const theme = createTheme({
   palette: {
-    primary: {main:"#000000	"},
+    primary: { main: "#000000	" },
   },
 });
 
 const useStyles = makeStyles({
-  textfield:{
-   
-    '& label.Mui-focused': {
-      color: 'black',
-      fontSize:"1vw",
+  textfield: {
+    "& label.Mui-focused": {
+      color: "black",
+      fontSize: "1vw",
     },
-    '& .MuiOutlinedInput-root': {
-      borderRadius:"0.66vw",
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "0.66vw",
       marginRight: "1.33vw",
-      height:"6.71vh",
-      fontSize:"1vw",
-      '&.Mui-focused fieldset': {
-        borderColor: 'black',
+      height: "6.71vh",
+      fontSize: "1vw",
+      "&.Mui-focused fieldset": {
+        borderColor: "black",
       },
     },
   },
@@ -53,8 +51,8 @@ const useStyles = makeStyles({
     "& .MuiOutlinedInput-root": {
       borderRadius: "0.66vw",
       marginRight: "1.33vw",
-      height:"6.71vh",
-      width:"11.06vw",
+      height: "6.71vh",
+      width: "11.06vw",
       fontWeight: "bolder",
       fontFamily: "outfit",
       backgroundColor: "white",
@@ -64,21 +62,20 @@ const useStyles = makeStyles({
       },
     },
   },
-  selectinput:{
-    marginBottom:"0.57vh",
-    fontFamily:"outfit",
+  selectinput: {
+    marginBottom: "0.57vh",
+    fontFamily: "outfit",
     fontWeight: "bolder",
-    fontSize:"1vw"
-  }
-})
+    fontSize: "1vw",
+  },
+});
 
-
-const AdminServiceList = ({adminFirstPageAction}) => {
+const AdminServiceList = ({ adminFirstPageAction }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [serviceno, setServiceno] = useState("");
-  const [customerName, setCustomerName] = useState("")
+  const [customerName, setCustomerName] = useState("");
   const [title, setTitle] = useState("");
   const [updated, setUpdated] = useState("");
   const [priority, setPriority] = useState("");
@@ -89,19 +86,19 @@ const AdminServiceList = ({adminFirstPageAction}) => {
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const [status, setStatus] = useState("1");
-  
+
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
   const [focused, setFocused] = React.useState("");
- 
-  useEffect(()=>{
-    adminFirstPageAction(true)
- },[])
+
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
 
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
-  }, [page,status]);
+  }, [page, status]);
 
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -128,7 +125,7 @@ const AdminServiceList = ({adminFirstPageAction}) => {
       headers: { Authorization: `Bearer ${token}` },
     };
     setLoader(true);
-    debugger
+
     axios
       .get(
         URL +
@@ -142,7 +139,6 @@ const AdminServiceList = ({adminFirstPageAction}) => {
           const res = response.data.data;
           setCount(res.total_pages);
           setData(res.data);
-          
         } else {
           toast.error(response.data.message);
         }
@@ -151,9 +147,8 @@ const AdminServiceList = ({adminFirstPageAction}) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
-     
   }
- 
+
   const manageService = (item) => {
     navigate("/admincommon/adminmsr", { state: item });
   };
@@ -161,12 +156,12 @@ const AdminServiceList = ({adminFirstPageAction}) => {
     setPage(p);
     _DATA.jump(p);
   };
-  const searchfilter = ()=>{
-    setStatus("1,2,3,4")
+  const searchfilter = () => {
+    setStatus("1,2,3,4");
     setPage(1);
     fetchSeconddata();
-  }
-  console.log('data:-' ,data)
+  };
+  console.log("data:-", data);
   return (
     <div className="adminslcontainer">
       {loader && (
@@ -179,31 +174,31 @@ const AdminServiceList = ({adminFirstPageAction}) => {
       <div className="adminslpaper">
         <div className="adminslsecondrow">
           <div className="adminslouterbox">
-            <div className="adminslsquarebox" onClick={()=>setStatus(1)}>
+            <div className="adminslsquarebox" onClick={() => setStatus(1)}>
               <h1>{box.new}</h1>
             </div>
             <div className="adminslsecond-row-text">New</div>
           </div>
           <div className="adminslouterbox">
-            <div className="adminslsquarebox" onClick={()=>setStatus(5)}>
+            <div className="adminslsquarebox" onClick={() => setStatus(5)}>
               <h1>{box.hpd_review}</h1>
             </div>
             <div className="adminslsecond-row-text">HPD To Review</div>
           </div>
           <div className="adminslouterbox">
-            <div className="adminslsquarebox" onClick={()=>setStatus(2)}>
+            <div className="adminslsquarebox" onClick={() => setStatus(2)}>
               <h1>{box.working}</h1>
             </div>
             <div className="adminslsecond-row-text">HPD Working</div>
           </div>
           <div className="adminslouterbox">
-            <div className="adminslsquarebox" onClick={()=>setStatus(3)}>
+            <div className="adminslsquarebox" onClick={() => setStatus(3)}>
               <h1>{box.need_attention}</h1>
             </div>
             <div className="adminslsecond-row-text">Need Your Attention</div>
           </div>
           <div className="adminslouterbox">
-            <div className="adminslsquarebox" onClick={()=>setStatus(4)}>
+            <div className="adminslsquarebox" onClick={() => setStatus(4)}>
               <h1>{box.closed}</h1>
             </div>
             <div className="adminslsecond-row-text">Closed</div>
@@ -219,10 +214,14 @@ const AdminServiceList = ({adminFirstPageAction}) => {
               justifyContent: "space-between",
             }}
           >
-          
-          <div style={{display:"inline-block",width:"13.3vw"}}>
-            <FormControl className={classes.selectfield}>
-            <InputLabel id="demo-simple-select-label" className={classes.selectinput}>Priority</InputLabel>
+            <div style={{ display: "inline-block", width: "13.3vw" }}>
+              <FormControl className={classes.selectfield}>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className={classes.selectinput}
+                >
+                  Priority
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -239,17 +238,86 @@ const AdminServiceList = ({adminFirstPageAction}) => {
                     )
                   }
                 >
-                  <MenuItem style={{fontWeight:"600",fontSize:"1vw"}} value="1"> High </MenuItem>
-                  <MenuItem style={{fontWeight:"600",fontSize:"1vw"}} value="2"> Medium </MenuItem>
-                  <MenuItem style={{fontWeight:"600",fontSize:"1vw"}} value="3"> Low </MenuItem>
+                  <MenuItem
+                    style={{ fontWeight: "600", fontSize: "1vw" }}
+                    value="1"
+                  >
+                    {" "}
+                    High{" "}
+                  </MenuItem>
+                  <MenuItem
+                    style={{ fontWeight: "600", fontSize: "1vw" }}
+                    value="2"
+                  >
+                    {" "}
+                    Medium{" "}
+                  </MenuItem>
+                  <MenuItem
+                    style={{ fontWeight: "600", fontSize: "1vw" }}
+                    value="3"
+                  >
+                    {" "}
+                    Low{" "}
+                  </MenuItem>
                 </Select>
               </FormControl>
-              </div>
-            <TextField label="Service Request No" className={classes.textfield} value={serviceno} onChange={(e) => setServiceno(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"0.47vh", fontSize:"1vw"} }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
-            <TextField label="Customer Name" className={classes.textfield} value={customerName} onChange={(e) => setCustomerName(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"0.47vh", fontSize:"1vw" } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
-            <TextField label="Title" className={classes.textfield} value={title} onChange={(e) => setTitle(e.target.value)} size="small" InputLabelProps={{ style: { fontWeight:"bolder",fontFamily:"outfit",marginTop:"0.47vh", fontSize:"1vw" } }} InputProps={{ style: { fontWeight:"bolder",fontFamily:"outfit", } }} />
+            </div>
+            <TextField
+              label="Service Request No"
+              className={classes.textfield}
+              value={serviceno}
+              onChange={(e) => setServiceno(e.target.value)}
+              size="small"
+              InputLabelProps={{
+                style: {
+                  fontWeight: "bolder",
+                  fontFamily: "outfit",
+                  marginTop: "0.47vh",
+                  fontSize: "1vw",
+                },
+              }}
+              InputProps={{
+                style: { fontWeight: "bolder", fontFamily: "outfit" },
+              }}
+            />
+            <TextField
+              label="Customer Name"
+              className={classes.textfield}
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              size="small"
+              InputLabelProps={{
+                style: {
+                  fontWeight: "bolder",
+                  fontFamily: "outfit",
+                  marginTop: "0.47vh",
+                  fontSize: "1vw",
+                },
+              }}
+              InputProps={{
+                style: { fontWeight: "bolder", fontFamily: "outfit" },
+              }}
+            />
+            <TextField
+              label="Title"
+              className={classes.textfield}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              size="small"
+              InputLabelProps={{
+                style: {
+                  fontWeight: "bolder",
+                  fontFamily: "outfit",
+                  marginTop: "0.47vh",
+                  fontSize: "1vw",
+                },
+              }}
+              InputProps={{
+                style: { fontWeight: "bolder", fontFamily: "outfit" },
+              }}
+            />
 
-              <button className="adminsearchbtn" onClick={() => searchfilter()}>
+            <button className="adminsearchbtn" onClick={() => searchfilter()}>
               Search
             </button>
           </div>
@@ -259,24 +327,59 @@ const AdminServiceList = ({adminFirstPageAction}) => {
             Service Requests List
           </div>
           <hr className="adminslhrFirst" />
-          <table className="adminsltable" >
+          <table className="adminsltable">
             <thead>
-              <tr className="adminsltr"
-              >
-                <th className="adminslth" style={{width:"5.9vw"}}>Priority</th>
-                <th className="adminslth" style={{width:"9.11vw"}}>SR No.</th>
-                <th className="adminslth" scope="col" style={{width:"16.27vw"}}>Title</th>
-                <th className="adminslth" scope="col" style={{ width: "14.32vw" }}>
+              <tr className="adminsltr">
+                <th className="adminslth" style={{ width: "5.9vw" }}>
+                  Priority
+                </th>
+                <th className="adminslth" style={{ width: "9.11vw" }}>
+                  SR No.
+                </th>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "16.27vw" }}
+                >
+                  Title
+                </th>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "14.32vw" }}
+                >
                   Site Details
                 </th>
-                <th className="adminslth" scope="col"style={{width:"14.32vw"}}>SR Type</th>
-                <th className="adminslth" scope="col"style={{width:"14.32vw"}}>Customer Name</th>
-                <th className="adminslth" scope="col" style={{width:"13.36vw"}}>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "14.32vw" }}
+                >
+                  SR Type
+                </th>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "14.32vw" }}
+                >
+                  Customer Name
+                </th>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "13.36vw" }}
+                >
                   Last Updated
                   <br />
                   Date & Time
                 </th>
-                <th className="adminslth" scope="col" style={{width:"6.48vw"}}>Status</th>
+                <th
+                  className="adminslth"
+                  scope="col"
+                  style={{ width: "6.48vw" }}
+                >
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="adminslsortable">
@@ -285,33 +388,50 @@ const AdminServiceList = ({adminFirstPageAction}) => {
                   <tr
                     onClick={() => manageService(item)}
                     key={index}
-                    style={{ borderBottom: "solid 0.134vh #d3d3d3", }}
+                    style={{ borderBottom: "solid 0.134vh #d3d3d3" }}
                     className="adminsltr"
                   >
                     {item.priority == 1 && (
-                      <td style={{paddingLeft:"0.66vw"}} className="adminsltd" >
+                      <td
+                        style={{ paddingLeft: "0.66vw" }}
+                        className="adminsltd"
+                      >
                         {" "}
                         <div className="adminslhroundcircle">H</div>{" "}
                       </td>
                     )}
                     {item.priority == 2 && (
-                      <td style={{paddingLeft:"0.66vw"}} className="adminsltd" >
+                      <td
+                        style={{ paddingLeft: "0.66vw" }}
+                        className="adminsltd"
+                      >
                         {" "}
                         <div className="adminslmroundcircle">M</div>{" "}
                       </td>
                     )}
                     {item.priority == 3 && (
-                      <td style={{paddingLeft:"0.66vw"}} className="adminsltd"  >
+                      <td
+                        style={{ paddingLeft: "0.66vw" }}
+                        className="adminsltd"
+                      >
                         {" "}
                         <div className="adminsllroundcircle">L</div>{" "}
                       </td>
                     )}
-                    <td className="adminsltd" >{item.service_ref_number}</td>
-                    <td className="adminsltd" >{item.title}</td>
-                    <td className="adminsltd" >{item.job_reference_id?item.job_reference_id.site_details:"-"}</td>
-                    <td className="adminsltd" >{item.type?item.type:"-"}</td>
-                    <td className="adminsltd" >{item.creator_name?item.creator_name:"-"}</td>
-                    <td className="adminsltd" >{moment(item.updatedAt).format('DD/MM/YYYY h:mm a')}</td>
+                    <td className="adminsltd">{item.service_ref_number}</td>
+                    <td className="adminsltd">{item.title}</td>
+                    <td className="adminsltd">
+                      {item.job_reference_id
+                        ? item.job_reference_id.site_details
+                        : "-"}
+                    </td>
+                    <td className="adminsltd">{item.type ? item.type : "-"}</td>
+                    <td className="adminsltd">
+                      {item.creator_name ? item.creator_name : "-"}
+                    </td>
+                    <td className="adminsltd">
+                      {moment(item.updatedAt).format("DD/MM/YYYY h:mm a")}
+                    </td>
                     {/* <td>{item.status}</td> */}
                     {item.status == 1 && <td>New</td>}
                     {item.status == 2 && <td>HPD Working</td>}
@@ -330,10 +450,10 @@ const AdminServiceList = ({adminFirstPageAction}) => {
                 display: "flex",
                 justifyContent: "center",
                 marginTop: "5.36vh",
-                fontSize:"1vw"
+                fontSize: "1vw",
               }}
             >
-              No  matching records found
+              No matching records found
             </h4>
           )}
         </div>
@@ -345,12 +465,12 @@ const AdminServiceList = ({adminFirstPageAction}) => {
               marginTop: "2vh",
             }}
           >
-           <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
               <Pagination
                 className="pagination"
                 count={count}
                 page={page}
-               /*  variant="outlined" */
+                /*  variant="outlined" */
                 onChange={handleChange}
                 color="primary"
               />
@@ -368,11 +488,8 @@ const AdminServiceList = ({adminFirstPageAction}) => {
   );
 };
 
-
 const mapDispatchToProps = (dispatch) => ({
-  adminFirstPageAction:value => dispatch(adminFirstPageAction(value))
-})
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default connect(null,mapDispatchToProps)(AdminServiceList);
-
-
+export default connect(null, mapDispatchToProps)(AdminServiceList);

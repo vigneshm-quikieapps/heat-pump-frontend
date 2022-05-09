@@ -83,7 +83,7 @@ function Fpass({ emailNum, changeEmailNum }) {
       const data = {
         email: emailNum,
       };
-      debugger
+      
       axios
         .post(URL + globalAPI.forgotPassword, data)
         .then((response) => {

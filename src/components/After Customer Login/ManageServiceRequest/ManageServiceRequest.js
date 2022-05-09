@@ -186,7 +186,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        // debugger;
+        //
         setDetails(res.data);
         console.log("details", details);
         setavailableFiles(res.data.attachments);
@@ -231,7 +231,6 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
   }
 
   const removeFile = (index) => {
-    debugger;
     const newValue = [...availableFiles];
     newValue.splice(index, 1);
     setLoader(true);
@@ -248,7 +247,6 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          debugger;
           toast.success("File deleted successfully");
           const newName = [...efname];
           newName.splice(index, 1);
@@ -332,7 +330,6 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           const res = response.data;
           setLoader(false);
           if (res.success) {
-            debugger;
             attachments.push(res.data.message[0]);
             setFiles([...files, e]);
             const newUpload = [];

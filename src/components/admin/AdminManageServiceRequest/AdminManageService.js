@@ -38,14 +38,14 @@ const useStyles = makeStyles({
       fontWeight: "bolder",
       fontFamily: "outfit",
       backgroundColor: "white",
-      fontSize:"1vw",
+      fontSize: "1vw",
       "&.Mui-focused fieldset": {
         borderColor: "black",
       },
     },
   },
-  icons:{
-    fontSize:"2vw"
+  icons: {
+    fontSize: "2vw",
   },
 });
 
@@ -79,8 +79,8 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
   const [checkedtype, setCheckedType] = useState(2);
 
-  const [fname,SetFname] = useState([]);
-  const [efname,SetEFname] = useState([]);
+  const [fname, SetFname] = useState([]);
+  const [efname, SetEFname] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -107,7 +107,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     setAddfiles(!addfiles);
     setAttachments([]);
     setFiles([]);
-    SetFname([])
+    SetFname([]);
   };
 
   function fetchData() {
@@ -121,7 +121,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        debugger;
+
         setNotes(res.data.reverse());
       })
       .catch((e) => {
@@ -148,18 +148,19 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         console.log("details", details);
         setavailableFiles(res.data.attachments);
         const newArray = [];
-        res.data.attachments && res.data.attachments.map((item,index)=>{
-          let a = item.slice(25)
-          if(a.length>20){
-            let b = a.slice(0,21);
-            let c = b + "...";
-            newArray.push(c);
-          }else{
-            newArray.push(a);
-          }
-        }) 
-        SetEFname(newArray)
-        console.log(efname)
+        res.data.attachments &&
+          res.data.attachments.map((item, index) => {
+            let a = item.slice(25);
+            if (a.length > 20) {
+              let b = a.slice(0, 21);
+              let c = b + "...";
+              newArray.push(c);
+            } else {
+              newArray.push(a);
+            }
+          });
+        SetEFname(newArray);
+        console.log(efname);
       })
       .catch((e) => {
         setLoader(false);
@@ -179,7 +180,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       )
       .then((response) => {
         setLoader(false);
-        debugger;
+
         if (response) {
           const res = response.data.data.data;
           setBauser(res);
@@ -258,7 +259,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   console.log(state);
   const addUpdate = (e) => {
     e.preventDefault();
-    debugger;
+
     if (text.length >= 1) {
       setLoader(true);
       setNoupdate(false);
@@ -319,20 +320,20 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             attachments.push(res.data.message[0]);
             setFiles([...files, e]);
             const newUpload = [];
-            let a = res.data.message[0].slice(25)
-            if(a.length>20){
-              let b = a.slice(0,20);
+            let a = res.data.message[0].slice(25);
+            if (a.length > 20) {
+              let b = a.slice(0, 20);
               let c = b + "...";
               newUpload.push(c);
-            }else{
+            } else {
               newUpload.push(a);
             }
             const newName = [...fname];
-            newName.push(newUpload)
+            newName.push(newUpload);
             SetFname(newName);
 
             const newFile = [...efname];
-            newFile.push(newUpload)
+            newFile.push(newUpload);
             SetEFname(newFile);
           } else {
             toast.error(res.data.message);
@@ -348,54 +349,52 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     }
   };
   const newUpload = (e) => {
-    if(attachments.length >= 1){
-    setLoader(true);
-    const token = JSON.parse(localStorage.getItem("user"));
-    axios({
-      method: "post",
-      url: URL + globalAPI.addnotes + `?srid=${state._id}`,
-      data: {
-        description: "Added a new attachment",
-        title: "Added a new attachment",
-        attachments: attachments,
-        type: 2,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setLoader(false);
-        const res = response.data;
-        if (res.success) {
-        togglefileModal();
-          fetchData();
-          fetchSeconddata();
-          toast.success("File added successfully");
-          SetFname([]);
-        } else {
-          toast.error(res.data.message);
-        }
+    if (attachments.length >= 1) {
+      setLoader(true);
+      const token = JSON.parse(localStorage.getItem("user"));
+      axios({
+        method: "post",
+        url: URL + globalAPI.addnotes + `?srid=${state._id}`,
+        data: {
+          description: "Added a new attachment",
+          title: "Added a new attachment",
+          attachments: attachments,
+          type: 2,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch(() => {
-        setLoader(false);
-        togglefileModal();
-        toast.error("Something went wrong");
-      });
-    }
-    else{
-      toast.error('Add Files')
+        .then((response) => {
+          setLoader(false);
+          const res = response.data;
+          if (res.success) {
+            togglefileModal();
+            fetchData();
+            fetchSeconddata();
+            toast.success("File added successfully");
+            SetFname([]);
+          } else {
+            toast.error(res.data.message);
+          }
+        })
+        .catch(() => {
+          setLoader(false);
+          togglefileModal();
+          toast.error("Something went wrong");
+        });
+    } else {
+      toast.error("Add Files");
     }
   };
   const closingsr = (e) => {
-    debugger;
     if (closetext.length >= 1) {
       setLoader(true);
       const token = JSON.parse(localStorage.getItem("user"));
       axios({
         method: "post",
         url: URL + globalAPI.addnotes + `?srid=${state._id}`,
-        data: {description: closetext, type: 2,title:"--closed--" },
+        data: { description: closetext, type: 2, title: "--closed--" },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -422,7 +421,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     }
   };
   const updatingSR = (e) => {
-    debugger;
     setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
     axios({
@@ -450,7 +448,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       });
   };
   const stateHandler = (e) => {
-    debugger;
     if (e.target.name == "status") {
       setStatus(e.target.value);
       setDetails((details) => ({
@@ -491,7 +488,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
   console.log(inputData);
   const handleChecked = (e) => {
-    debugger;
     if (e.target.checked) {
       setCheckedType(3);
       console.log("checked");
@@ -516,7 +512,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             <div className="adminmsrtitle1">Service Request Summary </div>
             <hr className="adminmsrhr1" />
 
-            <div >
+            <div>
               <label htmlFor="" className="priorityLabel">
                 Priority
               </label>
@@ -531,21 +527,29 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   name="priority"
                   IconComponent={() =>
                     focused ? (
-                      <KeyboardArrowUpIcon className={classes.icons}/>
-                      
+                      <KeyboardArrowUpIcon className={classes.icons} />
                     ) : (
-                      <KeyboardArrowDownIcon className={classes.icons}/>
+                      <KeyboardArrowDownIcon className={classes.icons} />
                     )
                   }
                 >
-                  <MenuItem value="1" style={{fontWeight:600}}> High </MenuItem>
-                  <MenuItem value="2" style={{fontWeight:600}}> Medium</MenuItem>
-                  <MenuItem value="3" style={{fontWeight:600}}> Low </MenuItem>
+                  <MenuItem value="1" style={{ fontWeight: 600 }}>
+                    {" "}
+                    High{" "}
+                  </MenuItem>
+                  <MenuItem value="2" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Medium
+                  </MenuItem>
+                  <MenuItem value="3" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Low{" "}
+                  </MenuItem>
                 </Select>
               </FormControl>
             </div>
 
-            <div >
+            <div>
               <label htmlFor="" className="statusLabel">
                 Status
               </label>
@@ -562,23 +566,37 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                   name="status"
                   IconComponent={() =>
                     focused1 ? (
-                      <KeyboardArrowUpIcon className={classes.icons}/>
-                      
+                      <KeyboardArrowUpIcon className={classes.icons} />
                     ) : (
-                      <KeyboardArrowDownIcon className={classes.icons}/>
+                      <KeyboardArrowDownIcon className={classes.icons} />
                     )
                   }
                 >
-                  <MenuItem value="1" style={{fontWeight:600}}> New </MenuItem>
-                  <MenuItem value="5" style={{fontWeight:600}}> HPD To Review </MenuItem>
-                  <MenuItem value="2" style={{fontWeight:600}}> HPD Working </MenuItem>
-                  <MenuItem value="3" style={{fontWeight:600}}> Need Your Attention </MenuItem>
-                  <MenuItem value="4" style={{fontWeight:600}}> Resolved </MenuItem>
+                  <MenuItem value="1" style={{ fontWeight: 600 }}>
+                    {" "}
+                    New{" "}
+                  </MenuItem>
+                  <MenuItem value="5" style={{ fontWeight: 600 }}>
+                    {" "}
+                    HPD To Review{" "}
+                  </MenuItem>
+                  <MenuItem value="2" style={{ fontWeight: 600 }}>
+                    {" "}
+                    HPD Working{" "}
+                  </MenuItem>
+                  <MenuItem value="3" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Need Your Attention{" "}
+                  </MenuItem>
+                  <MenuItem value="4" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Resolved{" "}
+                  </MenuItem>
                 </Select>
               </FormControl>
             </div>
 
-            <div >
+            <div>
               <label htmlFor="" className="jobReferenceLabel">
                 Job Reference
               </label>{" "}
@@ -609,7 +627,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               </div>
             </div>
 
-            <div style={{marginTop:"1.5vh"}}>
+            <div style={{ marginTop: "1.5vh" }}>
               <label htmlFor="" className="statusLabel">
                 Assigned To
               </label>
@@ -631,11 +649,21 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     )
                   }
                 >
-                  <MenuItem value={assigned} style={{fontWeight:600}}> {assigned} </MenuItem>
+                  <MenuItem value={assigned} style={{ fontWeight: 600 }}>
+                    {" "}
+                    {assigned}{" "}
+                  </MenuItem>
                   {baUser &&
                     baUser.map((item, index) => {
                       return (
-                            <MenuItem key={item._id} value={item.name} style={{fontWeight:600}}> {item.name} </MenuItem>
+                        <MenuItem
+                          key={item._id}
+                          value={item.name}
+                          style={{ fontWeight: 600 }}
+                        >
+                          {" "}
+                          {item.name}{" "}
+                        </MenuItem>
                       );
                     })}
                 </Select>
@@ -698,7 +726,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             </div>
             <span className="adminmsrspan1">{details.description}</span>
             <div style={{ marginTop: "10.7vh" }}>
-              <button className="adminmsrbutton1" onClick={(e) => toggleModal(e)}>
+              <button
+                className="adminmsrbutton1"
+                onClick={(e) => toggleModal(e)}
+              >
                 Add Update
               </button>
               <button
@@ -793,7 +824,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
           <form>
             <div className="admindialogclose">
               <IconButton onClick={toggleModal}>
-                <CloseIcon sx={{ color: "black",height:"1.5vw",width:"2.5vh" }}></CloseIcon>
+                <CloseIcon
+                  sx={{ color: "black", height: "1.5vw", width: "2.5vh" }}
+                ></CloseIcon>
               </IconButton>
             </div>
             <div className="admindialog-row1">
@@ -826,7 +859,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     marginLeft: "0.30vw",
                     position: "relative",
                     bottom: "4px",
-                    fontSize:"1vw",
+                    fontSize: "1vw",
                   }}
                 >
                   Internal Notes
@@ -844,7 +877,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 >
                   Submit
                 </button>
-                <button className="adminclosebtn" onClick={(e) => toggleModal(e)}>
+                <button
+                  className="adminclosebtn"
+                  onClick={(e) => toggleModal(e)}
+                >
                   Cancel
                 </button>
               </div>
@@ -862,7 +898,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         <div>
           <div className="admindialogclose">
             <IconButton onClick={togglesrModal}>
-              <CloseIcon sx={{ color: "black",height:"1.5vw",width:"2.5vh" }}></CloseIcon>
+              <CloseIcon
+                sx={{ color: "black", height: "1.5vw", width: "2.5vh" }}
+              ></CloseIcon>
             </IconButton>
           </div>
           <div className="admindialog-row1">
@@ -908,7 +946,9 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         <div>
           <div className="admindialogclose">
             <IconButton onClick={() => togglefileModal()}>
-              <CloseIcon sx={{ color: "black",height:"1.5vw",width:"2.5vh" }}></CloseIcon>
+              <CloseIcon
+                sx={{ color: "black", height: "1.5vw", width: "2.5vh" }}
+              ></CloseIcon>
             </IconButton>
           </div>
           <div className="admindialog-row1">
@@ -934,7 +974,11 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     Drag and Drop Here
                     <img
                       src={require("../../../Img/iconcloud.png")}
-                      style={{ marginLeft: "1.22vw",height:"25px",width:"20px" }}
+                      style={{
+                        marginLeft: "1.22vw",
+                        height: "25px",
+                        width: "20px",
+                      }}
                     />
                   </span>
                 }
@@ -958,32 +1002,35 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 />
               </span>
             </div>
-            {fname&&fname.map((item, index) => {
-              return (
-                <div
-                  className="adminfile"
-                  style={{ borderRadius: "1.83vw" }}
-                  key={index}
-                >
-                  <span style={{ float: "left", marginLeft: "0.91vw" }}>
-                    <img
-                      src={require("../../../Img/attachIcon.png")}
-                      style={{height:"2.68vh",width:"0.91vw"}}
-                    />
+            {fname &&
+              fname.map((item, index) => {
+                return (
+                  <div
+                    className="adminfile"
+                    style={{ borderRadius: "1.83vw" }}
+                    key={index}
+                  >
+                    <span style={{ float: "left", marginLeft: "0.91vw" }}>
+                      <img
+                        src={require("../../../Img/attachIcon.png")}
+                        style={{ height: "2.68vh", width: "0.91vw" }}
+                      />
 
-                    <span className="adminfileName">
-                    {fname[index]}
+                      <span className="adminfileName">{fname[index]}</span>
                     </span>
-                  </span>
 
-                  <img
-                    src={require("../../../Img/iconDelete.png")}
-                    onClick={() => removeTFile(index)}
-                    style={{ marginRight: "1.2vw",height:"2.68vh",width:"0.91vw" }}
-                  />
-                </div>
-              );
-            })}
+                    <img
+                      src={require("../../../Img/iconDelete.png")}
+                      onClick={() => removeTFile(index)}
+                      style={{
+                        marginRight: "1.2vw",
+                        height: "2.68vh",
+                        width: "0.91vw",
+                      }}
+                    />
+                  </div>
+                );
+              })}
             <div style={{ marginTop: "1.34vh" }}>
               <button className="adminsubmitbtn" onClick={() => newUpload()}>
                 Submit
