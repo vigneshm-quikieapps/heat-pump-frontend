@@ -25,13 +25,14 @@ const ExternalWall = () => {
   const [box, setBox] = useState([]);
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState([]);
+  const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
-  const [type, setType] = useState();
+  const [type, setType] = useState("");
   const [wallConstruction, setWallConstruction] = useState("");
   const [status, setStatus] = useState("");
 
@@ -42,7 +43,14 @@ const ExternalWall = () => {
         setError(error);
       },
     });
-
+  const setDataOfTens = (page) => {
+    let temp;
+    if (dataArr?.atlength > 10) {
+      temp = dataArr?.slice(page * 10 - 10, page * 10 + 1);
+      setLoader(true);
+      setBox(temp);
+    }
+  };
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
@@ -58,7 +66,7 @@ const ExternalWall = () => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setBox(res.data);
+        setDataArr(res.data);
         // fetchSeconddata();
       })
       .catch((e) => {
@@ -66,7 +74,18 @@ const ExternalWall = () => {
         toast.error("Something went wrong");
       });
   }
-  console.log("externalres", box);
+  useEffect(() => {
+    let temp;
+
+    if (dataArr?.length > 10) {
+      temp = dataArr?.slice(0, 10);
+
+      setBox(temp);
+    } else {
+      setBox(dataArr);
+    }
+  }, [dataArr]);
+  // console.log("externalres", box);
 
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -85,9 +104,12 @@ const ExternalWall = () => {
       .then((response) => {
         setLoader(false);
         if (response.data.success) {
-          const res = response.data.data;
-          setCount(res.total_pages);
-          setData(res.data);
+          const res = response.data;
+          // setCount(res.total_pages);
+          // setBox(res.data);
+          console.log(response);
+          setCount(res?.total_pages);
+          setBox(res?.data);
         } else {
           toast.error(response.data.message);
         }
@@ -99,7 +121,7 @@ const ExternalWall = () => {
   }
 
   const searchfilter = () => {
-    setStatus("1,2,3,4");
+    // setStatus("1,2,3,4");
     setPage(1);
     fetchSeconddata();
   };
@@ -203,10 +225,10 @@ const ExternalWall = () => {
               //   onBlur={() => setFocused(false)}
               label="Status"
             >
-              <MenuItem value="1" style={{ fontWeight: 600 }}>
+              <MenuItem value={1} style={{ fontWeight: 600 }}>
                 Active
               </MenuItem>
-              <MenuItem value="2" style={{ fontWeight: 600 }}>
+              <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
             </StyledTextField>
@@ -269,10 +291,15 @@ const ExternalWall = () => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={count}
+                count={Math.ceil(dataArr?.length / 10)}
                 page={page}
                 /*  variant="outlined" */
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e, p) => {
+                  console.log(p);
+                  setPage(p);
+                  setDataOfTens(p);
+                }}
                 color="primary"
               />
             </ThemeProvider>
