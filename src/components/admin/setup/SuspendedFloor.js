@@ -59,12 +59,14 @@ const SuspendedFloor = () => {
         _id,
         description,
         longness_of_suspended_floor,
+        shortness_of_suspended_floor,
         status,
       }) => ({
         items: [
           fabric_type,
           description,
-          longness_of_suspended_floor,
+          parseInt(longness_of_suspended_floor) +
+            parseInt(shortness_of_suspended_floor),
           status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
           <Actions
             onEdit={(e) => editHandler(e, _id)}

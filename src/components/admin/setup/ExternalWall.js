@@ -31,7 +31,7 @@ const ExternalWall = () => {
   const _DATA = usePagination(data, PER_PAGE);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState();
   const [wallConstruction, setWallConstruction] = useState("");
   const [status, setStatus] = useState("");
 
@@ -43,6 +43,66 @@ const ExternalWall = () => {
       },
     });
 
+  useEffect(() => {
+    fetchData();
+    // fetchSeconddata();
+  }, []);
+  function fetchData() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(URL + globalAPI.externalType, config)
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        setBox(res.data);
+        // fetchSeconddata();
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  console.log("externalres", box);
+
+  function fetchSeconddata() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+
+    axios
+      .get(
+        URL +
+          globalAPI.setup +
+          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_wc=${wallConstruction}&f_status=${status}`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        if (response.data.success) {
+          const res = response.data.data;
+          setCount(res.total_pages);
+          setData(res.data);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+
+  const searchfilter = () => {
+    setStatus("1,2,3,4");
+    setPage(1);
+    fetchSeconddata();
+  };
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
   }, []);
@@ -71,66 +131,6 @@ const ExternalWall = () => {
       })
     );
   }, [box, editHandler, deleteHandler]);
-  function fetchData() {
-    const token = JSON.parse(localStorage.getItem("user"));
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    setLoader(true);
-    axios
-      .get(URL + globalAPI.externalType, config)
-      .then((response) => {
-        setLoader(false);
-        const res = response.data;
-        setBox(res.data);
-        fetchSeconddata();
-      })
-      .catch((e) => {
-        setLoader(false);
-        toast.error("Something went wrong");
-      });
-  }
-  console.log("externalres", box);
-
-  function fetchSeconddata() {
-    const token = JSON.parse(localStorage.getItem("user"));
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    setLoader(true);
-
-    axios
-      .get(
-        URL +
-          globalAPI.externalType +
-          `?page=${page}&perPage=${PER_PAGE}&&f_type=${type}&f_wallConstruction=${wallConstruction}&f_status=${status}`,
-        config
-      )
-      .then((response) => {
-        setLoader(false);
-        if (response.data.success) {
-          const res = response.data.data;
-          setCount(res.total_pages);
-          setData(res.data);
-        } else {
-          toast.error(response.data.message);
-        }
-      })
-      .catch((e) => {
-        setLoader(false);
-        toast.error("Something went wrong");
-      });
-  }
-
-  useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
-  }, [page]);
-  const searchfilter = () => {
-    setStatus("1,2,3,4");
-    setPage(1);
-    fetchSeconddata();
-  };
   const handleChange = (e, p) => {
     setPage(p);
     _DATA.jump(p);

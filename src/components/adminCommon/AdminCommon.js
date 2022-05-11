@@ -294,7 +294,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Link
-                to="accountrequest"
+                to="ewall"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -326,7 +326,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </li>
               </Link>
               <Link
-                to="accountrequest"
+                to="internalType"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -358,7 +358,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </li>
               </Link>
               <Link
-                to="accountrequest"
+                to="roofType"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -390,7 +390,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </li>
               </Link>
               <Link
-                to="accountrequest"
+                to="windowType"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -422,7 +422,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </li>
               </Link>
               <Link
-                to="accountrequest"
+                to="suspendedFloorType"
                 style={{
                   textDecoration: "none",
                   color: "black",
@@ -456,7 +456,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                 </li>
               </Link>
               <Link
-                to="accountrequest"
+                to="internalFloorType"
                 style={{
                   textDecoration: "none",
                   color: "black",

@@ -24,6 +24,7 @@ const globalAPI = {
   windowType: "api/v1/services/fabric-details?page=1&perPage=2&type=4",
   suspendedFloorType: "api/v1/services/fabric-details?page=1&perPage=2&type=5",
   InternalFloorType: "api/v1/services/fabric-details?page=1&perPage=2&type=6",
+  setup: "api/v1/services/fabric-details",
 };
 
 export default globalAPI;
