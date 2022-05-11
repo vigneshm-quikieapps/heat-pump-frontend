@@ -347,7 +347,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
                 fontSize: "18px",
                 fontWeight: "300",
                 fontFamily: "Outfit",
-                width: "130px",
+                width: "160px",
                 height: "63px",
                 background: "black",
                 color: "white",

@@ -21,19 +21,16 @@ const theme = createTheme({
   },
 });
 
-const ExternalWall = () => {
-  const [box, setBox] = useState([]);
+const WindowWall = () => {
   const [loader, setLoader] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState("");
+  const [box, setBox] = useState([]);
   const [data, setData] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
-  const [showError, setShowError] = useState(false);
-  const [error, setError] = useState("");
-  const [type, setType] = useState("");
-  const [wallConstruction, setWallConstruction] = useState("");
-  const [status, setStatus] = useState("");
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
@@ -56,20 +53,18 @@ const ExternalWall = () => {
   );
 
   const tableRows = useMemo(() => {
-    return box.map(
-      ({ fabric_type, _id, wall_construction, details, status }) => ({
-        items: [
-          fabric_type,
-          wall_construction,
-          details,
-          status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
-          <Actions
-            onDelete={(e) => deleteHandler(e, _id)}
-            onEdit={(e) => editHandler(e, _id)}
-          />,
-        ],
-      })
-    );
+    return box.map(({ fabric_type, _id, description, details, status }) => ({
+      items: [
+        fabric_type,
+        description,
+        details,
+        status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
+        <Actions
+          onEdit={(e) => editHandler(e, _id)}
+          onDelete={(e) => deleteHandler(e, _id)}
+        />,
+      ],
+    }));
   }, [box, editHandler, deleteHandler]);
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -78,63 +73,27 @@ const ExternalWall = () => {
     };
     setLoader(true);
     axios
-      .get(URL + globalAPI.externalType, config)
+      .get(URL + globalAPI.windowType, config)
       .then((response) => {
         setLoader(false);
         const res = response.data;
         setBox(res.data);
-        fetchSeconddata();
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
   }
-  console.log("externalres", box);
-
-  function fetchSeconddata() {
-    const token = JSON.parse(localStorage.getItem("user"));
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    setLoader(true);
-
-    axios
-      .get(
-        URL +
-          globalAPI.externalType +
-          `?page=${page}&perPage=${PER_PAGE}&&f_type=${type}&f_wallConstruction=${wallConstruction}&f_status=${status}`,
-        config
-      )
-      .then((response) => {
-        setLoader(false);
-        if (response.data.success) {
-          const res = response.data.data;
-          setCount(res.total_pages);
-          setData(res.data);
-        } else {
-          toast.error(response.data.message);
-        }
-      })
-      .catch((e) => {
-        setLoader(false);
-        toast.error("Something went wrong");
-      });
-  }
-
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
-  }, [page]);
-  const searchfilter = () => {
-    setStatus("1,2,3,4");
-    setPage(1);
-    fetchSeconddata();
-  };
+  }, []);
+
   const handleChange = (e, p) => {
     setPage(p);
     _DATA.jump(p);
   };
+  console.log("wimdowres", box);
   return (
     <div>
       {loader && (
@@ -151,7 +110,7 @@ const ExternalWall = () => {
           marginLeft: "40px",
         }}
       >
-        External Wall Type
+        Window Type
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -179,17 +138,17 @@ const ExternalWall = () => {
             sx={{ width: "210px", height: "63px" }}
             label="Type"
             InputLabelProps={{ style: { background: "#FFF" } }}
-            value={type}
-            onChange={(e) => setType(e.target.value)}
+            // value={serviceno}
+            // onChange={(e) => setServiceno(e.target.value)}
             size="small"
           />
 
           <StyledTextField
             sx={{ width: "275px", height: "63px" }}
-            label="Wall Construction"
+            label="Window Description"
+            // value={title}
             InputLabelProps={{ style: { background: "#FFF" } }}
-            value={wallConstruction}
-            onChange={(e) => setWallConstruction(e.target.value)}
+            // onChange={(e) => setTitle(e.target.value)}
             size="small"
           />
           <FormControl>
@@ -197,8 +156,8 @@ const ExternalWall = () => {
               select
               sx={{ width: "210px", height: "63px" }}
               InputLabelProps={{ style: { background: "#FFF" } }}
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              //   value={priority}
+              //   onChange={(e) => setPriority(e.target.value)}
               //   onFocus={() => setFocused(true)}
               //   onBlur={() => setFocused(false)}
               label="Status"
@@ -223,7 +182,7 @@ const ExternalWall = () => {
               color: "white",
               borderRadius: "50px",
             }}
-            onClick={() => searchfilter()}
+            // onClick={() => searchfilter()}
           >
             Search
           </Button>
@@ -238,7 +197,7 @@ const ExternalWall = () => {
               fontFamily: "outfit",
             }}
           >
-            External Wall Types List
+            Window Types List
             <hr className="ewallhr" />
           </Typography>
           <AddButton sx={{ background: "#fa5e00" }} />
@@ -248,8 +207,8 @@ const ExternalWall = () => {
           <Table
             headers={[
               "Type",
-              "Wall Construction",
-              "Details",
+              "Windows Description",
+              "Windows Detail",
               "Status",
               "Action",
             ]}
@@ -283,4 +242,4 @@ const ExternalWall = () => {
   );
 };
 
-export default ExternalWall;
+export default WindowWall;

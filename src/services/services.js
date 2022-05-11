@@ -31,12 +31,17 @@ export const useAddQuote = (options) =>
 
 const getAllQuotes = () =>
   axiosInstance
-    .get(`https://heat-pump-backend.herokuapp.com/api/v1/services/all-quote`)
-    .then(({ data }) => data);
+    .get(
+      `https://heat-pump-backend.herokuapp.com/api/v1/services/all-quote?status=1&cst=true`
+    )
+    .then(({ data }) => data, {
+      keepPreviousData: false,
+    });
 
-export const useGetAllQuotes = (classId, options) =>
-  useQuery(["classes", classId], () => getAllQuotes(), {
+export const useGetAllQuotes = (data, options) =>
+  useQuery(["data", data], () => getAllQuotes(), {
     enabled: true,
+    keepPreviousData: false,
     ...options,
   });
 // const getFabricDetails = (data) =>
@@ -67,3 +72,27 @@ export async function getQuote(qid) {
     throw error;
   }
 }
+const getExternalType = () =>
+  axiosInstance
+    .get(
+      `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`
+    )
+    .then(({ data }) => data, {
+      keepPreviousData: false,
+    });
+
+export const useGetExternalType = (data, options) =>
+  useQuery(["data", data], () => getExternalType(), {
+    enabled: true,
+    keepPreviousData: false,
+    ...options,
+  });
+
+//mutation
+
+const deleteExternalId = (id) =>
+  axiosInstance.delete(
+    `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`
+  );
+export const useDeleteExternalId = () =>
+  useMutation((id) => deleteExternalId(id), {});
