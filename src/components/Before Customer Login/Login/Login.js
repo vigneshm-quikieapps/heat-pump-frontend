@@ -62,7 +62,7 @@ const Login = () => {
       return false;
     }
     if (!validator.isEmail(emailValue)) {
-      setInputLogin1Error("Please enter valid Email");
+      setInputLogin1Error("Please enter a valid Email");
       return false;
     }
   };
@@ -80,7 +80,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (!validator.isEmail(emailValue)) {
-      setInputLogin1Error("Please enter valid Email");
+      setInputLogin1Error("Please enter a valid Email");
       /* return false; */
     }
     if (emailValue == "") {
