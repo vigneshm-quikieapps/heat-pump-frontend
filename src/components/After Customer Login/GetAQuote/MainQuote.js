@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 });
 
 const MainQuote = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(3);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [payload, setPayload] = useState({});

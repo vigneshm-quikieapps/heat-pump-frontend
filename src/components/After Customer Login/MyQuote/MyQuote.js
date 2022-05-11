@@ -152,7 +152,7 @@ const MyQuote = () => {
         <Box sx={{ marginTop: "5%" }}>
           <Table
             headers={[
-              "Quotes Reference",
+              "Quote Reference",
               "Site Details",
               "Submitted Date",
               "Status",

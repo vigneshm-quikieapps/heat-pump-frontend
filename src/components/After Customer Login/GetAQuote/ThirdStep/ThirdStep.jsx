@@ -150,6 +150,21 @@ const useStyles = makeStyles({
     fontSize: "1vw",
   },
 });
+const headers = {
+  "External Walls": ["Type", "Wall Construction", "Detail", "Image"],
+  "Internal Walls": ["Type", "Wall Construction", "Detail", "Image"],
+  "Roof Type": ["Type", "Roof description", "Roof detail", "Image"],
+  Windows: ["Type", "Window description", "Window detail", "Image"],
+  "Suspended Floors": [
+    "Type",
+    "Floor description",
+    "Length of exposed wall(a+b)",
+    "Short a(m)",
+    "Long b(m)",
+    "Image",
+  ],
+  "Inner Floors": ["Type", "Floor description", "Detail", "Image"],
+};
 
 const ThirdStep = (props) => {
   const classes = useStyles();
@@ -182,18 +197,21 @@ const ThirdStep = (props) => {
     setLoader(true);
     getFabricDetails(type).then((res) => {
       if (res?.success) {
+        console.log(res);
         let temp = [...res?.data];
         setFabricDetails(temp);
       }
       setLoader(false);
     });
   };
-  const onSelect = (type, description, detail) => {
+  const onSelect = (type, description, detail, short, long) => {
     // console.log(selectedFabricType, selectedBuildingIndex);
     let temp = dataArr;
     temp[selectedBuildingIndex][selectedFabricType].type = type;
     temp[selectedBuildingIndex][selectedFabricType].description = description;
     temp[selectedBuildingIndex][selectedFabricType].detail = detail;
+    temp[selectedBuildingIndex][selectedFabricType]["length"] =
+      Number(short) + Number(long);
     setDataArr(temp);
   };
 
@@ -207,19 +225,38 @@ const ThirdStep = (props) => {
   const tableRows = useMemo(() => {
     return (
       (fabricDetails &&
-        fabricDetails?.map(({ type, description, details, image_url }) => ({
+        fabricDetails?.map((item) => ({
           onClick: () => {
-            onSelect(type, description, details);
+            onSelect(
+              item?.type,
+              item?.description,
+              item?.details,
+              item?.shortness_of_suspended_floor,
+              item?.longness_of_suspended_floor
+              // item?.image_url
+            );
             onClose();
           },
-          items: [type, description, details, image_url],
+          items:
+            selectedFabricType == "Suspended Floors"
+              ? [
+                  item?.type,
+                  item?.description,
+
+                  Number(item?.shortness_of_suspended_floor) +
+                    Number(item?.longness_of_suspended_floor),
+
+                  item?.shortness_of_suspended_floor,
+
+                  item?.longness_of_suspended_floor,
+                  item?.image_url,
+                ]
+              : [item?.type, item?.description, item?.details, item?.image_url],
         }))) ||
       []
     );
   }, [onSelect, onClose]);
-  // useEffect(() => {
 
-  // });
   return (
     <>
       <Card>
@@ -784,9 +821,9 @@ const ThirdStep = (props) => {
                               lineHeight: "normal",
                             }}
                           >
-                            Details:{" "}
+                            Length(m):{" "}
                           </span>{" "}
-                          {fabric["Suspended Floors"].detail}
+                          {fabric["Suspended Floors"]["length"]}
                         </Typography>
                       )}
                     </Box>
@@ -896,134 +933,7 @@ const ThirdStep = (props) => {
             </Box>
           </Box>
         ))}
-        {/* <Box sx={{ marginTop: "2%" }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <div
-                style={{
-                  width: "257px",
-                  fontSize: "22px",
-                  fontFamily:"Outfit",
-                  letterSpacing: "0.03",
-                  color: "#fa5e00",
-                  textAlign: "right",
-                }}
-              >
-                External 1
-                <hr
-                  style={{
-                    width: "100%",
-                    backgroundColor: " #f2f3f2",
-                    border: "0.1vw solid #f2f3f2",
-                  }}
-                />
-              </div>
-            </Box>
-            <Box
-              sx={{
-                display: "flex !important",
-                flexDirection: "row !important",
-                alignItems: "center",
-                // justifyContent: "center",
-              }}
-            >
-              <Box>
-                <button
-                  variant="contained"
-                  className="btn-house"
-                  onClick={() => setOpenModal(true)}
-                >
-                  External Walls
-                </button>
-              </Box>
-              <Box
-                sx={{
-                  width: "50%",
-                  marginLeft: "3%",
-                  display: "flex",
 
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                <Box
-                  sx={{ borderRight: "5px solid #d3d3d3", paddingRight: "5%" }}
-                >
-                  <Typography variant="h5">
-                    {dataArr[0]["External Walls"].type}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography>
-                    <span style={{ fontWeight: "bold",fontFamily:"Outfit" }}>Description: </span>
-                    {dataArr[0]["External Walls"].description}
-                  </Typography>
-
-                  <Typography>
-                    <span style={{ fontWeight: "bold" ,fontFamily:"Outfit"}}>Details: </span>{" "}
-                    {dataArr[0]["External Walls"].detail}
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-
-            <Box>
-              <button
-                variant="contained"
-                className="btn-house"
-                onClick={() => setOpenModal(true)}
-              >
-                Internal Walls
-              </button>
-            </Box>
-            <Box>
-              <button
-                variant="contained"
-                className="btn-house"
-                onClick={() => setOpenModal(true)}
-              >
-                Roof Type
-              </button>
-            </Box>
-            <Box>
-              <button
-                variant="contained"
-                className="btn-house"
-                onClick={() => setOpenModal(true)}
-              >
-                Windows
-              </button>
-            </Box>
-            <Box>
-              <button
-                variant="contained"
-                className="btn-house"
-                onClick={() => setOpenModal(true)}
-              >
-                Suspended Floors
-              </button>
-            </Box>
-            <Box>
-              <button
-                variant="contained"
-                className="btn-house"
-                onClick={() => setOpenModal(true)}
-              >
-                Internal Floors
-              </button>
-            </Box>
-          </Box>
-        </Box> */}
         <Box>
           <button
             variant="contained"
@@ -1101,7 +1011,7 @@ const ThirdStep = (props) => {
           {/* Table List */}
           <Box sx={{ marginTop: "5%" }}>
             <Table
-              headers={["Type", "Wall Construction", "Details", "Image"]}
+              headers={headers[selectedFabricType]}
               rows={tableRows}
               pagination={pagination}
               isLoading={false}
