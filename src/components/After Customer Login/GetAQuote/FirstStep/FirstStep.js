@@ -378,7 +378,7 @@ const FirstStep = ({
         </Box>
       </Grid>
       <Box sx={{ display: "flex" }}>
-        <button
+        {/* <button
           variant="contained"
           className="btn-house btn-icon"
           // onClick={props.prev()}
@@ -387,7 +387,7 @@ const FirstStep = ({
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
           </span>
           <span style={{ marginLeft: "100px" }}>Previous</span>
-        </button>
+        </button> */}
         <button
           variant="contained"
           className="btn-house Add btn-icon"

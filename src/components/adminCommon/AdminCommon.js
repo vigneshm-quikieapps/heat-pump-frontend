@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import SettingsIcon from "@mui/icons-material/Settings";
+import {
+  Drawer,
+  List,
+  // ListItemIcon,
+  // ListItemText,
+  Collapse,
+  TextField,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 
+  // ListItemButton,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Modal from "react-modal";
 import { IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { styled } from "@mui/material/styles";
 import "./AdminCommon.css";
 import { connect } from "react-redux";
 // import * as React from 'react';
@@ -23,7 +37,7 @@ function AdminCommon({ adminFirstPageStatus }) {
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("redbar1");
   const [logout, setLogout] = useState(false);
-
+  const [toggleSetup, setToggleSetup] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem("userData"));
 
   const toggleModal = () => {
@@ -69,301 +83,8 @@ function AdminCommon({ adminFirstPageStatus }) {
     prevOpen.current = open;
   }, [open]);
 
-  console.log(adminFirstPageStatus);
+  // console.log(adminFirstPageStatus);
   return (
-    // <div style={{ display: "flex", height: "100%" }}>
-    //   <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
-    //     <div className="HPDSideBar">
-    //       <img
-    //         style={{
-    //           width: "70px",
-    //           height: "70px",
-    //           margin: "1px 915px 0px 0px;",
-    //         }}
-    //         src={require("../../Img/HPDD.jpeg")}
-    //         alt="HPD"
-    //       />
-    //     </div>
-
-    //     <Link
-    //       to="accountrequest"
-    //       style={{ textDecoration: "none", color: "black" }}
-    //     >
-    //       {" "}
-    //       <li
-    //         style={
-    //           display == "redbar1"
-    //             ? { fontWeight: "600" }
-    //             : { fontWeight: "300" }
-    //         }
-    //         className="firstli li"
-    //         onClick={() => setDisplay("redbar1")}
-    //       >
-    //         {" "}
-    //         <img
-    //           src={require("../../Img/sidebaradmin1.png")}
-    //           className="sidbar-icon"
-    //         />{" "}
-    //         Account Requests{" "}
-    //         <img
-    //           src={require("../../Img/redbar.png")}
-    //           height="50px"
-    //           width={"10px"}
-    //           className="redbar1"
-    //           style={
-    //             display == "redbar1"
-    //               ? { visibility: "visible" }
-    //               : { visibility: "hidden" }
-    //           }
-    //         />{" "}
-    //       </li>{" "}
-    //     </Link>
-    //     <Link to="myQuote" style={{ textDecoration: "none", color: "black" }}>
-    //       <li
-    //         onClick={() => setDisplay("redbar2")}
-    //         style={
-    //           display == "redbar2"
-    //             ? { fontWeight: "600" }
-    //             : { fontWeight: "300" }
-    //         }
-    //         className="myquotes-text li"
-    //       >
-    //         {" "}
-    //         <img
-    //           src={require("../../Img/sidebaradmin3.png")}
-    //           className="sidbar-icon"
-    //         />{" "}
-    //         My Quotes{" "}
-    //         <img
-    //           src={require("../../Img/redbar.png")}
-    //           height="50px"
-    //           width={"10px"}
-    //           className="redbar2"
-    //           style={
-    //             display == "redbar2"
-    //               ? { visibility: "visible" }
-    //               : { visibility: "hidden" }
-    //           }
-    //         />{" "}
-    //       </li>
-    //     </Link>
-    //     <Link
-    //       to="servicerequest"
-    //       style={{ textDecoration: "none", color: "black" }}
-    //     >
-    //       <li
-    //         onClick={() => setDisplay("redbar3")}
-    //         style={
-    //           display == "redbar3"
-    //             ? { fontWeight: "600" }
-    //             : { fontWeight: "300" }
-    //         }
-    //         className="my-servicerequest li"
-    //       >
-    //         {" "}
-    //         <img
-    //           src={require("../../Img/sidebar3.png")}
-    //           className="sidbar-icon"
-    //         />{" "}
-    //         My Service Requests{" "}
-    //         <img
-    //           src={require("../../Img/redbar.png")}
-    //           height="50px"
-    //           width={"10px"}
-    //           className="redbar3"
-    //           style={
-    //             display == "redbar3"
-    //               ? { visibility: "visible" }
-    //               : { visibility: "hidden" }
-    //           }
-    //         />{" "}
-    //       </li>
-    //     </Link>
-
-    //     <img
-    //       src={require("../../Img/ellipse.png")}
-    //       /*  height="360px"
-    //       width={"250px"} */
-    //       alt=""
-    //       className="ellipse"
-    //     />
-    //   </div>
-
-    //   <div style={{ width: "100%" }}>
-    //     <div className={`${collapse ? "navbar1" : "navbar"}`}>
-    //       <div>
-    //         <img
-    //           src={require("../../Img/toggleSideBar.png")}
-    //           onClick={() => setCollapse(!collapse)}
-    //           className="collapse-icon"
-    //         />
-    //         {!adminFirstPageStatus /* {<Link
-    //           to="servicerequest"
-    //           style={{ textDecoration: "none", color: "black" }} >} */ ? (
-    //           <img
-    //             src={require("../../Img/toggleback.png")}
-    //             onClick={() => {
-    //               window.history.back();
-    //             }}
-    //             className="collapse-left"
-    //           />
-    //         ) : null}
-
-    //         <div style={{ float: "right", marginRight: "6.11vw" }}>
-    //           <img
-    //             src={require("../../Img/homeIcon.png")}
-    //             className="home-icon"
-    //           />
-    //           <img src={require("../../Img/bell.png")} className="bell-icon" />
-
-    //           <div className="name-icon">
-    //             <span
-    //               style={{
-    //                 position: "absolute",
-    //                 // bottom: "2vh",
-    //                 // top: "3vh",
-    //                 // left: "2.55vw",
-    //                 marginLeft: "17px",
-    //                 color: "rgba(0, 0, 0, 0.6)",
-    //                 fontSize: "18px",
-    //                 fontWeight: "600",
-    //               }}
-    //             >
-    //               {userInfo.name}
-    //             </span>
-    //             <div>
-    //               <Button
-    //                 ref={anchorRef}
-    //                 id="composition-button"
-    //                 aria-controls={open ? "composition-menu" : undefined}
-    //                 aria-expanded={open ? "true" : undefined}
-    //                 aria-haspopup="true"
-    //                 onClick={handleToggle}
-    //                 style={{
-    //                   // width: "3.25vw",
-    //                   // height: "6.71vh",
-    //                   marginLeft: "7.81vw",
-    //                   position: "relative",
-    //                   bottom: "3vh",
-    //                   display: "inline-block",
-    //                   left: "3vw",
-    //                 }}
-    //                 size="small"
-    //               >
-    //                 <img
-    //                   src={require("../../Img/account.png")}
-    //                   className="account-icon"
-    //                 />
-    //               </Button>
-    //               <Popper
-    //                 open={open}
-    //                 anchorEl={anchorRef.current}
-    //                 role={undefined}
-    //                 placement="bottom-start"
-    //                 transition
-    //                 disablePortal
-    //               >
-    //                 {({ TransitionProps, placement }) => (
-    //                   <Grow
-    //                     {...TransitionProps}
-    //                     style={{
-    //                       transformOrigin:
-    //                         placement === "bottom-start"
-    //                           ? "left top"
-    //                           : "left bottom",
-    //                     }}
-    //                   >
-    //                     <Paper>
-    //                       <ClickAwayListener onClickAway={handleClose}>
-    //                         <MenuList
-    //                           autoFocusItem={open}
-    //                           id="composition-menu"
-    //                           aria-labelledby="composition-button"
-    //                           onKeyDown={handleListKeyDown}
-    //                           sx={{ width: "150px" }}
-    //                         >
-    //                           <MenuItem
-    //                             style={{
-    //                               fontWeight: 600,
-    //                               fontSize: "18px",
-    //                               width: "150px",
-    //                             }}
-    //                             onClick={handleClose}
-    //                           >
-    //                             Profile
-    //                           </MenuItem>
-    //                           <MenuItem
-    //                             style={{
-    //                               fontWeight: 600,
-    //                               fontSize: "18px",
-    //                               width: "150px",
-    //                             }}
-    //                             onClick={handleClose}
-    //                           >
-    //                             My Account
-    //                           </MenuItem>
-    //                           <MenuItem
-    //                             style={{
-    //                               fontWeight: 600,
-    //                               fontSize: "18px",
-    //                               width: "150px",
-    //                             }}
-    //                             onClick={() => toggleModal()}
-    //                           >
-    //                             Logout
-    //                           </MenuItem>
-    //                         </MenuList>
-    //                       </ClickAwayListener>
-    //                     </Paper>
-    //                   </Grow>
-    //                 )}
-    //               </Popper>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <Modal
-    //       isOpen={logout}
-    //       className="logoutmodal"
-    //       overlayClassName="myoverlay"
-    //       closeTimeoutMS={500}
-    //     >
-    //       <div>
-    //         <form>
-    //           <div className="logclose">
-    //             <IconButton onClick={toggleModal}>
-    //               <CloseIcon sx={{ color: "black" }}></CloseIcon>
-    //             </IconButton>
-    //           </div>
-    //           <div className="log-row1">
-    //             <h5
-    //               style={{
-    //                 fontSize: "22px",
-    //                 fontFamily: "Outfit",
-    //                 margin: "0.67vh 0 0 0",
-    //               }}
-    //             >
-    //               Are you sure you want to logout?
-    //             </h5>
-    //           </div>
-    //           <div className="log-row2">
-    //             <div style={{ marginTop: "1.6vh" }}>
-    //               <button className="yesbtn" onClick={() => signout()}>
-    //                 Yes
-    //               </button>
-    //               <button className="nobtn" onClick={toggleModal}>
-    //                 No
-    //               </button>
-    //             </div>
-    //           </div>
-    //         </form>
-    //       </div>
-    //     </Modal>
-    //     <Outlet />
-    //   </div>
-    // </div>
-
     <div style={{ display: "flex", height: "100%" }}>
       <div className={`${collapse ? " adminsidebar1" : "adminsidebar"}`}>
         <div className="HPDSideBar1">
@@ -393,7 +114,10 @@ function AdminCommon({ adminFirstPageStatus }) {
                 : { fontWeight: "300" }
             }
             className="navList"
-            onClick={() => setDisplay("redbar1")}
+            onClick={() => {
+              setDisplay("redbar1");
+              setToggleSetup(false);
+            }}
           >
             {/* <span style={{ marginLeft: "5%" }}> */}
             <img
@@ -430,7 +154,10 @@ function AdminCommon({ adminFirstPageStatus }) {
                 : { fontWeight: "300" }
             }
             className="navList"
-            onClick={() => setDisplay("redbar2")}
+            onClick={() => {
+              setDisplay("redbar2");
+              setToggleSetup(false);
+            }}
           >
             <img
               src={require("../../Img/sidebaradmin2.png")}
@@ -451,29 +178,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             />
           </li>
         </Link>
-        {/* <li
-          onClick={() => setDisplay("redbar2")}
-          style={
-            display == "redbar2" ? { fontWeight: "600" } : { fontWeight: "300" }
-          }
-          className="adminmyquotes-text li"
-        >
-          {" "}
-          <img
-            src={require("../../Img/sidebaradmin2.png")}
-            className="adminsidbar-icon"
-          />{" "}
-          Quotes Request{" "}
-          <img
-            src={require("../../Img/redbar.png")}
-            className="adminredbar2"
-            style={
-              display == "redbar2"
-                ? { visibility: "visible" }
-                : { visibility: "hidden" }
-            }
-          />{" "}
-        </li> */}
+
         <Link
           to="adminsrl"
           style={{
@@ -489,7 +194,10 @@ function AdminCommon({ adminFirstPageStatus }) {
                 : { fontWeight: "300" }
             }
             className="navList"
-            onClick={() => setDisplay("redbar3")}
+            onClick={() => {
+              setDisplay("redbar3");
+              setToggleSetup(false);
+            }}
           >
             <img
               src={require("../../Img/sidebaradmin3.png")}
@@ -509,33 +217,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             />
           </li>
         </Link>
-        {/* <Link to="adminsrl" style={{ textDecoration: "none", color: "black" }}>
-          <li
-            onClick={() => setDisplay("redbar3")}
-            style={
-              display == "redbar3"
-                ? { fontWeight: "600" }
-                : { fontWeight: "300" }
-            }
-            className="adminmy-servicerequest li"
-          >
-            {" "}
-            <img
-              src={require("../../Img/sidebaradmin3.png")}
-              className="adminsidbar-icon"
-            />{" "}
-            Service Requests{" "}
-            <img
-              src={require("../../Img/redbar.png")}
-              className="adminredbar3"
-              style={
-                display == "redbar3"
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
-              }
-            />{" "}
-          </li>
-        </Link> */}
+
         <Link
           to="businessuser"
           style={{
@@ -551,7 +233,10 @@ function AdminCommon({ adminFirstPageStatus }) {
                 : { fontWeight: "300" }
             }
             className="navList"
-            onClick={() => setDisplay("redbar4")}
+            onClick={() => {
+              setDisplay("redbar4");
+              setToggleSetup(false);
+            }}
           >
             <img
               src={require("../../Img/sidebaradmin41.jpg")}
@@ -571,37 +256,242 @@ function AdminCommon({ adminFirstPageStatus }) {
             />
           </li>
         </Link>
-        {/* <Link
-          to="businessuser"
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <li
-            onClick={() => setDisplay("redbar4")}
-            style={
-              display == "redbar4"
-                ? { fontWeight: "600" }
-                : { fontWeight: "300" }
-            }
-            className="adminmy-servicerequest li"
+        <div>
+          <Accordion
+            sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+            expanded={toggleSetup}
+            onChange={() => {
+              setToggleSetup(!toggleSetup);
+            }}
           >
-            {" "}
-            <img
-              src={require("../../Img/sidebaradmin41.jpg")}
-              style={{ borderRadius: "0.33vw" }}
-              className="adminsidbar-icon"
-            />{" "}
-            Business Users{" "}
-            <img
-              src={require("../../Img/redbar.png")}
-              className="adminredbar4"
-              style={
-                display == "redbar4"
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
-              }
-            />{" "}
-          </li>
-        </Link> */}
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <SettingsIcon />
+              <Typography
+                sx={
+                  toggleSetup
+                    ? {
+                        fontSize: "18px",
+                        ml: 3,
+                        width: "100%",
+                        fontWeight: "600",
+                        fontFamily: "Outfit",
+                      }
+                    : {
+                        fontSize: "18px",
+                        ml: 3,
+                        width: "100%",
+                        fontWeight: "300",
+                        fontFamily: "Outfit",
+                      }
+                }
+              >
+                Setup
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ p: 0 }}>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar5"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar5")}
+                >
+                  <span style={{ marginLeft: "20%" }}>External Wall Type</span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar5"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar6"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar6")}
+                >
+                  <span style={{ marginLeft: "20%" }}>Internal Wall Type</span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar6"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar7"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar7")}
+                >
+                  <span style={{ marginLeft: "20%" }}>Roof Type</span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar7"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar8"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar8")}
+                >
+                  <span style={{ marginLeft: "20%" }}>Window Type</span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar8"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar9"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar9")}
+                >
+                  <span style={{ marginLeft: "20%" }}>
+                    Suspended Floor Type
+                  </span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar9"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+              <Link
+                to="accountrequest"
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                  marginBottom: "5%",
+                }}
+              >
+                <li
+                  style={
+                    display == "redbar10"
+                      ? { fontWeight: "600" }
+                      : { fontWeight: "300" }
+                  }
+                  className="navList"
+                  onClick={() => setDisplay("redbar10")}
+                >
+                  <span style={{ marginLeft: "20%" }}>Internal Floor Type</span>
+
+                  <img
+                    src={require("../../Img/redbar.png")}
+                    height="40px"
+                    width="8px"
+                    // className="adminredbar1"
+                    style={
+                      display == "redbar10"
+                        ? { visibility: "visible" }
+                        : { visibility: "hidden" }
+                    }
+                  />
+                </li>
+              </Link>
+            </AccordionDetails>
+          </Accordion>
+        </div>
+        {/* <Drawer>Setup</Drawer> */}
+
         <img
           src={require("../../Img/ellipse.png")}
           alt=""
