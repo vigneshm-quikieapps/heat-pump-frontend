@@ -1,26 +1,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Box, Button } from "@material-ui/core";
 import { TailSpin } from "react-loader-spinner";
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
 import { useGetAllQuotes } from "../../../services/services";
-import usePagination from "../../Pagination/Pagination";
-import { Navigate, useHistory } from "react-router-dom";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const userData = JSON.parse(localStorage.getItem("userData"));
 const userName = userData?.name;
 
 const MyQuote = () => {
   const navigate = useNavigate();
-  const { isLoading, isError, error, data, isFetching, isPreviousData } =
-    useGetAllQuotes();
+  const { data, isLoading } = useGetAllQuotes();
   const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
-  const PER_PAGE = 10;
-  const [count, setCount] = useState(1);
+
   // const _DATA = usePagination(data, PER_PAGE);
   const [loader, setLoader] = useState(false);
-  const temp = { 1: "New", 2: "Propasal Ready" };
 
   const formatDate = (date) => {
     let temp = date.split("T")[0].split("-");
@@ -30,8 +25,10 @@ const MyQuote = () => {
 
   useEffect(() => {
     let temp;
+
     if (data?.data.length > 10) {
       temp = data?.data.slice(0, 10);
+
       setDataArr(temp);
     } else {
       setDataArr(data?.data);
@@ -42,6 +39,7 @@ const MyQuote = () => {
     let temp;
     if (data?.data.length > 10) {
       temp = data?.data.slice(page * 10 - 10, page * 10 + 1);
+      setLoader(true);
       setDataArr(temp);
     }
   };
