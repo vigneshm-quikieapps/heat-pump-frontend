@@ -21,15 +21,19 @@ const theme = createTheme({
   },
 });
 const InternalFloor = () => {
-  const [loader, setLoader] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [error, setError] = useState("");
   const [box, setBox] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [data, setData] = useState([]);
+  const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
+  const [showError, setShowError] = useState(false);
+  const [error, setError] = useState("");
+  const [type, setType] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
@@ -38,7 +42,84 @@ const InternalFloor = () => {
         setError(error);
       },
     });
+  useEffect(() => {
+    fetchData();
+    // fetchSeconddata();
+  }, []);
+  const setDataOfTens = (page) => {
+    let temp;
+    if (dataArr?.atlength > 10) {
+      temp = dataArr?.slice(page * 10 - 10, page * 10 + 1);
+      setLoader(true);
+      setBox(temp);
+    }
+  };
 
+  function fetchData() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(URL + globalAPI.InternalFloorType, config)
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        setDataArr(res.data);
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+  useEffect(() => {
+    let temp;
+    if (dataArr?.length > 10) {
+      temp = dataArr?.slice(0, 10);
+      setBox(temp);
+    } else {
+      setBox(dataArr);
+    }
+  }, [dataArr]);
+  function fetchSeconddata() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+
+    axios
+      .get(
+        URL +
+          globalAPI.setup +
+          `?page=${page}&perPage=${PER_PAGE}&type=6&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        if (response.data.success) {
+          const res = response.data;
+          // setCount(res.total_pages);
+          // setBox(res.data);
+          console.log(response);
+          setCount(res?.total_pages);
+          setBox(res?.data);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
+
+  const searchfilter = () => {
+    // setStatus("1,2,3,4");
+    setPage(1);
+    fetchSeconddata();
+  };
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
   }, []);
@@ -50,7 +131,6 @@ const InternalFloor = () => {
     },
     [deleteExternalId]
   );
-
   const tableRows = useMemo(() => {
     return box.map(({ fabric_type, _id, description, details, status }) => ({
       items: [
@@ -65,28 +145,6 @@ const InternalFloor = () => {
       ],
     }));
   }, [box, editHandler, deleteHandler]);
-  function fetchData() {
-    const token = JSON.parse(localStorage.getItem("user"));
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    setLoader(true);
-    axios
-      .get(URL + globalAPI.InternalFloorType, config)
-      .then((response) => {
-        setLoader(false);
-        const res = response.data;
-        setBox(res.data);
-      })
-      .catch((e) => {
-        setLoader(false);
-        toast.error("Something went wrong");
-      });
-  }
-  useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
-  }, []);
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -137,8 +195,8 @@ const InternalFloor = () => {
             sx={{ width: "210px", height: "63px" }}
             label="Type"
             InputLabelProps={{ style: { background: "#FFF" } }}
-            // value={serviceno}
-            // onChange={(e) => setServiceno(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             size="small"
           />
 
@@ -147,7 +205,8 @@ const InternalFloor = () => {
             label="Internal Floor Description"
             // value={title}
             InputLabelProps={{ style: { background: "#FFF" } }}
-            // onChange={(e) => setTitle(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             size="small"
           />
           <FormControl>
@@ -155,16 +214,14 @@ const InternalFloor = () => {
               select
               sx={{ width: "210px", height: "63px" }}
               InputLabelProps={{ style: { background: "#FFF" } }}
-              //   value={priority}
-              //   onChange={(e) => setPriority(e.target.value)}
-              //   onFocus={() => setFocused(true)}
-              //   onBlur={() => setFocused(false)}
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               label="Status"
             >
-              <MenuItem value="1" style={{ fontWeight: 600 }}>
+              <MenuItem value={1} style={{ fontWeight: 600 }}>
                 Active
               </MenuItem>
-              <MenuItem value="2" style={{ fontWeight: 600 }}>
+              <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
             </StyledTextField>
@@ -181,7 +238,7 @@ const InternalFloor = () => {
               color: "white",
               borderRadius: "50px",
             }}
-            // onClick={() => searchfilter()}
+            onClick={() => searchfilter()}
           >
             Search
           </Button>
@@ -227,10 +284,15 @@ const InternalFloor = () => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={count}
+                count={Math.ceil(dataArr?.length / 10)}
                 page={page}
                 /*  variant="outlined" */
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e, p) => {
+                  console.log(p);
+                  setPage(p);
+                  setDataOfTens(p);
+                }}
                 color="primary"
               />
             </ThemeProvider>
