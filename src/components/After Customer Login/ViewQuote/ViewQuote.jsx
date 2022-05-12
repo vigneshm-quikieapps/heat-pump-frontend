@@ -23,7 +23,7 @@ function ViewQuote() {
   });
   useEffect(() => {
     getQuote(quoteId).then((res) => {
-      console.log(res);
+      // console.log(res);
       setQuoteData(res?.data?.data);
     });
   }, [quoteId]);

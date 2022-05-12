@@ -96,3 +96,46 @@ const deleteExternalId = (id) =>
   );
 export const useDeleteExternalId = () =>
   useMutation((id) => deleteExternalId(id), {});
+
+// const createFabric = (data) =>
+//   axiosInstance.post(
+//     `https://heat-pump-backend.herokuapp.com/api//v1/services/fabric-details`,
+//     data
+//   );
+// export const useCreateFabric = (options) =>
+//   useMutation((data) => createFabric(data), options);
+
+// const getFabricType = (id) =>
+//   axiosInstance.get(
+//     `https://heat-pump-backend.herokuapp.com/api//v1/services/fabric-details?fid=${id}`
+//   );
+// export const useGetFabricType = () =>
+//   useMutation((id) => getFabricType(id), {});
+export async function getFabricType(id) {
+  try {
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details-single?fid=${id}`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function updateFabricType(id, payload) {
+  try {
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details-single?fid=${id}`;
+    const response = await axiosInstance.patch(api, payload);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createFabricType(payload) {
+  try {
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details`;
+    const response = await axiosInstance.post(api, payload);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}

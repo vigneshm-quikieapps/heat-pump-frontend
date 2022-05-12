@@ -46,6 +46,8 @@ import RoofWall from "./components/admin/setup/RoofWall";
 import WindowWall from "./components/admin/setup/WindowWall";
 import SuspendedFloor from "./components/admin/setup/SuspendedFloor";
 import InternalFloor from "./components/admin/setup/InternalFloor";
+import AddEditExternalWall from "./components/admin/setup/AddEditExternalWall";
+import AddEditInternalWall from "./components/admin/setup/AddEditInternalWall";
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
   return (
@@ -220,7 +222,20 @@ function PriorityComponent() {
               <Route path="adminsrl" element={<AdminServiceList />} />
               <Route path="businessuser" element={<BusinessUser />} />
               <Route path="ewall" element={<ExternalWall />} />
+              <Route
+                path="add_editEwall/:id"
+                element={<AddEditExternalWall />}
+              />
+              <Route path="add_editEwall" element={<AddEditExternalWall />} />
               <Route path="internalType" element={<InternalWall />} />
+              <Route
+                path="add_editInternalWall"
+                element={<AddEditInternalWall />}
+              />
+              <Route
+                path="add_editInternalWall/:id"
+                element={<AddEditInternalWall />}
+              />
               <Route path="roofType" element={<RoofWall />} />
               <Route path="windowType" element={<WindowWall />} />
               <Route path="suspendedFloorType" element={<SuspendedFloor />} />

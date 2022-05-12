@@ -14,7 +14,7 @@ import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { useDeleteExternalId } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import { useNavigate } from "react-router-dom";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
@@ -31,7 +31,7 @@ const InternalWall = () => {
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
-
+  const navigate = useNavigate();
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
       onError: (error) => {
@@ -42,6 +42,7 @@ const InternalWall = () => {
 
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
+    navigate(`/admincommon/add_editInternalWall/${id}`);
   }, []);
 
   const deleteHandler = useCallback(
@@ -199,7 +200,13 @@ const InternalWall = () => {
             Internal Wall Types List
             <hr className="ewallhr" />
           </Typography>
-          <AddButton sx={{ background: "#fa5e00" }} />
+          <AddButton
+            sx={{ background: "#fa5e00" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admincommon/add_editInternalWall/`);
+            }}
+          />
         </Box>
 
         <Box sx={{ marginTop: "1%" }}>
