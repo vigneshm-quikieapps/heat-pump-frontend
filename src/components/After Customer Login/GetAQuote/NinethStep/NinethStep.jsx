@@ -64,8 +64,8 @@ const NinethStep = (props) => {
             textAlign: "left",
           }}
         >
-          Your quote request submission is successful. Ref: SR12345678. You can
-          track the status of your quote using View Quote Status.
+          Your job request submission is successful. Ref: SR12345678. You can
+          track the status of your job using View Job Status.
         </Typography>
       </Box>
       <button
@@ -78,7 +78,7 @@ const NinethStep = (props) => {
           //   props._addNewQuote();
         }}
       >
-        <span>Get a new Quote</span>
+        <span>Get a new Job</span>
       </button>
     </Card>
   );

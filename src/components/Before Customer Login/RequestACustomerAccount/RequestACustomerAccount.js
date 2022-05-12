@@ -75,7 +75,7 @@ function RequestACustomerAccount() {
             }}
           >
             You must have a customer account with us to submit job details and
-            get a quote from us.
+            get a job from us.
           </div>
 
           <Link to="/rca1">

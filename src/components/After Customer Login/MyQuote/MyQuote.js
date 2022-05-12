@@ -121,7 +121,7 @@ const MyQuote = () => {
           marginLeft: "40px",
         }}
       >
-        My Quotes
+        My Jobs
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -150,7 +150,7 @@ const MyQuote = () => {
         <Box sx={{ marginTop: "5%" }}>
           <Table
             headers={[
-              "Quote Reference",
+              "Job Reference",
               "Site Details",
               "Submitted Date",
               "Status",

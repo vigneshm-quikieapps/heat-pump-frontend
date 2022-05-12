@@ -103,7 +103,7 @@ function Common({ firstPageStatus }) {
               src={require("../../Img/sidebar1.png")}
               className="sidbar-icon"
             />{" "}
-            Get a Quote{" "}
+            Get a Job{" "}
             <img
               src={require("../../Img/redbar.png")}
               height="50px"
@@ -132,7 +132,7 @@ function Common({ firstPageStatus }) {
               src={require("../../Img/sidebar2.png")}
               className="sidbar-icon"
             />{" "}
-            My Quotes{" "}
+            My Jobs{" "}
             <img
               src={require("../../Img/redbar.png")}
               height="50px"

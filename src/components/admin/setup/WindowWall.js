@@ -238,6 +238,7 @@ const WindowWall = () => {
               background: "black",
               color: "white",
               borderRadius: "50px",
+              textTransform: "none",
             }}
             onClick={() => searchfilter()}
           >

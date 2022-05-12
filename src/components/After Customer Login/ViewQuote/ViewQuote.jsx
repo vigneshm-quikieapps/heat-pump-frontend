@@ -30,7 +30,7 @@ function ViewQuote() {
   console.log(quoteData);
   return (
     <>
-      <h1 className="get-a-quote">View Quote</h1>
+      <h1 className="get-a-quote">View Job</h1>
       <hr className="quote" />
 
       <Card>
@@ -77,8 +77,8 @@ function ViewQuote() {
           </Box>
           <Box sx={{ width: "50%", display: "flex", flexDirection: "row" }}>
             <Box>
-              <Typography className="Output">Quote Status</Typography>
-              <Typography className="Output">Quote Request No.</Typography>
+              <Typography className="Output">Job Status</Typography>
+              <Typography className="Output">Job Request No.</Typography>
             </Box>
             <Box sx={{ ml: 2.5 }}>
               <Typography className="Output">
