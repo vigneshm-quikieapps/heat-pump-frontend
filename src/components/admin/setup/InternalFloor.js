@@ -12,7 +12,7 @@ import "./ExternalWall.css";
 import usePagination from "../../Pagination/Pagination";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { useDeleteExternalId } from "../../../services/services";
+import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 const theme = createTheme({
@@ -38,6 +38,9 @@ const InternalFloor = () => {
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
+      onSuccess: (res) => {
+        toast.success(res?.data?.message);
+      },
       onError: (error) => {
         setShowError(true);
         setError(error);
@@ -125,13 +128,25 @@ const InternalFloor = () => {
     e.stopPropagation();
   }, []);
 
-  const deleteHandler = useCallback(
-    (e, id) => {
-      e.stopPropagation();
-      deleteExternalId(id);
-    },
-    [deleteExternalId]
-  );
+  // const deleteHandler = useCallback(
+  //   (e, id) => {
+  //     e.stopPropagation();
+  //     deleteExternalId(id);
+  //   },
+  //   [deleteExternalId]
+  // );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteHandler = (e, id) => {
+    e.stopPropagation();
+    delFabric(id)
+      .then((res) => {
+        console.log(res);
+        toast.success(res?.data?.message);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
+  };
   const tableRows = useMemo(() => {
     return box.map(({ fabric_type, _id, description, details, status }) => ({
       items: [

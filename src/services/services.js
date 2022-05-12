@@ -122,7 +122,7 @@ export async function getFabricType(id) {
 }
 export async function updateFabricType(id, payload) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details-single?fid=${id}`;
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
     const response = await axiosInstance.patch(api, payload);
     return response;
   } catch (error) {
@@ -134,6 +134,16 @@ export async function createFabricType(payload) {
   try {
     const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details`;
     const response = await axiosInstance.post(api, payload);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function delFabric(id) {
+  try {
+    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
+    const response = await axiosInstance.delete(api);
     return response;
   } catch (error) {
     throw error;

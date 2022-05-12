@@ -12,7 +12,7 @@ import "./ExternalWall.css";
 import usePagination from "../../Pagination/Pagination";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { useDeleteExternalId } from "../../../services/services";
+import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 const theme = createTheme({
@@ -38,6 +38,10 @@ const ExternalWall = () => {
   const navigate = useNavigate();
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
+      onSuccess: (res) => {
+        console.log(res);
+        toast.success(res?.message);
+      },
       onError: (error) => {
         setShowError(true);
         setError(error);
@@ -130,13 +134,31 @@ const ExternalWall = () => {
     navigate(`/admincommon/add_editEwall/${id}`);
   }, []);
 
-  const deleteHandler = useCallback(
-    (e, id) => {
-      e.stopPropagation();
-      deleteExternalId(id);
-    },
-    [deleteExternalId]
-  );
+  // const deleteHandler = useCallback((e, id) => {
+  //   e.stopPropagation();
+  //   delFabric(id)
+  //     .then((res) => {
+  //       console.log(res);
+  //       toast.error(res?.message);
+  //     })
+  //     .catch((error) => {
+  //       toast.error("Something went wrong");
+  //     });
+  //   // deleteExternalId(id);
+  // }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteHandler = (e, id) => {
+    e.stopPropagation();
+    delFabric(id)
+      .then((res) => {
+        console.log(res);
+        toast.success(res?.data?.message);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
+    // deleteExternalId(id);
+  };
 
   const tableRows = useMemo(() => {
     return box.map(

@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { makeStyles } from "@mui/styles";
 import { useGetFabricType } from "../../../services/services";
 import { useParams } from "react-router";
+import { toast } from "react-toastify";
 // import { getFabricType } from "../../../services/services";
 import {
   getFabricType,
@@ -133,10 +134,16 @@ function AddEditInternalWall() {
   const createUpdateFabric = () => {
     fabricId
       ? updateFabricType(fabricId, { ...internalWallData, type: 2 })
-          .then((res) => navigate(`/admincommon/internalType/`))
+          .then((res) => {
+            toast.success(res?.data?.message);
+            navigate(`/admincommon/internalType/`);
+          })
           .catch((error) => console.log(error))
       : createFabricType({ ...internalWallData, type: 2 })
-          .then((res) => navigate(`/admincommon/internalType/`))
+          .then((res) => {
+            toast.success(res?.data?.message);
+            navigate(`/admincommon/internalType/`);
+          })
           .catch((error) => console.log(error));
   };
   return (

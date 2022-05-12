@@ -16,6 +16,7 @@ import { makeStyles } from "@mui/styles";
 import { useParams } from "react-router";
 import "./Style/AddEditExternalWall.css";
 import { useGetFabricType } from "../../../services/services";
+import { toast } from "react-toastify";
 import {
   IconButton,
   Container,
@@ -130,11 +131,17 @@ function AddEditExternalWall() {
   };
   const createUpdateFabric = () => {
     fabricId
-      ? updateFabricType(fabricId, { ...externalWallData, type: 1 })
-          .then((res) => navigate(`/admincommon/ewall/`))
+      ? updateFabricType(fabricId, { ...externalWallData, type: "1" })
+          .then((res) => {
+            toast.success(res?.data?.message);
+            navigate(`/admincommon/ewall/`);
+          })
           .catch((error) => console.log(error))
-      : createFabricType({ ...externalWallData, type: 1 })
-          .then((res) => navigate(`/admincommon/ewall/`))
+      : createFabricType({ ...externalWallData, type: "1" })
+          .then((res) => {
+            toast.success(res?.data?.message);
+            navigate(`/admincommon/ewall/`);
+          })
           .catch((error) => console.log(error));
   };
   return (
@@ -161,7 +168,7 @@ function AddEditExternalWall() {
           <Box sx={{ display: "flex", flexDirection: "row", mb: 10 }}>
             <StyledTextField
               required
-              type="text"
+              type="number"
               error={externalWallData?.fabric_type === "" && isSavedStatus}
               value={externalWallData?.fabric_type}
               onChange={changeHandler}
@@ -251,6 +258,12 @@ function AddEditExternalWall() {
               Image
             </Typography>
             <hr className="imagehr" />
+            <Box>
+              {/* <img
+                src={require(externalWallData?.image_url)}
+                // className={"adminSearchIcon"}
+              /> */}
+            </Box>
           </Box>
           <Box>
             <button
