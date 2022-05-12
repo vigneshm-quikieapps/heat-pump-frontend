@@ -29,6 +29,11 @@ const RoofWall = () => {
   let [page, setPage] = useState(1);
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
+  const [type, setType] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [dataArr, setDataArr] = useState([]);
+
   const _DATA = usePagination(data, PER_PAGE);
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
@@ -38,6 +43,14 @@ const RoofWall = () => {
         setError(error);
       },
     });
+  const setDataOfTens = (page) => {
+    let temp;
+    if (dataArr?.atlength > 10) {
+      temp = dataArr?.slice(page * 10 - 10, page * 10 + 1);
+      setLoader(true);
+      setBox(temp);
+    }
+  };
 
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
@@ -50,7 +63,11 @@ const RoofWall = () => {
     },
     [deleteExternalId]
   );
-
+  const searchfilter = () => {
+    // setStatus("1,2,3,4");
+    setPage(1);
+    fetchSeconddata();
+  };
   const tableRows = useMemo(() => {
     return box.map(({ fabric_type, _id, description, details, status }) => ({
       items: [
@@ -76,7 +93,7 @@ const RoofWall = () => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setBox(res.data);
+        setDataArr(res.data);
       })
       .catch((e) => {
         setLoader(false);
@@ -87,8 +104,50 @@ const RoofWall = () => {
     fetchData();
     // fetchSeconddata();
   }, []);
-  console.log("Roofres", box);
+  useEffect(() => {
+    let temp;
 
+    if (dataArr?.length > 10) {
+      temp = dataArr?.slice(0, 10);
+
+      setBox(temp);
+    } else {
+      setBox(dataArr);
+    }
+  }, [dataArr]);
+  // console.log("Roofres", box);
+  function fetchSeconddata() {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+
+    axios
+      .get(
+        URL +
+          globalAPI.setup +
+          `?page=${page}&perPage=${PER_PAGE}&type=3&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+        config
+      )
+      .then((response) => {
+        setLoader(false);
+        if (response.data.success) {
+          const res = response.data;
+          // setCount(res.total_pages);
+          // setBox(res.data);
+          console.log(response);
+          setCount(res?.total_pages);
+          setBox(res?.data);
+        } else {
+          toast.error(response.data.message);
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+      });
+  }
   const handleChange = (e, p) => {
     setPage(p);
     _DATA.jump(p);
@@ -137,17 +196,17 @@ const RoofWall = () => {
             sx={{ width: "210px", height: "63px" }}
             label="Type"
             InputLabelProps={{ style: { background: "#FFF" } }}
-            // value={serviceno}
-            // onChange={(e) => setServiceno(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             size="small"
           />
 
           <StyledTextField
             sx={{ width: "275px", height: "63px" }}
             label="Roof Description"
-            // value={title}
             InputLabelProps={{ style: { background: "#FFF" } }}
-            // onChange={(e) => setTitle(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             size="small"
           />
           <FormControl>
@@ -155,16 +214,16 @@ const RoofWall = () => {
               select
               sx={{ width: "210px", height: "63px" }}
               InputLabelProps={{ style: { background: "#FFF" } }}
-              //   value={priority}
-              //   onChange={(e) => setPriority(e.target.value)}
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               //   onFocus={() => setFocused(true)}
               //   onBlur={() => setFocused(false)}
               label="Status"
             >
-              <MenuItem value="1" style={{ fontWeight: 600 }}>
+              <MenuItem value={1} style={{ fontWeight: 600 }}>
                 Active
               </MenuItem>
-              <MenuItem value="2" style={{ fontWeight: 600 }}>
+              <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
             </StyledTextField>
@@ -181,7 +240,7 @@ const RoofWall = () => {
               color: "white",
               borderRadius: "50px",
             }}
-            // onClick={() => searchfilter()}
+            onClick={() => searchfilter()}
           >
             Search
           </Button>
@@ -227,10 +286,15 @@ const RoofWall = () => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={count}
+                count={Math.ceil(dataArr?.length / 10)}
                 page={page}
                 /*  variant="outlined" */
-                onChange={handleChange}
+                // onChange={handleChange}
+                onChange={(e, p) => {
+                  console.log(p);
+                  setPage(p);
+                  setDataOfTens(p);
+                }}
                 color="primary"
               />
             </ThemeProvider>
