@@ -5,15 +5,21 @@ import { Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
 import { useGetAllQuotes } from "../../../services/services";
 import { useNavigate } from "react-router-dom";
-const userData = JSON.parse(localStorage.getItem("userData"));
-const userName = userData?.name;
+import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+import { connect } from "react-redux";
 
-const MyQuote = () => {
+// const userData = JSON.parse(localStorage.getItem("userData"));
+// const userName = userData?.name;
+
+const MyQuote = ({ FirstPageAction }) => {
+  useEffect(() => {
+    FirstPageAction(true);
+  }, []);
   const navigate = useNavigate();
   const { data, isLoading } = useGetAllQuotes();
   const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
-
+  const [userData1, setUserData1] = useState();
   // const _DATA = usePagination(data, PER_PAGE);
   const [loader, setLoader] = useState(false);
 
@@ -22,7 +28,10 @@ const MyQuote = () => {
     let temp1 = temp[2] + "/" + temp[1] + "/" + temp[0];
     return temp1;
   };
-
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    userData && setUserData1(userData);
+  }, [localStorage.getItem("userData")]);
   useEffect(() => {
     let temp;
 
@@ -69,6 +78,10 @@ const MyQuote = () => {
             status,
             _id,
           }) => ({
+            onClick: (e) => {
+              // e.stopPropagation();
+              navigate(`/common/viewQuote/${_id}`);
+            },
             items: [
               quote_reference_number,
               `${
@@ -91,10 +104,7 @@ const MyQuote = () => {
                   fontFamily: "Outfit",
                   textTransform: "none",
                 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate(`/common/viewQuote/${_id}`);
-                }}
+                // onClick={(e) => {}}
               >
                 View Proposal
               </Button>,
@@ -116,7 +126,7 @@ const MyQuote = () => {
         variant="h6"
         style={{
           fontWeight: 300,
-          fontSize: "60px",
+          fontSize: "45px",
           fontFamily: "Outfit",
           marginLeft: "40px",
         }}
@@ -133,7 +143,7 @@ const MyQuote = () => {
             fontFamily: "Outfit",
           }}
         >
-          {userName}
+          {userData1?.name}
         </Typography>
         <Typography
           style={{
@@ -143,7 +153,7 @@ const MyQuote = () => {
             fontWeight: "300",
           }}
         >
-          {userData?.business_trade_name}, {userData?.city}
+          {userData1?.business_trade_name}, {userData1?.city}
         </Typography>
         <hr className="hrFirst" />
 
@@ -166,5 +176,9 @@ const MyQuote = () => {
     </Box>
   );
 };
+const mapDispatchtoProps = (dispatch) => ({
+  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+});
 
-export default MyQuote;
+export default connect(null, mapDispatchtoProps)(MyQuote);
+// export default MyQuote;

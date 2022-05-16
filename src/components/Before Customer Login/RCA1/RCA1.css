@@ -103,7 +103,7 @@ body {
 
 .rca1Rectangle-side {
   width: 40%;
-  height: 791px;
+  /* height: 791px; */
   margin: 0px 0 0 0px;
   padding: 487px 105px 31.2px 106px;
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
@@ -117,7 +117,7 @@ body {
 
 .rca1couplesideImg {
   width: 30vw;
-  height: 62.4vh;
+  /* height: 62.4vh; */
   margin-left: 0vw;
   position: absolute;
   bottom: 0.15vh;

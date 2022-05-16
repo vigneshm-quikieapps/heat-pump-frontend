@@ -7,7 +7,8 @@ import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { customerDetailsAction } from "../../../Redux/customerDetails/customerDetails.action";
-
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import Modal from "react-modal";
 
 import validator from "validator";
@@ -303,7 +304,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
               {input4Error}
             </Typography>
           </form>
-          <Button
+          {/* <Button
             sx={{
               fontSize: "18px",
               fontFamily: "Outfit",
@@ -320,7 +321,33 @@ function RCA1({ customerDetails, customerDetailsAction }) {
             onClick={clickHandler}
           >
             Continue
-          </Button>
+          </Button> */}
+          <Box sx={{ display: "flex", ml: 6 }}>
+            {/* <Link to="/signup" style={{ textDecoration: "none" }}> */}
+            <button
+              variant="contained"
+              className="btn-house btn-icon"
+              onClick={() => {
+                Navigate("/signup");
+              }}
+            >
+              <span style={{ height: "27px", width: "27px" }}>
+                <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
+              </span>
+              <span style={{ marginLeft: "100px" }}>Previous</span>
+            </button>
+            {/* </Link> */}
+            <button
+              variant="contained"
+              className="btn-house Add btn-icon"
+              onClick={clickHandler}
+            >
+              <span style={{ marginRight: "100px" }}>Continue</span>
+              <span style={{ height: "27px", width: "27px" }}>
+                <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
+              </span>
+            </button>
+          </Box>
         </Box>
         <Box class="rca1Rectangle-side">
           <img

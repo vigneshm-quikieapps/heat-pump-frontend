@@ -6,11 +6,15 @@ import { Card, Accordion, ImgIcon, Grid } from "../../../common";
 import "./ViewQuote.css";
 import DropdownIcon from "../../../Img/icon dropdown.png";
 import { getQuote } from "../../../services/services";
-const userData = JSON.parse(localStorage.getItem("userData"));
-const userName = userData?.name;
-function ViewQuote() {
+import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+import { connect } from "react-redux";
+// const userData = JSON.parse(localStorage.getItem("userData"));
+// const userName = userData?.name;
+function ViewQuote({ FirstPageAction }) {
   const { id: quoteId } = useParams();
   const [quoteData, setQuoteData] = useState();
+  const [userData1, setUserData1] = useState();
+
   const [checkAccordion, setCheckAccordion] = useState({
     acc1: false,
     acc2: false,
@@ -21,6 +25,13 @@ function ViewQuote() {
     acc7: false,
     acc8: false,
   });
+  useEffect(() => {
+    FirstPageAction(false);
+  }, []);
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    userData && setUserData1(userData);
+  }, [localStorage.getItem("userData")]);
   useEffect(() => {
     getQuote(quoteId).then((res) => {
       // console.log(res);
@@ -50,7 +61,7 @@ function ViewQuote() {
                 fontFamily: "Outfit",
               }}
             >
-              {userName}
+              {userData1?.name}
             </Typography>
             <Typography
               style={{
@@ -60,7 +71,7 @@ function ViewQuote() {
                 fontWeight: "300",
               }}
             >
-              {userData?.business_trade_name}, {userData?.city}
+              {userData1?.business_trade_name}, {userData1?.city}
             </Typography>
           </Box>
           <Box>
@@ -870,5 +881,9 @@ function ViewQuote() {
     </>
   );
 }
+const mapDispatchtoProps = (dispatch) => ({
+  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+});
 
-export default ViewQuote;
+export default connect(null, mapDispatchtoProps)(ViewQuote);
+// export default ViewQuote;

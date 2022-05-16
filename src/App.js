@@ -48,6 +48,11 @@ import SuspendedFloor from "./components/admin/setup/SuspendedFloor";
 import InternalFloor from "./components/admin/setup/InternalFloor";
 import AddEditExternalWall from "./components/admin/setup/AddEditExternalWall";
 import AddEditInternalWall from "./components/admin/setup/AddEditInternalWall";
+import AddEditRoofWall from "./components/admin/setup/AddEditRoofWall";
+import AddEditWindowType from "./components/admin/setup/AddEditWindowType";
+import AddEditSuspendedFloor from "./components/admin/setup/AddEditSuspendedFloor";
+import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor";
+
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
   return (
@@ -208,7 +213,7 @@ function PriorityComponent() {
               {/*  <Route path="createservice" element={<CreateListSubmitted />} /> */}
               <Route path="manageservice" element={<ManageServiceRequest />} />
               <Route path="accountrequest" element={<AccountRequest />} />
-              <Route path="getaquote" element={<MainQuote />} />
+              <Route path="createJob" element={<MainQuote />} />
               <Route path="myQuote" element={<MyQuote />} />
               <Route path="viewQuote/:id" element={<ViewQuote />} />
             </Route>
@@ -237,9 +242,38 @@ function PriorityComponent() {
                 element={<AddEditInternalWall />}
               />
               <Route path="roofType" element={<RoofWall />} />
+              <Route path="add_editRoofType" element={<AddEditRoofWall />} />
+              <Route
+                path="add_editRoofType/:id"
+                element={<AddEditRoofWall />}
+              />
               <Route path="windowType" element={<WindowWall />} />
+              <Route
+                path="add_editWindowType"
+                element={<AddEditWindowType />}
+              />
+              <Route
+                path="add_editWindowType/:id"
+                element={<AddEditWindowType />}
+              />
               <Route path="suspendedFloorType" element={<SuspendedFloor />} />
+              <Route
+                path="add_editSuspendedFloorType"
+                element={<AddEditSuspendedFloor />}
+              />
+              <Route
+                path="add_editSuspendedFloorType/:id"
+                element={<AddEditSuspendedFloor />}
+              />
               <Route path="internalFloorType" element={<InternalFloor />} />
+              <Route
+                path="add_editInternalFloorType"
+                element={<AddEditInternalFloor />}
+              />
+              <Route
+                path="add_editInternalFloorType/:id"
+                element={<AddEditInternalFloor />}
+              />
             </Route>
           )}
 

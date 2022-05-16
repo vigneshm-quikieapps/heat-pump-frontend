@@ -23,7 +23,7 @@ const FourthStep = (props) => {
   const [sattachments, setSattachments] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  const [flag, setFlag] = useState(false);
+  // const [flag, setFlag] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -347,11 +347,11 @@ const FourthStep = (props) => {
             </div>
           );
         })}
-      {flag && (
+      {/* {flag && (
         <span style={{ fontSize: "20px", color: "red", marginBottom: "5%" }}>
           At least 1 drawing is mandatory for each topics
         </span>
-      )}
+      )} */}
       <Box sx={{ display: "flex" }}>
         <button
           variant="contained"
@@ -368,20 +368,20 @@ const FourthStep = (props) => {
           className="btn-house Add btn-icon"
           onClick={() => {
             // flag = true;
-            if (
-              plans.length < 1 ||
-              sections.length < 1 ||
-              elevations.length < 1
-            ) {
-              setFlag(true);
-            } else {
-              setFlag(false);
-              props.getPayloadData(
-                ["drawings"],
-                [{ plans: plans, elevations: elevations, sections: sections }]
-              );
-              props.next();
-            }
+            // if (
+            //   plans.length < 1 ||
+            //   sections.length < 1 ||
+            //   elevations.length < 1
+            // ) {
+            //   setFlag(true);
+            // } else {
+            //   setFlag(false);
+            props.getPayloadData(
+              ["drawings"],
+              [{ plans: plans, elevations: elevations, sections: sections }]
+            );
+            props.next();
+            // }
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>

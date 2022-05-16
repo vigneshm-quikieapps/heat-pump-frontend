@@ -26,9 +26,10 @@ import StyledTextField from "../../../common/textfield";
 const useStyles = makeStyles({
   subtitle: {
     margin: "2.7vh 0px 0px 6.6vw",
-    fontSize: "1vw",
+    fontSize: "18px",
     width: "27vw",
     fontWeight: "600",
+    fontFamily: "Outfit",
   },
   button: {
     margin: "2.7vh 0px 0px -3.3vw ",
@@ -38,11 +39,11 @@ const useStyles = makeStyles({
     width: "211px",
     height: "59px",
     fontFamily: "Outfit",
-    borderRadius: "2vw",
+    borderRadius: "30px",
     textTransform: "none",
     position: "absolute",
 
-    fontSize: "22px",
+    fontSize: "18px",
     "&:hover": {
       textTransform: "none",
       background: "black",
@@ -60,8 +61,8 @@ const useStyles = makeStyles({
     position: "relative",
 
     textTransform: "none",
-    borderRadius: "2vw",
-    fontSize: "22px",
+    borderRadius: "30px",
+    fontSize: "18px",
 
     "&:hover": {
       textTransform: "none",
@@ -103,6 +104,7 @@ function Fpass({ emailNum, changeEmailNum }) {
           setLoader(false);
           console.log(res.otp_not_to_display);
           if (res.success) {
+            toast.success(response.data.message);
             localStorage.setItem(
               "otp_token",
               JSON.stringify(res.data.otp_token)
@@ -110,7 +112,7 @@ function Fpass({ emailNum, changeEmailNum }) {
             setLoader(false);
             navigate("/otp");
           } else {
-            toast.error(res.data.messsage);
+            toast.error(res.data.message);
           }
         })
         .catch((err) => {

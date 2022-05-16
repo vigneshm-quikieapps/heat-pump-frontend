@@ -149,7 +149,7 @@ const SixthStep = (props) => {
         inputList?.map((item, index) => (
           <div style={{ marginTop: "2.5%" }} key={`inputList${index}`}>
             <StyledTextField
-              error={item?.room_desc === "" && true}
+              // error={item?.room_desc === "" && true}
               sx={{ marginRight: "40px", width: "20%" }}
               label="Room Description"
               value={item?.room_desc || ""}
@@ -157,12 +157,12 @@ const SixthStep = (props) => {
                 setData(index, "room_desc", e.target.value);
                 setEmptyFlag(false);
               }}
-              helperText={
-                item?.room_desc === "" && "Room description in mandatory"
-              }
+              // helperText={
+              //   item?.room_desc === "" && "Room description in mandatory"
+              // }
             />
             <StyledTextField
-              error={item?.radiator_size === "" && true}
+              // error={item?.radiator_size === "" && true}
               sx={{ marginRight: "40px", width: "20%" }}
               label="Radiator (H x W in mm)"
               value={item?.radiator_size || ""}
@@ -170,12 +170,12 @@ const SixthStep = (props) => {
                 setData(index, "radiator_size", e.target.value);
                 setEmptyFlag(false);
               }}
-              helperText={
-                item?.radiator_size === "" && "Radiator size in mandatory"
-              }
+              // helperText={
+              //   item?.radiator_size === "" && "Radiator size in mandatory"
+              // }
             />
             <StyledTextField
-              error={item?.window_size === "" && true}
+              // error={item?.window_size === "" && true}
               sx={{ width: "20%" }}
               label="Window (H x W in mm)"
               value={item?.window_size || ""}
@@ -183,9 +183,9 @@ const SixthStep = (props) => {
                 setData(index, "window_size", e.target.value);
                 setEmptyFlag(false);
               }}
-              helperText={
-                item?.window_size === "" && "Window size in mandatory"
-              }
+              // helperText={
+              //   item?.window_size === "" && "Window size in mandatory"
+              // }
             />
           </div>
         ))}
@@ -199,18 +199,18 @@ const SixthStep = (props) => {
           }}
           className={classes.button}
           onClick={() => {
-            if (
-              inputList[inputList.length - 1]?.room_desc == "" ||
-              undefined ||
-              inputList[inputList.length]?.radiator_size == "" ||
-              undefined ||
-              inputList[inputList.length]?.window_size == "" ||
-              undefined
-            ) {
-              return;
-            } else {
-              onAddBtnClick();
-            }
+            // if (
+            //   inputList[inputList.length - 1]?.room_desc == "" ||
+            //   undefined ||
+            //   inputList[inputList.length]?.radiator_size == "" ||
+            //   undefined ||
+            //   inputList[inputList.length]?.window_size == "" ||
+            //   undefined
+            // ) {
+            //   return;
+            // } else {
+            onAddBtnClick();
+            // }
           }}
           variant="contained"
           startIcon={<AddIcon style={{ height: "5vh", width: "2vw" }} />}
@@ -233,21 +233,21 @@ const SixthStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            let temp = inputList.some(
-              (item, index) =>
-                item?.room_desc == "" ||
-                undefined ||
-                item?.radiator_size == "" ||
-                undefined ||
-                item?.window_size == "" ||
-                undefined
-            );
-            if (temp) {
-              return;
-            } else {
-              props.getPayloadData(["radiator_and_window_sizes"], [inputList]);
-              props.next();
-            }
+            // let temp = inputList.some(
+            //   (item, index) =>
+            //     item?.room_desc == "" ||
+            //     undefined ||
+            //     item?.radiator_size == "" ||
+            //     undefined ||
+            //     item?.window_size == "" ||
+            //     undefined
+            // );
+            // if (temp) {
+            //   return;
+            // } else {
+            props.getPayloadData(["radiator_and_window_sizes"], [inputList]);
+            props.next();
+            // }
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>

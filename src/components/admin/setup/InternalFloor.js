@@ -126,6 +126,7 @@ const InternalFloor = () => {
   };
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
+    navigate(`/admincommon/add_editInternalFloorType/${id}`);
   }, []);
 
   // const deleteHandler = useCallback(
@@ -277,7 +278,7 @@ const InternalFloor = () => {
             sx={{ background: "#fa5e00" }}
             onClick={(e) => {
               e.stopPropagation();
-              navigate(`/admincommon/add_editInternalWall/`);
+              navigate(`/admincommon/add_editInternalFloorType/`);
             }}
           />
         </Box>

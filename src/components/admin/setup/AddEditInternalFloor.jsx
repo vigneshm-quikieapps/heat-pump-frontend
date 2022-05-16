@@ -4,21 +4,19 @@ import { Box, Button } from "@material-ui/core";
 import { TailSpin } from "react-loader-spinner";
 import { Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
-import { useGetAllQuotes } from "../../../services/services";
-import { useNavigate } from "react-router-dom";
-import StyledTextField from "../../../common/textfield";
-import MenuItem from "@mui/material/MenuItem";
-import { makeStyles } from "@mui/styles";
-import { useGetFabricType } from "../../../services/services";
-import { useParams } from "react-router";
-import { toast } from "react-toastify";
-// import { getFabricType } from "../../../services/services";
 import {
   getFabricType,
   createFabricType,
   updateFabricType,
 } from "../../../services/services";
+import { useNavigate } from "react-router-dom";
+import StyledTextField from "../../../common/textfield";
+import MenuItem from "@mui/material/MenuItem";
+import { makeStyles } from "@mui/styles";
+import { useParams } from "react-router";
 import "./Style/AddEditExternalWall.css";
+import { useGetFabricType } from "../../../services/services";
+import { toast } from "react-toastify";
 import {
   IconButton,
   Container,
@@ -106,43 +104,54 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditInternalWall() {
+function AddEditInternalFloor() {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
-  const [loader, setLoader] = useState(fabricId ? true : false);
-  const [internalWallData, setInternalWallData] = useState({
+  const [innerFloorData, setInnerFloorData] = useState({
     fabric_type: "",
     status: "1",
     description: "",
-    // detail: "",
     image_url: "",
+    details: "",
+    // longness_of_suspended_floor: "",
+    // shortness_of_suspended_floor: "",
   });
+  const [cal, setCal] = useState("");
+  useEffect(() => {
+    innerFloorData?.shortness_of_suspended_floor !== "" &&
+      innerFloorData?.longness_of_suspended_floor !== "" &&
+      setCal(
+        Number(innerFloorData?.shortness_of_suspended_floor) +
+          Number(innerFloorData?.longness_of_suspended_floor)
+      );
+  }, [innerFloorData]);
+  const [loader, setLoader] = useState(fabricId ? true : false);
   const [isSavedStatus, setIsSavedStatus] = useState(false);
-  const changeHandler = (e) => {
-    let temp = { ...internalWallData };
-    temp[`${e.target.name}`] = e.target.value;
-    setInternalWallData(temp);
-  };
   useEffect(() => {
     fabricId &&
       getFabricType(fabricId).then((res) => {
-        setInternalWallData(res.data.data);
+        setInnerFloorData(res.data.data);
         setLoader(false);
       });
   }, [fabricId]);
+  const changeHandler = (e) => {
+    let temp = { ...innerFloorData };
+    temp[`${e.target.name}`] = e.target.value;
+    setInnerFloorData(temp);
+  };
   const createUpdateFabric = () => {
     fabricId
-      ? updateFabricType(fabricId, { ...internalWallData, type: 2 })
+      ? updateFabricType(fabricId, { ...innerFloorData, type: 4 })
           .then((res) => {
             toast.success(res?.data?.message);
-            navigate(`/admincommon/internalType/`);
+            navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error))
-      : createFabricType({ ...internalWallData, type: 2 })
+      : createFabricType({ ...innerFloorData, type: 4 })
           .then((res) => {
             toast.success(res?.data?.message);
-            navigate(`/admincommon/internalType/`);
+            navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error));
   };
@@ -162,7 +171,7 @@ function AddEditInternalWall() {
           marginLeft: "40px",
         }}
       >
-        Internal Wall Type
+        Internal Floor Type
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -170,15 +179,15 @@ function AddEditInternalWall() {
           <Box sx={{ display: "flex", flexDirection: "row", mb: 10 }}>
             <StyledTextField
               required
-              type="text"
-              error={internalWallData?.fabric_type === "" && isSavedStatus}
-              value={internalWallData?.fabric_type}
+              type="number"
+              error={innerFloorData?.fabric_type === "" && isSavedStatus}
+              value={innerFloorData?.fabric_type}
               onChange={changeHandler}
               name="fabric_type"
               label="Type"
               variant="outlined"
               helperText={
-                internalWallData?.fabric_type === "" &&
+                innerFloorData?.fabric_type === "" &&
                 isSavedStatus &&
                 "Type in mandatory"
               }
@@ -186,14 +195,12 @@ function AddEditInternalWall() {
             <StyledTextField
               select
               required
-              error={internalWallData?.status === "" && isSavedStatus}
+              error={innerFloorData?.status === "" && isSavedStatus}
               sx={{ width: "210px", height: "63px", ml: 5 }}
               InputLabelProps={{ style: { background: "#FFF" } }}
-              value={internalWallData?.status}
+              value={innerFloorData?.status}
               onChange={changeHandler}
               name="status"
-              //   onFocus={() => setFocused(true)}
-              //   onBlur={() => setFocused(false)}
               label="Status"
             >
               <MenuItem value={1} style={{ fontWeight: 600 }}>
@@ -210,23 +217,106 @@ function AddEditInternalWall() {
               "&:hover": { borderColor: "none" },
               mb: 10,
             }}
-            error={internalWallData?.description === "" && isSavedStatus}
-            label="Wall Construction"
+            error={innerFloorData?.description === "" && isSavedStatus}
+            label="Floor Description"
             variant="outlined"
             multiline
             rows={5}
             className={classes.rowfield}
-            value={internalWallData?.description}
+            name="description"
+            value={innerFloorData?.description}
             // placeholder="Update details"
             onChange={changeHandler}
-            name="description"
             helperText={
-              internalWallData?.description === "" &&
+              innerFloorData?.description === "" &&
               isSavedStatus &&
-              "Internal Wall in mandatory"
+              "Description in mandatory"
             }
           />
-
+          {/* <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "80%",
+              ml: 0,
+            }}
+          >
+            <StyledTextField
+              sx={{ width: "400px" }}
+              type="number"
+              //   error={innerFloorData?.fabric_type === "" && isSavedStatus}
+              value={cal || ""}
+              //   onChange={changeHandler}
+              name="cal"
+              label="Length of exposed wall (a+b)"
+              variant="outlined"
+              disabled
+              //   helperText={
+              //     innerFloorData?.fabric_type === "" &&
+              //     isSavedStatus &&
+              //     "Type in mandatory"
+              //   }
+            />
+            <StyledTextField
+              required
+              type="number"
+              error={
+                innerFloorData?.shortness_of_suspended_floor === "" &&
+                isSavedStatus
+              }
+              value={innerFloorData?.shortness_of_suspended_floor}
+              onChange={changeHandler}
+              name="shortness_of_suspended_floor"
+              label="Short a(m)"
+              variant="outlined"
+              helperText={
+                innerFloorData?.shortness_of_suspended_floor === "" &&
+                isSavedStatus &&
+                "Short a(m) in mandatory"
+              }
+            />
+            <StyledTextField
+              required
+              type="number"
+              error={
+                innerFloorData?.longness_of_suspended_floor === "" &&
+                isSavedStatus
+              }
+              value={innerFloorData?.longness_of_suspended_floor}
+              onChange={changeHandler}
+              name="longness_of_suspended_floor"
+              label="Long b(m)"
+              variant="outlined"
+              helperText={
+                innerFloorData?.longness_of_suspended_floor === "" &&
+                isSavedStatus &&
+                "Long b(m) in mandatory"
+              }
+            />
+          </Box> */}
+          <TextField
+            required
+            sx={{
+              "&:hover": { borderColor: "none" },
+              mb: 10,
+            }}
+            error={innerFloorData?.details === "" && isSavedStatus}
+            label="Floor Details"
+            variant="outlined"
+            multiline
+            rows={5}
+            name="details"
+            className={classes.rowfield}
+            value={innerFloorData?.details}
+            // placeholder="Update details"
+            onChange={changeHandler}
+            helperText={
+              innerFloorData?.details === "" &&
+              isSavedStatus &&
+              "Details are mandatory"
+            }
+          />
           <Box sx={{ mb: 15 }}>
             <Typography
               sx={{
@@ -288,7 +378,7 @@ function AddEditInternalWall() {
             <button
               className="cancel"
               onClick={() => {
-                navigate(`/admincommon/internalType/`);
+                navigate(`/admincommon/internalFloorType/`);
               }}
             >
               Discard
@@ -300,4 +390,4 @@ function AddEditInternalWall() {
   );
 }
 
-export default AddEditInternalWall;
+export default AddEditInternalFloor;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RequestACustomerAccount.css";
-import { Button, Typography } from "@material-ui/core";
+import { Button, TextField, Typography, Box } from "@mui/material";
+// import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { display } from "@mui/system";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -60,35 +61,44 @@ function RequestACustomerAccount() {
         <div className="firstHalf1">
           <div className="HPD-Existing-Logo">
             <img
-              style={{ height: "6.5vh" }}
+              style={{ height: "70px" }}
               src={require("../../../Img/HPDD.jpeg")}
             />
           </div>
-
-          <h1 className="div1">Request a Customer Account</h1>
-          <div
-            style={{
-              margin: "1.35vh 0px 0px 6.51vw",
-              width: "29vw",
-              fontSize: "17.07px",
-              fontWeight: "300",
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "20%",
+              marginTop: "20%",
             }}
           >
-            You must have a customer account with us to submit job details and
-            get a job from us.
-          </div>
+            <h1 className="div1">Request a Customer Account</h1>
+            <div
+              style={{
+                marginBottom: "10%",
+                // margin: "1.35vh 0px 0px 6.51vw",
+                width: "29vw",
+                fontSize: "17.07px",
+                fontWeight: "300",
+              }}
+            >
+              You must have a customer account with us to submit job details and
+              get a job from us.
+            </div>
 
-          <Link to="/rca1">
-            <button className="buttonstart">
-              {" "}
-              Start Now{" "}
-              <img
-                src={require("../../../Img/iconright.png")}
-                className="iconright"
-                alt=""
-              />{" "}
-            </button>
-          </Link>
+            <Link to="/rca1">
+              <button className="buttonstart">
+                {" "}
+                Start Now{" "}
+                <img
+                  src={require("../../../Img/iconright.png")}
+                  className="iconright"
+                  alt=""
+                />{" "}
+              </button>
+            </Link>
+          </Box>
 
           <img
             src={require("../../../Img/ellipse.png")}

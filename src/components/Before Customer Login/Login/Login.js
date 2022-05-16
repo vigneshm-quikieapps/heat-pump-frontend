@@ -385,9 +385,8 @@ const Login = () => {
                     fontFamily: "Outfit",
                   }}
                 >
-                  {" "}
                   Sign-Up
-                </span>{" "}
+                </span>
               </Link>
             </span>
           </div>

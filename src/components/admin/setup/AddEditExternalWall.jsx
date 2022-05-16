@@ -25,6 +25,7 @@ import {
   // Typography,
   TextField,
 } from "@mui/material";
+import AttachIcon from "../../../Img/icon attach.png";
 const useStyles = makeStyles({
   selectfield: {
     marginTop: "20px",
@@ -131,13 +132,13 @@ function AddEditExternalWall() {
   };
   const createUpdateFabric = () => {
     fabricId
-      ? updateFabricType(fabricId, { ...externalWallData, type: "1" })
+      ? updateFabricType(fabricId, { ...externalWallData, type: 1 })
           .then((res) => {
             toast.success(res?.data?.message);
             navigate(`/admincommon/ewall/`);
           })
           .catch((error) => console.log(error))
-      : createFabricType({ ...externalWallData, type: "1" })
+      : createFabricType({ ...externalWallData, type: 1 })
           .then((res) => {
             toast.success(res?.data?.message);
             navigate(`/admincommon/ewall/`);
@@ -244,9 +245,10 @@ function AddEditExternalWall() {
               "Details are mandatory"
             }
           />
-          <Box sx={{ width: "20%", mb: 15 }}>
+          <Box sx={{ mb: 15 }}>
             <Typography
               sx={{
+                width: "20%",
                 mt: 2,
                 color: "#fa5e00",
                 fontSize: "22px",
@@ -257,12 +259,44 @@ function AddEditExternalWall() {
             >
               Image
             </Typography>
-            <hr className="imagehr" />
-            <Box>
-              {/* <img
-                src={require(externalWallData?.image_url)}
-                // className={"adminSearchIcon"}
-              /> */}
+
+            <hr
+              // className="imagehr"
+              style={{
+                width: "20%",
+                backgroundColor: "#f2f3f2",
+                border: "1px solid #f2f3f2",
+                marginTop: "10px",
+              }}
+            />
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Box
+                sx={{
+                  width: "200px",
+                  mr: 10,
+                  p: 5,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontWeight: "600",
+                    fontFamily: "Outfit",
+                    fontSize: "18px",
+                  }}
+                >
+                  Not Available
+                </Typography>
+              </Box>
+              <button
+                variant="contained"
+                className="btn-house btn-icon"
+                // onClick={props.prev()}
+              >
+                <span style={{ height: "27px", width: "27px" }}>
+                  <img src={require("../../../Img/icon attach.png")} />
+                </span>
+                <span>Add Image</span>
+              </button>
             </Box>
           </Box>
           <Box>

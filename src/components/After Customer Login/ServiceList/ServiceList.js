@@ -222,7 +222,7 @@ const ServiceList = ({ FirstPageAction }) => {
                 : status === 3
                 ? "Need Your Attention"
                 : status === 4
-                ? "Resolved"
+                ? "Closed"
                 : status === 5
                 ? "HPD To Review"
                 : "-",
@@ -247,7 +247,7 @@ const ServiceList = ({ FirstPageAction }) => {
         variant="h6"
         style={{
           fontWeight: 300,
-          fontSize: "60px",
+          fontSize: "45px",
           fontFamily: "outfit",
           marginLeft: "40px",
         }}

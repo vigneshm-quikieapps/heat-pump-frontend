@@ -76,6 +76,7 @@ const EightStep = (props) => {
           onClick={() => {
             props.getPayloadData(["other_details"], [text]);
             props._addNewQuote();
+            props.next();
           }}
         >
           <span style={{ marginRight: "100px" }}>Submit</span>

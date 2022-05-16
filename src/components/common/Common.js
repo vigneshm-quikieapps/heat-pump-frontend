@@ -87,7 +87,7 @@ function Common({ firstPageStatus }) {
           />
         </div>
 
-        <Link to="getaquote" style={{ textDecoration: "none", color: "black" }}>
+        <Link to="createJob" style={{ textDecoration: "none", color: "black" }}>
           {" "}
           <li
             style={
@@ -103,7 +103,7 @@ function Common({ firstPageStatus }) {
               src={require("../../Img/sidebar1.png")}
               className="sidbar-icon"
             />{" "}
-            Get a Job{" "}
+            Create a Job{" "}
             <img
               src={require("../../Img/redbar.png")}
               height="50px"
@@ -283,9 +283,11 @@ function Common({ firstPageStatus }) {
                             >
                               <MenuItem
                                 style={{
+                                  margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
-                                  width: "150px",
+                                  // width: "150px",
+                                  justifyContent: "flex-start",
                                 }}
                                 onClick={handleClose}
                               >
@@ -293,9 +295,11 @@ function Common({ firstPageStatus }) {
                               </MenuItem>
                               <MenuItem
                                 style={{
+                                  margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
-                                  width: "150px",
+                                  // width: "150px",
+                                  justifyContent: "flex-start",
                                 }}
                                 onClick={handleClose}
                               >
@@ -303,9 +307,11 @@ function Common({ firstPageStatus }) {
                               </MenuItem>
                               <MenuItem
                                 style={{
+                                  margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
-                                  width: "150px",
+                                  // width: "150px",
+                                  justifyContent: "flex-start",
                                 }}
                                 onClick={() => toggleModal()}
                               >

@@ -444,6 +444,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       )}
       <div className="msrcontainer">
         {/* <Container> */}
+
         <div className="msrtitle">Manage Service Request</div>
         <hr className="msrcontainerhr" />
 

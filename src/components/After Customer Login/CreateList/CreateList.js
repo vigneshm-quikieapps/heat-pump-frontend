@@ -140,8 +140,8 @@ const CreateList = ({ FirstPageAction }) => {
   const [data, setData] = useState([]);
   const [focused, setFocused] = React.useState("");
   const [site, setSite] = useState("");
-  const [jobid, setJobid] = useState("");
-  const [id, setId] = useState("");
+  const [jobid, setJobid] = useState();
+  const [id, setId] = useState();
   let [page, setPage] = useState(1);
   const PER_PAGE = 3;
   const [count, setCount] = useState(1);
@@ -363,7 +363,7 @@ const CreateList = ({ FirstPageAction }) => {
       <div className="clcontainer">
         <Typography
           variant="h6"
-          style={{ fontWeight: 300, fontSize: "55px", fontFamily: "outfit" }}
+          style={{ fontWeight: 300, fontSize: "45px", fontFamily: "outfit" }}
         >
           Create a Service Request
         </Typography>
@@ -488,7 +488,7 @@ const CreateList = ({ FirstPageAction }) => {
                     margin: "8px 0 0 0",
                   }}
                   // className="step1inputfields input2"
-
+                  required
                   type="text"
                   value={title}
                   onChange={(e) => {
@@ -538,6 +538,7 @@ const CreateList = ({ FirstPageAction }) => {
                   sx={{
                     "&:hover": { borderColor: "none" },
                   }}
+                  required
                   label="Details"
                   variant="outlined"
                   multiline

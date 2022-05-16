@@ -4,9 +4,10 @@ import "./RCA3.css";
 // import { Button, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   InputAdornment,
@@ -16,6 +17,7 @@ import {
 } from "@mui/material";
 
 function RCA3() {
+  const navigate = useNavigate();
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ width: "60%" }}>
@@ -62,28 +64,23 @@ function RCA3() {
             nice Day!
           </p>
         </Box>
-        <a href="https://heatpumpdesigner.com/" target="_blank">
-          <button
-            style={{
-              width: "247px",
-              height: "65px",
-              borderRadius: "32.5px",
-              color: "#fff",
-              backgroundColor: "#000",
-              margin: "2% 0px 0px 10%",
-            }}
+        <Box sx={{ ml: 7 }}>
+          <a
+            href="https://heatpumpdesigner.com/"
+            target="_blank"
+            style={{ textDecoration: "none" }}
           >
-            {" "}
-            Check Now{" "}
-            <img
-              src={require("../../../Img/iconright.png")}
-              height="10px"
-              width={"6px"}
-              className="iconright"
-              alt=""
-            />{" "}
-          </button>{" "}
-        </a>
+            <button
+              variant="contained"
+              className="btn-house Add btn-icon"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              <span>Visit our website</span>
+            </button>
+          </a>
+        </Box>
       </Box>
       <Box class="rca1Rectangle-side">
         <img

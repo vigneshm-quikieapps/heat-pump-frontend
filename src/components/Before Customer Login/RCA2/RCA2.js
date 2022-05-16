@@ -5,6 +5,8 @@ import { makeStyles, createStyles } from "@material-ui/core";
 // import { Typography, Button } from "@material-ui/core";
 import { width } from "@mui/system";
 import Radio from "@mui/material/Radio";
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import validator from "validator";
 import {
@@ -290,23 +292,23 @@ function RCA2({
       return false;
     }
 
-    if (
-      !validator.isLength(customerDetails.business_type, {
-        min: 1,
-        max: undefined,
-      })
-    ) {
-      setInput7Error("Mandatory field cannot be empty");
-      return false;
-    }
+    // if (
+    //   !validator.isLength(customerDetails.business_type, {
+    //     min: 1,
+    //     max: undefined,
+    //   })
+    // ) {
+    //   setInput7Error("Mandatory field cannot be empty");
+    //   return false;
+    // }
     if (customerDetails.address_1 == "") {
       setInput9Error("Mandatory field cannot be empty");
       return false;
     }
-    if (customerDetails.address_2 == "") {
-      setInput10Error("Mandatory field cannot be empty");
-      return false;
-    }
+    // if (customerDetails.address_2 == "") {
+    //   setInput10Error("Mandatory field cannot be empty");
+    //   return false;
+    // }
     if (customerDetails.city == "") {
       setInput11Error("Mandatory field cannot be empty");
       return false;
@@ -316,50 +318,51 @@ function RCA2({
       return false;
     }
 
-    if (
-      customerDetails.business_registered_name != "" &&
-      customerDetails.business_trade_name != "" &&
-      customerDetails.business_type != "" &&
-      customerDetails.address_1 != "" &&
-      customerDetails.address_2 != "" &&
-      customerDetails.city != "" &&
-      customerDetails.postcode != ""
-    ) {
-      setLoader(true);
-      const data = {
-        email: customerDetails.email,
-        password: customerDetails.password,
-        name: customerDetails.name,
-        mobile: customerDetails.mobile,
-        business_registered_name: customerDetails.business_registered_name,
-        business_trade_name: customerDetails.business_trade_name,
-        business_type: customerDetails.business_type,
-        address_1: customerDetails.address_1,
-        address_2: customerDetails.address_2,
-        country: customerDetails.country,
-        city: customerDetails.city,
-        postcode: customerDetails.postcode,
-        admin: false,
-      };
-      axios
-        .post(URL + globalAPI.register, data)
-        .then((response) => {
-          if (response.data.sucess) {
-            setLoader(false);
-            toast.success("Account Request Submitted");
-            customerDetailsReset();
-            navigate("/rca3");
-          } else {
-            toast.error(response.data.message);
-          }
-        })
-        .catch((err) => {
+    // if (
+    //   customerDetails.business_registered_name != "" &&
+    //   customerDetails.business_trade_name != "" &&
+    //   customerDetails.business_type != "" &&
+    //   customerDetails.address_1 != "" &&
+    //   // customerDetails.address_2 != "" &&
+    //   customerDetails.city != "" &&
+    //   customerDetails.postcode != ""
+    // ) {
+    //   setLoader(true);
+    const data = {
+      email: customerDetails.email,
+      password: customerDetails.password,
+      name: customerDetails.name,
+      mobile: customerDetails.mobile,
+      business_registered_name: customerDetails.business_registered_name,
+      business_trade_name: customerDetails.business_trade_name,
+      business_type: customerDetails.business_type,
+      address_1: customerDetails.address_1,
+      address_2: customerDetails.address_2,
+      country: customerDetails.country,
+      city: customerDetails.city,
+      postcode: customerDetails.postcode,
+      admin: false,
+    };
+    axios
+      .post(URL + globalAPI.register, data)
+      .then((response) => {
+        if (response.data.sucess) {
           setLoader(false);
-          toast.error("Something Went Wrong");
-        });
-    } else {
-      toast.error("Something Went Wrong");
-    }
+          toast.success("Account Request Submitted");
+          customerDetailsReset();
+          navigate("/rca3");
+        } else {
+          toast.error(response?.data?.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error?.response);
+        setLoader(false);
+        toast.error(error?.response?.data?.data?.message);
+      });
+    // } else {
+    //   toast.error("Something Went Wrong");
+    // }
   };
 
   const Result = ({ result }) => {
@@ -480,9 +483,10 @@ function RCA2({
               required
               label="Business Type"
               // onBlur={blurFunc3}
-
-              onChange={changeHandler2}
+              placeholder="Business Type"
+              onChange={changeHandler}
               name="business_type"
+              value={customerDetails.business_type}
             >
               <MenuItem value="Limited Company">Limited Company</MenuItem>
               <MenuItem value="Limited Liability Patnership">
@@ -546,10 +550,9 @@ function RCA2({
                 value={searchValue}
                 onChange={changeHandler1}
                 name="startAddress"
-                required
                 label="Start typing address"
                 // variant="outlined"
-                disabled={checked === true ? true : false}
+                // disabled={checked === true ? true : false}
               />
               {/* <span className=" rca2inputError input8Error">{input8Error}</span>
             {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />} */}
@@ -640,24 +643,49 @@ function RCA2({
               </Typography>
             </Box>
           </form>
-          <Button
-            sx={{
-              fontSize: "18px",
-              fontFamily: "Outfit",
-              fontWeight: "300",
-              color: "white",
-              background: "black",
-              borderRadius: "32.5px",
-              width: "179px",
-              height: "65px",
-              margin: "20px 420px 0 60px",
-              padding: "21px 30px",
-              textTransform: "none",
-            }}
-            onClick={(e) => handleSubmit(e)}
-          >
-            Submit
-          </Button>
+          <Box sx={{ display: "flex", ml: 6 }}>
+            {/* <Link to="/signup" style={{ textDecoration: "none" }}> */}
+            <button
+              variant="contained"
+              className="btn-house btn-icon"
+              onClick={() => {
+                navigate("/rca1");
+              }}
+            >
+              <span style={{ height: "27px", width: "27px" }}>
+                <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
+              </span>
+              <span style={{ marginLeft: "100px" }}>Previous</span>
+            </button>
+            <button
+              variant="contained"
+              className="btn-house Add btn-icon"
+              onClick={(e) => handleSubmit(e)}
+            >
+              <span style={{ margin: "auto" }}>Submit</span>
+              {/* <span style={{ height: "27px", width: "27px" }}>
+                <ChevronRightSharpIcon sx={{ height: "27px", width: "27px" }} />
+              </span> */}
+            </button>
+            {/* <Button
+              sx={{
+                fontSize: "18px",
+                fontFamily: "Outfit",
+                fontWeight: "300",
+                color: "white",
+                background: "black",
+                borderRadius: "32.5px",
+                width: "179px",
+                height: "65px",
+                margin: "20px 420px 0 60px",
+                padding: "21px 30px",
+                textTransform: "none",
+              }}
+              onClick={(e) => handleSubmit(e)}
+            >
+              Submit
+            </Button> */}
+          </Box>
         </Box>
         <Box class="rca1Rectangle-side">
           <img
@@ -688,234 +716,6 @@ function RCA2({
         </div>
       </Modal>
     </>
-    // <div>
-    //    {loader && (
-    //   <div className="customLoader">
-    //       <TailSpin color="#Fa5e00" height="100" width="100" />
-    //   </div>
-    // )}
-    //   <div className="rca2" onClick={isOpend?toggleDropdown:null} >
-    //     <div className="rca2firstHalf">
-    //       <div className="rca2HPD">
-    //         <img
-    //           src={require("../../../Img/HPDD.jpeg")}
-    //           style={{height:"6.5vh"}}
-    //         />
-    //       </div>
-    //       <h1 className="rca2div1">Request a Customer Account</h1>
-
-    //       <div style={{position:"relative"}} >
-    //       <div className="rca2left-bar"></div>
-    //       <div className="rca2circle"></div>
-    //       <div className="rca2right-bar"></div>
-    //       </div>
-
-    //       <div className="rca2subtitle1">
-    //         Your Business Details
-    //       </div>
-    //       <div>
-    //       <form action="">
-    //         <input
-    //           required
-    //           className="rca2inputfields top input5"
-    //           type="text"
-    //           value={customerDetails.business_registered_name}
-    //           onChange={changeHandler}
-    //           name="business_registered_name"
-
-    //         /> <label className="input5-label" >Business Registered Name*</label>  <span className=' rca2inputError input5Error' >{input5Error}</span>
-    //         <input
-    //           required
-    //           className="rca2inputfields input6"
-    //           type="text"
-    //           value={customerDetails.business_trade_name}
-    //           onChange={changeHandler}
-    //           name="business_trade_name"
-
-    //         /> <label className="input6-label" >Business Trade Name*</label>  <span className=' rca2inputError input6Error' >{input6Error}</span>
-    //         {/* <select name="business_type" id="cars" className={`rca2inputfields input7 ${businesstypecolor&&"businesstypecolor"}`}  onChange={changeHandler2} >
-    //           <option value=""   selected hidden className="optioncolor " >Business Type*</option>
-    //           <option value="Limited Company" className="optioncolor option" >Limited Company</option>
-    //           <option value="Limited Liability Patnership" className="optioncolor option" >Limited Liability Patnership</option>
-    //           <option "Limited Liability Patnership""Limited Liability Patnership"</option>
-    //         </select>     <span className=' rca2inputError input7Error' >{input7Error}</span> */}
-    //          <div className='dropdown'>
-    //   <div className='dropdown-header' onClick={toggleDropdown}>
-    //     {selectedItem ? items.find(item => item.id == selectedItem).label : <span style={{color:"#999"}} >Business Type*</span>}
-    //     <i className={`fa fa-chevron-right icon ${isOpend && "open"}`}></i>
-    //     <img src={require("../../../Img/adminDropdown.png")} className={`commondropdown ${isOpend&&"commondropdownrotate" }`}  />
-    //   </div>
-    //   <div className={`dropdown-body ${isOpend && 'open'}`}>
-    //     {items.map(item => (
-    //       <div className="dropdown-item"  name="business_type" value={item.label}  onClick={e => {handleItemClick(e.target.id);toggleDropdown();changeHandler2(e)}} id ={item.id} key ={item.id}>
-    //        {/*  <span className={`dropdown-item-dot ${item.id == selectedItem && 'selected'}`}>• </span> */}
-    //         {item.label}
-    //       </div>
-    //     ))}
-    //   </div>
-
-    // </div>
-    //         {/* <input
-    //           required
-    //           className="rca2inputfields input7 "
-    //           type="text"
-    //           value={customerDetails.business_type}
-    //           onChange={changeHandler}
-    //           name="business_type"
-
-    //         /> <label className="input7-label" >Business Type*</label> */}
-
-    //         <div style={{display:"flex",margin:"2.7vh 0px 0px 6.51vw"}}>
-    //           <div
-
-    //             style={{
-    //               display: "inline-block",
-    //               fontSize: "1vw",
-    //               fontWeight: "300",
-    //             }}
-    //           >
-    //             Address
-    //           </div>
-
-    //             <div className="rca2subtitle3"
-    //             >
-    //               Enter Address manually
-    //             </div>
-    //             <Radio
-    //               type="radio"
-    //               name="radio"
-    //               className={classes.radio}
-
-    //               checked={checked}
-    //               onClick={() => {
-    //                 checked ? setChecked(false) : setChecked(true);
-    //                 show === false&&setShow(!show)
-    //               }}
-    //             />
-    //          {/*  </div> */}
-    //         </div>
-
-    //         <input
-    //           className="rca2inputfields input8"
-    //           type="text"
-    //           value={searchValue}
-    //           onChange={changeHandler1}
-    //           name="startAddress"
-    //           required
-    //           disabled={checked === true ? true : false}
-    //         /> <label className="input8-label" >Start typing address</label>   {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
-    //          {filtered2.length === 0 ? (
-    //    ""
-    //   ) : (
-    //     <ResultBlock results={filtered2} />
-    //   )}
-    //         <input
-    //           required
-    //           className="rca2inputfields input9"
-    //           type="text"
-    //           value={customerDetails.address_1}
-    //           onChange={changeHandler}
-    //           name="address_1"
-    //           placeholder={checked===false?"Address line 1*":""}
-    //           disabled={checked == false ? true : false}
-    //         /> {checked && <label className="input9-label" >Address line 1*</label>}   <span className=' rca2inputError input9Error' >{input9Error}</span>
-    //         <input
-    //           required
-    //           className="rca2inputfields input10"
-    //           type="text"
-    //           value={customerDetails.address_2}
-    //           onChange={changeHandler}
-    //           name="address_2"
-    //           placeholder={checked===false?"Address line 2*":""}
-    //           disabled={checked === false ? true : false}
-    //         /> {checked && <label className="input10-label" >Address line 2*</label>}  <span className=' rca2inputError input10Error' >{input10Error}</span>
-    //         <input
-    //           required
-    //           className="rca2inputfields input11"
-    //           type="text"
-    //           value={customerDetails.city}
-    //           onChange={changeHandler}
-    //           name="city"
-    //           placeholder={checked===false?"City/Town*":""}
-    //           disabled={checked === false ? true : false}
-    //         /> {checked &&<label className="input11-label" >City/Town*</label>}   <span className=' rca2inputError input11Error' >{input11Error}</span>
-    //         <input
-    //           required
-    //           value={customerDetails.postcode}
-    //           className="rca2inputfields top input12"
-    //           type="text"
-    //           onChange={changeHandler}
-    //           name="postcode"
-    //           placeholder={checked===false?"PostCode*":""}
-    //           disabled={checked === false ? true : false}
-    //         /> {checked &&<label className="input12-label" >PostCode*</label>}     <span className=' rca2inputError input12Error' >{input12Error}</span>
-    //         <img
-    //         src={require("../../../Img/ellipse1.png")}
-    //         /* height="360px"
-    //         width={"250px"} */
-    //         style={{height:"48.32vh",width:"16.3vw"}}
-    //         alt=""
-    //         className="rca2ellipse1"
-    //       />
-
-    //       {/*   <Button
-    //           type="submit"
-    //           className={classes.button}
-    //           onClick={(e) => handleSubmit(e)}
-    //         >
-    //           Submit
-    //         </Button> */}
-    //         <div>
-    //         <Button
-    //           className={classes.buttons}
-    //           style={{ paddingLeft: "3.255vw", position: "relative" }}
-    //           onClick={()=>navigate("/rca1")}
-    //         >
-    //           Previous
-    //         </Button>
-    //         <ArrowBackIosNewIcon
-    //           style={{
-    //             position: "relative",
-    //             right: "11.06vw",
-    //             top: "1.6vh",
-    //             fontSize: "1vw",
-    //           }}
-    //         />
-    //           <Button
-    //             className={classes.button}
-    //             onClick={(e) => handleSubmit(e)}
-    //           >
-    //             Submit
-    //           </Button>
-
-    //       </div>
-    //       </form>
-    //       </div>
-    //     </div>
-
-    //     <div className="rca2Rectangle-side">
-    //       {" "}
-    //       <img
-    //         src={require("../../../Img/RCA2.png")}
-    //         className="rca2couplesideImg"
-    //       />{" "}
-    //     </div>
-    //   </div>
-    //   <Modal
-    // isOpen={isOpen}
-    // className="myWarningModal"
-    // overlayClassName={"myWarningOverlay"}
-    // closeTimeoutMS={500}
-    // >
-    //   <div>
-
-    //     <h2 style={{textAlign:"center",color:"#fa5e00",marginTop:"30px"}} >Warning!</h2>
-    //     <div style={{textAlign:"center",marginTop:"20px"}} >Mandatory fields cannot be Empty</div>
-    //     <button className='ModalButton' onClick={() => setIsOpen(false)} >OK</button>
-
-    //   </div>
-    // </Modal>
-    // </div>
   );
 }
 const mapStateToProps = (state) => ({

@@ -14,6 +14,7 @@ import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { useDeleteExternalId } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -33,7 +34,7 @@ const RoofWall = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [dataArr, setDataArr] = useState([]);
-
+  const navigate = useNavigate();
   const _DATA = usePagination(data, PER_PAGE);
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
@@ -54,6 +55,7 @@ const RoofWall = () => {
 
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
+    navigate(`/admincommon/add_editRoofType/${id}`);
   }, []);
 
   const deleteHandler = useCallback(
@@ -259,7 +261,13 @@ const RoofWall = () => {
             Roof Types List
             <hr className="ewallhr" />
           </Typography>
-          <AddButton sx={{ background: "#fa5e00" }} />
+          <AddButton
+            sx={{ background: "#fa5e00" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admincommon/add_editRoofType/`);
+            }}
+          />
         </Box>
 
         <Box sx={{ marginTop: "1%" }}>

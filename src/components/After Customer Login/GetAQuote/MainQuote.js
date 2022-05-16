@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 });
 
 const MainQuote = () => {
-  const [currentStep, setCurrentStep] = useState(3);
+  const [currentStep, setCurrentStep] = useState(0);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [payload, setPayload] = useState({});
@@ -153,7 +153,7 @@ const MainQuote = () => {
   console.log(payload);
   return (
     <React.Fragment>
-      <h1 className="get-a-quote">Get a Job</h1>
+      <h1 className="get-a-quote">Create a Job</h1>
       <hr className="quote-hr" />
 
       {currentStep === 0 && (

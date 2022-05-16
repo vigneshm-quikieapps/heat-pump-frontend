@@ -14,6 +14,7 @@ import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
 import { useDeleteExternalId } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const SuspendedFloor = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [dataArr, setDataArr] = useState([]);
+  const navigate = useNavigate();
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
@@ -53,6 +55,7 @@ const SuspendedFloor = () => {
   };
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
+    navigate(`/admincommon/add_editSuspendedFloorType/${id}`);
   }, []);
 
   const deleteHandler = useCallback(
@@ -267,7 +270,13 @@ const SuspendedFloor = () => {
             Suspended Floor Types List
             <hr className="ewallhr" />
           </Typography>
-          <AddButton sx={{ background: "#fa5e00" }} />
+          <AddButton
+            sx={{ background: "#fa5e00" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/admincommon/add_editSuspendedFloorType/`);
+            }}
+          />
         </Box>
 
         <Box sx={{ marginTop: "1%" }}>
