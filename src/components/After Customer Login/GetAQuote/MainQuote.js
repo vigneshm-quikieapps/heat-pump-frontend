@@ -153,7 +153,7 @@ const MainQuote = () => {
   console.log(payload);
   return (
     <React.Fragment>
-      <h1 className="get-a-quote">Create a Job</h1>
+      <h1 className="get-a-quote">Book a Job</h1>
       <hr className="quote-hr" />
 
       {currentStep === 0 && (

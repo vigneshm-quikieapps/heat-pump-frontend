@@ -103,7 +103,7 @@ function Common({ firstPageStatus }) {
               src={require("../../Img/sidebar1.png")}
               className="sidbar-icon"
             />{" "}
-            Create a Job{" "}
+            Book a Job{" "}
             <img
               src={require("../../Img/redbar.png")}
               height="50px"
