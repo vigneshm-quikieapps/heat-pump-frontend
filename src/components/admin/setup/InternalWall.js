@@ -34,7 +34,7 @@ const InternalWall = () => {
   const _DATA = usePagination(data, PER_PAGE);
   const navigate = useNavigate();
   const [type, setType] = useState("");
-  const [wallConstruction, setWallConstruction] = useState("");
+  const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
 
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
@@ -122,7 +122,7 @@ const InternalWall = () => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=2&f_ftype=${type}&f_wc=${wallConstruction}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=2&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
         config
       )
       .then((response) => {
@@ -201,16 +201,16 @@ const InternalWall = () => {
             InputLabelProps={{ style: { background: "#FFF" } }}
             value={type}
             onChange={(e) => setType(e.target.value)}
-            size="small"
+            // size="small"
           />
 
           <StyledTextField
             sx={{ width: "275px", height: "63px" }}
             label="Internal Wall "
             InputLabelProps={{ style: { background: "#FFF" } }}
-            value={wallConstruction}
-            onChange={(e) => setWallConstruction(e.target.value)}
-            size="small"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            // size="small"
           />
           <FormControl>
             <StyledTextField

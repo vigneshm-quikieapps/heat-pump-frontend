@@ -21,7 +21,7 @@ import Stack from "@mui/material/Stack";
 function Common({ firstPageStatus }) {
   const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
-  const [display, setDisplay] = useState("redbar1");
+  const [display, setDisplay] = useState("redbar3");
   const [logout, setLogout] = useState(false);
 
   const userInfo = JSON.parse(localStorage.getItem("userData"));
@@ -222,7 +222,7 @@ function Common({ firstPageStatus }) {
                     // bottom: "2vh",
                     // top: "3vh",
                     // left: "2.55vw",
-                    marginLeft: "17px",
+                    marginLeft: "45px",
                     color: "rgba(0, 0, 0, 0.6)",
                     fontSize: "18px",
                     fontWeight: "600",

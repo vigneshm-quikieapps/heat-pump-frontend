@@ -314,7 +314,7 @@ const FirstStep = ({
         >
           <StyledTextField
             sx={{ mb: 1.5 }}
-            required
+            // required
             // error={customerDetails.address_1 === "" ? true : false}
             type="text"
             variant="outlined"
@@ -346,7 +346,7 @@ const FirstStep = ({
           />
           <StyledTextField
             sx={{ mb: 1.5 }}
-            required
+            // required
             // className="step1inputfields input2"
             // error={customerDetails.city === "" ? true : false}
             type="text"
@@ -365,7 +365,7 @@ const FirstStep = ({
           />
           <StyledTextField
             sx={{ mb: 1.5 }}
-            required
+            // required
             // error={customerDetails.postcode === "" ? true : false}
             value={customerDetails.postcode}
             type="text"

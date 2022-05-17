@@ -193,6 +193,7 @@ const SixthStep = (props) => {
       <Typography>
         <Button
           sx={{
+            textTransform: "none",
             "&:hover": {
               background: "#000",
             },

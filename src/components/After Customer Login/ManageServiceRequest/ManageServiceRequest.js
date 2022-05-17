@@ -133,7 +133,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
   useEffect(() => {
     fetchData();
     fetchSeconddata();
-  }, []);
+  }, [state]);
   const toggleModal = (e) => {
     e.preventDefault();
     setOpenupdate(!openupdate);

@@ -281,16 +281,36 @@ const CreateList = ({ FirstPageAction }) => {
   const uploadMapping = (e) => {
     e.preventDefault();
     if (servicetype == "") {
-      setError1("Service Type cannot be Empty");
+      setError1("Service Type cannot be empty");
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     }
     if (title == "") {
-      setError2("Title cannot be Empty");
+      setError2("Title cannot be empty");
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     }
     if (details == "") {
-      setError3("Details cannot be Empty");
+      setError3("Details cannot be empty");
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     }
     if (priority == "") {
       setError4("Please choose priority");
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
       return false;
     }
 
@@ -369,7 +389,7 @@ const CreateList = ({ FirstPageAction }) => {
         </Typography>
         <hr className="clcontainerhr" />
         {!submitted && (
-          <Card>
+          <Card sx={{ ml: 0 }}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <Stack>
@@ -706,7 +726,7 @@ const CreateList = ({ FirstPageAction }) => {
                 {/* <hr className="subhrFirst" /> */}
 
                 <div className="subtext">
-                  Your enquiry submission is successful. Ref:{srno}. You can
+                  Your enquiry submission is successful. Ref: {srno}. You can
                   track the status of your service request using{" "}
                   <Link to="/common/servicerequest" className="subspan">
                     {" "}

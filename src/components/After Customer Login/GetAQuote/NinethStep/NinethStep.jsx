@@ -10,10 +10,11 @@ import { makeStyles } from "@mui/styles";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
-
+import { useNavigate } from "react-router-dom";
 const useStyles = makeStyles({});
 
 const NinethStep = (props) => {
+  const navigate = useNavigate();
   //   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   //   const [text, setText] = useState("");
@@ -64,8 +65,8 @@ const NinethStep = (props) => {
             textAlign: "left",
           }}
         >
-          Your job request submission is successful. Ref: SR12345678. You can
-          track the status of your job using View Job Status.
+          Your job request submission is successful. Ref: JR12345678. You can
+          track the status of your job using view job status.
         </Typography>
       </Box>
       <button
@@ -73,12 +74,11 @@ const NinethStep = (props) => {
         variant="contained"
         className="btn-house Add btn-icon"
         onClick={() => {
-          props._jumpToFirst();
-          //   props.getPayloadData(["other_details"], [text]);
-          //   props._addNewQuote();
+          // props._jumpToFirst();
+          navigate("/common/myQuote");
         }}
       >
-        <span>Get a new Job</span>
+        <span>My Job</span>
       </button>
     </Card>
   );

@@ -33,7 +33,7 @@ const ExternalWall = () => {
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [type, setType] = useState("");
-  const [wallConstruction, setWallConstruction] = useState("");
+  const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
@@ -97,12 +97,12 @@ const ExternalWall = () => {
       headers: { Authorization: `Bearer ${token}` },
     };
     setLoader(true);
-
+    // &f_desc=${description}
     axios
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_wc=${wallConstruction}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
         config
       )
       .then((response) => {
@@ -161,20 +161,18 @@ const ExternalWall = () => {
   };
 
   const tableRows = useMemo(() => {
-    return box.map(
-      ({ fabric_type, _id, wall_construction, details, status }) => ({
-        items: [
-          fabric_type,
-          wall_construction,
-          details,
-          status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
-          <Actions
-            onDelete={(e) => deleteHandler(e, _id)}
-            onEdit={(e) => editHandler(e, _id)}
-          />,
-        ],
-      })
-    );
+    return box.map(({ fabric_type, _id, description, details, status }) => ({
+      items: [
+        fabric_type,
+        description,
+        details,
+        status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
+        <Actions
+          onDelete={(e) => deleteHandler(e, _id)}
+          onEdit={(e) => editHandler(e, _id)}
+        />,
+      ],
+    }));
   }, [box, editHandler, deleteHandler]);
   const handleChange = (e, p) => {
     setPage(p);
@@ -220,22 +218,23 @@ const ExternalWall = () => {
           >
             Search By
           </Typography>
+
           <StyledTextField
             sx={{ width: "210px", height: "63px" }}
             label="Type"
             InputLabelProps={{ style: { background: "#FFF" } }}
             value={type}
             onChange={(e) => setType(e.target.value)}
-            size="small"
+            // size="small"
           />
 
           <StyledTextField
             sx={{ width: "275px", height: "63px" }}
             label="Wall Construction"
             InputLabelProps={{ style: { background: "#FFF" } }}
-            value={wallConstruction}
-            onChange={(e) => setWallConstruction(e.target.value)}
-            size="small"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            // size="small"
           />
           <FormControl>
             <StyledTextField

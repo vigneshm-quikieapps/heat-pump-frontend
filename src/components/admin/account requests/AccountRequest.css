@@ -4,8 +4,8 @@
 .arcontainer {
   padding: 1.34vh 0.66vw !important;
   display: inline-block;
-  margin-left: 2.6vw;
-  margin-right: 3.3vw;
+  /* margin-left: 2.6vw;
+  margin-right: 3.3vw; */
   width: 90%;
 }
 .arcontainerhr {

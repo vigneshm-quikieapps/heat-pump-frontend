@@ -131,19 +131,32 @@ function AddEditExternalWall() {
     setExternalWallData(temp);
   };
   const createUpdateFabric = () => {
-    fabricId
-      ? updateFabricType(fabricId, { ...externalWallData, type: 1 })
-          .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/ewall/`);
-          })
-          .catch((error) => console.log(error))
-      : createFabricType({ ...externalWallData, type: 1 })
-          .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/ewall/`);
-          })
-          .catch((error) => console.log(error));
+    if (
+      externalWallData.fabric_type == "" ||
+      externalWallData.description == "" ||
+      externalWallData.details == ""
+    ) {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+      return;
+    } else {
+      fabricId
+        ? updateFabricType(fabricId, { ...externalWallData, type: 1 })
+            .then((res) => {
+              toast.success(res?.data?.message);
+              // navigate(`/admincommon/ewall/`);
+            })
+            .catch((error) => console.log(error))
+        : createFabricType({ ...externalWallData, type: 1 })
+            .then((res) => {
+              toast.success(res?.data?.message);
+              // navigate(`/admincommon/ewall/`);
+            })
+            .catch((error) => console.log(error));
+    }
   };
   return (
     <>

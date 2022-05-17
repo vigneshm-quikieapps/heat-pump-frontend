@@ -199,7 +199,7 @@ const WindowWall = () => {
             InputLabelProps={{ style: { background: "#FFF" } }}
             value={type}
             onChange={(e) => setType(e.target.value)}
-            size="small"
+            // size="small"
           />
 
           <StyledTextField
@@ -208,7 +208,7 @@ const WindowWall = () => {
             InputLabelProps={{ style: { background: "#FFF" } }}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            size="small"
+            // size="small"
           />
           <FormControl>
             <StyledTextField

@@ -163,7 +163,7 @@ function AdminCommon({ adminFirstPageStatus }) {
               src={require("../../Img/sidebaradmin2.png")}
               className="adminsidbar-icon"
             />
-            <span style={{ marginRight: "20%" }}>Job Requests</span>
+            <span style={{ marginRight: "35%" }}>Job Requests</span>
 
             <img
               src={require("../../Img/redbar.png")}
@@ -242,7 +242,7 @@ function AdminCommon({ adminFirstPageStatus }) {
               src={require("../../Img/sidebaradmin41.jpg")}
               className="adminsidbar-icon"
             />{" "}
-            <span style={{ marginRight: "20%" }}>Business Users</span>
+            <span style={{ marginRight: "27%" }}>Business Users</span>
             <img
               src={require("../../Img/redbar.png")}
               height="70px"
@@ -279,6 +279,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                         width: "100%",
                         fontWeight: "600",
                         fontFamily: "Outfit",
+                        marginLeft: "15px",
                       }
                     : {
                         fontSize: "18px",
@@ -286,6 +287,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                         width: "100%",
                         fontWeight: "300",
                         fontFamily: "Outfit",
+                        marginLeft: "15px",
                       }
                 }
               >
@@ -540,7 +542,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                     // fontSize: "18px",
                     // fontWeight: "600",
                     // float: "right",
-                    marginLeft: "30px",
+                    marginLeft: "70px",
                     color: "rgba(0, 0, 0, 0.6)",
                     fontSize: "18px",
                     fontWeight: "600",

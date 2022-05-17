@@ -118,9 +118,9 @@ body {
 .rca1couplesideImg {
   width: 30vw;
   /* height: 62.4vh; */
-  margin-left: 0vw;
+  /* margin-left: 0vw;
   position: absolute;
-  bottom: 0.15vh;
+  bottom: 0.15vh; */
 }
 .continue {
   width: 100px;
