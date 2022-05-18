@@ -12,17 +12,18 @@ import "./ExternalWall.css";
 import usePagination from "../../Pagination/Pagination";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { useDeleteExternalId } from "../../../services/services";
+import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { connect } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
   },
 });
 
-const SuspendedFloor = () => {
+const SuspendedFloor = ({ adminFirstPageAction }) => {
   const [loader, setLoader] = useState(false);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
@@ -45,6 +46,9 @@ const SuspendedFloor = () => {
         setError(error);
       },
     });
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
   const setDataOfTens = (page) => {
     let temp;
     if (dataArr?.atlength > 10) {
@@ -58,13 +62,27 @@ const SuspendedFloor = () => {
     navigate(`/admincommon/add_editSuspendedFloorType/${id}`);
   }, []);
 
-  const deleteHandler = useCallback(
-    (e, id) => {
-      e.stopPropagation();
-      deleteExternalId(id);
-    },
-    [deleteExternalId]
-  );
+  // const deleteHandler = useCallback(
+  //   (e, id) => {
+  //     e.stopPropagation();
+  //     deleteExternalId(id);
+  //   },
+  //   [deleteExternalId]
+  // );
+  const deleteHandler = (e, id) => {
+    e.stopPropagation();
+    delFabric(id)
+      .then((res) => {
+        console.log(res);
+        toast.success("Fabric deleted successfully");
+        fetchData();
+      })
+
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
+    // deleteExternalId(id);
+  };
 
   const tableRows = useMemo(() => {
     return box.map(
@@ -237,6 +255,9 @@ const SuspendedFloor = () => {
               <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
+              <MenuItem value={0} style={{ fontWeight: 600 }}>
+                All
+              </MenuItem>
             </StyledTextField>
           </FormControl>
 
@@ -322,5 +343,9 @@ const SuspendedFloor = () => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default SuspendedFloor;
+export default connect(null, mapDispatchToProps)(SuspendedFloor);
+// export default SuspendedFloor;

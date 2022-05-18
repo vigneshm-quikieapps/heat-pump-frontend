@@ -82,12 +82,12 @@ function Fpass({ emailNum, changeEmailNum }) {
     e.preventDefault();
 
     if (emailNum === "") {
-      setinput13Error("Please enter the Email Address");
+      setinput13Error("Please enter an email address");
       return false;
     }
 
     if (!validator.isEmail(emailNum)) {
-      setinput13Error("Invalid Email Address");
+      setinput13Error("Invalid email address");
       return false;
     }
 

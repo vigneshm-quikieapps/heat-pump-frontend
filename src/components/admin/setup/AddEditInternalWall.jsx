@@ -27,6 +27,8 @@ import {
   // Typography,
   TextField,
 } from "@mui/material";
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 const useStyles = makeStyles({
   selectfield: {
     marginTop: "20px",
@@ -106,7 +108,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditInternalWall() {
+function AddEditInternalWall({ adminFirstPageAction }) {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -125,6 +127,9 @@ function AddEditInternalWall() {
     setInternalWallData(temp);
   };
   useEffect(() => {
+    adminFirstPageAction(false);
+  }, []);
+  useEffect(() => {
     fabricId &&
       getFabricType(fabricId).then((res) => {
         setInternalWallData(res.data.data);
@@ -135,14 +140,14 @@ function AddEditInternalWall() {
     fabricId
       ? updateFabricType(fabricId, { ...internalWallData, type: 2 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/internalType/`);
+            toast.success("This fabric updated successfully");
+            // navigate(`/admincommon/internalType/`);
           })
           .catch((error) => console.log(error))
       : createFabricType({ ...internalWallData, type: 2 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/internalType/`);
+            toast.success("New fabric created successfully");
+            // navigate(`/admincommon/internalType/`);
           })
           .catch((error) => console.log(error));
   };
@@ -299,5 +304,9 @@ function AddEditInternalWall() {
     </>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default AddEditInternalWall;
+export default connect(null, mapDispatchToProps)(AddEditInternalWall);
+// export default AddEditInternalWall;

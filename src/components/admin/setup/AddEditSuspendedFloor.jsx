@@ -25,6 +25,8 @@ import {
   // Typography,
   TextField,
 } from "@mui/material";
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 const useStyles = makeStyles({
   selectfield: {
     marginTop: "20px",
@@ -104,7 +106,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditSuspendedFloor() {
+function AddEditSuspendedFloor({ adminFirstPageAction }) {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -125,6 +127,9 @@ function AddEditSuspendedFloor() {
           Number(suspendedFloorData?.longness_of_suspended_floor)
       );
   }, [suspendedFloorData]);
+  useEffect(() => {
+    adminFirstPageAction(false);
+  }, []);
   const [loader, setLoader] = useState(fabricId ? true : false);
   const [isSavedStatus, setIsSavedStatus] = useState(false);
   useEffect(() => {
@@ -141,16 +146,16 @@ function AddEditSuspendedFloor() {
   };
   const createUpdateFabric = () => {
     fabricId
-      ? updateFabricType(fabricId, { ...suspendedFloorData, type: 4 })
+      ? updateFabricType(fabricId, { ...suspendedFloorData, type: 5 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/suspendedFloorType/`);
+            toast.success("This fabric updated successfully");
+            // navigate(`/admincommon/suspendedFloorType/`);
           })
           .catch((error) => console.log(error))
-      : createFabricType({ ...suspendedFloorData, type: 4 })
+      : createFabricType({ ...suspendedFloorData, type: 5 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/suspendedFloorType/`);
+            toast.success("New fabric created successfully");
+            // navigate(`/admincommon/suspendedFloorType/`);
           })
           .catch((error) => console.log(error));
   };
@@ -388,5 +393,9 @@ function AddEditSuspendedFloor() {
     </>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default AddEditSuspendedFloor;
+export default connect(null, mapDispatchToProps)(AddEditSuspendedFloor);
+// export default AddEditSuspendedFloor;

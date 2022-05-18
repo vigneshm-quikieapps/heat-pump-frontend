@@ -137,7 +137,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
   const toggleModal = (e) => {
     e.preventDefault();
     setOpenupdate(!openupdate);
-    setText("");
+    // setText("");
   };
 
   const togglesrModal = () => {
@@ -292,10 +292,10 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          toggleModal(e);
           if (res.success) {
             fetchData();
             fetchSeconddata();
+            toggleModal();
             toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
@@ -303,7 +303,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         })
         .catch((err) => {
           setLoader(false);
-          toggleModal(e);
+          // toggleModal();
           toast.error("Something Went Wrong");
         });
     } else {
@@ -542,7 +542,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             <div
               style={{ padding: "20px", display: "flex", flexDirection: "row" }}
             >
-              <button className="msrbutton1" onClick={(e) => toggleModal(e)}>
+              <button className="msrbutton1" onClick={toggleModal}>
                 Add Update
               </button>
               <button
@@ -633,7 +633,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         <div>
           <form>
             <div className="dialogclose">
-              <IconButton onClick={(e) => toggleModal(e)}>
+              <IconButton onClick={toggleModal}>
                 <CloseIcon sx={{ color: "black" }}></CloseIcon>
               </IconButton>
             </div>
@@ -648,10 +648,11 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             </div>
             <div className="dialog-row2">
               <TextField
+                // required
                 sx={{
                   "&:hover": { borderColor: "none" },
                 }}
-                label="Details"
+                label="Details*"
                 variant="outlined"
                 multiline
                 rows={5}
@@ -681,7 +682,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                 <button className="submitbtn" onClick={(e) => addUpdate(e)}>
                   Submit
                 </button>
-                <button className="closebtn" onClick={() => toggleModal()}>
+                <button className="closebtn" onClick={toggleModal}>
                   Cancel
                 </button>
               </div>
@@ -713,6 +714,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           </div>
           <div className="dialog-row2">
             <TextField
+              required
               sx={{
                 "&:hover": { borderColor: "none" },
               }}

@@ -184,7 +184,7 @@ function RCA2({
   const [input6Error, setInput6Error] = useState("");
   const [input7Error, setInput7Error] = useState("");
   const [input8Error, setInput8Error] = useState(
-    "mandatory field cannot be empty"
+    "Mandatory field cannot be empty"
   );
   const [input9Error, setInput9Error] = useState("");
   const [input10Error, setInput10Error] = useState("");

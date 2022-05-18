@@ -12,16 +12,17 @@ import "./ExternalWall.css";
 import usePagination from "../../Pagination/Pagination";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { useDeleteExternalId } from "../../../services/services";
+import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { connect } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
   },
 });
-const RoofWall = () => {
+const RoofWall = ({ adminFirstPageAction }) => {
   const [loader, setLoader] = useState(false);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
@@ -52,19 +53,35 @@ const RoofWall = () => {
       setBox(temp);
     }
   };
-
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
   const editHandler = useCallback((e, id) => {
     e.stopPropagation();
     navigate(`/admincommon/add_editRoofType/${id}`);
   }, []);
 
-  const deleteHandler = useCallback(
-    (e, id) => {
-      e.stopPropagation();
-      deleteExternalId(id);
-    },
-    [deleteExternalId]
-  );
+  // const deleteHandler = useCallback(
+  //   (e, id) => {
+  //     e.stopPropagation();
+  //     deleteExternalId(id);
+  //   },
+  //   [deleteExternalId]
+  // );
+  const deleteHandler = (e, id) => {
+    e.stopPropagation();
+    delFabric(id)
+      .then((res) => {
+        console.log(res);
+        toast.success("Fabric deleted successfully");
+        fetchData();
+      })
+
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
+    // deleteExternalId(id);
+  };
   const searchfilter = () => {
     // setStatus("1,2,3,4");
     setPage(1);
@@ -129,7 +146,9 @@ const RoofWall = () => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=3&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=3&f_ftype=${type}&f_desc=${description}&f_status=${
+            status === 0 ? "" : status
+          }`,
         config
       )
       .then((response) => {
@@ -228,6 +247,9 @@ const RoofWall = () => {
               <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
+              <MenuItem value={0} style={{ fontWeight: 600 }}>
+                All
+              </MenuItem>
             </StyledTextField>
           </FormControl>
 
@@ -313,5 +335,9 @@ const RoofWall = () => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default RoofWall;
+export default connect(null, mapDispatchToProps)(RoofWall);
+// export default RoofWall;

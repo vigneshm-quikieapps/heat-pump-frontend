@@ -325,6 +325,10 @@ const AccountRequest = ({ adminFirstPageAction }) => {
                 {" "}
                 Active{" "}
               </MenuItem>
+              {/* <MenuItem value="0" style={{ fontWeight: 600 }}>
+                {" "}
+                All{" "}
+              </MenuItem> */}
             </StyledTextField>
 
             <StyledTextField

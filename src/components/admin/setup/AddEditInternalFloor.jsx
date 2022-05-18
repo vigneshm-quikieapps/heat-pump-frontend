@@ -17,6 +17,8 @@ import { useParams } from "react-router";
 import "./Style/AddEditExternalWall.css";
 import { useGetFabricType } from "../../../services/services";
 import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 import {
   IconButton,
   Container,
@@ -104,7 +106,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditInternalFloor() {
+function AddEditInternalFloor({ adminFirstPageAction }) {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -118,6 +120,9 @@ function AddEditInternalFloor() {
     // shortness_of_suspended_floor: "",
   });
   const [cal, setCal] = useState("");
+  useEffect(() => {
+    adminFirstPageAction(false);
+  }, []);
   useEffect(() => {
     innerFloorData?.shortness_of_suspended_floor !== "" &&
       innerFloorData?.longness_of_suspended_floor !== "" &&
@@ -144,14 +149,14 @@ function AddEditInternalFloor() {
     fabricId
       ? updateFabricType(fabricId, { ...innerFloorData, type: 4 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/internalFloorType/`);
+            toast.success("This fabric updated successfully");
+            // navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error))
       : createFabricType({ ...innerFloorData, type: 4 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/internalFloorType/`);
+            toast.success("New fabric created successfully");
+            // navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error));
   };
@@ -389,5 +394,9 @@ function AddEditInternalFloor() {
     </>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default AddEditInternalFloor;
+export default connect(null, mapDispatchToProps)(AddEditInternalFloor);
+// export default AddEditInternalFloor;

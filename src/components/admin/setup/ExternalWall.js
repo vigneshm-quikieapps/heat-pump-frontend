@@ -15,13 +15,17 @@ import { toast } from "react-toastify";
 import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { connect } from "react-redux";
+
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
   },
 });
 
-const ExternalWall = () => {
+const ExternalWall = ({ adminFirstPageAction }) => {
   const [box, setBox] = useState([]);
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState([]);
@@ -55,6 +59,9 @@ const ExternalWall = () => {
       setBox(temp);
     }
   };
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
@@ -102,7 +109,9 @@ const ExternalWall = () => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_desc=${description}&f_status=${
+            status === 0 ? "" : status
+          }`,
         config
       )
       .then((response) => {
@@ -152,8 +161,10 @@ const ExternalWall = () => {
     delFabric(id)
       .then((res) => {
         console.log(res);
-        toast.success(res?.data?.message);
+        toast.success("Fabric deleted successfully");
+        fetchData();
       })
+
       .catch((error) => {
         toast.error("Something went wrong");
       });
@@ -253,6 +264,9 @@ const ExternalWall = () => {
               <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
+              <MenuItem value={0} style={{ fontWeight: 600 }}>
+                All
+              </MenuItem>
             </StyledTextField>
           </FormControl>
 
@@ -339,4 +353,9 @@ const ExternalWall = () => {
   );
 };
 
-export default ExternalWall;
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
+
+export default connect(null, mapDispatchToProps)(ExternalWall);
+// export default ExternalWall;

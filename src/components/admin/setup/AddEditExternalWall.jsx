@@ -16,6 +16,8 @@ import { makeStyles } from "@mui/styles";
 import { useParams } from "react-router";
 import "./Style/AddEditExternalWall.css";
 import { useGetFabricType } from "../../../services/services";
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 import { toast } from "react-toastify";
 import {
   IconButton,
@@ -105,7 +107,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditExternalWall() {
+function AddEditExternalWall({ adminFirstPageAction }) {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -118,6 +120,9 @@ function AddEditExternalWall() {
   });
   const [loader, setLoader] = useState(fabricId ? true : false);
   const [isSavedStatus, setIsSavedStatus] = useState(false);
+  useEffect(() => {
+    adminFirstPageAction(false);
+  }, []);
   useEffect(() => {
     fabricId &&
       getFabricType(fabricId).then((res) => {
@@ -146,13 +151,13 @@ function AddEditExternalWall() {
       fabricId
         ? updateFabricType(fabricId, { ...externalWallData, type: 1 })
             .then((res) => {
-              toast.success(res?.data?.message);
+              toast.success("This fabric updated successfully");
               // navigate(`/admincommon/ewall/`);
             })
             .catch((error) => console.log(error))
         : createFabricType({ ...externalWallData, type: 1 })
             .then((res) => {
-              toast.success(res?.data?.message);
+              toast.success("New fabric created successfully");
               // navigate(`/admincommon/ewall/`);
             })
             .catch((error) => console.log(error));
@@ -337,4 +342,9 @@ function AddEditExternalWall() {
   );
 }
 
-export default AddEditExternalWall;
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
+
+export default connect(null, mapDispatchToProps)(AddEditExternalWall);
+// export default AddEditExternalWall;

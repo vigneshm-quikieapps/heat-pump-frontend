@@ -12,16 +12,18 @@ import "./ExternalWall.css";
 import usePagination from "../../Pagination/Pagination";
 import { TailSpin } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import { useDeleteExternalId } from "../../../services/services";
+import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { connect } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
   },
 });
 
-const InternalWall = () => {
+const InternalWall = ({ adminFirstPageAction }) => {
   const [loader, setLoader] = useState(false);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
@@ -44,6 +46,9 @@ const InternalWall = () => {
         setError(error);
       },
     });
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
   const setDataOfTens = (page) => {
     let temp;
     if (dataArr?.atlength > 10) {
@@ -57,19 +62,34 @@ const InternalWall = () => {
     navigate(`/admincommon/add_editInternalWall/${id}`);
   }, []);
 
-  const deleteHandler = useCallback(
-    (e, id) => {
-      e.stopPropagation();
-      deleteExternalId(id);
-    },
-    [deleteExternalId]
-  );
+  // const deleteHandler = useCallback(
+  //   (e, id) => {
+  //     e.stopPropagation();
+  //     deleteExternalId(id);
+  //   },
+  //   [deleteExternalId]
+  // );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteHandler = (e, id) => {
+    e.stopPropagation();
+    delFabric(id)
+      .then((res) => {
+        console.log(res);
+        toast.success("Fabric deleted successfully");
+        fetchData();
+      })
+
+      .catch((error) => {
+        toast.error("Something went wrong");
+      });
+    // deleteExternalId(id);
+  };
   const tableRows = useMemo(() => {
-    return box.map(({ fabric_type, _id, wall_construction, status }) => ({
+    return box.map(({ fabric_type, _id, description, status }) => ({
       items: [
         fabric_type,
-        wall_construction,
+        description,
         status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
         <Actions
           onEdit={(e) => editHandler(e, _id)}
@@ -122,7 +142,9 @@ const InternalWall = () => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=2&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=2&f_ftype=${type}&f_desc=${description}&f_status=${
+            status === 0 ? "" : status
+          }`,
         config
       )
       .then((response) => {
@@ -229,6 +251,9 @@ const InternalWall = () => {
               <MenuItem value="2" style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
+              <MenuItem value={0} style={{ fontWeight: 600 }}>
+                All
+              </MenuItem>
             </StyledTextField>
           </FormControl>
 
@@ -308,5 +333,9 @@ const InternalWall = () => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default InternalWall;
+export default connect(null, mapDispatchToProps)(InternalWall);
+// export default InternalWall;

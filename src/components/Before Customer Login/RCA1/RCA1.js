@@ -44,11 +44,11 @@ function RCA1({ customerDetails, customerDetailsAction }) {
     return false
   } */
     if (customerDetails.name == "") {
-      setInput1Error("Mandatory field cannot be Empty");
+      setInput1Error("Mandatory field cannot be empty");
       /* return false */
     }
     if (!validator.isEmail(customerDetails.email)) {
-      setInput2Error("Please enter a valid Email Address");
+      setInput2Error("Please enter a valid email address");
       /* return false; */
     }
     if (customerDetails.email == "") {
@@ -59,7 +59,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
     if (
       !validator.isLength(customerDetails.password, { min: 8, max: undefined })
     ) {
-      setInput3Error("Must be atleast 8 characters");
+      setInput3Error("Must be at least 8 characters");
       /* return false; */
     }
     if (customerDetails.password == "") {
@@ -72,7 +72,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
       return false;
     }
     if (!validator.isLength(customerDetails.mobile, { min: 10, max: 10 })) {
-      setInput4Error("Please enter valid Mobile Number");
+      setInput4Error("Please enter a valid mobile number");
 
       return false;
     }
@@ -106,7 +106,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
       return false;
     }
     if (!validator.isEmail(customerDetails.email)) {
-      setInput2Error("Please enter a valid Email Address");
+      setInput2Error("Please enter a valid email address");
       /* return false; */
     }
   };
@@ -119,7 +119,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
     if (
       !validator.isLength(customerDetails.password, { min: 8, max: undefined })
     ) {
-      setInput3Error("Must be atleast 8 characters");
+      setInput3Error("Must be at least 8 characters");
       /* return false; */
     }
   };
@@ -131,13 +131,13 @@ function RCA1({ customerDetails, customerDetailsAction }) {
     }
     if (customerDetails.mobile.startsWith("0")) {
       if (!validator.isLength(customerDetails.mobile, { min: 11, max: 11 })) {
-        setInput4Error("Please enter valid Mobile Number");
+        setInput4Error("Please enter a valid mobile number");
 
         return false;
       }
     } else {
       if (!validator.isLength(customerDetails.mobile, { min: 10, max: 10 })) {
-        setInput4Error("Please enter valid Mobile Number");
+        setInput4Error("Please enter a valid mobile number");
 
         return false;
       }

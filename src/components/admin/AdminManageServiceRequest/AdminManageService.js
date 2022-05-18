@@ -24,6 +24,7 @@ import Select from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import StyledTextField from "../../../common/textfield";
 
 const useStyles = makeStyles({
   selectfield: {
@@ -530,11 +531,41 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             <hr className="adminmsrhr1" />
 
             <div>
-              <label htmlFor="" className="priorityLabel">
+              <div
+                style={{ display: "flex", gap: "30px", marginBottom: "15px" }}
+              >
+                <div className="miniadmindisplaygrid1">Customer Name</div>
+                <div className="minidisplaygrid1">{details.creator_name}</div>
+              </div>
+              <label
+                style={{ display: "block" }}
+                htmlFor=""
+                className="priorityLabel"
+              >
                 Priority
               </label>
               <FormControl className={classes.selectfield}>
-                <Select
+                <StyledTextField
+                  select
+                  sx={{ width: "160px", height: "63px" }}
+                  value={priority}
+                  onChange={stateHandler}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  name="priority"
+                  // label="Priority"
+                >
+                  <MenuItem value="1" style={{ fontWeight: 600 }}>
+                    High
+                  </MenuItem>
+                  <MenuItem value="2" style={{ fontWeight: 600 }}>
+                    Medium
+                  </MenuItem>
+                  <MenuItem value="3" style={{ fontWeight: 600 }}>
+                    Low
+                  </MenuItem>
+                </StyledTextField>
+                {/* <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={priority}
@@ -562,17 +593,52 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     {" "}
                     Low{" "}
                   </MenuItem>
-                </Select>
+                </Select> */}
               </FormControl>
             </div>
 
             <div>
-              <label htmlFor="" className="statusLabel">
+              <label
+                style={{ display: "block" }}
+                htmlFor=""
+                className="statusLabel"
+              >
                 Status
               </label>
               <FormControl className={classes.selectfield}>
                 {/* <InputLabel id="demo-simple-select-label">Status</InputLabel> */}
-                <Select
+                <StyledTextField
+                  select
+                  sx={{ width: "160px", height: "63px" }}
+                  value={status}
+                  onChange={stateHandler}
+                  onFocus={() => setFocused1(true)}
+                  onBlur={() => setFocused1(false)}
+                  name="status"
+                  // label="Priority"
+                >
+                  <MenuItem value="1" style={{ fontWeight: 600 }}>
+                    {" "}
+                    New{" "}
+                  </MenuItem>
+                  <MenuItem value="5" style={{ fontWeight: 600 }}>
+                    {" "}
+                    HPD To Review{" "}
+                  </MenuItem>
+                  <MenuItem value="2" style={{ fontWeight: 600 }}>
+                    {" "}
+                    HPD Working{" "}
+                  </MenuItem>
+                  <MenuItem value="3" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Need Your Attention{" "}
+                  </MenuItem>
+                  <MenuItem value="4" style={{ fontWeight: 600 }}>
+                    {" "}
+                    Resolved{" "}
+                  </MenuItem>
+                </StyledTextField>
+                {/* <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={status}
@@ -609,20 +675,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                     {" "}
                     Resolved{" "}
                   </MenuItem>
-                </Select>
+                </Select> */}
               </FormControl>
             </div>
-            <Typography
-              style={{
-                fontSize: "22px",
-                fontWeight: "600",
-                fontFamily: "Outfit",
-                marginTop: "11px",
-                color: "black",
-              }}
-            >
-              {details.creator_name}
-            </Typography>
+
             <div>
               <label htmlFor="" className="jobReferenceLabel">
                 Job Reference
@@ -655,11 +711,43 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             </div>
 
             <div style={{ marginTop: "1.5vh" }}>
-              <label htmlFor="" className="statusLabel">
+              <label
+                style={{ display: "block" }}
+                htmlFor=""
+                className="statusLabel"
+              >
                 Assigned To
               </label>
               <FormControl className={classes.selectfield}>
-                <Select
+                <StyledTextField
+                  select
+                  sx={{ width: "160px", height: "63px" }}
+                  value={assigned}
+                  onChange={stateHandler}
+                  onFocus={() => setFocused2(true)}
+                  onBlur={() => setFocused2(false)}
+                  defaultValue="..."
+                  name="assigned_to"
+                >
+                  <MenuItem value={assigned} style={{ fontWeight: 600 }}>
+                    {" "}
+                    {assigned}{" "}
+                  </MenuItem>
+                  {baUser &&
+                    baUser.map((item, index) => {
+                      return (
+                        <MenuItem
+                          key={item._id}
+                          value={item.name}
+                          style={{ fontWeight: 600 }}
+                        >
+                          {" "}
+                          {item.name}{" "}
+                        </MenuItem>
+                      );
+                    })}
+                </StyledTextField>
+                {/* <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={assigned}
@@ -693,7 +781,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                         </MenuItem>
                       );
                     })}
-                </Select>
+                </Select> */}
               </FormControl>
             </div>
 

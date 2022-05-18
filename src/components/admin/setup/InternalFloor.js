@@ -15,12 +15,14 @@ import { toast } from "react-toastify";
 import { useDeleteExternalId, delFabric } from "../../../services/services";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import { connect } from "react-redux";
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
   },
 });
-const InternalFloor = () => {
+const InternalFloor = ({ adminFirstPageAction }) => {
   const [box, setBox] = useState([]);
   const [loader, setLoader] = useState(false);
   const [data, setData] = useState([]);
@@ -46,6 +48,9 @@ const InternalFloor = () => {
         setError(error);
       },
     });
+  useEffect(() => {
+    adminFirstPageAction(true);
+  }, []);
   useEffect(() => {
     fetchData();
     // fetchSeconddata();
@@ -97,7 +102,9 @@ const InternalFloor = () => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=6&f_ftype=${type}&f_desc=${description}&f_status=${status}`,
+          `?page=${page}&perPage=${PER_PAGE}&type=6&f_ftype=${type}&f_desc=${description}&f_status=${
+            status === 0 ? "" : status
+          }`,
         config
       )
       .then((response) => {
@@ -142,11 +149,14 @@ const InternalFloor = () => {
     delFabric(id)
       .then((res) => {
         console.log(res);
-        toast.success(res?.data?.message);
+        toast.success("Fabric deleted successfully");
+        fetchData();
       })
+
       .catch((error) => {
         toast.error("Something went wrong");
       });
+    // deleteExternalId(id);
   };
   const tableRows = useMemo(() => {
     return box.map(({ fabric_type, _id, description, details, status }) => ({
@@ -241,6 +251,9 @@ const InternalFloor = () => {
               <MenuItem value={2} style={{ fontWeight: 600 }}>
                 Inactive
               </MenuItem>
+              <MenuItem value={0} style={{ fontWeight: 600 }}>
+                All
+              </MenuItem>
             </StyledTextField>
           </FormControl>
 
@@ -326,5 +339,9 @@ const InternalFloor = () => {
     </div>
   );
 };
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default InternalFloor;
+export default connect(null, mapDispatchToProps)(InternalFloor);
+// export default InternalFloor;

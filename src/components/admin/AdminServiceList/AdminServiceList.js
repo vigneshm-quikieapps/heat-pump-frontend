@@ -130,7 +130,9 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
       .get(
         URL +
           globalAPI.adminreq +
-          `?page=${page}&perPage=${PER_PAGE}&status=${status}&f_title=${title}&f_priority=${priority}&f_srid=${serviceno}&f_name=${customerName}`,
+          `?page=${page}&perPage=${PER_PAGE}&status=${status}&f_title=${title}&f_priority=${
+            priority === "0" ? "" : priority
+          }&f_srid=${serviceno}&f_name=${customerName}`,
         config
       )
       .then((response) => {
@@ -208,7 +210,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
                 : status === 3
                 ? "Need Your Attention"
                 : status === 4
-                ? "Resolved"
+                ? "Closed"
                 : status === 5
                 ? "HPD To Review"
                 : "-",
@@ -350,6 +352,9 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
               </MenuItem>
               <MenuItem value="3" style={{ fontWeight: 600 }}>
                 Low
+              </MenuItem>
+              <MenuItem value="0" style={{ fontWeight: 600 }}>
+                All
               </MenuItem>
             </StyledTextField>
           </FormControl>

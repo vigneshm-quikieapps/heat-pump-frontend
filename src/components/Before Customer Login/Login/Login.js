@@ -62,7 +62,7 @@ const Login = () => {
       return false;
     }
     if (!validator.isEmail(emailValue)) {
-      setInputLogin1Error("Please enter a valid Email");
+      setInputLogin1Error("Please enter a valid email");
       return false;
     }
   };
@@ -80,11 +80,11 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (!validator.isEmail(emailValue)) {
-      setInputLogin1Error("Please enter a valid Email");
+      setInputLogin1Error("Please enter a valid email");
       /* return false; */
     }
     if (emailValue == "") {
-      setInputLogin1Error("Email Address cannot be Empty");
+      setInputLogin1Error("Email Address cannot be empty");
       /* return false; */
     }
     if (!validator.isLength(password.value, { min: 8, max: undefined })) {
@@ -93,7 +93,7 @@ const Login = () => {
     }
 
     if (password.value == "") {
-      setInputLogin2Error("Password cannot be Empty");
+      setInputLogin2Error("Password cannot be empty");
       /* return false; */
     }
 
@@ -192,7 +192,7 @@ const Login = () => {
                   fontSize: "18px",
                   fontFamily: "Outfit",
                   position: "relative",
-                  margin: "1px 0px 0px 62px",
+                  margin: "1px 0px 0px 75px",
                   color: "red",
                 }}
               >
@@ -290,7 +290,7 @@ const Login = () => {
                   fontSize: "18px",
                   fontFamily: "Outfit",
                   position: "relative",
-                  margin: "1px 0px 0px 62px",
+                  margin: "1px 0px 0px 75px",
                   color: "red",
                 }}
               >

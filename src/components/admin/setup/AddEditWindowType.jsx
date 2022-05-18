@@ -17,6 +17,8 @@ import { useParams } from "react-router";
 import "./Style/AddEditExternalWall.css";
 import { useGetFabricType } from "../../../services/services";
 import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 import {
   IconButton,
   Container,
@@ -104,7 +106,7 @@ const useStyles = makeStyles({
     },
   },
 });
-function AddEditRoofWall() {
+function AddEditWindowType({ adminFirstPageAction }) {
   const { id: fabricId } = useParams();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -124,6 +126,9 @@ function AddEditRoofWall() {
         setLoader(false);
       });
   }, [fabricId]);
+  useEffect(() => {
+    adminFirstPageAction(false);
+  }, []);
   const changeHandler = (e) => {
     let temp = { ...externalWallData };
     temp[`${e.target.name}`] = e.target.value;
@@ -133,14 +138,14 @@ function AddEditRoofWall() {
     fabricId
       ? updateFabricType(fabricId, { ...externalWallData, type: 4 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/windowType/`);
+            toast.success("This fabric updated successfully");
+            // navigate(`/admincommon/windowType/`);
           })
           .catch((error) => console.log(error))
       : createFabricType({ ...externalWallData, type: 4 })
           .then((res) => {
-            toast.success(res?.data?.message);
-            navigate(`/admincommon/windowType/`);
+            toast.success("New fabric created successfully");
+            // navigate(`/admincommon/windowType/`);
           })
           .catch((error) => console.log(error));
   };
@@ -316,5 +321,9 @@ function AddEditRoofWall() {
     </>
   );
 }
+const mapDispatchToProps = (dispatch) => ({
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
+});
 
-export default AddEditRoofWall;
+export default connect(null, mapDispatchToProps)(AddEditWindowType);
+// export default AddEditRoofWall;
