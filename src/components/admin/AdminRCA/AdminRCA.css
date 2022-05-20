@@ -70,7 +70,7 @@
 .adminRCAcontainer {
   padding: 1.33vh 0.66vw !important;
   display: inline-block;
-  margin-left: 2.6vw;
+  /* margin-left: 2.6vw; */
   margin-right: 3.255vw;
   width: 90%;
   height: fit-content;

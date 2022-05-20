@@ -308,7 +308,8 @@ function AdminRCA({ adminFirstPageAction }) {
               width: "70%",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-evenly",
+              // justifyContent: "space-evenly",
+              gap: "20px",
             }}
           >
             <button
@@ -354,6 +355,7 @@ function AdminRCA({ adminFirstPageAction }) {
           </Box>
           <Box>
             <Accordion
+              sx={{ margin: "0px -10px !important" }}
               expanded={i}
               onChange={() => {
                 seti(!i);
@@ -373,7 +375,7 @@ function AdminRCA({ adminFirstPageAction }) {
                   Customer Contact Details
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ p: 0 }}>
+              <AccordionDetails sx={{ p: 0, m: 0 }}>
                 <Grid
                   gridTemplateColumns="repeat(1, 1fr)"
                   columnGap="10px"
@@ -429,6 +431,7 @@ function AdminRCA({ adminFirstPageAction }) {
               </AccordionDetails>
             </Accordion>
             <Accordion
+              sx={{ margin: "0px -10px !important" }}
               expanded={i1}
               onChange={() => {
                 seti1(!i1);
@@ -500,6 +503,7 @@ function AdminRCA({ adminFirstPageAction }) {
               </AccordionDetails>
             </Accordion>
             <Accordion
+              sx={{ margin: "0px -10px !important" }}
               expanded={i2}
               onChange={() => {
                 seti2(!i2);
@@ -619,6 +623,7 @@ function AdminRCA({ adminFirstPageAction }) {
               </AccordionDetails>
             </Accordion>
             <Accordion
+              sx={{ margin: "0px -10px !important" }}
               expanded={i3}
               onChange={() => {
                 seti3(!i3);

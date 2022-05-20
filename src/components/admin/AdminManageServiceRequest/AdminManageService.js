@@ -7,6 +7,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { saveAs } from "file-saver";
 import { FileUploader } from "react-drag-drop-files";
 import moment from "moment";
+import Pagination from "../../../common/pagination";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import globalAPI from "../../../GlobalApi";
 import URL from "../../../GlobalUrl";
@@ -25,7 +27,12 @@ import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import StyledTextField from "../../../common/textfield";
-
+import usePagination from "../../Pagination/Pagination";
+const theme = createTheme({
+  palette: {
+    primary: { main: "#000000	" },
+  },
+});
 const useStyles = makeStyles({
   selectfield: {
     "& label.Mui-focused": {
@@ -81,8 +88,15 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const [focused2, setFocused2] = React.useState("");
   const [baUser, setBauser] = useState([]);
 
+  const [data, setData] = useState([]);
+  let [page, setPage] = useState(1);
+  const PER_PAGE = 3;
+  const _DATA = usePagination(data, PER_PAGE);
+  const [count, setCount] = useState(1);
   const [checkedtype, setCheckedType] = useState(2);
-
+  const [open, setOpen] = useState(false);
+  const [jobid, setJobid] = useState();
+  const [site, setSite] = useState("");
   const [fname, SetFname] = useState([]);
   const [efname, SetEFname] = useState([]);
 
@@ -95,7 +109,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   useEffect(() => {
     adminFirstPageAction(false);
   }, []);
-
+  const toggleModalJR = () => {
+    setOpen(!open);
+    jbModal();
+  };
   const toggleModal = (e) => {
     e.preventDefault();
     setOpenupdate(!openupdate);
@@ -113,7 +130,36 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     setFiles([]);
     SetFname([]);
   };
-
+  const jbModal = () => {
+    const token = JSON.parse(localStorage.getItem("user"));
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    setLoader(true);
+    axios
+      .get(URL + globalAPI.myjobs + `?page=${page}&perPage=${PER_PAGE}`, config)
+      .then((response) => {
+        setLoader(false);
+        const res = response.data;
+        if (res.success) {
+          setCount(res.data.total_pages);
+          setData(res.data.data);
+        } else {
+          toast.error("Something went wrong");
+          setOpen(!open);
+        }
+      })
+      .catch((e) => {
+        setLoader(false);
+        toast.error("Something went wrong");
+        setOpen(!open);
+      });
+  };
+  const settingJobref = (item) => {
+    setJobid(item.job_ref_number);
+    setSite(item.site_details);
+    setOpen(!open);
+  };
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -133,7 +179,10 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         toast.error("Something went wrong");
       });
   }
-
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -532,7 +581,12 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
             <div>
               <div
-                style={{ display: "flex", gap: "30px", marginBottom: "15px" }}
+                style={{
+                  display: "flex",
+                  gap: "30px",
+                  marginBottom: "15px",
+                  marginTop: "15px",
+                }}
               >
                 <div className="miniadmindisplaygrid1">Customer Name</div>
                 <div className="minidisplaygrid1">{details.creator_name}</div>
@@ -680,11 +734,25 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             </div>
 
             <div>
-              <label htmlFor="" className="jobReferenceLabel">
+              <label
+                style={{ display: "block" }}
+                htmlFor=""
+                className="jobReferenceLabel"
+              >
                 Job Reference
               </label>{" "}
               <br />
-              <input
+              <StyledTextField
+                text
+                sx={{ width: "285px", height: "35px" }}
+                value={jobid}
+                onChange={stateHandler2}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                // name="priority"
+                // label="Priority"
+              />
+              {/* <input
                 className="admsrinput1"
                 value={
                   details.job_reference_id
@@ -694,20 +762,19 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                 onChange={stateHandler2}
                 name="job_reference_id"
                 id=""
-              ></input>
+              ></input> */}
               <img
                 src={require("../../../Img/adminSearchIcon.png")}
                 className={"adminSearchIcon"}
+                onClick={() => {
+                  toggleModalJR();
+                }}
               />
             </div>
 
             <div className="admindisplaygrid">
               <div className="miniadmindisplaygrid1">Site</div>
-              <div className="minidisplaygrid1">
-                {details.job_reference_id
-                  ? details.job_reference_id.site_details
-                  : "-"}
-              </div>
+              <div className="minidisplaygrid1">{site || "-"}</div>
             </div>
 
             <div style={{ marginTop: "1.5vh" }}>
@@ -1157,6 +1224,94 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               </button>
             </div>
           </div>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={open}
+        className="createmodal"
+        overlayClassName="myoverlay"
+        closeTimeoutMS={500}
+      >
+        <div>
+          <div className="dialogclose">
+            <IconButton onClick={() => setOpen(!open)}>
+              <CloseIcon sx={{ color: "black" }}></CloseIcon>
+            </IconButton>
+          </div>
+          <div className="dialog-row1">
+            {/* <h5 className="dialogname">{userName}</h5> */}
+            <h6 style={{ fontSize: "22px", margin: "5px 0 5px 0" }}>My Jobs</h6>
+            <hr className="clhrFirst" />
+          </div>
+          <div style={{ paddingLeft: "25px" }}>
+            <table sx={{ border: "none" }}>
+              <thead className="thead">
+                <tr>
+                  <th className="header">Job Reference</th>
+                  <th className="header">Site Details</th>
+                  <th className="header">Status</th>
+                </tr>
+              </thead>
+              <tbody className="tbody">
+                {_DATA.currentData().length >= 1 &&
+                  _DATA.currentData().map((item, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        onClick={() => settingJobref(item)}
+                        className="sortabletr"
+                      >
+                        <td style={{ fontSize: "18px" }}>
+                          {item.job_ref_number}
+                        </td>
+                        <td style={{ fontSize: "18px" }}>
+                          {item.site_details}
+                        </td>
+                        {item.status == 1 && (
+                          <td style={{ fontSize: "18px" }}>New</td>
+                        )}
+                        {item.status == 2 && (
+                          <td style={{ fontSize: "18px" }}>HPD Working</td>
+                        )}
+                        {item.status == 3 && (
+                          <td style={{ fontSize: "18px" }}>
+                            Need Your Attention
+                          </td>
+                        )}
+                        {item.status == 4 && (
+                          <td style={{ fontSize: "18px" }}>Resolved</td>
+                        )}
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+            {_DATA.currentData().length === 0 && (
+              <h4
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "40px",
+                }}
+              >
+                No Records Found
+              </h4>
+            )}
+          </div>
+          {_DATA.currentData().length >= 1 && (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <ThemeProvider theme={theme}>
+                <Pagination
+                  className="pagination"
+                  count={count}
+                  color="primary"
+                  // variant="outlined"
+                  page={page}
+                  onChange={handleChange}
+                />
+              </ThemeProvider>
+            </div>
+          )}
         </div>
       </Modal>
     </div>

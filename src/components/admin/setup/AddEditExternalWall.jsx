@@ -184,7 +184,7 @@ function AddEditExternalWall({ adminFirstPageAction }) {
       </Typography>
       <Card>
         <Box sx={{ display: "flex", flexDirection: "column", ml: 5 }}>
-          <Box sx={{ display: "flex", flexDirection: "row", mb: 10 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", mb: 4 }}>
             <StyledTextField
               required
               type="number"
@@ -223,7 +223,7 @@ function AddEditExternalWall({ adminFirstPageAction }) {
             required
             sx={{
               "&:hover": { borderColor: "none" },
-              mb: 10,
+              mb: 4,
             }}
             error={externalWallData?.description === "" && isSavedStatus}
             label="Wall Construction"
@@ -245,7 +245,7 @@ function AddEditExternalWall({ adminFirstPageAction }) {
             required
             sx={{
               "&:hover": { borderColor: "none" },
-              mb: 10,
+              mb: 4,
             }}
             error={externalWallData?.details === "" && isSavedStatus}
             label="Details"
@@ -263,7 +263,7 @@ function AddEditExternalWall({ adminFirstPageAction }) {
               "Details are mandatory"
             }
           />
-          <Box sx={{ mb: 15 }}>
+          <Box sx={{ mb: 5 }}>
             <Typography
               sx={{
                 width: "20%",

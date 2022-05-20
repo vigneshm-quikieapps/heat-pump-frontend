@@ -137,15 +137,15 @@ const CreateList = ({ FirstPageAction }) => {
   const [attachments, setattachments] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [srno, setSrno] = useState("");
-  const [data, setData] = useState([]);
   const [focused, setFocused] = React.useState("");
   const [site, setSite] = useState("");
   const [jobid, setJobid] = useState();
   const [id, setId] = useState();
+  const [data, setData] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 3;
-  const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
+  const [count, setCount] = useState(1);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
   const [fname, SetFname] = useState([]);

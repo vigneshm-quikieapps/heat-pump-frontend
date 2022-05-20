@@ -172,7 +172,7 @@ function AddEditInternalWall({ adminFirstPageAction }) {
       </Typography>
       <Card>
         <Box sx={{ display: "flex", flexDirection: "column", ml: 5 }}>
-          <Box sx={{ display: "flex", flexDirection: "row", mb: 10 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", mb: 4 }}>
             <StyledTextField
               required
               type="text"
@@ -213,7 +213,7 @@ function AddEditInternalWall({ adminFirstPageAction }) {
             required
             sx={{
               "&:hover": { borderColor: "none" },
-              mb: 10,
+              mb: 4,
             }}
             error={internalWallData?.description === "" && isSavedStatus}
             label="Wall Construction"
@@ -232,7 +232,7 @@ function AddEditInternalWall({ adminFirstPageAction }) {
             }
           />
 
-          <Box sx={{ mb: 15 }}>
+          <Box sx={{ mb: 4 }}>
             <Typography
               sx={{
                 width: "20%",

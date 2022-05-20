@@ -164,7 +164,6 @@
   display: grid;
   grid-template-columns: 80px auto;
   margin-top: 10px;
-  
 }
 
 .adminmsrspan21 {
@@ -296,7 +295,7 @@
 }
 .admindisplaygrid1 {
   font-weight: 300;
-  width:149px;
+  width: 149px;
 }
 
 .adminmyattachmodal {
@@ -351,59 +350,57 @@
   cursor: pointer;
 }
 
-.adminfile{
-  width:35%;
+.adminfile {
+  width: 35%;
   margin-top: 5px;
   margin-bottom: 10px;
   text-align: center;
   background-color: #f6f6f6;
-  height:50px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.adminfileName{
+.adminfileName {
   font-weight: 300;
-  font-size:medium;
+  font-size: medium;
   align-items: center;
   position: relative;
   left: 10px;
   bottom: 5px;
-  
 }
 
-.adminmsrBox1{
+.adminmsrBox1 {
   height: fit-content;
 }
 
-.adminrcanone{
+.adminrcanone {
   display: none;
 }
 
-
- .adminballIcon{
-   position: relative;
-   top: 5px;
-   height: 20px;
-   left: 50px;
-}
-
-.adminballIcon{
+.adminballIcon {
   position: relative;
   top: 5px;
   height: 20px;
   left: 50px;
 }
 
-.priorityLabel{
-   font-size: 12px;
-   color: #8b8b8b;
-   font-weight: 300;
+.adminballIcon {
+  position: relative;
+  top: 5px;
+  height: 20px;
+  left: 50px;
 }
 
-.admsrselect1{
+.priorityLabel {
+  font-size: 12px;
+  color: #8b8b8b;
+  font-weight: 300;
+}
+
+.admsrselect1 {
   width: 100%;
   height: 45px;
   border-color: #cdcdcd;
@@ -412,86 +409,85 @@
   padding-left: 5px;
 }
 
-.admsrselect1:focus ~ .adminDropdown{
+.admsrselect1:focus ~ .adminDropdown {
   transform: rotate(180deg);
 }
 
-.adminDropdown{
-   height: 10px;
-   width: 15px;
-   bottom: 33px;
-   left: 250px;
-   transition: all .1s ease-in-out;
-   position: relative;
+.adminDropdown {
+  height: 10px;
+  width: 15px;
+  bottom: 33px;
+  left: 250px;
+  transition: all 0.1s ease-in-out;
+  position: relative;
 }
 
 /* .adminRotate{
    transform: rotate(180deg);
 } */
 
-.statusLabel{
-   font-size: 12px;
-   color: #8b8b8b;
-   font-weight: 300;
-  
+.statusLabel {
+  font-size: 12px;
+  color: #8b8b8b;
+  font-weight: 300;
 }
 
-.jobReferenceLabel{
-   font-size: 12px;
-   color: #8b8b8b;
-   font-weight: 300;
+.jobReferenceLabel {
+  font-size: 12px;
+  color: #8b8b8b;
+  font-weight: 300;
 }
 
-.adminSearchIcon{
-   height: 20px;
-   width: 20px;
-   bottom: 33px;
-   left: 250px;
-   transition: all .1s ease-in-out;
-   position: relative;
+.adminSearchIcon {
+  height: 20px;
+  width: 20px;
+  bottom: 28px;
+  left: 250px;
+  transition: all 0.1s ease-in-out;
+  position: relative;
 }
 
-.displaygridsite{
-   width: 117px;
+.displaygridsite {
+  width: 117px;
 }
 
-.admsrinput1{
-   width: 100%;
-   height: 45px;
-   border-color: #cdcdcd;
-   font-size: 15px;
-   border-radius: 10px;
-   padding-left: 5px;
+.admsrinput1 {
+  width: 100%;
+  height: 45px;
+  border-color: #cdcdcd;
+  font-size: 15px;
+  border-radius: 10px;
+  padding-left: 5px;
 }
 
-.adminUpdateStatusBtn{
-   width: 50%;
-   margin-top: 30px;
-   border-radius: 32.5px;
-   background-color: black;
-   color: #f9f9f9;
-   font-weight: 300;
-   border: none;
-   height: 55px;
-   margin-left: 3.78vw;
-   font-size: 1vw;
+.adminUpdateStatusBtn {
+  width: 50%;
+  margin-top: 30px;
+  border-radius: 32.5px;
+  background-color: black;
+  color: #f9f9f9;
+  font-weight: 300;
+  border: none;
+  height: 55px;
+  margin-left: 3.78vw;
+  font-size: 1vw;
 }
 
-.adminIgnoreBtn{
-   width: 35%;
-   margin-left: 20px;
-   height: 55px;
-   border-radius: 32.5px;
-   border: none;
-   background-color:  #f9f9f9;
-   border: 1px solid #d3d3d3;
-} 
+.adminIgnoreBtn {
+  width: 35%;
+  margin-left: 20px;
+  height: 55px;
+  border-radius: 32.5px;
+  border: none;
+  background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
+}
 
-.miniadmindisplaygrid1{
+.miniadmindisplaygrid1 {
   font-weight: 600;
 }
 
-.minidisplaygrid1{
+.minidisplaygrid1 {
   font-weight: 300;
   text-align: left;
 }
@@ -503,11 +499,11 @@
   width: 170px;
 }
 
-.admincheckbox{
+.admincheckbox {
   height: 18px;
   width: 15px;
 }
-.adminmsrhr2{
+.adminmsrhr2 {
   width: 80%;
   margin-left: 9%;
   border: 0.1vw solid #f2f3f2;
