@@ -140,7 +140,7 @@ function AdminCommon({ adminFirstPageStatus }) {
           </li>
         </Link>
         <Link
-          to=""
+          to="MQR"
           style={{
             textDecoration: "none",
             color: "black",

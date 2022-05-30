@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "react-query";
 // import axios from "axios";
 export async function getFabric() {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`;
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {
@@ -23,7 +23,7 @@ export async function getFabric() {
 
 const addQuote = (data) =>
   axiosInstance.post(
-    `https://heat-pump-backend.herokuapp.com/api/v1/services/quote?page=1&perPage=2&type=1`,
+    `https://heat-pump-back-end.herokuapp.com/api/v1/services/quote?page=1&perPage=2&type=1`,
     data
   );
 export const useAddQuote = (options) =>
@@ -32,7 +32,7 @@ export const useAddQuote = (options) =>
 const getAllQuotes = () =>
   axiosInstance
     .get(
-      `https://heat-pump-backend.herokuapp.com/api/v1/services/all-quote?status=1&cst=true`
+      `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?status=1&cst=true`
     )
     .then(({ data }) => data, {
       keepPreviousData: false,
@@ -54,7 +54,7 @@ export const useGetAllQuotes = (data, options) =>
 
 export async function getFabricDetails(type) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=${type}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=${type}`;
     const response = await axiosInstance.get(api);
     return response.data;
   } catch (error) {
@@ -64,7 +64,7 @@ export async function getFabricDetails(type) {
 
 export async function getQuote(qid) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/quote?qid=${qid}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/quote?qid=${qid}`;
     // /api/v1/services/quote?qid=62665c1df521ea9cf0c4747c
     const response = await axiosInstance.get(api);
     return response;
@@ -75,7 +75,7 @@ export async function getQuote(qid) {
 const getExternalType = () =>
   axiosInstance
     .get(
-      `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`
+      `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=1`
     )
     .then(({ data }) => data, {
       keepPreviousData: false,
@@ -92,7 +92,7 @@ export const useGetExternalType = (data, options) =>
 
 const deleteExternalId = (id) =>
   axiosInstance.delete(
-    `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`
+    `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?fid=${id}`
   );
 export const useDeleteExternalId = () =>
   useMutation((id) => deleteExternalId(id), {});
@@ -113,7 +113,7 @@ export const useDeleteExternalId = () =>
 //   useMutation((id) => getFabricType(id), {});
 export async function getFabricType(id) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details-single?fid=${id}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details-single?fid=${id}`;
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {
@@ -122,7 +122,7 @@ export async function getFabricType(id) {
 }
 export async function updateFabricType(id, payload) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
     const response = await axiosInstance.patch(api, payload);
     return response;
   } catch (error) {
@@ -132,7 +132,7 @@ export async function updateFabricType(id, payload) {
 
 export async function createFabricType(payload) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details`;
     const response = await axiosInstance.post(api, payload);
     return response;
   } catch (error) {
@@ -142,7 +142,7 @@ export async function createFabricType(payload) {
 
 export async function delFabric(id) {
   try {
-    const api = `https://heat-pump-backend.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?fid=${id}`;
     const response = await axiosInstance.delete(api);
     return response;
   } catch (error) {
