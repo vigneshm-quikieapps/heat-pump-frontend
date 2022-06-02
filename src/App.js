@@ -52,7 +52,7 @@ import AddEditRoofWall from "./components/admin/setup/AddEditRoofWall";
 import AddEditWindowType from "./components/admin/setup/AddEditWindowType";
 import AddEditSuspendedFloor from "./components/admin/setup/AddEditSuspendedFloor";
 import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor";
-// import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
+import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
 
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
@@ -224,7 +224,7 @@ function PriorityComponent() {
             <Route path="/admincommon" element={<AdminCommon />}>
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="adminRCA" element={<AdminRCA />} />
-              {/* <Route path="MQR" element={<ManageQuoteRequest />} /> */}
+              <Route path="MQR" element={<ManageQuoteRequest />} />
               <Route path="adminmsr" element={<AdminManageService />} />
               <Route path="adminsrl" element={<AdminServiceList />} />
               <Route path="businessuser" element={<BusinessUser />} />

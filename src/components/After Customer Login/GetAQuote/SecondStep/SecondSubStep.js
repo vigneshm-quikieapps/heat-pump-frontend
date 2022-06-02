@@ -351,7 +351,7 @@ const SecondSubStep = (props) => {
             </Box>
           </Box>
         </Box>
-        <Typography
+        {/* <Typography
           sx={{
             fontSize: "22px",
             fontWeight: "bold",
@@ -359,8 +359,8 @@ const SecondSubStep = (props) => {
           }}
         >
           Equipment
-        </Typography>
-        <Typography
+        </Typography> */}
+        {/* <Typography
           sx={{
             fontSize: "22px",
             fontWeight: "300",
@@ -373,11 +373,11 @@ const SecondSubStep = (props) => {
           The internal heat gains can have some effect from equipment likely to
           be found in the property. Please try & estimate of items if any of
           these below
-        </Typography>
-        <Equipment
+        </Typography> */}
+        {/* <Equipment
           equipments={equipments}
           getEquipments={(equip, num) => getEquipments(equip, num)}
-        />
+        /> */}
         <Typography
           sx={{
             fontSize: "22px",
@@ -393,7 +393,7 @@ const SecondSubStep = (props) => {
             getHighEnergyEquipments(equip, num);
           }}
         />
-        <Typography
+        {/* <Typography
           sx={{
             fontSize: "22px",
             marginBottom: "20px",
@@ -404,8 +404,8 @@ const SecondSubStep = (props) => {
           }}
         >
           Will you be ok with say a wood stove helping on the very coldest days?
-        </Typography>
-        <Box
+        </Typography> */}
+        {/* <Box
           sx={{
             width: "100%",
             background: "#fafafa",
@@ -614,8 +614,8 @@ const SecondSubStep = (props) => {
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <Typography
+        </Box> */}
+        {/* <Typography
           sx={{
             fontSize: "22px",
             marginBottom: "20px",
@@ -627,8 +627,8 @@ const SecondSubStep = (props) => {
         >
           Would you say you have a lower or higher use for electricity than the
           UK average?
-        </Typography>
-        <Box
+        </Typography> */}
+        {/* <Box
           sx={{
             width: "100%",
             background: "#fafafa",
@@ -835,7 +835,7 @@ const SecondSubStep = (props) => {
               </Typography>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         <Typography
           sx={{
             fontSize: "22px",

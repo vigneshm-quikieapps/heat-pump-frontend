@@ -35,12 +35,12 @@ const SecondStep = (props) => {
     window.scrollTo(0, 0);
   }, []);
   const [weeklySlots, setWeeklySlots] = useState({
-    slot1: Array(7).fill(false),
-    slot2: Array(7).fill(false),
-    slot3: Array(7).fill(false),
-    slot4: Array(7).fill(false),
-    slot5: Array(7).fill(false),
-    slot6: Array(7).fill(false),
+    slot1: Array(2).fill(false),
+    slot2: Array(2).fill(false),
+    slot3: Array(2).fill(false),
+    slot4: Array(2).fill(false),
+    slot5: Array(2).fill(false),
+    slot6: Array(2).fill(false),
   });
   const [yearlySlots, setYearlySlots] = useState({
     Jan: [],
@@ -59,8 +59,8 @@ const SecondStep = (props) => {
   const [selectedAdultOccupants, setSelectedAdultOccupants] = useState("1");
   const [selectedChildOccupants, setSelectedChildOccupants] = useState("1");
   const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState(1);
-  function createData(name, Mon, Tues, Wed, Thur, Fri, Sat, Sun) {
-    return { name, Mon, Tues, Wed, Thur, Fri, Sat, Sun };
+  function createData(name, Weekday, Weekend) {
+    return { name, Weekday, Weekend };
   }
   const handleWeeklySlots = (index, slot) => {
     let temp = weeklySlots;
@@ -86,37 +86,37 @@ const SecondStep = (props) => {
         onChange={() => {
           handleWeeklySlots(1, 1);
         }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 1);
-        }}
       />
+      // <Checkbox
+      //   defaultChecked={weeklySlots.slot1[2]}
+      //   onChange={() => {
+      //     handleWeeklySlots(2, 1);
+      //   }}
+      // />,
+      // <Checkbox
+      //   defaultChecked={weeklySlots.slot1[3]}
+      //   onChange={() => {
+      //     handleWeeklySlots(3, 1);
+      //   }}
+      // />,
+      // <Checkbox
+      //   defaultChecked={weeklySlots.slot1[4]}
+      //   onChange={() => {
+      //     handleWeeklySlots(4, 1);
+      //   }}
+      // />,
+      // <Checkbox
+      //   defaultChecked={weeklySlots.slot1[5]}
+      //   onChange={() => {
+      //     handleWeeklySlots(5, 1);
+      //   }}
+      // />,
+      // <Checkbox
+      //   defaultChecked={weeklySlots.slot1[6]}
+      //   onChange={() => {
+      //     handleWeeklySlots(6, 1);
+      //   }}
+      // />
     ),
 
     createData(
@@ -393,7 +393,7 @@ const SecondStep = (props) => {
         sx={{
           background: "#fcfcfc",
           borderRadius: "10px",
-          width: "80%",
+          width: "45%",
           height: "30%",
           margin: "20px 0px 45px 20px",
           padding: "18px 32px 5px 25px",
@@ -410,13 +410,15 @@ const SecondStep = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                   textAlign: "center",
+                  width: "100px",
                 }}
                 align="right"
               >
-                Mon
+                Weekday
               </StyledTableCell>
               <StyledTableCell
                 sx={{
+                  width: "100px",
                   borderBottom: "none",
                   fontSize: "22px",
                   fontWeight: "300",
@@ -425,9 +427,9 @@ const SecondStep = (props) => {
                 }}
                 align="right"
               >
-                Tues
+                Weekend
               </StyledTableCell>
-              <StyledTableCell
+              {/* <StyledTableCell
                 sx={{
                   borderBottom: "none",
                   fontSize: "22px",
@@ -486,7 +488,7 @@ const SecondStep = (props) => {
                 align="right"
               >
                 Sun
-              </StyledTableCell>
+              </StyledTableCell> */}
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -494,6 +496,7 @@ const SecondStep = (props) => {
               <StyledTableRow
                 key={row.name}
                 sx={{
+                  width: "100px",
                   "&:last-child td, &:last-child th": { border: 0 },
                   fontSize: "22px",
                   fontWeight: "300",
@@ -513,12 +516,12 @@ const SecondStep = (props) => {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Mon}
+                  {row.Weekday}
                 </StyledTableCell>
                 <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Tues}
+                  {row.Weekend}
                 </StyledTableCell>
-                <StyledTableCell sx={{ borderBottom: "none" }} align="center">
+                {/* <StyledTableCell sx={{ borderBottom: "none" }} align="center">
                   {row.Wed}
                 </StyledTableCell>
                 <StyledTableCell sx={{ borderBottom: "none" }} align="center">
@@ -532,14 +535,14 @@ const SecondStep = (props) => {
                 </StyledTableCell>
                 <StyledTableCell sx={{ borderBottom: "none" }} align="center">
                   {row.Sun}
-                </StyledTableCell>
+                </StyledTableCell> */}
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </Box>
 
-      <Typography
+      {/* <Typography
         sx={{
           fontSize: "22px",
           fontWeight: "bold",
@@ -548,10 +551,10 @@ const SecondStep = (props) => {
       >
         Please tick when you think the property will typically be occupied in
         the year
-      </Typography>
-      <TableWeek
+      </Typography> */}
+      {/* <TableWeek
         getYearlySlots={(month, items) => getYearlySlots(month, items)}
-      />
+      /> */}
       <Typography
         sx={{
           fontSize: "22px",

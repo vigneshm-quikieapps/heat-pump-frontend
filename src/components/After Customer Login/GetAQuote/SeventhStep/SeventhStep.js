@@ -164,9 +164,9 @@ const SeventhStep = (props) => {
               color: "#fa5e00",
             }}
           >
-            Electrictiy & {priority} Annual Usage
+            {priority} Annual Usage
           </Typography>
-          <Typography sx={{ marginTop: "1.8vh" }}>
+          {/* <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               sx={{ width: "30%" }}
               label="Amount of Electricity (kWh)"
@@ -177,7 +177,7 @@ const SeventhStep = (props) => {
                 setCurrentBills(temp);
               }}
             />
-          </Typography>
+          </Typography> */}
 
           <Typography sx={{ marginTop: "2vh" }}>
             <TextField
@@ -200,9 +200,9 @@ const SeventhStep = (props) => {
               color: "#fa5e00",
             }}
           >
-            Electrictiy & {priority} Annual Spend
+            {priority} Annual Spend
           </h3>
-          <Typography sx={{ marginTop: "1.8vh" }}>
+          {/* <Typography sx={{ marginTop: "1.8vh" }}>
             <TextField
               sx={{ width: "30%" }}
               label="Cost of Electricity (£)"
@@ -213,7 +213,7 @@ const SeventhStep = (props) => {
                 setCurrentBills(temp);
               }}
             />
-          </Typography>
+          </Typography> */}
 
           <Typography sx={{ marginTop: "2vh" }}>
             <TextField

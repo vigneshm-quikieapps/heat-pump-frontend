@@ -182,7 +182,7 @@ const ThirdStep = (props) => {
   const addNewFabric = () => {
     let temp = [...dataArr];
     temp.push({
-      label: `External ${temp.length}`,
+      label: `Extension ${temp.length}`,
       "External Walls": {},
       "Internal Walls": {},
       "Roof Type": {},
@@ -754,7 +754,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    Suspended Floors
+                    External Floors
                   </button>
                 </Box>
                 {fabric["Suspended Floors"]?.type && (
@@ -850,7 +850,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    Internal Floors
+                    Roof Lights
                   </button>
                 </Box>
                 {fabric["Inner Floors"]?.type && (
@@ -943,7 +943,7 @@ const ThirdStep = (props) => {
             <span style={{ height: "27px", width: "27px" }}>
               <AddIcon sx={{ height: "27px", width: "27px" }} />
             </span>
-            <span style={{ marginLeft: "20px" }}>Add Building</span>
+            <span style={{ marginLeft: "20px" }}>Add Extension</span>
           </button>
         </Box>
         <Box sx={{ display: "flex" }}>
