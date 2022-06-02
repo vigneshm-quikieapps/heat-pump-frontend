@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import "../../After Customer Login/GetAQuote/ThirdStep/ThirdStep.css";
+// import "../../After Customer Login/GetAQuote/ThirdStep/ThirdStep.css";
 import { toast } from "react-toastify";
 import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
