@@ -172,7 +172,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   };
 
   const tableRows = useMemo(() => {
-    return box.map(({ fabric_type, _id, description, details, status }) => ({
+    return box?.map(({ fabric_type, _id, description, details, status }) => ({
       items: [
         fabric_type,
         description,

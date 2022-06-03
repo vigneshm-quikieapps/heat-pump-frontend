@@ -60,7 +60,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
       <h1 className="get-a-quote">Manage Job Request</h1>
       <hr className="quote" />
 
-      <Card>
+      <Card className="mqr">
         <Box
           sx={{
             display: "flex",
@@ -70,7 +70,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
         >
           <Box>
             <Typography
-              style={{
+              sx={{
                 color: "#fa5e00",
                 fontSize: "28px",
                 fontWeight: "600",
@@ -80,9 +80,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               {userData1?.name}
             </Typography>
             <Typography
-              style={{
+              sx={{
                 fontSize: "18px",
-
                 fontFamily: "Outfit",
                 fontWeight: "300",
               }}
@@ -90,6 +89,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               {userData1?.business_trade_name}, {userData1?.city}
             </Typography>
           </Box>
+
           <Box>
             <div
               style={{
