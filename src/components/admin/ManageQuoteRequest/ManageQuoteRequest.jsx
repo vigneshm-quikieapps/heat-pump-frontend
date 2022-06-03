@@ -12,8 +12,7 @@ import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 import { connect } from "react-redux";
 import StyledTextField from "../../../common/textfield";
 import MenuItem from "@mui/material/MenuItem";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import Occupancy from "./Occupancy";
 import FabricType from "./FabricType";
 import Drawings from "./Drawings";
@@ -61,14 +60,18 @@ function ManageQuoteRequest({ FirstPageAction }) {
       <hr className="quote" />
 
       <Card className="mqr">
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             ml: 5,
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              backgroundColor: "transparent",
+            }}
+          >
             <Typography
               sx={{
                 color: "#fa5e00",
@@ -126,8 +129,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </Box>
           </Box>
-        </Box>
-        <div className="Rectangle-31"></div>
+        </Box> */}
+        {/* <div className="Rectangle-31"></div> */}
         <Box>
           <Accordion
             expanded={checkAccordion.acc}
