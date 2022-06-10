@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
 
 import Modal from "react-modal";
@@ -23,6 +23,10 @@ function Common({ firstPageStatus }) {
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("");
   const [logout, setLogout] = useState(false);
+
+  useEffect(() => {
+    setDisplay("");
+  }, [window.location.pathname]);
 
   const userInfo = JSON.parse(localStorage.getItem("userData"));
 

@@ -93,7 +93,7 @@ function PriorityComponent() {
     }
     if (window.location.pathname == "/common") {
       console.log(window.location.pathname);
-      navigate("/common/servicerequest");
+      navigate("/common/HomePage");
     }
     if (window.location.pathname == "/admincommon") {
       console.log(window.location.pathname);
