@@ -78,7 +78,7 @@ const NinethStep = (props) => {
           navigate("/common/myQuote");
         }}
       >
-        <span>My Job</span>
+        <span>My Jobs</span>
       </button>
     </Card>
   );

@@ -196,7 +196,7 @@ const SixthStep = (props) => {
             {index !== 0 && (
               <Box sx={{ display: "inline", float: "right" }}>
                 <Tooltip
-                  title="Remove extension"
+                  title="Remove room"
                   placement="bottom-start"
                   componentsProps={{
                     tooltip: {
@@ -206,6 +206,9 @@ const SixthStep = (props) => {
                         height: "50px",
                         fontSize: "20px",
                         fontFamily: "Outfit",
+                        backgroundColor: "#fafafa",
+                        color: "black",
+                        textAlign: "center",
                       },
                     },
                   }}

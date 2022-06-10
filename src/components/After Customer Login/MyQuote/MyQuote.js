@@ -93,21 +93,21 @@ const MyQuote = ({ FirstPageAction }) => {
               } ${site_details?.postcode || ""} `,
               formatDate(updatedAt),
               `${status === 1 ? "New" : "Propasal Ready"}`,
-              <Button
-                style={{
-                  background: "Black",
-                  color: "white",
-                  borderRadius: "32.5px",
-                  width: "200px",
-                  height: "65px",
-                  fontSize: "18px",
-                  fontFamily: "Outfit",
-                  textTransform: "none",
-                }}
-                // onClick={(e) => {}}
-              >
-                View Proposal
-              </Button>,
+              // <Button
+              //   style={{
+              //     background: "Black",
+              //     color: "white",
+              //     borderRadius: "32.5px",
+              //     width: "200px",
+              //     height: "65px",
+              //     fontSize: "18px",
+              //     fontFamily: "Outfit",
+              //     textTransform: "none",
+              //   }}
+              //   // onClick={(e) => {}}
+              // >
+              //   View Proposal
+              // </Button>,
             ],
           })
         )) ||

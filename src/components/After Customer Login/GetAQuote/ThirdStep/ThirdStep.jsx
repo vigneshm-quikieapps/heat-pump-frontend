@@ -20,6 +20,7 @@ import { Card, ImgIcon } from "../../../../common";
 import { getFabricDetails } from "../../../../services/services";
 import StyledTextField from "../../../../common/textfield";
 import DeleteIcon from "../../../../Img/icon remove.png";
+import { MenuItem } from "@material-ui/core";
 const style = {
   position: "absolute",
   top: "50%",
@@ -205,12 +206,14 @@ const ThirdStep = (props) => {
         description: "",
         detail: "",
       },
+      Age: "",
     },
   ]);
   const [flag, setFlag] = useState(false);
   const [selectedFabricType, setSelectedFabricType] = useState("");
   const [selectedBuildingIndex, setSelectedBuildingIndex] = useState("");
   const [fabricDetails, setFabricDetails] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -225,6 +228,7 @@ const ThirdStep = (props) => {
       Windows: {},
       "Suspended Floors": {},
       "Inner Floors": {},
+      Age: "",
     });
     setDataArr(temp);
   };
@@ -292,7 +296,7 @@ const ThirdStep = (props) => {
       []
     );
   }, [onSelect, onClose]);
-
+  // console.log(dataArr);
   return (
     <>
       <Card>
@@ -335,6 +339,8 @@ const ThirdStep = (props) => {
                         height: "50px",
                         fontSize: "20px",
                         fontFamily: "Outfit",
+                        backgroundColor: "#fafafa",
+                        color:"black"
                       },
                     },
                   }}
@@ -386,8 +392,29 @@ const ThirdStep = (props) => {
               <StyledTextField
                 sx={{ width: "20%", mt: 4, mb: 4 }}
                 select
-                label="Age Basis"
-              />
+                value={fabric?.Age}
+                label="Age"
+                onChange={(e) => {
+                  const temp = [...dataArr];
+                  temp[index].Age = e.target.value;
+                  setDataArr(temp);
+                }}
+              >
+                <MenuItem value="Band A before 1919">
+                  Band A before 1919
+                </MenuItem>
+                <MenuItem value="Band B 1919-1929">Band B 1919-1929</MenuItem>
+                <MenuItem value="Band C 1930-1949">Band C 1930-1949</MenuItem>
+                <MenuItem value="Band D 1950-1964">Band D 1950-1964</MenuItem>
+                <MenuItem value="Band E 1965-1975">Band E 1965-1975</MenuItem>
+                <MenuItem value="Band F 1976-1983">Band F 1976-1983</MenuItem>
+                <MenuItem value="Band G 1984-1991">Band G 1984-1991</MenuItem>
+                <MenuItem value="Band H 1992-1998">Band H 1992-1998</MenuItem>
+                <MenuItem value="Band I 1999-2002">Band I 1999-2002</MenuItem>
+                <MenuItem value="Band J 2003-2007">Band J 2003-2007</MenuItem>
+                <MenuItem value="Band K 2008-2011">Band K 2008-2011</MenuItem>
+                <MenuItem value="Band L 2012+">Band L 2012+</MenuItem>
+              </StyledTextField>
               <Box
                 sx={{
                   display: "flex !important",

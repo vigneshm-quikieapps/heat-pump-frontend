@@ -19,6 +19,7 @@ const EightStep = (props) => {
   const [text, setText] = useState("");
   const token = JSON.parse(localStorage.getItem("user"));
   const [pricing, setPricing] = useState(0);
+  const [isDiscount, setIsDiscount] = useState(false);
   return (
     <Card>
       {loader && (
@@ -50,6 +51,8 @@ const EightStep = (props) => {
         <div style={{ marginTop: "1.5%" }}>
           <Box>
             <Checkbox
+              disabled={isDiscount}
+              // checked={pricing === 349 && !isDiscount}
               onChange={(e) => {
                 e.target.checked
                   ? setPricing(pricing + 299)
@@ -79,6 +82,8 @@ const EightStep = (props) => {
           </Box>
           <Box>
             <Checkbox
+              disabled={isDiscount}
+              // checked={pricing !== 349 && isDiscount}
               // defaultChecked={}
               onChange={(e) => {
                 e.target.checked
@@ -110,6 +115,8 @@ const EightStep = (props) => {
           </Box>
           <Box>
             <Checkbox
+              disabled={isDiscount}
+              // checked={pricing !== 349 && isDiscount}
               // defaultChecked={}
               onChange={(e) => {
                 e.target.checked
@@ -142,6 +149,8 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               // defaultChecked={}
+              disabled={isDiscount}
+              // checked={pricing !== 349 && isDiscount}
               onChange={(e) => {
                 e.target.checked
                   ? setPricing(pricing + 10)
@@ -174,9 +183,13 @@ const EightStep = (props) => {
             <Checkbox
               // defaultChecked={}
               onChange={(e) => {
-                e.target.checked
-                  ? setPricing(pricing - 349)
-                  : setPricing(pricing + 349);
+                if (e.target.checked) {
+                  setPricing(349);
+                  setIsDiscount(true);
+                } else {
+                  setPricing(0);
+                  setIsDiscount(false);
+                }
               }}
             />
             <Typography

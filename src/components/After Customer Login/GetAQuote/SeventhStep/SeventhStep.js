@@ -153,7 +153,7 @@ const SeventhStep = (props) => {
               border: "0.2vh solid #f2f3f2",
             }}
           />
-          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
             <Box>
               <Checkbox
                 // defaultChecked={}
@@ -233,7 +233,7 @@ const SeventhStep = (props) => {
               border: "0.2vh solid #f2f3f2",
             }}
           />
-          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
             <Box>
               <Checkbox
                 // defaultChecked={}
@@ -388,7 +388,7 @@ const SeventhStep = (props) => {
           <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
             Tick all that apply
           </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
             <Box>
               <Checkbox
                 // defaultChecked={}

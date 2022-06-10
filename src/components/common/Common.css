@@ -90,13 +90,8 @@
   width: 55px;
 }
 
-.home-icon {
-  margin-top: 0vh;
-  margin-left: 8vw;
-  /* height: 5.36vh; */
-  /* width: 2.6vw; */
-  width: 55px;
-  height: 55px;
+.home-icon:hover {
+  cursor: pointer;
 }
 
 .bell-icon {
@@ -243,5 +238,5 @@
 
 .ellipse {
   height: 48.4vh;
-  width: 16.3vw;
+  width: 12.3vw;
 }

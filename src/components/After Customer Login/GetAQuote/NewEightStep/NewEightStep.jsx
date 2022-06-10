@@ -78,7 +78,7 @@ const NewEightStep = (props) => {
         <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
           Please tick the options below or leave blank if unknown
         </Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           <Box>
             <Checkbox
               name="Natural Ventilation"
@@ -179,7 +179,7 @@ const NewEightStep = (props) => {
         <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
           Please tick the options below or leave blank if unknown
         </Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           <Box>
             <Checkbox
               name="Airtight"

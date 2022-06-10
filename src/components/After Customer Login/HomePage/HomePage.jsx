@@ -254,19 +254,23 @@ const HomePage = ({ FirstPageAction }) => {
           marginLeft: "40px",
         }}
       >
-        {userName}
+        Hi, {userName}
         <hr className="containerhr" />
       </Typography>
-      <Card sx={{ backgroundColor: "#f9f9f9", height: "387px" }}>
+      <Card sx={{ backgroundColor: "#f9f9f9", height: "300px" }}>
+        <Typography
+          sx={{ fontFamily: "Outfit", fontSize: "18px", fontWeight: "600" }}
+        >
+          Apps
+        </Typography>
         <Box
           sx={{
             display: "flex",
-
             justifyContent: "space-evenly",
-            margin: "90px 0px",
+            marginTop: "15px",
           }}
         >
-          <Box>
+          <Box sx={{ width: "20%" }}>
             <div
               className="tiles"
               onClick={() => {
@@ -288,10 +292,10 @@ const HomePage = ({ FirstPageAction }) => {
                 fontSize: "18px",
               }}
             >
-              Book a job
+              Book a Job
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{ width: "20%" }}>
             <div
               className="tiles"
               onClick={() => {
@@ -308,10 +312,10 @@ const HomePage = ({ FirstPageAction }) => {
                 fontSize: "18px",
               }}
             >
-              My job
+              My Jobs
             </Typography>
           </Box>
-          <Box>
+          <Box sx={{ width: "20%" }}>
             <div
               className="tiles"
               onClick={() => {
@@ -323,12 +327,13 @@ const HomePage = ({ FirstPageAction }) => {
             </div>
             <Typography
               sx={{
+                // width: "150px",
                 textAlign: "center",
                 fontFamily: "Outfit",
                 fontSize: "18px",
               }}
             >
-              My service request
+              My Service Requests
             </Typography>
           </Box>
         </Box>
@@ -349,7 +354,7 @@ const HomePage = ({ FirstPageAction }) => {
               color: "#aaa",
             }}
           >
-            You have 0 unread notification
+            You have no notification at this time
           </Typography>
         </Box>
       </Card>

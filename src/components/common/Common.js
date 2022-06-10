@@ -227,11 +227,11 @@ function Common({ firstPageStatus }) {
               style={{
                 float: "right",
 
-                width: "40%",
+                width: "310px",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                <img
+                <img className="home-icon"
                   onClick={() => {
                     Navigate("/common/HomePage");
                   }}
@@ -239,7 +239,13 @@ function Common({ firstPageStatus }) {
                   // className="home-icon"
                 />
                 {/* <img src={require("../../Img/bell.png")} /> */}
-                <Box sx={{ display: "flex", alignItems: "center", ml: 10 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "20px",
+                  }}
+                >
                   {/* <div> */}
                   <span style={{}}>{userInfo.name}</span>
                   {/* <div> */}
