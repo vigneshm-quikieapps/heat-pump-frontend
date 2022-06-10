@@ -16,6 +16,8 @@ import SecondSubStep from "./SecondStep/SecondSubStep";
 import ThirdStep from "./ThirdStep/ThirdStep";
 import SeventhStep from "./SeventhStep/SeventhStep";
 import EightStep from "./EightStep/EightStep";
+import NewEightStep from "./NewEightStep/NewEightStep";
+
 import NinethStep from "./NinethStep/NinethStep";
 import ViewQuote from "../ViewQuote/ViewQuote";
 const useStyles = makeStyles({
@@ -150,7 +152,7 @@ const MainQuote = () => {
     }
     return null;
   } */
-  console.log(payload);
+  // console.log(payload);
   return (
     <React.Fragment>
       <h1 className="get-a-quote">Book a Job</h1>
@@ -228,6 +230,16 @@ const MainQuote = () => {
         />
       )}
       {currentStep === 8 && (
+        <NewEightStep
+          prev={_prev}
+          next={_next}
+          getPayloadData={(label, data) => {
+            getPayloadData(label, data);
+          }}
+          _addNewQuote={_addNewQuote}
+        />
+      )}
+      {currentStep === 9 && (
         <EightStep
           prev={_prev}
           next={_next}
@@ -237,7 +249,7 @@ const MainQuote = () => {
           _addNewQuote={_addNewQuote}
         />
       )}
-      {currentStep === 9 && <NinethStep _jumpToFirst={_jumpToFirst} />}
+      {currentStep === 10 && <NinethStep _jumpToFirst={_jumpToFirst} />}
     </React.Fragment>
   );
 };

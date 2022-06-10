@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, TextField, Typography, Box } from "@mui/material";
+import { Button, TextField, Typography, Box, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { makeStyles } from "@mui/styles";
 import Modal from "@mui/material/Modal";
@@ -16,9 +16,10 @@ import Pagination from "../ThirdStep/Components/Pagination";
 import IconButton from "@mui/material/IconButton";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card } from "../../../../common";
+import { Card, ImgIcon } from "../../../../common";
 import { getFabricDetails } from "../../../../services/services";
-
+import StyledTextField from "../../../../common/textfield";
+import DeleteIcon from "../../../../Img/icon remove.png";
 const style = {
   position: "absolute",
   top: "50%",
@@ -171,7 +172,41 @@ const ThirdStep = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  const [dataArr, setDataArr] = useState(demoData);
+  const [dataArr, setDataArr] = useState([
+    {
+      label: "Main Building",
+      "External Walls": {
+        type: "",
+        description: "",
+        detail: "",
+      },
+      "Internal Walls": {
+        type: "",
+        description: "",
+        detail: "",
+      },
+      "Roof Type": {
+        type: "",
+        description: "",
+        detail: "",
+      },
+      Windows: {
+        type: "",
+        description: "",
+        detail: "",
+      },
+      "Suspended Floors": {
+        type: "",
+        description: "",
+        detail: "",
+      },
+      "Inner Floors": {
+        type: "",
+        description: "",
+        detail: "",
+      },
+    },
+  ]);
   const [flag, setFlag] = useState(false);
   const [selectedFabricType, setSelectedFabricType] = useState("");
   const [selectedBuildingIndex, setSelectedBuildingIndex] = useState("");
@@ -179,6 +214,7 @@ const ThirdStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const addNewFabric = () => {
     let temp = [...dataArr];
     temp.push({
@@ -286,6 +322,35 @@ const ThirdStep = (props) => {
         <hr className="quote" />
         {dataArr.map((fabric, index) => (
           <Box sx={{ marginTop: "2%" }} key={index}>
+            {index !== 0 && (
+              <Box sx={{ float: "right" }}>
+                <Tooltip
+                  title="Remove extension"
+                  placement="bottom-start"
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        padding: "12px 22px 13px",
+                        width: "205px",
+                        height: "50px",
+                        fontSize: "20px",
+                        fontFamily: "Outfit",
+                      },
+                    },
+                  }}
+                >
+                  <IconButton
+                    onClick={() => {
+                      let temp = [...dataArr];
+                      temp.splice(index, 1);
+                      setDataArr(temp);
+                    }}
+                  >
+                    <ImgIcon>{DeleteIcon}</ImgIcon>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            )}
             <Box
               sx={{
                 display: "flex",
@@ -317,6 +382,12 @@ const ThirdStep = (props) => {
                   />
                 </h4>
               </Box>
+
+              <StyledTextField
+                sx={{ width: "20%", mt: 4, mb: 4 }}
+                select
+                label="Age Basis"
+              />
               <Box
                 sx={{
                   display: "flex !important",
@@ -340,7 +411,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    External Walls
+                    External Walls Type
                   </button>
                 </Box>
 
@@ -421,7 +492,7 @@ const ThirdStep = (props) => {
                   </Box>
                 )}
               </Box>
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex !important",
                   flexDirection: "row !important",
@@ -444,7 +515,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    Internal Walls
+                    Internal Walls 
                   </button>
                 </Box>
                 {fabric["Internal Walls"]?.type && (
@@ -530,7 +601,7 @@ const ThirdStep = (props) => {
                     </Box>
                   </Box>
                 )}
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   display: "flex !important",
@@ -649,7 +720,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    Windows
+                    Windows Type
                   </button>
                 </Box>
                 {fabric["Windows"]?.type && (
@@ -754,7 +825,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    External Floors
+                    External Floors Type
                   </button>
                 </Box>
                 {fabric["Suspended Floors"]?.type && (
@@ -850,7 +921,7 @@ const ThirdStep = (props) => {
                       setOpenModal(true);
                     }}
                   >
-                    Roof Lights
+                    Roof Lights Type
                   </button>
                 </Box>
                 {fabric["Inner Floors"]?.type && (

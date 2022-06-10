@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, Typography, Box } from "@mui/material";
+import { Button, Typography, Box, Checkbox } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -136,7 +136,166 @@ const SeventhStep = (props) => {
             <MenuItem value="LPG">LPG</MenuItem>
           </StyledTextField>
         </div>
-
+        <div>
+          <Typography
+            style={{
+              fontSize: "30px",
+              fontFamily: "Outfit",
+              fontWeight: "600",
+              marginTop: "3%",
+            }}
+          >
+            Existing
+          </Typography>
+          <hr
+            style={{
+              backgroundColor: "#f2f3f2",
+              border: "0.2vh solid #f2f3f2",
+            }}
+          />
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Radiator
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Underfloor Heating
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Underfloor and Radiators
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Fan coils
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Other
+              </Typography>
+            </Box>
+            <StyledTextField
+              sx={{ width: "30%", marginLeft: "3.5%" }}
+              type="text"
+              placeholder="If other please state"
+            />
+          </Box>
+        </div>
+        <div>
+          <Typography
+            style={{
+              fontSize: "30px",
+              fontFamily: "Outfit",
+              fontWeight: "600",
+              marginTop: "3%",
+            }}
+          >
+            Proposed
+          </Typography>
+          <hr
+            style={{
+              backgroundColor: "#f2f3f2",
+              border: "0.2vh solid #f2f3f2",
+            }}
+          />
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Radiator
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Underfloor Heating
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Underfloor and Radiators
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Fan coils
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Other
+              </Typography>
+            </Box>
+            <StyledTextField
+              sx={{ width: "30%", marginLeft: "3.5%" }}
+              type="text"
+              placeholder="If other please state"
+            />
+          </Box>
+        </div>
         <div>
           <Typography
             style={{
@@ -154,79 +313,127 @@ const SeventhStep = (props) => {
               border: "0.2vh solid #f2f3f2",
             }}
           />
-
+          <Box sx={{ display: "flex", gap: "70px", alignItems: "center" }}>
+            <Box sx={{ width: "30%" }}>
+              <Typography
+                style={{
+                  fontSize: "22px",
+                  fontFamily: "Outfit",
+                  fontWeight: "300",
+                  marginTop: "3%",
+                  color: "#fa5e00",
+                }}
+              >
+                {priority} Annual Usage
+              </Typography>
+              <hr className="s2hr2" />
+              <Typography>
+                <TextField
+                  sx={{ width: "100%" }}
+                  label={`Amount of ${priority} (kWh)`}
+                  value={currnetBills?.amount_of_gas}
+                  onChange={(e) => {
+                    let temp = currnetBills;
+                    temp["amount_of_gas"] = e.target.value;
+                    setCurrentBills(temp);
+                  }}
+                />
+              </Typography>
+            </Box>
+            <Box sx={{ width: "30%" }}>
+              <h3
+                style={{
+                  fontSize: "22px",
+                  fontFamily: "Outfit",
+                  fontWeight: "300",
+                  marginTop: "4%",
+                  color: "#fa5e00",
+                }}
+              >
+                {priority} Annual Spend
+              </h3>
+              <hr className="s2hr2" />
+              <Typography>
+                <TextField
+                  sx={{ width: "100%" }}
+                  label={`Cost of ${priority} (£)`}
+                  value={currnetBills?.cost_of_gas}
+                  onChange={(e) => {
+                    let temp = currnetBills;
+                    temp["cost_of_gas"] = e.target.value;
+                    setCurrentBills(temp);
+                  }}
+                />
+              </Typography>
+            </Box>
+          </Box>
+        </div>
+        <div>
           <Typography
             style={{
-              fontSize: "22px",
+              fontSize: "30px",
               fontFamily: "Outfit",
-              fontWeight: "300",
-              marginTop: "2%",
-              color: "#fa5e00",
+              fontWeight: "600",
+              marginTop: "3%",
             }}
           >
-            {priority} Annual Usage
+            Other Design Factor
           </Typography>
-          {/* <Typography sx={{ marginTop: "1.8vh" }}>
-            <TextField
-              sx={{ width: "30%" }}
-              label="Amount of Electricity (kWh)"
-              value={currnetBills?.amount_of_electricity}
-              onChange={(e) => {
-                let temp = currnetBills;
-                temp["amount_of_electricity"] = e.target.value;
-                setCurrentBills(temp);
-              }}
-            />
-          </Typography> */}
-
-          <Typography sx={{ marginTop: "2vh" }}>
-            <TextField
-              sx={{ width: "30%" }}
-              label={`Amount of ${priority} (kWh)`}
-              value={currnetBills?.amount_of_gas}
-              onChange={(e) => {
-                let temp = currnetBills;
-                temp["amount_of_gas"] = e.target.value;
-                setCurrentBills(temp);
-              }}
-            />
-          </Typography>
-          <h3
+          <hr
             style={{
-              fontSize: "22px",
-              fontFamily: "Outfit",
-              fontWeight: "300",
-              marginTop: "2%",
-              color: "#fa5e00",
+              backgroundColor: "#f2f3f2",
+              border: "0.2vh solid #f2f3f2",
             }}
-          >
-            {priority} Annual Spend
-          </h3>
-          {/* <Typography sx={{ marginTop: "1.8vh" }}>
-            <TextField
-              sx={{ width: "30%" }}
-              label="Cost of Electricity (£)"
-              value={currnetBills?.cost_of_electricity}
-              onChange={(e) => {
-                let temp = currnetBills;
-                temp["cost_of_electricity"] = e.target.value;
-                setCurrentBills(temp);
-              }}
-            />
-          </Typography> */}
-
-          <Typography sx={{ marginTop: "2vh" }}>
-            <TextField
-              sx={{ width: "30%" }}
-              label={`Cost of ${priority} (£)`}
-              value={currnetBills?.cost_of_gas}
-              onChange={(e) => {
-                let temp = currnetBills;
-                temp["cost_of_gas"] = e.target.value;
-                setCurrentBills(temp);
-              }}
-            />
+          />
+          <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
+            Tick all that apply
           </Typography>
+          <Box sx={{ display: "flex", flexDirection: "column", mt: 6 }}>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                High ceilings
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Intermittent Heating
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Exposed site
+              </Typography>
+            </Box>
+            <Box>
+              <Checkbox
+                // defaultChecked={}
+                onChange={() => {
+                  // handleWeeklySlots(6, 1);
+                }}
+              />
+              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+                Any microbore
+              </Typography>
+            </Box>
+          </Box>
         </div>
         <Box sx={{ display: "flex", marginTop: "30px" }}>
           <button

@@ -72,7 +72,7 @@ const Login = () => {
       return false;
     }
     if (!validator.isLength(password.value, { min: 8, max: undefined })) {
-      setInputLogin2Error("Must be at least 8 characters");
+      setInputLogin2Error("Incorrect Password, please retry");
       return false;
     }
   };
@@ -88,7 +88,7 @@ const Login = () => {
       /* return false; */
     }
     if (!validator.isLength(password.value, { min: 8, max: undefined })) {
-      setInputLogin2Error("Must be at least 8 characters");
+      setInputLogin2Error("Incorrect Password, please retry");
       return false;
     }
 

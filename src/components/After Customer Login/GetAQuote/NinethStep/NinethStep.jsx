@@ -29,7 +29,7 @@ const NinethStep = (props) => {
       )}
       <div>
         <Box style={{ position: "relative", marginLeft: "4%" }}>
-          <span className="s8text1">Step 9 of 9</span>
+          <span className="s8text1">Confirmation</span>
           <div className="rca3left-bar"></div>{" "}
           <img
             src={require("../../../../Img/greentick.png")}
@@ -66,7 +66,7 @@ const NinethStep = (props) => {
           }}
         >
           Your job request submission is successful. Ref: JR12345678. You can
-          track the status of your job using view job status.
+          view job details, including status, using the job list on My Jobs.
         </Typography>
       </Box>
       <button

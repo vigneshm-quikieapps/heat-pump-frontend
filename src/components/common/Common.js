@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
 
 import Modal from "react-modal";
-import { IconButton } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ import Stack from "@mui/material/Stack";
 function Common({ firstPageStatus }) {
   const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
-  const [display, setDisplay] = useState("redbar3");
+  const [display, setDisplay] = useState("");
   const [logout, setLogout] = useState(false);
 
   const userInfo = JSON.parse(localStorage.getItem("userData"));
@@ -72,6 +72,8 @@ function Common({ firstPageStatus }) {
 
     prevOpen.current = open;
   }, [open]);
+
+  console.log(window.location.pathname);
   return (
     <div style={{ display: "flex", height: "100%" }}>
       <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
@@ -104,17 +106,20 @@ function Common({ firstPageStatus }) {
               className="sidbar-icon"
             />{" "}
             Book a Job{" "}
-            <img
-              src={require("../../Img/redbar.png")}
-              height="50px"
-              width={"10px"}
-              className="redbar1"
-              style={
-                display == "redbar1"
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
-              }
-            />{" "}
+            {
+              <img
+                src={require("../../Img/redbar.png")}
+                height="50px"
+                width={"10px"}
+                className="redbar1"
+                style={
+                  window.location.pathname == "/common/createJob" ||
+                  display == "redbar1"
+                    ? { visibility: "visible" }
+                    : { visibility: "hidden" }
+                }
+              />
+            }{" "}
           </li>{" "}
         </Link>
         <Link to="myQuote" style={{ textDecoration: "none", color: "black" }}>
@@ -129,21 +134,24 @@ function Common({ firstPageStatus }) {
           >
             {" "}
             <img
-              src={require("../../Img/sidebar2.png")}
+              src={require("../../Img/myjob icon.png")}
               className="sidbar-icon"
             />{" "}
             My Jobs{" "}
-            <img
-              src={require("../../Img/redbar.png")}
-              height="50px"
-              width={"10px"}
-              className="redbar2"
-              style={
-                display == "redbar2"
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
-              }
-            />{" "}
+            {
+              <img
+                src={require("../../Img/redbar.png")}
+                height="50px"
+                width={"10px"}
+                className="redbar2"
+                style={
+                  window.location.pathname == "/common/myQuote" ||
+                  display == "redbar2"
+                    ? { visibility: "visible" }
+                    : { visibility: "hidden" }
+                }
+              />
+            }{" "}
           </li>
         </Link>
         <Link
@@ -161,21 +169,24 @@ function Common({ firstPageStatus }) {
           >
             {" "}
             <img
-              src={require("../../Img/sidebar3.png")}
+              src={require("../../Img/msr icon.png")}
               className="sidbar-icon"
             />{" "}
             My Service Requests{" "}
-            <img
-              src={require("../../Img/redbar.png")}
-              height="50px"
-              width={"10px"}
-              className="redbar3"
-              style={
-                display == "redbar3"
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
-              }
-            />{" "}
+            {
+              <img
+                src={require("../../Img/redbar.png")}
+                height="50px"
+                width={"10px"}
+                className="redbar3"
+                style={
+                  window.location.pathname == "/common/servicerequest" ||
+                  display == "redbar3"
+                    ? { visibility: "visible" }
+                    : { visibility: "hidden" }
+                }
+              />
+            }{" "}
           </li>
         </Link>
 
@@ -208,29 +219,26 @@ function Common({ firstPageStatus }) {
               />
             ) : null}
 
-            <div style={{ float: "right", marginRight: "6.11vw" }}>
-              <img
-                src={require("../../Img/homeIcon.png")}
-                className="home-icon"
-              />
-              <img src={require("../../Img/bell.png")} className="bell-icon" />
+            <div
+              style={{
+                float: "right",
 
-              <div className="name-icon">
-                <span
-                  style={{
-                    position: "absolute",
-                    // bottom: "2vh",
-                    // top: "3vh",
-                    // left: "2.55vw",
-                    marginLeft: "45px",
-                    color: "rgba(0, 0, 0, 0.6)",
-                    fontSize: "18px",
-                    fontWeight: "600",
+                width: "40%",
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <img
+                  onClick={() => {
+                    Navigate("/common/HomePage");
                   }}
-                >
-                  {userInfo.name}
-                </span>
-                <div>
+                  src={require("../../Img/homeIcon.png")}
+                  // className="home-icon"
+                />
+                {/* <img src={require("../../Img/bell.png")} /> */}
+                <Box sx={{ display: "flex", alignItems: "center", ml: 10 }}>
+                  {/* <div> */}
+                  <span style={{}}>{userInfo.name}</span>
+                  {/* <div> */}
                   <Button
                     ref={anchorRef}
                     id="composition-button"
@@ -238,20 +246,11 @@ function Common({ firstPageStatus }) {
                     aria-expanded={open ? "true" : undefined}
                     aria-haspopup="true"
                     onClick={handleToggle}
-                    style={{
-                      // width: "3.25vw",
-                      // height: "6.71vh",
-                      marginLeft: "7.81vw",
-                      position: "relative",
-                      bottom: "3vh",
-                      display: "inline-block",
-                      left: "3vw",
-                    }}
                     size="small"
                   >
                     <img
                       src={require("../../Img/account.png")}
-                      className="account-icon"
+                      // className="account-icon"
                     />
                   </Button>
                   <Popper
@@ -323,8 +322,10 @@ function Common({ firstPageStatus }) {
                       </Grow>
                     )}
                   </Popper>
-                </div>
-              </div>
+                  {/* </div> */}
+                  {/* </div> */}
+                </Box>
+              </Box>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, Box, Typography } from "@mui/material";
+import { Button, Box, Typography, Checkbox } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
@@ -18,7 +18,7 @@ const EightStep = (props) => {
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
   const token = JSON.parse(localStorage.getItem("user"));
-
+  const [pricing, setPricing] = useState(0);
   return (
     <Card>
       {loader && (
@@ -26,11 +26,213 @@ const EightStep = (props) => {
           <TailSpin color="#fa5e00" height="100" width="100" />
         </div>
       )}
-      <div className="s8text1">
-        Step 8 of 9
+      <div className="s7text1">
+        Step 9 of 9
         <img src={require("../../../../Img/step8.png")} className="s8baricon" />
       </div>
+      <div>
+        <Typography
+          style={{
+            fontSize: "30px",
+            fontFamily: "Outfit",
+            fontWeight: "600",
+            marginTop: "10vh",
+          }}
+        >
+          Pricing per job
+        </Typography>
+        <hr
+          style={{
+            backgroundColor: "#f2f3f2",
+            border: "0.1vh solid #f2f3f2",
+          }}
+        />
+        <div style={{ marginTop: "1.5%" }}>
+          <Box>
+            <Checkbox
+              onChange={(e) => {
+                e.target.checked
+                  ? setPricing(pricing + 299)
+                  : setPricing(pricing - 299);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline-block",
+                fontFamily: "Outfit",
+                width: "17%",
+              }}
+            >
+              Heat Loss Calculation
+            </Typography>
+            <Typography
+              sx={{
+                width: "40px",
+                display: "inline-block",
+                fontFamily: "Outfit",
+                fontWeight: "900",
+                textAlign: "right",
+              }}
+            >
+              £299
+            </Typography>
+          </Box>
+          <Box>
+            <Checkbox
+              // defaultChecked={}
+              onChange={(e) => {
+                e.target.checked
+                  ? setPricing(pricing + 75)
+                  : setPricing(pricing - 75);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline-block",
+                fontFamily: "Outfit",
+                width: "17%",
+              }}
+            >
+              Emitter Sizing
+            </Typography>
+            <Typography
+              sx={{
+                width: "40px",
 
+                display: "inline-block",
+                fontFamily: "Outfit",
+                fontWeight: "900",
+                textAlign: "right",
+              }}
+            >
+              £75
+            </Typography>
+          </Box>
+          <Box>
+            <Checkbox
+              // defaultChecked={}
+              onChange={(e) => {
+                e.target.checked
+                  ? setPricing(pricing + 10)
+                  : setPricing(pricing - 10);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline-block",
+                fontFamily: "Outfit",
+                width: "17%",
+              }}
+            >
+              Noise Assessment
+            </Typography>
+            <Typography
+              sx={{
+                width: "40px",
+
+                display: "inline-block",
+                fontFamily: "Outfit",
+                fontWeight: "900",
+                textAlign: "right",
+              }}
+            >
+              £10
+            </Typography>
+          </Box>
+          <Box>
+            <Checkbox
+              // defaultChecked={}
+              onChange={(e) => {
+                e.target.checked
+                  ? setPricing(pricing + 10)
+                  : setPricing(pricing - 10);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline-block",
+                fontFamily: "Outfit",
+                width: "17%",
+              }}
+            >
+              DNO Application
+            </Typography>
+            <Typography
+              sx={{
+                width: "40px",
+
+                display: "inline-block",
+                fontFamily: "Outfit",
+                fontWeight: "900",
+                textAlign: "right",
+              }}
+            >
+              £10
+            </Typography>
+          </Box>
+          <Box>
+            <Checkbox
+              // defaultChecked={}
+              onChange={(e) => {
+                e.target.checked
+                  ? setPricing(pricing - 349)
+                  : setPricing(pricing + 349);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline-block",
+                fontFamily: "Outfit",
+                width: "17%",
+              }}
+            >
+              Discount for all 4
+            </Typography>
+
+            <Typography
+              sx={{
+                width: "40px",
+
+                display: "inline-block",
+                fontFamily: "Outfit",
+                fontWeight: "900",
+                textAlign: "right",
+              }}
+            >
+              £349
+            </Typography>
+          </Box>
+        </div>
+        <div style={{ width: "19.9%", marginLeft: "4%" }}>
+          <Typography
+            sx={{
+              display: "inline-block",
+              fontFamily: "Outfit",
+              marginLeft: "83%",
+            }}
+          >
+            Total
+          </Typography>
+          <hr
+            style={{
+              backgroundColor: "#f2f3f2",
+              border: "0.1vh solid #f2f3f2",
+            }}
+          />
+          <Typography
+            sx={{
+              width: "40px",
+              display: "inline-block",
+              fontFamily: "Outfit",
+              marginLeft: "83%",
+              fontWeight: "900",
+              textAlign: "right",
+            }}
+          >
+            £{pricing}
+          </Typography>
+        </div>
+      </div>
       <div>
         <Typography
           style={{
@@ -74,6 +276,7 @@ const EightStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
+            props.getPayloadData(["pricing"], [pricing]);
             props.getPayloadData(["other_details"], [text]);
             props._addNewQuote();
             props.next();

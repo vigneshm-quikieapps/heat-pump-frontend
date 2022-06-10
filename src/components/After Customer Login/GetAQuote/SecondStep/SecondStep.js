@@ -562,6 +562,97 @@ const SecondStep = (props) => {
           fontFamily: "outfit",
         }}
       >
+        Please tick the property usage as appropriate
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          width: "50%",
+          height: "100px",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          mb: 5,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+          // sx={{ float: "center" }}
+          // defaultChecked={weeklySlots.slot1[0]}
+          // onChange={() => {
+          //   handleWeeklySlots(0, 1);
+          // }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Main House
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+          // defaultChecked={weeklySlots.slot1[0]}
+          // onChange={() => {
+          //   handleWeeklySlots(0, 1);
+          // }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Holiday Home
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+          // defaultChecked={weeklySlots.slot1[0]}
+          // onChange={() => {
+          //   handleWeeklySlots(0, 1);
+          // }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Other
+          </Typography>
+        </Box>
+        <StyledTextField type="text" placeholder="If other please state" />
+      </Box>
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "bold",
+          fontFamily: "outfit",
+        }}
+      >
         Number of Adult Occupants
       </Typography>
       <StyledTextField

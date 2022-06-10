@@ -5,13 +5,15 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, Typography, Box } from "@mui/material";
+import { Button, Typography, Box, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card, TextField } from "../../../../common";
+import { Card, TextField, ImgIcon } from "../../../../common";
 import StyledTextField from "../../../../common/textfield";
+import DeleteIcon from "../../../../Img/icon remove.png";
+import IconButton from "@mui/material/IconButton";
 
 const useStyles = makeStyles({
   textfield: {
@@ -144,6 +146,10 @@ const SixthStep = (props) => {
         Radiator and Window Sizes
       </Typography>
       <hr className="s2hr2" />
+      <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
+        Please fill in the details for rooms with multiple radiators or windows
+        by adding another room.
+      </Typography>
       {/* {inputList} */}
       {inputList.length &&
         inputList?.map((item, index) => (
@@ -187,6 +193,35 @@ const SixthStep = (props) => {
               //   item?.window_size === "" && "Window size in mandatory"
               // }
             />
+            {index !== 0 && (
+              <Box sx={{ display: "inline", float: "right" }}>
+                <Tooltip
+                  title="Remove extension"
+                  placement="bottom-start"
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        padding: "12px 22px 13px",
+                        width: "205px",
+                        height: "50px",
+                        fontSize: "20px",
+                        fontFamily: "Outfit",
+                      },
+                    },
+                  }}
+                >
+                  <IconButton
+                    onClick={() => {
+                      let temp = [...inputList];
+                      temp.splice(index, 1);
+                      setInputList(temp);
+                    }}
+                  >
+                    <ImgIcon>{DeleteIcon}</ImgIcon>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            )}
           </div>
         ))}
 

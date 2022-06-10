@@ -53,6 +53,7 @@ import AddEditWindowType from "./components/admin/setup/AddEditWindowType";
 import AddEditSuspendedFloor from "./components/admin/setup/AddEditSuspendedFloor";
 import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor";
 import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
+import HomePage from "./components/After Customer Login/HomePage/HomePage";
 
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
@@ -117,7 +118,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -129,7 +130,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -141,7 +142,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -153,7 +154,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -165,7 +166,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -177,7 +178,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -189,7 +190,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -201,7 +202,7 @@ function PriorityComponent() {
               ) : userData.admin ? (
                 <Navigate to="/admincommon/accountrequest" />
               ) : (
-                <Navigate to="/common/servicerequest" />
+                <Navigate to="/common/HomePage" />
               )
             }
           />
@@ -209,6 +210,7 @@ function PriorityComponent() {
 
           {userData && !userData.admin && (
             <Route path={"/common"} element={<Common />}>
+              <Route path="HomePage" element={<HomePage />} />
               <Route path="createlist" element={<CreateList />} />
               <Route path="servicerequest" element={<ServiceList />} />
               {/*  <Route path="createservice" element={<CreateListSubmitted />} /> */}
