@@ -116,7 +116,7 @@ const Login = () => {
               navigate("/admincommon/accountrequest");
               return;
             }
-            navigate("/common/servicerequest");
+            navigate("/common/HomePage");
           } else {
             setLoader(false);
             toast.error(res.data.message);
