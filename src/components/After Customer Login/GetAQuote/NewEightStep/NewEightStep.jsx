@@ -24,6 +24,9 @@ const NewEightStep = (props) => {
     ventilation: true,
     drought: true,
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleChange = (e) => {
     // console.log(e);
     let temp = { ...data };

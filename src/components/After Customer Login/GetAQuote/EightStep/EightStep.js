@@ -20,6 +20,9 @@ const EightStep = (props) => {
   const token = JSON.parse(localStorage.getItem("user"));
   const [pricing, setPricing] = useState(0);
   const [isDiscount, setIsDiscount] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Card>
       {loader && (
