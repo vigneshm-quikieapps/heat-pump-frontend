@@ -9,7 +9,7 @@ const globalAPI = {
   mystatus: "api/v1/services/service-requests-status",
   myreq: "api/v1/services/service-requests",
   allnotes: "api/v1/services/service-requests-notes",
-  getFile: "api/v1/common/uploads/documents",
+  getFile: "api/v1/common/ulpoads/documents",
   myjobs: "api/v1/services/jobs",
   addnotes: "api/v1/services/service-requests-notes",
   accountlist: "api/v1/services/users",

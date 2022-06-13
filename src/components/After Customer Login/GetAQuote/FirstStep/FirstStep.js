@@ -145,9 +145,14 @@ const FirstStep = ({
   //   resolver: yupResolver(schema),
   //   reValidateMode: "onChange",
   // });
-  // useEffect(() => {
-  //   console.log(myProps);
-  // }, [myProps]);
+  useEffect(() => {
+    let temp = { ...customerDetails };
+    temp.address_1 = customerDetails.address_1;
+    temp.address_2 = customerDetails.address_2;
+    temp.city = customerDetails.city;
+    temp.postcode = customerDetails.postcode;
+    setsite_details(temp);
+  }, [customerDetails]);
   const filtered1 =
     searchValue &&
     suggestionList.suggestionList.filter((suggestion) => {
@@ -167,23 +172,19 @@ const FirstStep = ({
     if (searchValue.length > 2) {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5`
+          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&identifier=HPD`
         )
         //axios.get(`https://ws.postcoder.com/pcw/PCWFQ-4NFQ9-PZY8R-574WR/street/uk/${code}`)
         .then((res) => setSuggestionListAction(res.data));
     }
   }, [searchValue]);
 
-  useEffect(() => {
-    console.log(customerDetails);
-  }, [customerDetails]);
-
   const clickHandler1 = (e) => {
     //Request failed with status code 403PCWBY-K73QV-5TPTP-7H75B
     if (!parseInt(e.target.id)) {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}`
+          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}&identifier=HPD`
         )
         .then((res) => {
           setSuggestionListAction(res.data);
@@ -191,7 +192,7 @@ const FirstStep = ({
     } else {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&lines=3&include=posttown,postcode`
+          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&lines=3&include=posttown,postcode&identifier=HPD`
         )
         .then((res) => res.data[0])
         .then((resp) => customerDetailsAutoSuggestion(resp));
@@ -229,6 +230,7 @@ const FirstStep = ({
       </div>
     );
   };
+
   const changeHandler = (e) => {
     e.preventDefault();
     customerDetailsAction({ [e.target.name]: e.target.value });
@@ -417,6 +419,7 @@ const FirstStep = ({
                 },
               ]
             );
+
             myProps.next();
             // }
           }}

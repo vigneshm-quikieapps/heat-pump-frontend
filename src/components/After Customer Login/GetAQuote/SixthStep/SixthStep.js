@@ -285,6 +285,7 @@ const SixthStep = (props) => {
             //   return;
             // } else {
             props.getPayloadData(["radiator_and_window_sizes"], [inputList]);
+            // console.log(inputList);
             props.next();
             // }
           }}

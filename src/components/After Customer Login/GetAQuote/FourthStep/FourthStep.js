@@ -48,13 +48,13 @@ const FourthStep = (props) => {
           if (res.success) {
             if (name == "plans") {
               pattachments.push(res.data.message[0]);
-              setPlans([...plans, e]);
+              setPlans([...plans, e.name]);
             } else if (name == "sections") {
               sattachments.push(res.data.message[0]);
-              setSections([...sections, e]);
+              setSections([...sections, e.name]);
             } else {
               eattachments.push(res.data.message[0]);
-              setElevations([...elevations, e]);
+              setElevations([...elevations, e.name]);
             }
           } else {
             toast.error(res.data.message);
@@ -179,7 +179,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img
@@ -255,7 +255,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img
@@ -331,7 +331,7 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img

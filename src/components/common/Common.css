@@ -82,12 +82,18 @@
   width: 55px;
   height: 55px;
 }
+.collapse-icon:hover {
+  cursor: pointer;
+}
 
 .collapse-left {
   /* margin-top: 3vh; */
   margin-left: 0.61vw;
   height: 55px;
   width: 55px;
+}
+.collapse-left:hover {
+  cursor: pointer;
 }
 
 .home-icon:hover {
@@ -97,8 +103,7 @@
 .bell-icon {
   margin-top: 0vh;
   margin-left: 0.61vw;
-  /* height: 5.36vh; */
-  /* width: 2.6vw; */
+
   width: 55px;
   height: 55px;
 }

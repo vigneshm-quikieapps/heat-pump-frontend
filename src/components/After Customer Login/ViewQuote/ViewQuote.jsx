@@ -8,12 +8,15 @@ import DropdownIcon from "../../../Img/icon dropdown.png";
 import { getQuote } from "../../../services/services";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 import { connect } from "react-redux";
+import { TailSpin } from "react-loader-spinner";
+
 // const userData = JSON.parse(localStorage.getItem("userData"));
 // const userName = userData?.name;
 function ViewQuote({ FirstPageAction }) {
   const { id: quoteId } = useParams();
   const [quoteData, setQuoteData] = useState();
   const [userData1, setUserData1] = useState();
+  const [loader, setLoader] = useState(true);
 
   const [checkAccordion, setCheckAccordion] = useState({
     acc1: false,
@@ -24,6 +27,7 @@ function ViewQuote({ FirstPageAction }) {
     acc6: false,
     acc7: false,
     acc8: false,
+    acc9: false,
   });
   useEffect(() => {
     FirstPageAction(false);
@@ -36,11 +40,18 @@ function ViewQuote({ FirstPageAction }) {
     getQuote(quoteId).then((res) => {
       // console.log(res);
       setQuoteData(res?.data?.data);
+      setLoader(false);
     });
   }, [quoteId]);
   console.log(quoteData);
+
   return (
     <>
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
       <h1 className="get-a-quote">View Job</h1>
       <hr className="quote" />
 
@@ -125,6 +136,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -184,6 +197,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -207,16 +222,132 @@ function ViewQuote({ FirstPageAction }) {
               >
                 <Box>
                   <Typography className="Output">
-                    Days(Month) occupied
-                  </Typography>
-                  {/* {Object.entries(quoteData?.occupancy?.weekly).flat()} */}
-                  <Typography className="Output2">300(10)</Typography>
-                </Box>
-                <Box>
-                  <Typography className="Output">
                     Time(Weekly) occupied
                   </Typography>
-                  <Typography className="Output2">0000-0600(Monday)</Typography>
+                  {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["0000 - 0600"][1] ===
+                            1 &&
+                            "0000 - 0600")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["0000 - 0600"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                  {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["0600 - 0800"][1] ===
+                            1 &&
+                            "0600 - 0800")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["0600 - 0800"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                  {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["0800 - 1000"][1] ===
+                            1 &&
+                            "0800 - 1000")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["0800 - 1000"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                  {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["1000 - 1400"][1] ===
+                            1 &&
+                            "1000 - 1400")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["1000 - 1400"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                  {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["1400 - 1800"][1] ===
+                            1 &&
+                            "1400 - 1800")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["1400 - 1800"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                  {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 ||
+                    (quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 && (
+                      <Typography className="Output2">
+                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 ||
+                          (quoteData?.occupancy?.weekly["1800 - 2359"][1] ===
+                            1 &&
+                            "1800 - 2359")}
+                        &#40;
+                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
+                          "Weekday"}
+                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
+                          quoteData?.occupancy?.weekly["1800 - 2359"][1] ===
+                            1 &&
+                          ","}
+                        {quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 &&
+                          "Weekend"}
+                        &#41;
+                      </Typography>
+                    ))}
+                </Box>
+                <Box>
+                  <Typography className="Output">Property Usage</Typography>
+
+                  {quoteData?.occupancy?.property_usage?.data.map((item) => (
+                    <Typography className="Output2">{item}</Typography>
+                  ))}
+                  <Typography className="Output2">
+                    {quoteData?.occupancy?.property_usage?.other || ""}
+                  </Typography>
                 </Box>
                 <Box>
                   <Typography className="Output">
@@ -250,15 +381,7 @@ function ViewQuote({ FirstPageAction }) {
                     {quoteData?.number_of_guests}
                   </Typography>
                 </Box>
-                <Box>
-                  <Typography className="Output">Equipments</Typography>
-                  <Typography className="Output2">
-                    {quoteData?.equipments &&
-                      Object.entries(quoteData?.equipments).map(
-                        (item) => `${item[0]}(${item[1]})${" "}`
-                      )}
-                  </Typography>
-                </Box>
+
                 <Box>
                   <Typography className="Output">
                     High energy equipments
@@ -279,26 +402,7 @@ function ViewQuote({ FirstPageAction }) {
                   </Typography>
                 </Box>
                 <Box></Box>
-                <Box>
-                  <Typography className="Output">
-                    NPS: Will you be ok with say a wood stove helping on the
-                    very coldest days?
-                  </Typography>
-                  <Typography className="Output2">
-                    {quoteData?.questions?.woodStove_importance}
-                  </Typography>
-                </Box>
-                <Box></Box>
-                <Box>
-                  <Typography className="Output">
-                    NPS: Would you say you have a lower or higher use for
-                    electricity than the UK average?
-                  </Typography>
-                  <Typography className="Output2">
-                    {quoteData?.questions?.electricity_than_uk_average}
-                  </Typography>
-                </Box>
-                <Box></Box>
+
                 <Box>
                   <Typography className="Output">
                     NPS: Would you say you have a lower or higher use for
@@ -323,6 +427,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -338,75 +444,69 @@ function ViewQuote({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <Box>
-                <Typography className="Output Heading">
-                  Main Building
-                </Typography>
-                <Grid
-                  gridTemplateColumns="repeat(1, 1fr)"
-                  columnGap="10px"
-                  columnCount={2}
-                  rowGap="20px"
-                >
-                  <Box>
-                    <Typography className="Output">External walls</Typography>
-                    {quoteData?.fabric_details?.external_walls.map(
-                      (item, index) => (
-                        <Typography className="Output2" key={index}>
-                          {item}
+              {quoteData?.fabric_details?.map((item, index) => {
+                return (
+                  <Box key={`fab${index}`}>
+                    <Typography className="Output Heading">
+                      {item.label}
+                    </Typography>
+                    <Grid
+                      gridTemplateColumns="repeat(1, 1fr)"
+                      columnGap="10px"
+                      columnCount={2}
+                      rowGap="20px"
+                    >
+                      <Box>
+                        <Typography className="Output">
+                          External Wall Type
                         </Typography>
-                      )
-                    )}
-                    {/* <Typography className="Output2">XXX</Typography> */}
-                  </Box>
-                  <Box>
-                    <Typography className="Output">Internal walls</Typography>
-                    {quoteData?.fabric_details?.internal_walls.map(
-                      (item, index) => (
-                        <Typography className="Output2" key={index}>
-                          {item}
+
+                        <Typography className="Output2">
+                          {item["External Walls"].fabric_type && "Type"}{" "}
+                          {item["External Walls"].fabric_type || ""}
                         </Typography>
-                      )
-                    )}
-                  </Box>
-                  <Box>
-                    <Typography className="Output">Roof type</Typography>
-                    {quoteData?.fabric_details?.root_type.map((item, index) => (
-                      <Typography className="Output2" key={index}>
-                        {item}
-                      </Typography>
-                    ))}
-                  </Box>
-                  <Box>
-                    <Typography className="Output">Windows</Typography>
-                    {quoteData?.fabric_details?.windows.map((item, index) => (
-                      <Typography className="Output2" key={index}>
-                        {item}
-                      </Typography>
-                    ))}
-                  </Box>
-                  <Box>
-                    <Typography className="Output">Suspended floors</Typography>
-                    {quoteData?.fabric_details?.suspended_floors.map(
-                      (item, index) => (
-                        <Typography className="Output2" key={index}>
-                          {item}
+                      </Box>
+
+                      <Box>
+                        <Typography className="Output">Roof Type</Typography>
+
+                        <Typography className="Output2">
+                          {item["Roof Type"]?.fabric_type && "Type"}{" "}
+                          {item["Roof Type"]?.fabric_type}
                         </Typography>
-                      )
-                    )}
-                  </Box>
-                  <Box>
-                    <Typography className="Output">Internal floors</Typography>
-                    {quoteData?.fabric_details?.internal_floors.map(
-                      (item, index) => (
-                        <Typography className="Output2" key={index}>
-                          {item}
+                      </Box>
+                      <Box>
+                        <Typography className="Output">Window Type</Typography>
+
+                        <Typography className="Output2">
+                          {item.Windows?.fabric_type && "Type"}{" "}
+                          {item?.Windows?.fabric_type}
                         </Typography>
-                      )
-                    )}
+                      </Box>
+                      <Box>
+                        <Typography className="Output">
+                          External Floor Type
+                        </Typography>
+
+                        <Typography className="Output2">
+                          {item["Suspended Floors"]?.fabric_type && "Type"}{" "}
+                          {item["Suspended Floors"]?.fabric_type}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography className="Output">
+                          Roof Light Type
+                        </Typography>
+
+                        <Typography className="Output2">
+                          {item["Internal Floors"]?.fabric_type && "Type"}{" "}
+                          {item["Internal Floors"]?.fabric_type}
+                        </Typography>
+                      </Box>
+                    </Grid>
                   </Box>
-                </Grid>
-              </Box>
+                );
+              })}
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -421,6 +521,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -531,6 +633,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -654,27 +758,7 @@ function ViewQuote({ FirstPageAction }) {
                   <Typography className="Output Heading">
                     Existing Radiator
                   </Typography>
-                  <Box>
-                    {quoteData?.photos?.existing_radiator.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
+                  <Box></Box>
                 </Box>
                 <Box>
                   <Typography className="Output Heading">Pipework</Typography>
@@ -715,6 +799,8 @@ function ViewQuote({ FirstPageAction }) {
               temp.acc1 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -740,13 +826,24 @@ function ViewQuote({ FirstPageAction }) {
                   <Typography className="Output">Heating System</Typography>
                   <Typography className="Output2">Gas</Typography>
                 </Box>
+
                 <Box>
-                  <Typography className="Output">
-                    Amount of Electricity (kWh)
-                  </Typography>
-                  <Typography className="Output2">
-                    {quoteData?.amount_of_electricity}
-                  </Typography>
+                  <Typography className="Output">Existing</Typography>
+                  {quoteData?.existing?.data.map((item, index) => (
+                    <Typography sx={{ fontFamily: "Outfit" }}>
+                      {item}
+                    </Typography>
+                  ))}
+                  <Typography>{quoteData?.existing?.other || ""}</Typography>
+                </Box>
+                <Box>
+                  <Typography className="Output">Proposed</Typography>
+                  {quoteData?.proposed?.data.map((item, index) => (
+                    <Typography sx={{ fontFamily: "Outfit" }}>
+                      {item}
+                    </Typography>
+                  ))}
+                  <Typography>{quoteData?.proposed?.other || ""}</Typography>
                 </Box>
                 <Box>
                   <Typography className="Output">
@@ -756,20 +853,20 @@ function ViewQuote({ FirstPageAction }) {
                     {quoteData?.amount_of_gas}
                   </Typography>
                 </Box>
-                <Box></Box>
-                <Box>
-                  <Typography className="Output">
-                    Cost of Electricity (£)
-                  </Typography>
-                  <Typography className="Output2">
-                    {quoteData?.cost_of_electricity}
-                  </Typography>
-                </Box>
+
                 <Box>
                   <Typography className="Output">Cost of Gas (£)</Typography>
                   <Typography className="Output2">
                     {quoteData?.cost_of_gas}
                   </Typography>
+                </Box>
+                <Box>
+                  <Typography className="Output">
+                    Other Design Factors
+                  </Typography>
+                  {quoteData?.other_design_factor.map((item) => (
+                    <Typography className="Output2">{item}</Typography>
+                  ))}
                 </Box>
               </Grid>
             </AccordionDetails>
@@ -820,7 +917,7 @@ function ViewQuote({ FirstPageAction }) {
                     <Box key={index}>
                       <Typography className="Output">Radiator</Typography>
                       <Typography className="Output2">
-                        {item?.raditator_size}
+                        {item?.radiatator_size}
                       </Typography>
                     </Box>
                     <Box key={index}>
@@ -836,17 +933,18 @@ function ViewQuote({ FirstPageAction }) {
             </AccordionDetails>
           </Accordion>
           <Accordion
-            expanded={checkAccordion.acc8}
+            expanded={checkAccordion.acc9}
             onChange={() => {
               let temp = { ...checkAccordion };
-              temp.acc8 = !temp.acc8;
+              temp.acc9 = !temp.acc9;
               temp.acc2 = false;
               temp.acc3 = false;
               temp.acc4 = false;
               temp.acc5 = false;
               temp.acc6 = false;
-              temp.acc7 = false;
               temp.acc1 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
               setCheckAccordion({ ...temp });
             }}
           >
@@ -858,22 +956,67 @@ function ViewQuote({ FirstPageAction }) {
                   fontFamily: "Outfit !important",
                 }}
               >
-                Any Other Comments
+                Ventilation
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <Grid
-                gridTemplateColumns="repeat(1, 1fr)"
-                columnGap="10px"
-                columnCount={2}
+              <Box sx={{ mb: 4 }}>
+                {quoteData?.ventilation_draught?.ventilation.map((item) => (
+                  <Typography className="Output2">{item}</Typography>
+                ))}
+                <Typography className="Output2">
+                  {quoteData?.ventilation_draught?.other || ""}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography className="Output">
+                  Building Draught Proofing / Airtightness
+                </Typography>
+                <Typography className="Output2">
+                  {quoteData?.ventilation_draught?.draught || ""}
+                </Typography>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={checkAccordion.acc8}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc8 = !temp.acc8;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc7 = false;
+              temp.acc1 = false;
+              temp.acc9 = false;
+              setCheckAccordion({ ...temp });
+            }}
+          >
+            <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
               >
-                <Box>
-                  <Typography className="Output">Comments</Typography>
-                  <Typography className="Output2">
-                    {quoteData?.other_details}
-                  </Typography>
-                </Box>
-              </Grid>
+                Pricing
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ p: 0 }}>
+              <Box sx={{ mb: 4 }}>
+                <Typography className="Output">
+                  Heat Loss Calculation {quoteData?.Pricing}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography className="Output">Any Other Comments</Typography>
+                <Typography className="Output2">
+                  {quoteData?.["Other Details"]}
+                </Typography>
+              </Box>
             </AccordionDetails>
           </Accordion>
         </Box>

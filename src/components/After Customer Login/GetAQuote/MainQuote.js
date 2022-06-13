@@ -73,7 +73,8 @@ const MainQuote = () => {
   const [res, setres] = useState();
   const { isLoading: isLoading, mutate: addQuote } = useAddQuote({
     onSuccess: (response) => {
-      setres(response);
+      setres(response?.data?.data?.quote_reference_number);
+      setCurrentStep(10);
     },
     onError: (error) => {
       setShowError(true);
@@ -249,7 +250,9 @@ const MainQuote = () => {
           _addNewQuote={_addNewQuote}
         />
       )}
-      {currentStep === 10 && <NinethStep _jumpToFirst={_jumpToFirst} />}
+      {currentStep === 10 && (
+        <NinethStep _jumpToFirst={_jumpToFirst} response={res} />
+      )}
     </React.Fragment>
   );
 };

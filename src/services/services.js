@@ -29,6 +29,15 @@ const addQuote = (data) =>
 export const useAddQuote = (options) =>
   useMutation((data) => addQuote(data), options);
 
+export async function getAllQuotes1(page) {
+  try {
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=10`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 const getAllQuotes = () =>
   axiosInstance
     .get(
@@ -52,11 +61,29 @@ export const useGetAllQuotes = (data, options) =>
 // export const useGetFabricDetails = (options) =>
 //   useMutation((data) => getFabricDetails(data), options);
 
-export async function getFabricDetails(type) {
+export async function getFabricDetails(type, page) {
   try {
-    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=1&perPage=2&type=${type}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=${page}&perPage=2&type=${type}`;
     const response = await axiosInstance.get(api);
     return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getCustomer() {
+  try {
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/user-id`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function updateCustomer(_id) {
+  try {
+    const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/users?id=${_id}`;
+    const response = await axiosInstance.patch(api);
+    return response;
   } catch (error) {
     throw error;
   }

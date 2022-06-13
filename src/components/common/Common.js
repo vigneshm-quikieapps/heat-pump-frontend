@@ -231,7 +231,8 @@ function Common({ firstPageStatus }) {
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                <img className="home-icon"
+                <img
+                  className="home-icon"
                   onClick={() => {
                     Navigate("/common/HomePage");
                   }}
@@ -292,31 +293,28 @@ function Common({ firstPageStatus }) {
                             >
                               <MenuItem
                                 style={{
-                                  margin: "8px 8px 8px 20px",
+                                  // margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
                                   // width: "150px",
                                   justifyContent: "flex-start",
                                 }}
-                                onClick={handleClose}
-                              >
-                                Profile
-                              </MenuItem>
-                              <MenuItem
-                                style={{
-                                  margin: "8px 8px 8px 20px",
-                                  fontWeight: 600,
-                                  fontSize: "18px",
-                                  // width: "150px",
-                                  justifyContent: "flex-start",
+                                onClick={() => {
+                                  Navigate("/common/MyProfile");
                                 }}
-                                onClick={handleClose}
                               >
-                                My Account
+                                <img
+                                  style={{ marginRight: "8px" }}
+                                  // className="home-icon"
+                                  src={require("../../Img/icon my account.png")}
+                                  // className="home-icon"
+                                />{" "}
+                                My Profile
                               </MenuItem>
+
                               <MenuItem
                                 style={{
-                                  margin: "8px 8px 8px 20px",
+                                  // margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
                                   // width: "150px",
@@ -324,6 +322,12 @@ function Common({ firstPageStatus }) {
                                 }}
                                 onClick={() => toggleModal()}
                               >
+                                <img
+                                  // className="home-icon"
+                                  style={{ marginRight: "8px" }}
+                                  src={require("../../Img/icon logout 1.png")}
+                                  // className="home-icon"
+                                />{" "}
                                 Logout
                               </MenuItem>
                             </MenuList>

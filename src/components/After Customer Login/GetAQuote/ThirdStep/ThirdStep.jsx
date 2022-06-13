@@ -21,6 +21,7 @@ import { getFabricDetails } from "../../../../services/services";
 import StyledTextField from "../../../../common/textfield";
 import DeleteIcon from "../../../../Img/icon remove.png";
 import { MenuItem } from "@material-ui/core";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -40,7 +41,7 @@ const TableHeading = (
 const tempData = [
   {
     _id: "62691d4d59ece8b1bb5294a7",
-    type: 1,
+    fabric_type: 1,
     wall_construction: "test",
     details: "test details",
     description: "test description",
@@ -55,7 +56,7 @@ const tempData = [
   },
   {
     _id: "62691d4f59ece8b1bb5294ab",
-    type: 1,
+    fabric_type: 1,
     wall_construction: "test",
     details: "test details",
     description: "test description",
@@ -72,19 +73,19 @@ const tempData = [
 
 const data = [
   {
-    type: "2",
+    fabric_type: "2",
     description: "Solid brick wall, dense plaster",
     details: "Brick 102mm, plaster",
     image: "No image found",
   },
   {
-    type: "3",
+    fabric_type: "3",
     description: "Solid brick wall, dense plaster",
     details: "Brick 102mm, plaster",
     image: "No image found",
   },
   {
-    type: "4",
+    fabric_type: "4",
     description: "Solid brick wall, dense plaster",
     details: "Brick 102mm, plaster",
     image: "No image found",
@@ -95,32 +96,32 @@ const demoData = [
   {
     label: "Main Building",
     "External Walls": {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
     "Internal Walls": {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
     "Roof Type": {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
     Windows: {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
     "Suspended Floors": {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
     "Inner Floors": {
-      type: "",
+      fabric_type: "",
       description: "",
       detail: "",
     },
@@ -167,7 +168,13 @@ const headers = {
   ],
   "Inner Floors": ["Type", "Floor description", "Detail", "Image"],
 };
-
+const aka = {
+  "External Walls": 1,
+  "Roof Type": 3,
+  Windows: 4,
+  "Suspended Floors": 5,
+  "Inner Floors": 6,
+};
 const ThirdStep = (props) => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState(false);
@@ -177,32 +184,32 @@ const ThirdStep = (props) => {
     {
       label: "Main Building",
       "External Walls": {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
       "Internal Walls": {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
       "Roof Type": {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
       Windows: {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
       "Suspended Floors": {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
       "Inner Floors": {
-        type: "",
+        fabric_type: "",
         description: "",
         detail: "",
       },
@@ -213,6 +220,10 @@ const ThirdStep = (props) => {
   const [selectedFabricType, setSelectedFabricType] = useState("");
   const [selectedBuildingIndex, setSelectedBuildingIndex] = useState("");
   const [fabricDetails, setFabricDetails] = useState([]);
+
+  let [page, setPage] = useState(1);
+
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -233,34 +244,45 @@ const ThirdStep = (props) => {
     setDataArr(temp);
   };
 
-  const getFabricData = (type) => {
+  const getFabricData = (fabric_type, page = 1) => {
     setLoader(true);
-    getFabricDetails(type).then((res) => {
+    getFabricDetails(fabric_type, page).then((res) => {
       if (res?.success) {
         console.log(res);
         let temp = [...res?.data];
         setFabricDetails(temp);
+        setCount(res?.total_pages);
       }
       setLoader(false);
     });
   };
-  const onSelect = (type, description, detail, short, long) => {
+  const onSelect = (fabric_type, description, detail, short, long) => {
     // console.log(selectedFabricType, selectedBuildingIndex);
     let temp = dataArr;
-    temp[selectedBuildingIndex][selectedFabricType].type = type;
+    temp[selectedBuildingIndex][selectedFabricType].fabric_type = fabric_type;
     temp[selectedBuildingIndex][selectedFabricType].description = description;
     temp[selectedBuildingIndex][selectedFabricType].detail = detail;
     temp[selectedBuildingIndex][selectedFabricType]["length"] =
-      Number(short) + Number(long);
+      Number(short) + Number(long) || 0;
     setDataArr(temp);
   };
 
   const onClose = () => {
     setOpenModal(false);
   };
-
+  useEffect(() => {
+    getFabricData(aka[`${selectedFabricType}`], page);
+  }, [page]);
+  const handleChange = (e, p) => {
+    setPage(p);
+  };
   const pagination = (
-    <Pagination count={1} disabled={false} onChange={(e) => {}} />
+    <Pagination
+      className="pagination"
+      count={count}
+      page={page}
+      onChange={handleChange}
+    />
   );
   const tableRows = useMemo(() => {
     return (
@@ -268,7 +290,7 @@ const ThirdStep = (props) => {
         fabricDetails?.map((item) => ({
           onClick: () => {
             onSelect(
-              item?.type,
+              item?.fabric_type,
               item?.description,
               item?.details,
               item?.shortness_of_suspended_floor,
@@ -280,7 +302,7 @@ const ThirdStep = (props) => {
           items:
             selectedFabricType == "Suspended Floors"
               ? [
-                  item?.type,
+                  item?.fabric_type,
                   item?.description,
 
                   Number(item?.shortness_of_suspended_floor) +
@@ -291,7 +313,12 @@ const ThirdStep = (props) => {
                   item?.longness_of_suspended_floor,
                   item?.image_url,
                 ]
-              : [item?.type, item?.description, item?.details, item?.image_url],
+              : [
+                  item?.fabric_type,
+                  item?.description,
+                  item?.details,
+                  item?.image_url,
+                ],
         }))) ||
       []
     );
@@ -340,7 +367,7 @@ const ThirdStep = (props) => {
                         fontSize: "20px",
                         fontFamily: "Outfit",
                         backgroundColor: "#fafafa",
-                        color:"black"
+                        color: "black",
                       },
                     },
                   }}
@@ -442,7 +469,7 @@ const ThirdStep = (props) => {
                   </button>
                 </Box>
 
-                {fabric["External Walls"]?.type && (
+                {fabric["External Walls"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -470,7 +497,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["External Walls"]?.type}
+                        Type {fabric["External Walls"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -545,7 +572,7 @@ const ThirdStep = (props) => {
                     Internal Walls 
                   </button>
                 </Box>
-                {fabric["Internal Walls"]?.type && (
+                {fabric["Internal Walls"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -573,7 +600,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["Internal Walls"]?.type}
+                        Type {fabric["Internal Walls"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box
@@ -655,7 +682,7 @@ const ThirdStep = (props) => {
                     Roof Type
                   </button>
                 </Box>
-                {fabric["Roof Type"]?.type && (
+                {fabric["Roof Type"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -683,7 +710,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["Roof Type"]?.type}
+                        Type {fabric["Roof Type"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -750,7 +777,7 @@ const ThirdStep = (props) => {
                     Windows Type
                   </button>
                 </Box>
-                {fabric["Windows"]?.type && (
+                {fabric["Windows"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -778,7 +805,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["Windows"]?.type}
+                        Type {fabric["Windows"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -855,7 +882,7 @@ const ThirdStep = (props) => {
                     External Floors Type
                   </button>
                 </Box>
-                {fabric["Suspended Floors"]?.type && (
+                {fabric["Suspended Floors"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -883,7 +910,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["Suspended Floors"]?.type}
+                        Type {fabric["Suspended Floors"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -951,7 +978,7 @@ const ThirdStep = (props) => {
                     Roof Lights Type
                   </button>
                 </Box>
-                {fabric["Inner Floors"]?.type && (
+                {fabric["Inner Floors"]?.fabric_type && (
                   <Box
                     sx={{
                       width: "100%",
@@ -979,7 +1006,7 @@ const ThirdStep = (props) => {
                           lineHeight: "normal",
                         }}
                       >
-                        Type {fabric["Inner Floors"]?.type}
+                        Type {fabric["Inner Floors"]?.fabric_type}
                       </Typography>
                     </Box>
                     <Box sx={{ marginLeft: "5%" }}>
@@ -1059,7 +1086,7 @@ const ThirdStep = (props) => {
             variant="contained"
             className="btn-house Add btn-icon"
             onClick={() => {
-              props.getPayloadData("fabric details", dataArr);
+              props.getPayloadData(["fabric_details"], [dataArr]);
               props.next();
             }}
           >

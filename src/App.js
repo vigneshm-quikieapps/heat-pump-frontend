@@ -54,6 +54,7 @@ import AddEditSuspendedFloor from "./components/admin/setup/AddEditSuspendedFloo
 import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor";
 import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
 import HomePage from "./components/After Customer Login/HomePage/HomePage";
+import MyProfile from "./components/After Customer Login/MyProfile/MyProfile";
 
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
@@ -213,6 +214,7 @@ function PriorityComponent() {
               <Route path="HomePage" element={<HomePage />} />
               <Route path="createlist" element={<CreateList />} />
               <Route path="servicerequest" element={<ServiceList />} />
+              <Route path="MyProfile" element={<MyProfile />} />
               {/*  <Route path="createservice" element={<CreateListSubmitted />} /> */}
               <Route path="manageservice" element={<ManageServiceRequest />} />
               <Route path="accountrequest" element={<AccountRequest />} />

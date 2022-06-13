@@ -35,27 +35,15 @@ const SecondStep = (props) => {
     window.scrollTo(0, 0);
   }, []);
   const [weeklySlots, setWeeklySlots] = useState({
-    slot1: Array(2).fill(false),
-    slot2: Array(2).fill(false),
-    slot3: Array(2).fill(false),
-    slot4: Array(2).fill(false),
-    slot5: Array(2).fill(false),
-    slot6: Array(2).fill(false),
+    "0000 - 0600": Array(2).fill(false),
+    "0600 - 0800": Array(2).fill(false),
+    "0800 - 1000": Array(2).fill(false),
+    "1000 - 1400": Array(2).fill(false),
+    "1400 - 1800": Array(2).fill(false),
+    "1800 - 2359": Array(2).fill(false),
   });
-  const [yearlySlots, setYearlySlots] = useState({
-    Jan: [],
-    Feb: [],
-    Mar: [],
-    Apr: [],
-    May: [],
-    Jun: [],
-    Jul: [],
-    Aug: [],
-    Sep: [],
-    Oct: [],
-    Nov: [],
-    Dec: [],
-  });
+  const [propertyUsage, setPropertyUsage] = useState({ data: [], other: "" });
+  const [checkOtherToggle, setCheckOtherToggle] = useState([false]);
   const [selectedAdultOccupants, setSelectedAdultOccupants] = useState("1");
   const [selectedChildOccupants, setSelectedChildOccupants] = useState("1");
   const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState(1);
@@ -63,284 +51,101 @@ const SecondStep = (props) => {
     return { name, Weekday, Weekend };
   }
   const handleWeeklySlots = (index, slot) => {
-    let temp = weeklySlots;
-    temp[`slot${slot}`][index] = !weeklySlots[`slot${slot}`][index];
+    let temp = { ...weeklySlots };
+    temp[`${slot}`][index] = !weeklySlots[`${slot}`][index];
     setWeeklySlots(temp);
   };
-  const getYearlySlots = (month, items) => {
-    let temp = yearlySlots;
-    temp[month] = [items];
-    setYearlySlots(temp);
-  };
+
   const rows = [
     createData(
       "0000 - 0600",
       <Checkbox
-        defaultChecked={weeklySlots.slot1[0]}
+        defaultChecked={weeklySlots["0000 - 0600"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 1);
+          handleWeeklySlots(0, "0000 - 0600");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot1[1]}
+        defaultChecked={weeklySlots["0000 - 0600"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 1);
+          handleWeeklySlots(1, "0000 - 0600");
         }}
       />
-      // <Checkbox
-      //   defaultChecked={weeklySlots.slot1[2]}
-      //   onChange={() => {
-      //     handleWeeklySlots(2, 1);
-      //   }}
-      // />,
-      // <Checkbox
-      //   defaultChecked={weeklySlots.slot1[3]}
-      //   onChange={() => {
-      //     handleWeeklySlots(3, 1);
-      //   }}
-      // />,
-      // <Checkbox
-      //   defaultChecked={weeklySlots.slot1[4]}
-      //   onChange={() => {
-      //     handleWeeklySlots(4, 1);
-      //   }}
-      // />,
-      // <Checkbox
-      //   defaultChecked={weeklySlots.slot1[5]}
-      //   onChange={() => {
-      //     handleWeeklySlots(5, 1);
-      //   }}
-      // />,
-      // <Checkbox
-      //   defaultChecked={weeklySlots.slot1[6]}
-      //   onChange={() => {
-      //     handleWeeklySlots(6, 1);
-      //   }}
-      // />
     ),
 
     createData(
       "0600 - 0800",
       <Checkbox
-        defaultChecked={weeklySlots.slot2[0]}
+        defaultChecked={weeklySlots["0600 - 0800"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 2);
+          handleWeeklySlots(0, "0600 - 0800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot2[1]}
+        defaultChecked={weeklySlots["0600 - 0800"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 2);
+          handleWeeklySlots(1, "0600 - 0800");
         }}
       />
     ),
     createData(
       "0800 - 1000",
       <Checkbox
-        defaultChecked={weeklySlots.slot3[0]}
+        defaultChecked={weeklySlots["0800 - 1000"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 3);
+          handleWeeklySlots(0, "0800 - 1000");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot3[1]}
+        defaultChecked={weeklySlots["0800 - 1000"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 3);
+          handleWeeklySlots(1, "0800 - 1000");
         }}
       />
     ),
     createData(
       "1000  -  1400",
       <Checkbox
-        defaultChecked={weeklySlots.slot4[0]}
+        defaultChecked={weeklySlots["1000 - 1400"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 4);
+          handleWeeklySlots(0, "1000 - 1400");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot4[1]}
+        defaultChecked={weeklySlots["1000 - 1400"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 4);
+          handleWeeklySlots(1, "1000 - 1400");
         }}
       />
     ),
     createData(
       "1400  -  1800",
       <Checkbox
-        defaultChecked={weeklySlots.slot5[0]}
+        defaultChecked={weeklySlots["1400 - 1800"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 4);
+          handleWeeklySlots(0, "1400 - 1800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot5[1]}
+        defaultChecked={weeklySlots["1400 - 1800"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 5);
+          handleWeeklySlots(1, "1400 - 1800");
         }}
       />
     ),
+
     createData(
       "1800  -  2359",
       <Checkbox
-        defaultChecked={weeklySlots.slot6[0]}
+        defaultChecked={weeklySlots["1800 - 2359"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 6);
+          handleWeeklySlots(0, "1800 - 2359");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot6[1]}
+        defaultChecked={weeklySlots["1800 - 2359"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 6);
+          handleWeeklySlots(1, "1800 - 2359");
         }}
       />
     ),
@@ -429,66 +234,6 @@ const SecondStep = (props) => {
               >
                 Weekend
               </StyledTableCell>
-              {/* <StyledTableCell
-                sx={{
-                  borderBottom: "none",
-                  fontSize: "22px",
-                  fontWeight: "300",
-                  fontFamily: "Outfit",
-                  textAlign: "center",
-                }}
-                align="right"
-              >
-                Wed
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  borderBottom: "none",
-                  fontSize: "22px",
-                  fontWeight: "300",
-                  fontFamily: "Outfit",
-                  textAlign: "center",
-                }}
-                align="right"
-              >
-                Thur
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  borderBottom: "none",
-                  fontSize: "22px",
-                  fontWeight: "300",
-                  fontFamily: "Outfit",
-                  textAlign: "center",
-                }}
-                align="right"
-              >
-                Fri
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  textAlign: "center",
-                  borderBottom: "none",
-                  fontSize: "22px",
-                  fontWeight: "300",
-                  fontFamily: "Outfit",
-                }}
-                align="right"
-              >
-                Sat
-              </StyledTableCell>
-              <StyledTableCell
-                sx={{
-                  textAlign: "center",
-                  borderBottom: "none",
-                  fontSize: "22px",
-                  fontWeight: "300",
-                  fontFamily: "Outfit",
-                }}
-                align="right"
-              >
-                Sun
-              </StyledTableCell> */}
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -521,40 +266,12 @@ const SecondStep = (props) => {
                 <StyledTableCell sx={{ borderBottom: "none" }} align="center">
                   {row.Weekend}
                 </StyledTableCell>
-                {/* <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Wed}
-                </StyledTableCell>
-                <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Thur}
-                </StyledTableCell>
-                <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Fri}
-                </StyledTableCell>
-                <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Sat}
-                </StyledTableCell>
-                <StyledTableCell sx={{ borderBottom: "none" }} align="center">
-                  {row.Sun}
-                </StyledTableCell> */}
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
       </Box>
 
-      {/* <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "bold",
-          fontFamily: "outfit",
-        }}
-      >
-        Please tick when you think the property will typically be occupied in
-        the year
-      </Typography> */}
-      {/* <TableWeek
-        getYearlySlots={(month, items) => getYearlySlots(month, items)}
-      /> */}
       <Typography
         sx={{
           fontSize: "22px",
@@ -582,11 +299,16 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-          // sx={{ float: "center" }}
-          // defaultChecked={weeklySlots.slot1[0]}
-          // onChange={() => {
-          //   handleWeeklySlots(0, 1);
-          // }}
+            // sx={{ float: "center" }}
+            defaultChecked={propertyUsage.data[0]}
+            onChange={(e) => {
+              let temp = { ...propertyUsage };
+              e.target.checked
+                ? (temp.data[0] = "Main House")
+                : temp.data.splice(0, 1);
+              setPropertyUsage(temp);
+              // console.log(propertyUsage);
+            }}
           />
           <Typography
             sx={{
@@ -606,10 +328,15 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-          // defaultChecked={weeklySlots.slot1[0]}
-          // onChange={() => {
-          //   handleWeeklySlots(0, 1);
-          // }}
+            defaultChecked={propertyUsage.data[1]}
+            onChange={(e) => {
+              let temp = { ...propertyUsage };
+              e.target.checked
+                ? (temp.data[1] = "Holiday Home")
+                : temp.data.splice(1, 1);
+              setPropertyUsage(temp);
+              // console.log(propertyUsage);
+            }}
           />
           <Typography
             sx={{
@@ -629,10 +356,20 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-          // defaultChecked={weeklySlots.slot1[0]}
-          // onChange={() => {
-          //   handleWeeklySlots(0, 1);
-          // }}
+            defaultChecked={checkOtherToggle[0]}
+            onChange={(e) => {
+              let temp = [...checkOtherToggle];
+              let temp1 = { ...propertyUsage };
+              if (e.target.checked) {
+                temp[0] = false;
+              } else {
+                temp[0] = true;
+                temp1.other = "";
+                setPropertyUsage(temp1);
+              }
+              setCheckOtherToggle(temp);
+              //  console.log(propertyUsage);
+            }}
           />
           <Typography
             sx={{
@@ -644,7 +381,17 @@ const SecondStep = (props) => {
             Other
           </Typography>
         </Box>
-        <StyledTextField type="text" placeholder="If other please state" />
+        <StyledTextField
+          type="text"
+          disabled={checkOtherToggle[0]}
+          value={propertyUsage.other}
+          placeholder="If other, please state"
+          onChange={(e) => {
+            let temp = { ...propertyUsage };
+            temp.other = e.target.value;
+            setPropertyUsage(temp);
+          }}
+        />
       </Box>
       <Typography
         sx={{
@@ -742,7 +489,7 @@ const SecondStep = (props) => {
         <MenuItem value="2">2</MenuItem>
         <MenuItem value="2.5">2.5</MenuItem>
         <MenuItem value="3">3</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="4">Other</MenuItem>
       </StyledTextField>
       <Box sx={{ display: "flex" }}>
         <button
@@ -759,34 +506,19 @@ const SecondStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            // let temp1 = temp.map((item) => item);
-            Object.values(weeklySlots).map((item) => {
-              return item.map((slot, index) => {
-                if (slot == true) item[index] = index + 1;
-                else item[index] = null;
-              });
-            });
-            // Object.values(weeklySlots).map((items) =>
-            //   items.filter((slot) => slot !== isNaN)
-            // );
-            // let temp1 = {};
-            // temp.map((item, index) => {
-            //   temp1[`slot${index + 1}`] = item;
-            // });
-
             props.getPayloadData(
               ["occupancy"],
               [
                 {
                   weekly: weeklySlots,
-                  // weeklySlots,
-                  yearly: yearlySlots,
+                  property_usage: propertyUsage,
                   number_of_adultOccupants: selectedAdultOccupants,
                   number_of_childrenOccupants: selectedChildOccupants,
                   number_of_typicalOccupantsPerBedroom: selectedNoPerBedroom,
                 },
               ]
             );
+
             props.next();
           }}
         >

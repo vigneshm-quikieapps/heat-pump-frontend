@@ -3,7 +3,7 @@ import { Box, Button } from "@material-ui/core";
 import { TailSpin } from "react-loader-spinner";
 import { Typography } from "@mui/material";
 import { Card, Pagination, Table } from "../../../common";
-import { useGetAllQuotes } from "../../../services/services";
+import { useGetAllQuotes, getAllQuotes1 } from "../../../services/services";
 import { useNavigate } from "react-router-dom";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 import { connect } from "react-redux";
@@ -19,9 +19,10 @@ const MyQuote = ({ FirstPageAction }) => {
   const { data, isLoading } = useGetAllQuotes();
   const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
+  let [count, setCount] = useState(1);
   const [userData1, setUserData1] = useState();
   // const _DATA = usePagination(data, PER_PAGE);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
 
   const formatDate = (date) => {
     let temp = date.split("T")[0].split("-");
@@ -32,36 +33,29 @@ const MyQuote = ({ FirstPageAction }) => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     userData && setUserData1(userData);
   }, [localStorage.getItem("userData")]);
+
   useEffect(() => {
-    let temp;
-
-    if (data?.data.length > 10) {
-      temp = data?.data.slice(0, 10);
-
-      setDataArr(temp);
-    } else {
-      setDataArr(data?.data);
-    }
+    setLoader(true);
+    setCount(data?.total_pages);
+    setDataArr(data?.data);
+    setLoader(false);
   }, [data]);
+  useEffect(() => {
+    setLoader(true);
+    getAllQuotes1(page).then((res) => {
+      setDataArr(res?.data?.data);
 
-  const setDataOfTens = (page) => {
-    let temp;
-    if (data?.data.length > 10) {
-      temp = data?.data.slice(page * 10 - 10, page * 10 + 1);
-      setLoader(true);
-      setDataArr(temp);
-    }
-  };
+      setLoader(false);
+    });
+  }, [page]);
 
   const pagination = (
     <Pagination
-      count={Math.ceil(data?.data.length / 10)}
+      count={count}
       page={page}
       disabled={false}
       onChange={(e, p) => {
-        console.log(p);
         setPage(p);
-        setDataOfTens(p);
       }}
     />
   );
@@ -69,7 +63,7 @@ const MyQuote = ({ FirstPageAction }) => {
   const tableRows = useMemo(() => {
     return (
       (dataArr &&
-        dataArr.map(
+        dataArr?.map(
           ({
             quote_reference_number,
             //  { address_1, address_2, city, country, postcode }=site_details,

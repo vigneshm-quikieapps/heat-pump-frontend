@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./SeventhStep.css";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { TailSpin } from "react-loader-spinner";
-import axios from "axios";
-import URL from "../../../../GlobalUrl";
-import globalAPI from "../../../../GlobalApi";
-import { Button, Typography, Box, Checkbox } from "@mui/material";
+
+import { Typography, Box } from "@mui/material";
+import { Card, Checkbox } from "../../../../common";
+
 import { makeStyles } from "@mui/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
+// import InputLabel from "@mui/material/InputLabel";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card, TextField } from "../../../../common";
+// import { Card, TextField } from "../../../../common";
 import StyledTextField from "../../../../common/textfield";
+// import { TempleHinduOutlined } from "@mui/icons-material";
 
 const useStyles = makeStyles({
   textfield: {
@@ -85,7 +86,15 @@ const SeventhStep = (props) => {
   const [focused, setFocused] = React.useState("");
   const [priority, setPriority] = useState("Gas");
   const [priorityValue, setPriorityValue] = useState();
-  const [currnetBills, setCurrentBills] = useState({});
+  const [currnetBills, setCurrentBills] = useState({
+    amount_of_gas: "",
+    cost_of_gas: "",
+  });
+  const [existingData, setExistingData] = useState({ data: [], other: "" });
+  const [proposedData, setProposedData] = useState({ data: [], other: "" });
+  const [otherDesignData, setOtherDesignData] = useState([]);
+  const [checkOtherToggle, setCheckOtherToggle] = useState([false, false]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -153,66 +162,135 @@ const SeventhStep = (props) => {
               border: "0.2vh solid #f2f3f2",
             }}
           />
-          <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
-            <Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mt: 2,
+            }}
+          >
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={existingData.data[0]}
+                onChange={(e) => {
+                  let temp = { ...existingData };
+                  e.target.checked
+                    ? (temp.data[0] = "Radiator")
+                    : temp.data.splice(0, 1);
+                  setExistingData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Radiator
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={existingData.data[1]}
+                onChange={(e) => {
+                  let temp = { ...existingData };
+                  e.target.checked
+                    ? (temp.data[1] = "Underfloor Heating")
+                    : temp.data.splice(1, 1);
+                  setExistingData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Underfloor Heating
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={existingData.data[2]}
+                onChange={(e) => {
+                  let temp = { ...existingData };
+                  e.target.checked
+                    ? (temp.data[2] = "Underfloor and Radiators")
+                    : temp.data.splice(2, 1);
+                  setExistingData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Underfloor and Radiators
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={existingData.data[3]}
+                onChange={(e) => {
+                  let temp = { ...existingData };
+                  e.target.checked
+                    ? (temp.data[3] = "Fan coils")
+                    : temp.data.splice(3, 1);
+                  setExistingData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Fan coils
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={checkOtherToggle[0]}
+                onChange={(e) => {
+                  let temp = [...checkOtherToggle];
+                  let temp1 = { ...existingData };
+                  if (e.target.checked) {
+                    temp[0] = false;
+                  } else {
+                    temp[0] = true;
+                    temp1.other = "";
+                    setExistingData(temp1);
+                  }
+                  setCheckOtherToggle(temp);
+                  //  console.log(propertyUsage);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Other
               </Typography>
             </Box>
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              placeholder="If other please state"
+              disabled={checkOtherToggle[0]}
+              value={existingData.other}
+              placeholder="If other, please state"
+              onChange={(e) => {
+                let temp = { ...existingData };
+                temp.other = e.target.value;
+                setExistingData(temp);
+              }}
             />
           </Box>
         </div>
@@ -234,65 +312,128 @@ const SeventhStep = (props) => {
             }}
           />
           <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={proposedData.data[0]}
+                onChange={(e) => {
+                  let temp = { ...proposedData };
+                  e.target.checked
+                    ? (temp.data[0] = "Radiator")
+                    : temp.data.splice(0, 1);
+                  setProposedData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Radiator
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={proposedData.data[1]}
+                onChange={(e) => {
+                  let temp = { ...proposedData };
+                  e.target.checked
+                    ? (temp.data[1] = "Underfloor Heating")
+                    : temp.data.splice(1, 1);
+                  setProposedData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Underfloor Heating
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={proposedData.data[2]}
+                onChange={(e) => {
+                  let temp = { ...proposedData };
+                  e.target.checked
+                    ? (temp.data[2] = "Underfloor and Radiators")
+                    : temp.data.splice(2, 1);
+                  setProposedData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Underfloor and Radiators
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={proposedData.data[3]}
+                onChange={(e) => {
+                  let temp = { ...proposedData };
+                  e.target.checked
+                    ? (temp.data[3] = "Fan coils")
+                    : temp.data.splice(3, 1);
+                  setProposedData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Fan coils
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={checkOtherToggle[1]}
+                onChange={(e) => {
+                  let temp = [...checkOtherToggle];
+                  let temp1 = { ...proposedData };
+                  if (e.target.checked) {
+                    temp[1] = false;
+                  } else {
+                    temp[1] = true;
+                    temp1.other = "";
+                    setProposedData(temp1);
+                  }
+                  setCheckOtherToggle(temp);
+                  //  console.log(propertyUsage);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Other
               </Typography>
             </Box>
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              placeholder="If other please state"
+              disabled={checkOtherToggle[1]}
+              value={proposedData.other}
+              placeholder="If other, please state"
+              onChange={(e) => {
+                let temp = { ...proposedData };
+                temp.other = e.target.value;
+                setProposedData(temp);
+              }}
             />
           </Box>
         </div>
@@ -328,12 +469,13 @@ const SeventhStep = (props) => {
               </Typography>
               <hr className="s2hr2" />
               <Typography>
-                <TextField
+                <StyledTextField
+                  type="number"
                   sx={{ width: "100%" }}
                   label={`Amount of ${priority} (kWh)`}
                   value={currnetBills?.amount_of_gas}
                   onChange={(e) => {
-                    let temp = currnetBills;
+                    let temp = { ...currnetBills };
                     temp["amount_of_gas"] = e.target.value;
                     setCurrentBills(temp);
                   }}
@@ -354,12 +496,13 @@ const SeventhStep = (props) => {
               </h3>
               <hr className="s2hr2" />
               <Typography>
-                <TextField
+                <StyledTextField
+                  type="number"
                   sx={{ width: "100%" }}
                   label={`Cost of ${priority} (£)`}
                   value={currnetBills?.cost_of_gas}
                   onChange={(e) => {
-                    let temp = currnetBills;
+                    let temp = { ...currnetBills };
                     temp["cost_of_gas"] = e.target.value;
                     setCurrentBills(temp);
                   }}
@@ -389,47 +532,87 @@ const SeventhStep = (props) => {
             Tick all that apply
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={otherDesignData[0]}
+                onChange={(e) => {
+                  let temp = [...otherDesignData];
+                  e.target.checked
+                    ? (temp[0] = "High ceilings")
+                    : temp.splice(0, 1);
+                  setOtherDesignData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 High ceilings
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={otherDesignData[1]}
+                onChange={(e) => {
+                  let temp = [...otherDesignData];
+                  e.target.checked
+                    ? (temp[1] = "Intermittent Heating")
+                    : temp.splice(1, 1);
+                  setOtherDesignData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Intermittent Heating
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={otherDesignData[2]}
+                onChange={(e) => {
+                  let temp = [...otherDesignData];
+                  e.target.checked
+                    ? (temp[2] = "Exposed site")
+                    : temp.splice(2, 1);
+                  setOtherDesignData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Exposed site
               </Typography>
             </Box>
-            <Box>
+            <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={}
-                onChange={() => {
-                  // handleWeeklySlots(6, 1);
+                defaultChecked={otherDesignData[3]}
+                onChange={(e) => {
+                  let temp = [...otherDesignData];
+                  e.target.checked
+                    ? (temp[3] = "Any microbore")
+                    : temp.splice(3, 1);
+                  setOtherDesignData(temp);
                 }}
               />
-              <Typography sx={{ display: "inline", fontFamily: "Outfit" }}>
+              <Typography
+                sx={{
+                  display: "inline",
+                  fontFamily: "Outfit",
+                  marginLeft: "1.6%",
+                }}
+              >
                 Any microbore
               </Typography>
             </Box>
@@ -451,21 +634,18 @@ const SeventhStep = (props) => {
             className="btn-house Add btn-icon"
             onClick={() => {
               props.getPayloadData(
-                [
-                  "heating_system",
-                  "amount_of_electricity",
-                  "amount_of_gas",
-                  "cost_of_electricity",
-                  "cost_of_gas",
-                ],
+                ["heating_system", "amount_of_gas", "cost_of_gas"],
                 [
                   priorityValue,
-                  currnetBills.amount_of_electricity,
                   currnetBills.amount_of_gas,
-                  currnetBills.cost_of_electricity,
                   currnetBills.cost_of_gas,
                 ]
               );
+              props.getPayloadData(
+                ["existing", "proposed", "other_design_factor"],
+                [existingData, proposedData, otherDesignData]
+              );
+
               props.next();
             }}
           >

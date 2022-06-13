@@ -5,11 +5,11 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../../GlobalUrl";
 import globalAPI from "../../../../GlobalApi";
-import { Button, Box, Typography, Checkbox } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card } from "../../../../common";
+import { Card, Checkbox } from "../../../../common";
 
 const useStyles = makeStyles({});
 
@@ -67,6 +67,8 @@ const EightStep = (props) => {
                 display: "inline-block",
                 fontFamily: "Outfit",
                 width: "17%",
+                mt: 2,
+                ml: 2,
               }}
             >
               Heat Loss Calculation
@@ -99,6 +101,8 @@ const EightStep = (props) => {
                 display: "inline-block",
                 fontFamily: "Outfit",
                 width: "17%",
+                mt: 2,
+                ml: 2,
               }}
             >
               Emitter Sizing
@@ -132,6 +136,8 @@ const EightStep = (props) => {
                 display: "inline-block",
                 fontFamily: "Outfit",
                 width: "17%",
+                mt: 2,
+                ml: 2,
               }}
             >
               Noise Assessment
@@ -165,6 +171,8 @@ const EightStep = (props) => {
                 display: "inline-block",
                 fontFamily: "Outfit",
                 width: "17%",
+                mt: 2,
+                ml: 2,
               }}
             >
               DNO Application
@@ -200,6 +208,8 @@ const EightStep = (props) => {
                 display: "inline-block",
                 fontFamily: "Outfit",
                 width: "17%",
+                mt: 2,
+                ml: 2,
               }}
             >
               Discount for all 4
@@ -292,10 +302,9 @@ const EightStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(["pricing"], [pricing]);
-            props.getPayloadData(["other_details"], [text]);
+            props.getPayloadData(["Pricing"], [pricing]);
+            props.getPayloadData(["Other Details"], [text]);
             props._addNewQuote();
-            props.next();
           }}
         >
           <span style={{ marginRight: "100px" }}>Submit</span>

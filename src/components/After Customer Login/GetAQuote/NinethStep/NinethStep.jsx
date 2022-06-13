@@ -65,8 +65,8 @@ const NinethStep = (props) => {
             textAlign: "left",
           }}
         >
-          Your job request submission is successful. Ref: JR12345678. You can
-          view job details, including status, using the job list on My Jobs.
+          Your job request submission is successful. Ref: {props?.response}. You
+          can view job details, including status, using the job list on My Jobs.
         </Typography>
       </Box>
       <button

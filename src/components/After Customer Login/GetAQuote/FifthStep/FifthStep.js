@@ -52,27 +52,27 @@ const FifthStep = (props) => {
           if (res.success) {
             if (name == "walls") {
               wattachments.push(res.data.message[0]);
-              setWalls([...walls, e]);
+              setWalls([...walls, e.name]);
             }
             if (name == "roof") {
               rattachments.push(res.data.message[0]);
-              setRoof([...roof, e]);
+              setRoof([...roof, e.name]);
             }
             if (name == "windows") {
               wiattachments.push(res.data.message[0]);
-              setWindows([...windows, e]);
+              setWindows([...windows, e.name]);
             }
             if (name == "eb") {
               ebattachments.push(res.data.message[0]);
-              setEB([...eb, e]);
+              setEB([...eb, e.name]);
             }
             if (name == "er") {
               erattachments.push(res.data.message[0]);
-              setER([...er, e]);
+              setER([...er, e.name]);
             }
             if (name == "pw") {
               pwattachments.push(res.data.message[0]);
-              setPW([...pw, e]);
+              setPW([...pw, e.name]);
             }
           } else {
             toast.error(res.data.message);
@@ -220,7 +220,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -296,7 +296,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -372,7 +372,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -448,7 +448,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -524,7 +524,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -600,7 +600,7 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
