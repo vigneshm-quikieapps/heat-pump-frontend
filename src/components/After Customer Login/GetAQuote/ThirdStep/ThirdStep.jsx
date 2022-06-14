@@ -1127,7 +1127,11 @@ const ThirdStep = (props) => {
               component="h2"
               sx={{ color: "#fa5e00", fontWeight: "Bold", mb: 1.5 }}
             >
-              {selectedFabricType}
+              {selectedFabricType === "Suspended Floors"
+                ? "External Floors"
+                : selectedFabricType === "Inner Floors"
+                ? "Roof Lights"
+                : selectedFabricType}
             </Typography>
             <Typography
               variant="h5"
