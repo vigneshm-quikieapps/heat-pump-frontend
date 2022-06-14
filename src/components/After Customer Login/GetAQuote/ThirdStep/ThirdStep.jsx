@@ -166,7 +166,12 @@ const headers = {
     "Long b(m)",
     "Image",
   ],
-  "Inner Floors": ["Type", "Floor description", "Detail", "Image"],
+  "Inner Floors": [
+    "Type",
+    "Roof Light description",
+    "Roof Light Detail",
+    "Image",
+  ],
 };
 const aka = {
   "External Walls": 1,
