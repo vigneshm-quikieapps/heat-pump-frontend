@@ -126,8 +126,8 @@ const SecondSubStep = (props) => {
           <MenuItem value="2">2</MenuItem>
           <MenuItem value="2.5">2.5</MenuItem>
           <MenuItem value="3">3</MenuItem>
-          <MenuItem value="4">more than 3</MenuItem>
-          <MenuItem value="10">Other</MenuItem>
+          <MenuItem value="More than 3">More than 3</MenuItem>
+          <MenuItem value="Not sure">Other</MenuItem>
         </StyledTextField>
         <Typography
           sx={{

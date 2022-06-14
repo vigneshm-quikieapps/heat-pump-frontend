@@ -65,6 +65,7 @@ const MainQuote = () => {
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [payload, setPayload] = useState({});
+  const [flag, setFlag] = useState(0);
   const [credentials, setCredentials] = useState({
     email: "",
     username: "",
@@ -122,6 +123,8 @@ const MainQuote = () => {
       temp[label[index]] = data[index];
     }
     setPayload(temp);
+
+    console.log(temp);
   };
   /*
    * the functions for our button

@@ -43,7 +43,7 @@ const SecondStep = (props) => {
     "1800 - 2359": Array(2).fill(false),
   });
   const [propertyUsage, setPropertyUsage] = useState({ data: [], other: "" });
-  const [checkOtherToggle, setCheckOtherToggle] = useState([false]);
+  const [checkOtherToggle, setCheckOtherToggle] = useState([true]);
   const [selectedAdultOccupants, setSelectedAdultOccupants] = useState("1");
   const [selectedChildOccupants, setSelectedChildOccupants] = useState("1");
   const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState(1);
@@ -356,7 +356,7 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-            defaultChecked={checkOtherToggle[0]}
+            defaultChecked={!checkOtherToggle[0]}
             onChange={(e) => {
               let temp = [...checkOtherToggle];
               let temp1 = { ...propertyUsage };
@@ -420,7 +420,7 @@ const SecondStep = (props) => {
         <MenuItem value="3">3 Adult</MenuItem>
         <MenuItem value="4">4 Adult</MenuItem>
         <MenuItem value="5">5 Adult</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 5">More than 5</MenuItem>
       </StyledTextField>
 
       <Typography
@@ -450,7 +450,7 @@ const SecondStep = (props) => {
         <MenuItem value="3">3 Child</MenuItem>
         <MenuItem value="4">4 Child</MenuItem>
         <MenuItem value="5">5 Child</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 5">More than 5</MenuItem>
       </StyledTextField>
       <Typography
         sx={{
@@ -489,7 +489,7 @@ const SecondStep = (props) => {
         <MenuItem value="2">2</MenuItem>
         <MenuItem value="2.5">2.5</MenuItem>
         <MenuItem value="3">3</MenuItem>
-        <MenuItem value="4">Other</MenuItem>
+        <MenuItem value="More than 3">More than 3</MenuItem>
       </StyledTextField>
       <Box sx={{ display: "flex" }}>
         <button

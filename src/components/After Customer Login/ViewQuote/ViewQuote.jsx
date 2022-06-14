@@ -224,120 +224,96 @@ function ViewQuote({ FirstPageAction }) {
                   <Typography className="Output">
                     Time(Weekly) occupied
                   </Typography>
-                  {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["0000 - 0600"][1] ===
-                            1 &&
-                            "0000 - 0600")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["0000 - 0600"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
-                  {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["0600 - 0800"][1] ===
-                            1 &&
-                            "0600 - 0800")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["0600 - 0800"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
-                  {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["0800 - 1000"][1] ===
-                            1 &&
-                            "0800 - 1000")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["0800 - 1000"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
-                  {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["1000 - 1400"][1] ===
-                            1 &&
-                            "1000 - 1400")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["1000 - 1400"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
-                  {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["1400 - 1800"][1] ===
-                            1 &&
-                            "1400 - 1800")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["1400 - 1800"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
-                  {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 ||
-                    (quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 && (
-                      <Typography className="Output2">
-                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 ||
-                          (quoteData?.occupancy?.weekly["1800 - 2359"][1] ===
-                            1 &&
-                            "1800 - 2359")}
-                        &#40;
-                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
-                          "Weekday"}
-                        {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
-                          quoteData?.occupancy?.weekly["1800 - 2359"][1] ===
-                            1 &&
-                          ","}
-                        {quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 &&
-                          "Weekend"}
-                        &#41;
-                      </Typography>
-                    ))}
+
+                  <Typography className="Output2">
+                    0000 - 0600 &#40;
+                    {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["0000 - 0600"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["0000 - 0600"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["0000 - 0600"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
+
+                  <Typography className="Output2">
+                    0600 - 0800 &#40;
+                    {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["0600 - 0800"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["0600 - 0800"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["0600 - 0800"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
+
+                  <Typography className="Output2">
+                    0800 - 1000 &#40;
+                    {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["0800 - 1000"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["0800 - 1000"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["0800 - 1000"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
+
+                  <Typography className="Output2">
+                    1000 - 1400 &#40;
+                    {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["1000 - 1400"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["1000 - 1400"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["1000 - 1400"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
+
+                  <Typography className="Output2">
+                    1400 - 1800 &#40;
+                    {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["1400 - 1800"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["1400 - 1800"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["1400 - 1800"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
+
+                  <Typography className="Output2">
+                    1800 - 2359 &#40;
+                    {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
+                      "Weekday"}
+                    {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 1 &&
+                      quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 &&
+                      ","}
+                    {quoteData?.occupancy?.weekly["1800 - 2359"][1] === 1 &&
+                      "Weekend"}
+                    {quoteData?.occupancy?.weekly["1800 - 2359"][0] === 0 &&
+                      quoteData?.occupancy?.weekly["1800 - 2359"][1] === 0 &&
+                      "NA"}
+                    &#41;
+                  </Typography>
                 </Box>
                 <Box>
                   <Typography className="Output">Property Usage</Typography>
@@ -758,7 +734,27 @@ function ViewQuote({ FirstPageAction }) {
                   <Typography className="Output Heading">
                     Existing Radiator
                   </Typography>
-                  <Box></Box>
+                  <Box>
+                    {quoteData?.photos?.existing_radiator.map((item, index) => (
+                      <div
+                        className="file1"
+                        style={{ borderRadius: "1.9vw" }}
+                        key={index}
+                      >
+                        <span style={{ float: "left", marginLeft: "1vw" }}>
+                          <img
+                            src={require("../../../Img/attachIcon.png")}
+                            style={{
+                              height: "2.8vh",
+                              width: "1vw",
+                            }}
+                          />
+
+                          <span className="fileName">{item}</span>
+                        </span>
+                      </div>
+                    ))}
+                  </Box>
                 </Box>
                 <Box>
                   <Typography className="Output Heading">Pipework</Typography>
@@ -917,7 +913,7 @@ function ViewQuote({ FirstPageAction }) {
                     <Box key={index}>
                       <Typography className="Output">Radiator</Typography>
                       <Typography className="Output2">
-                        {item?.radiatator_size}
+                        {item?.radiator_size}
                       </Typography>
                     </Box>
                     <Box key={index}>
@@ -1007,14 +1003,31 @@ function ViewQuote({ FirstPageAction }) {
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               <Box sx={{ mb: 4 }}>
-                <Typography className="Output">
-                  Heat Loss Calculation {quoteData?.Pricing}
+                <Typography
+                  sx={{
+                    display: "inline",
+                    fontFamily: "Outfit",
+                    fontWeight: "900",
+                    fontSize: "20px",
+                  }}
+                >
+                  Heat Loss Calculation
+                </Typography>
+                <Typography
+                  sx={{
+                    display: "inline",
+                    fontFamily: "Outfit",
+                    fontWeight: "600",
+                    ml: 4,
+                  }}
+                >
+                  {quoteData?.pricing && `£${quoteData?.pricing}`}
                 </Typography>
               </Box>
               <Box>
                 <Typography className="Output">Any Other Comments</Typography>
                 <Typography className="Output2">
-                  {quoteData?.["Other Details"]}
+                  {quoteData?.["other_details"]}
                 </Typography>
               </Box>
             </AccordionDetails>

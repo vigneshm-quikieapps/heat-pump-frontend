@@ -634,7 +634,7 @@ const MyProfile = (
         <button
           className="browsebtn"
           onClick={() => {
-            updateCustomer(userData?.id).then((res) => {
+            updateCustomer(userData?.id,payload).then((res) => {
               toast.success("Customer details updated successfully");
             });
           }}

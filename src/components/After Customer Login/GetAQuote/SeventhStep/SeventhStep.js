@@ -283,7 +283,7 @@ const SeventhStep = (props) => {
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              disabled={checkOtherToggle[0]}
+              disabled={!checkOtherToggle[0]}
               value={existingData.other}
               placeholder="If other, please state"
               onChange={(e) => {
@@ -426,7 +426,7 @@ const SeventhStep = (props) => {
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              disabled={checkOtherToggle[1]}
+              disabled={!checkOtherToggle[1]}
               value={proposedData.other}
               placeholder="If other, please state"
               onChange={(e) => {
@@ -634,16 +634,22 @@ const SeventhStep = (props) => {
             className="btn-house Add btn-icon"
             onClick={() => {
               props.getPayloadData(
-                ["heating_system", "amount_of_gas", "cost_of_gas"],
+                [
+                  "heating_system",
+                  "amount_of_gas",
+                  "cost_of_gas",
+                  "existing",
+                  "proposed",
+                  "other_design_factor",
+                ],
                 [
                   priorityValue,
                   currnetBills.amount_of_gas,
                   currnetBills.cost_of_gas,
+                  existingData,
+                  proposedData,
+                  otherDesignData,
                 ]
-              );
-              props.getPayloadData(
-                ["existing", "proposed", "other_design_factor"],
-                [existingData, proposedData, otherDesignData]
               );
 
               props.next();

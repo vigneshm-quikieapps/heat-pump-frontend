@@ -23,6 +23,9 @@ const EightStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    props.getPayloadData(["pricing", "other_details"], [pricing, text]);
+  }, [pricing, text]);
   return (
     <Card>
       {loader && (
@@ -227,37 +230,41 @@ const EightStep = (props) => {
             >
               £349
             </Typography>
+            <Typography
+              sx={{
+                width: "40px",
+                // display: "inline-block",
+                fontFamily: "Outfit",
+                marginLeft: "20%",
+                textAlign: "right",
+                // float: "right",
+              }}
+            >
+              Total
+            </Typography>
+            <hr
+              style={{
+                width: "23%",
+                backgroundColor: "#f2f3f2",
+                border: "0.1vh solid #f2f3f2",
+              }}
+            />
+            <Typography
+              sx={{
+                width: "40px",
+                // display: "inline-block",
+                fontFamily: "Outfit",
+                marginLeft: "20%",
+                fontWeight: "900",
+                textAlign: "right",
+                // float: "right",
+              }}
+            >
+              £{pricing}
+            </Typography>
           </Box>
         </div>
-        <div style={{ width: "19.9%", marginLeft: "4%" }}>
-          <Typography
-            sx={{
-              display: "inline-block",
-              fontFamily: "Outfit",
-              marginLeft: "83%",
-            }}
-          >
-            Total
-          </Typography>
-          <hr
-            style={{
-              backgroundColor: "#f2f3f2",
-              border: "0.1vh solid #f2f3f2",
-            }}
-          />
-          <Typography
-            sx={{
-              width: "40px",
-              display: "inline-block",
-              fontFamily: "Outfit",
-              marginLeft: "83%",
-              fontWeight: "900",
-              textAlign: "right",
-            }}
-          >
-            £{pricing}
-          </Typography>
-        </div>
+        <div style={{ maxWidth: "17.817223198594025vw" }}></div>
       </div>
       <div>
         <Typography
@@ -302,8 +309,6 @@ const EightStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(["Pricing"], [pricing]);
-            props.getPayloadData(["Other Details"], [text]);
             props._addNewQuote();
           }}
         >

@@ -47,7 +47,7 @@ const HighEquipment = (props) => {
           <MenuItem value="4">4</MenuItem>
           <MenuItem value="5">5</MenuItem>
           <MenuItem value="6">6</MenuItem>
-          <MenuItem value="MORE THAN 6">more than 6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
         </StyledTextField>
         <StyledTextField
           select
@@ -77,7 +77,7 @@ const HighEquipment = (props) => {
           <MenuItem value="4">4</MenuItem>
           <MenuItem value="5">5</MenuItem>
           <MenuItem value="6">6</MenuItem>
-          <MenuItem value="MORE THAN 6">more than 6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
         </StyledTextField>
         <StyledTextField
           select
@@ -107,7 +107,7 @@ const HighEquipment = (props) => {
           <MenuItem value="4">4</MenuItem>
           <MenuItem value="5">5</MenuItem>
           <MenuItem value="6">6</MenuItem>
-          <MenuItem value="MORE THAN 6">more than 6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
         </StyledTextField>
       </Box>
       <Box sx={{ width: "80%" }}>
@@ -138,7 +138,7 @@ const HighEquipment = (props) => {
           <MenuItem value="4">4</MenuItem>
           <MenuItem value="5">5</MenuItem>
           <MenuItem value="6">6</MenuItem>
-          <MenuItem value="MORE THAN 6">more than 6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
         </StyledTextField>
         <StyledTextField
           select
@@ -168,7 +168,7 @@ const HighEquipment = (props) => {
           <MenuItem value="4">4</MenuItem>
           <MenuItem value="5">5</MenuItem>
           <MenuItem value="6">6</MenuItem>
-          <MenuItem value="MORE THAN 6">more than 6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
         </StyledTextField>
       </Box>
     </>

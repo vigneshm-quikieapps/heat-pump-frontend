@@ -79,10 +79,10 @@ export async function getCustomer() {
     throw error;
   }
 }
-export async function updateCustomer(_id) {
+export async function updateCustomer(_id, payload) {
   try {
     const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/users?id=${_id}`;
-    const response = await axiosInstance.patch(api);
+    const response = await axiosInstance.patch(api, payload);
     return response;
   } catch (error) {
     throw error;
