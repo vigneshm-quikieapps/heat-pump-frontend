@@ -53,17 +53,10 @@ export const useGetAllQuotes = (data, options) =>
     keepPreviousData: false,
     ...options,
   });
-// const getFabricDetails = (data) =>
-//   axiosInstance.get(
-//     `https://heat-pump-backend.herokuapp.com/api/v1/services/quote`,
-//     data
-//   );
-// export const useGetFabricDetails = (options) =>
-//   useMutation((data) => getFabricDetails(data), options);
 
 export async function getFabricDetails(type, page) {
   try {
-    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=${page}&perPage=2&type=${type}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/fabric-details?page=${page}&perPage=3&type=${type}`;
     const response = await axiosInstance.get(api);
     return response.data;
   } catch (error) {

@@ -134,17 +134,7 @@ const FirstStep = ({
         .toLowerCase()
         .includes(searchValue.toLowerCase());
     });
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   setValue,
-  //   setFocus,
 
-  //   formState: { errors },
-  // } = useForm({
-  //   resolver: yupResolver(schema),
-  //   reValidateMode: "onChange",
-  // });
   useEffect(() => {
     let temp = { ...customerDetails };
     temp.address_1 = customerDetails.address_1;

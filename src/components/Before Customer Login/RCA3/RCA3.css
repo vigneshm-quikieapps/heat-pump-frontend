@@ -80,7 +80,7 @@ body {
 
 .rca3Rectangle-side {
   width: 40%;
-  height: 100vh;
+  /* height: 100vh; */
   margin-left: auto;
   display: flex;
   justify-content: space-around;

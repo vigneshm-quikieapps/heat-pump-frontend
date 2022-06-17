@@ -393,7 +393,7 @@ function RCA2({
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
         <Box sx={{ width: "60%" }}>
           <img
             style={{
@@ -488,10 +488,8 @@ function RCA2({
               name="business_type"
               value={customerDetails.business_type}
             >
-              <MenuItem value="Limited Company">Limited Company</MenuItem>
-              <MenuItem value="Limited Liability Patnership">
-                Limited Liability Patnership
-              </MenuItem>
+              <MenuItem value="1">Limited Company</MenuItem>
+              <MenuItem value="2">Limited Liability Patnership</MenuItem>
             </StyledTextField>
             <Typography
               style={{

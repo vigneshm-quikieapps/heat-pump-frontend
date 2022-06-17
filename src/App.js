@@ -221,6 +221,7 @@ function PriorityComponent() {
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="createJob" element={<MainQuote />} />
               <Route path="myQuote" element={<MyQuote />} />
+
               <Route path="viewQuote/:id" element={<ViewQuote />} />
             </Route>
           )}

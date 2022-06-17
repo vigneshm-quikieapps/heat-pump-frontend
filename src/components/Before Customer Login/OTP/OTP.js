@@ -12,7 +12,8 @@ import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import HPD from "../../../Img/HPDD.jpeg";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import OtpInput from "react-otp-input-rc-17";
 
 import { connect } from "react-redux";
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
     margin: "2.68vh 0px 0px 59px ",
     backgroundColor: "black",
     color: "white",
-    width: "190px",
+    width: "254px",
     height: "65px",
     borderRadius: "2.11vw",
     fontSize: "18px",
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
     border: "solid 0.134vh #d3d3d3",
     backgroundColor: "#f9f9f9",
     color: " #000",
-    width: "200px",
+    width: "254px",
 
     fontFamily: "Outfit",
     fontSize: "18px",
@@ -122,7 +123,7 @@ function OTP({ emailNum }) {
 
   console.log(status);
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
       {loader && (
         <div className="customLoader">
           <TailSpin color="#Fa5e00" height="100" width="100" />
@@ -226,7 +227,9 @@ function OTP({ emailNum }) {
             className={classes.button}
             onClick={(e) => navigate("/forgotpassword")}
           >
-            <ArrowBackIosNewIcon className={classes.btn_color} />
+            <ChevronLeftSharpIcon
+              sx={{ height: "27px", width: "27px", marginRight: "55px" }}
+            />
             Back
           </Button>
           <Button className={classes.buttons}>Resend Code</Button>

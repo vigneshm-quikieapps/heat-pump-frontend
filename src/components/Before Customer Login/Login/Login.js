@@ -135,7 +135,7 @@ const Login = () => {
   }, [emailValue]); */
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {loader && (
         <div className="customLoader">
           <TailSpin color="#Fa5e00" height="100" width="100" />
@@ -411,9 +411,9 @@ const Login = () => {
                 fontFamily: "Outfit",
                 color: "#000",
               }}
-              onClick={() => {
-                window.location.href = "https://heatpumpdesigner.com/services/";
-              }}
+              // onClick={() => {
+              //   window.open("https://heatpumpdesigner.com/services/");
+              // }}
             >
               Terms of Service
             </Typography>
@@ -426,8 +426,7 @@ const Login = () => {
                 color: "#000",
               }}
               onClick={() => {
-                window.location.href =
-                  "https://heatpumpdesigner.com/privacy-policy-2/";
+                window.open("https://heatpumpdesigner.com/privacy-policy-2/");
               }}
             >
               Privacy Policy

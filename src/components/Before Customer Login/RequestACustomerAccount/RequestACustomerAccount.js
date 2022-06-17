@@ -56,7 +56,7 @@ const useStyles = makeStyles({
 function RequestACustomerAccount() {
   const classes = useStyles();
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <div className="request-a-customer-account">
         <div className="firstHalf1">
           <div className="HPD-Existing-Logo">

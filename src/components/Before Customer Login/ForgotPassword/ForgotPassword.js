@@ -6,6 +6,8 @@ import forgotPasswordImage from "../../../Img/forgotpassword.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
+import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {
   changeEmailNum,
@@ -32,11 +34,11 @@ const useStyles = makeStyles({
     fontFamily: "Outfit",
   },
   button: {
-    margin: "2.7vh 0px 0px -3.3vw ",
+    margin: "2.7vh 0px 0px 10px ",
 
     backgroundColor: "black",
     color: "white",
-    width: "211px",
+    width: "254px",
     height: "59px",
     fontFamily: "Outfit",
     borderRadius: "30px",
@@ -124,7 +126,7 @@ function Fpass({ emailNum, changeEmailNum }) {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
         {loader && (
           <div className="customLoader">
             <TailSpin color="#Fa5e00" height="100" width="100" />
@@ -194,20 +196,15 @@ function Fpass({ emailNum, changeEmailNum }) {
           <div style={{ marginTop: "2vh" }}>
             <Button
               className={classes.buttons}
-              style={{ paddingLeft: "3.3vw", position: "relative" }}
+              style={{ position: "relative" }}
               onClick={() => navigate("/")}
             >
+              <ChevronLeftSharpIcon
+                sx={{ height: "27px", width: "27px", marginRight: "25px" }}
+              />
               Back to Login
             </Button>
-            <ArrowBackIosNewIcon
-              style={{
-                position: "relative",
-                left: "-263px",
-                top: "1.9vh",
-                height: "2.2vh",
-                width: "4vw",
-              }}
-            />
+
             <Button className={classes.button} onClick={(e) => handleSubmit(e)}>
               Reset Password
             </Button>
@@ -231,7 +228,7 @@ function Fpass({ emailNum, changeEmailNum }) {
             Need more Help?
             <span
               onClick={() => {
-                window.location.href = "https://heatpumpdesigner.com/faqs/";
+                window.open("https://heatpumpdesigner.com/faqs/");
               }}
               className="learnmore"
             >

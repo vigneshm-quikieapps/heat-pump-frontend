@@ -383,7 +383,7 @@ const MyProfile = (
           marginLeft: "40px",
         }}
       >
-        My Service Requests
+        My Profile
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -518,7 +518,7 @@ const MyProfile = (
               type="text"
               // error={!checked && searchValue === "" && true}
               value={searchValue}
-              onChange={changeHandler1}
+              // onChange={changeHandler1}
               name="startAddress"
               label="Start typing address"
               variant="outlined"
@@ -634,7 +634,7 @@ const MyProfile = (
         <button
           className="browsebtn"
           onClick={() => {
-            updateCustomer(userData?.id,payload).then((res) => {
+            updateCustomer(userData?.id, payload).then((res) => {
               toast.success("Customer details updated successfully");
             });
           }}

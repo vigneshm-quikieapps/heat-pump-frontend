@@ -294,7 +294,13 @@ function AdminCommon({ adminFirstPageStatus }) {
                 Setup
               </Typography>
             </AccordionSummary>
-            <AccordionDetails sx={{ p: 0 }}>
+            <AccordionDetails
+              sx={{
+                p: 0,
+                backgroundImage:
+                  "linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%)",
+              }}
+            >
               <Link
                 to="ewall"
                 style={{
@@ -470,7 +476,7 @@ function AdminCommon({ adminFirstPageStatus }) {
         />
       </div>
 
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
         <div className={`${collapse ? "adminnavbar1" : "adminnavbar"}`}>
           <div style={{ marginTop: "1%" }}>
             {!collapse ? (

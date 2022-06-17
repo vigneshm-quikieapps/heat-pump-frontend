@@ -105,16 +105,16 @@ function ViewQuote({ FirstPageAction }) {
             <Box sx={{ ml: 2.5 }}>
               <Typography className="Output">
                 {quoteData?.status == 1
-                  ? "New"
+                  ? "New-Unpaid"
                   : quoteData?.status == 2
-                  ? "In Progress"
+                  ? "New-Paid"
                   : quoteData?.status == 3
-                  ? "Approved"
+                  ? "In Progress"
+                  : quoteData?.status == 4
+                  ? "Complete"
                   : quoteData?.status == 5
-                  ? "Rejected"
-                  : quoteData?.status == 6
-                  ? "Inactive"
-                  : "New"}
+                  ? "Snagging"
+                  : "-"}
               </Typography>
               <Typography className="Output">
                 {quoteData?.quote_reference_number}
@@ -475,8 +475,8 @@ function ViewQuote({ FirstPageAction }) {
                         </Typography>
 
                         <Typography className="Output2">
-                          {item["Internal Floors"]?.fabric_type && "Type"}{" "}
-                          {item["Internal Floors"]?.fabric_type}
+                          {item["Inner Floors"]?.fabric_type && "Type"}{" "}
+                          {item["Inner Floors"]?.fabric_type}
                         </Typography>
                       </Box>
                     </Grid>

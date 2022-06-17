@@ -29,7 +29,7 @@ const NewEightStep = (props) => {
   const [data, setData] = useState({ ventilation: [], draught: "", other: "" });
   const [toggleOther, setToggleOther] = useState({
     ventilation: true,
-    drought: false,
+    draught: false,
   });
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,10 +55,10 @@ const NewEightStep = (props) => {
   //   let temp = { ...data };
   //   e.target.checked
   //     ? e.target.name === "Not sure"
-  //       ? (temp.drought = ["Not sure"])
-  //       : temp["drought"]?.push(e.target.name)
-  //     : temp["drought"]?.map((item, index) => {
-  //         e.target.name === item && temp["drought"]?.splice(index, 1);
+  //       ? (temp.draught = ["Not sure"])
+  //       : temp["draught"]?.push(e.target.name)
+  //     : temp["draught"]?.map((item, index) => {
+  //         e.target.name === item && temp["draught"]?.splice(index, 1);
   //       });
   //   setData(temp);
   // };
@@ -271,7 +271,7 @@ const NewEightStep = (props) => {
                 <Radio
                   onChange={() => {
                     let temp = { ...data };
-                    temp.drought = "Airtight (less than 3m3/hr.m2)";
+                    temp.draught = "Airtight (less than 3m3/hr.m2)";
                     setData(temp);
                   }}
                 />
@@ -298,7 +298,7 @@ const NewEightStep = (props) => {
                 <Radio
                   onChange={() => {
                     let temp = { ...data };
-                    temp.drought = "Sealed (less than 5m3/hr.m2)";
+                    temp.draught = "Sealed (less than 5m3/hr.m2)";
                     setData(temp);
                   }}
                 />
@@ -325,7 +325,7 @@ const NewEightStep = (props) => {
                 <Radio
                   onChange={() => {
                     let temp = { ...data };
-                    temp.drought = "Normal (5-10m3/hr.m2)";
+                    temp.draught = "Normal (5-10m3/hr.m2)";
                     setData(temp);
                   }}
                 />
@@ -352,7 +352,7 @@ const NewEightStep = (props) => {
                 <Radio
                   onChange={() => {
                     let temp = { ...data };
-                    temp.drought = "Draughty (more than 10m3/hr.m2)";
+                    temp.draught = "Draughty (more than 10m3/hr.m2)";
                     setData(temp);
                   }}
                 />
@@ -379,7 +379,7 @@ const NewEightStep = (props) => {
                 <Radio
                   onChange={() => {
                     let temp = { ...data };
-                    temp.drought = "Not sure";
+                    temp.draught = "Not sure";
                     setData(temp);
                   }}
                 />
@@ -399,100 +399,6 @@ const NewEightStep = (props) => {
             />
           </RadioGroup>
         </FormControl>
-        {/* <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
-          <Box sx={{ margin: "0 0 1% 0" }}>
-            <Checkbox
-              defaultChecked={data.drought[0] === "Airtight"}
-              name="Airtight"
-              onChange={(e) => {
-                handleChange1(e);
-              }}
-            />
-            <Typography
-              sx={{
-                display: "inline",
-                fontFamily: "Outfit",
-                marginLeft: "1.6%",
-              }}
-            >
-              Airtight (less than 3m3/hr.m2)
-            </Typography>
-          </Box>
-          <Box sx={{ margin: "0 0 1% 0" }}>
-            <Checkbox
-              defaultChecked={data.drought[1] === "Sealed"}
-              name="Sealed"
-              onChange={(e) => {
-                handleChange1(e);
-              }}
-            />
-            <Typography
-              sx={{
-                display: "inline",
-                fontFamily: "Outfit",
-                marginLeft: "1.6%",
-              }}
-            >
-              Sealed (less than 5m3/hr.m2)
-            </Typography>
-          </Box>
-          <Box sx={{ margin: "0 0 1% 0" }}>
-            <Checkbox
-              defaultChecked={data.drought[2] === "Normal"}
-              name="Normal"
-              onChange={(e) => {
-                handleChange1(e);
-              }}
-            />
-            <Typography
-              sx={{
-                display: "inline",
-                fontFamily: "Outfit",
-                marginLeft: "1.6%",
-              }}
-            >
-              Normal (5-10m3/hr.m2)
-            </Typography>
-          </Box>
-          <Box sx={{ margin: "0 0 1% 0" }}>
-            <Checkbox
-              defaultChecked={data.drought[3] === "Draughty"}
-              name="Draughty"
-              onChange={(e) => {
-                handleChange1(e);
-              }}
-            />
-            <Typography
-              sx={{
-                display: "inline",
-                fontFamily: "Outfit",
-                marginLeft: "1.6%",
-              }}
-            >
-              Draughty (more than 10m3/hr.m2)
-            </Typography>
-          </Box>
-          <Box sx={{ margin: "0 0 1% 0" }}>
-            <Checkbox
-              name="Not sure"
-              onChange={(e) => {
-                let temp = { ...toggleOther };
-                e.target.checked && (temp.drought = true);
-                setToggleOther(temp);
-                handleChange1(e);
-              }}
-            />
-            <Typography
-              sx={{
-                display: "inline",
-                fontFamily: "Outfit",
-                marginLeft: "1.6%",
-              }}
-            >
-              Not sure
-            </Typography>
-          </Box>
-        </Box> */}
       </div>
       <Box sx={{ display: "flex" }}>
         <button
@@ -510,7 +416,7 @@ const NewEightStep = (props) => {
           className="btn-house Add btn-icon"
           onClick={() => {
             props.getPayloadData(["ventilation_draught"], [data]);
-            // props.getPayloadData(["drought"], data.drought);
+            // props.getPayloadData(["draught"], data.draught);
             props.next();
           }}
         >

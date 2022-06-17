@@ -5,7 +5,6 @@ input::-ms-clear {
 
 * {
   font-family: "Outfit", sans-serif;
- 
 }
 .customLoader {
   position: fixed;
@@ -22,4 +21,6 @@ input::-ms-clear {
   align-items: center;
   justify-content: center;
 }
-
+.App {
+  height: 100%;
+}

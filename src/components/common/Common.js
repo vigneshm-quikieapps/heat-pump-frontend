@@ -79,7 +79,7 @@ function Common({ firstPageStatus }) {
 
   console.log(window.location.pathname);
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div style={{ display: "flex", height: "100%", overflow: "hidden" }}>
       <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
         <div className="HPDSideBar">
           <img
@@ -203,7 +203,7 @@ function Common({ firstPageStatus }) {
         />
       </div>
 
-      <div style={{ width: "100%" }}>
+      <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
         <div className={`${collapse ? "navbar1" : "navbar"}`}>
           <div>
             {!collapse ? (

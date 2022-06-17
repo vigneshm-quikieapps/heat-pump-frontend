@@ -19,7 +19,7 @@ import {
 function RCA3() {
   const navigate = useNavigate();
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
       <Box sx={{ width: "60%" }}>
         <img
           style={{
