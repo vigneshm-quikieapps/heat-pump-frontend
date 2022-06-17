@@ -64,7 +64,7 @@ function RequestACustomerAccount() {
               style={{
                 height: "70px",
                 width: "70px",
-                margin: "-10px 965px 60px -5px",
+                margin: "-10px 965px 60px 0px",
               }}
               src={require("../../../Img/HPDD.jpeg")}
             />
