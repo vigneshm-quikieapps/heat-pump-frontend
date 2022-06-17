@@ -148,7 +148,7 @@ const Login = () => {
               style={{
                 width: "70px",
                 height: "70px",
-                margin: "3px 965px 60px 40px",
+                margin: "-2px 965px 60px 38px",
               }}
               src={HPD}
               alt="HPD"

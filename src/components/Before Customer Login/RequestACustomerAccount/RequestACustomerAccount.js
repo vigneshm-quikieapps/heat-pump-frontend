@@ -61,7 +61,11 @@ function RequestACustomerAccount() {
         <div className="firstHalf1">
           <div className="HPD-Existing-Logo">
             <img
-              style={{ height: "70px" }}
+              style={{
+                height: "70px",
+                width: "70px",
+                margin: "-10px 965px 60px -5px",
+              }}
               src={require("../../../Img/HPDD.jpeg")}
             />
           </div>
