@@ -74,7 +74,6 @@ function RequestACustomerAccount() {
               display: "flex",
               flexDirection: "column",
               marginLeft: "10%",
-              marginTop: "7%",
             }}
           >
             <h1 className="div1">Request a Customer Account</h1>
