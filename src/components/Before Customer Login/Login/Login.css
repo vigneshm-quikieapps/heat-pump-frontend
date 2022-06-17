@@ -243,9 +243,11 @@
 
 .Rectangle-2 {
   width: 40%;
-  height: 791px;
+  height: 100vh;
   margin: 0px 0 0 0px;
-  padding: 487px 105px 31.2px 106px;
+  display: flex;
+  justify-content: space-around;
+  /* padding: 487px 105px 31.2px 106px; */
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
 }
 
@@ -256,8 +258,8 @@
 } */
 
 .couple1Img {
-  width: 30vw;
-  height: 62.4vh;
+  width: 439px;
+  height: 328px;
   margin-left: 0vw;
   position: absolute;
   bottom: 0.15vh;

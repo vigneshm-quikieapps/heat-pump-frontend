@@ -48,7 +48,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     acc7: false,
     acc8: false,
   });
-  const [pricing, setPricing] = useState();
+  const [pricing, setPricing] = useState({ data: [], discount: false });
   const [isDiscount, setIsDiscount] = useState(false);
   const [other_details, setOther_details] = useState("");
   useEffect(() => {
@@ -70,7 +70,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
   }, [quoteData]);
 
   const updateStatus = (e) => {
-    UpdateJob(quoteId, status).then((res) => {
+    UpdateJob(quoteId, { status }).then((res) => {
       toast.success("Updated successfully");
     });
   };
@@ -80,7 +80,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     });
   };
   const updateSite_details = (e) => {
-    UpdateJob(quoteId, site_details).then((res) => {
+    UpdateJob(quoteId, { site_details: site_details }).then((res) => {
       toast.success("Updated successfully");
     });
   };
@@ -89,7 +89,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     temp[`${e.target.name}`] = e.target.value;
     setSite_details(temp);
   };
-  console.log(pricing);
+
   return (
     <>
       {loader && (
@@ -740,7 +740,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               <RadiatorWindow quoteData={quoteData} quoteId={quoteId} />
             </AccordionDetails>
           </Accordion>
-          <Accordion
+          {/* <Accordion
             expanded={checkAccordion.acc8}
             onChange={() => {
               let temp = { ...checkAccordion };
@@ -779,7 +779,11 @@ function ManageQuoteRequest({ FirstPageAction }) {
                     <Box>
                       <Checkbox
                         disabled={isDiscount}
-                        // checked={pricing === 349 && !isDiscount}
+                        // checked={
+                        //   (pricing && pricing >= 394) || pricing >= 299
+                        //     ? true
+                        //     : false
+                        // }
                         onChange={(e) => {
                           e.target.checked
                             ? setPricing(pricing + 299)
@@ -812,7 +816,12 @@ function ManageQuoteRequest({ FirstPageAction }) {
                     <Box>
                       <Checkbox
                         disabled={isDiscount}
-                        // checked={pricing !== 349 && isDiscount}
+                        // checked={
+                        //   (pricing && pricing >= 394) ||
+                        //   (pricing >= 75 && 75 >= pricing - 299)
+                        //     ? true
+                        //     : false
+                        // }
                         // defaultChecked={}
                         onChange={(e) => {
                           e.target.checked
@@ -847,7 +856,12 @@ function ManageQuoteRequest({ FirstPageAction }) {
                     <Box>
                       <Checkbox
                         disabled={isDiscount}
-                        // checked={pricing !== 349 && isDiscount}
+                        // checked={
+                        //   (pricing && pricing >= 394) ||
+                        //   (pricing >= 10 && 10 >= pricing - (299 + 75))
+                        //     ? true
+                        //     : false
+                        // }
                         // defaultChecked={}
                         onChange={(e) => {
                           e.target.checked
@@ -883,7 +897,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
                       <Checkbox
                         // defaultChecked={}
                         disabled={isDiscount}
-                        // checked={pricing !== 349 && isDiscount}
+                        checked={pricing && pricing >= 394 ? true : false}
                         onChange={(e) => {
                           e.target.checked
                             ? setPricing(pricing + 10)
@@ -916,17 +930,19 @@ function ManageQuoteRequest({ FirstPageAction }) {
                     </Box>
                     <Box>
                       <Checkbox
-                        defaultChecked={
-                          quoteData?.pricing === 349 ? true : false
-                        }
+                        checked={pricing.discount}
+                        // defaultChecked={false}
                         onChange={(e) => {
+                          let temp = { ...pricing };
                           if (e.target.checked) {
-                            setPricing(349);
                             setIsDiscount(true);
+                            temp.discount = true;
+                            temp.data = [];
                           } else {
-                            setPricing(0);
                             setIsDiscount(false);
+                            temp.discount = false;
                           }
+                          setPricing(temp);
                         }}
                       />
                       <Typography
@@ -1003,7 +1019,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
                 Save
               </button>
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
         </Box>
       </Card>
     </>

@@ -71,20 +71,25 @@ body {
 }
 
 .otpInput {
-  height: 6.04vh;
-  margin-left: 1.3vw;
-  font-size: 2.8vw;
-  padding-top: 0.67vh;
+  width: 70px;
+  height: 63px;
+  flex-grow: 0;
+  margin: 40px 30px 50px 15px;
+  padding: 17px 28px 16px 29px;
   border-radius: 10px;
-
-  padding-bottom: 0.67vh;
+  border: solid 1px #cdcdcd;
+  background-color: #fff;
 }
 
 .otpRectangle-side {
   width: 40%;
   height: 100vh;
   margin: 0px 0 0 0px;
-  padding: 487px 105px 31.2px 106px;
+  /* padding: 487px 105px 31.2px 106px;
+   */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
 }
 
@@ -96,10 +101,7 @@ body {
 
 .otpcouplesideImg {
   width: 30vw;
-  height: 62.4vh;
-  margin-left: 0vw;
-  position: absolute;
-  bottom: 0.15vh;
+  height: 400px;
 }
 
 .ootp {

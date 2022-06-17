@@ -79,10 +79,12 @@ body {
 }
 
 .rca3Rectangle-side {
-  min-width: 43vw;
+  width: 40%;
   height: 100vh;
   margin-left: auto;
-
+  display: flex;
+  justify-content: space-around;
+  align-items: self-end;
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
 }
 
@@ -94,10 +96,10 @@ body {
 
 .rca3couplesideImg {
   width: 31.9vw;
-  height: 62.4vh;
-  margin-left: 6.51vw;
+  height: 400px;
+  /* margin-left: 6.51vw;
   position: absolute;
-  bottom: 0px;
+  bottom: 0px; */
 }
 
 .rca3buttonstart {

@@ -142,12 +142,12 @@ function Fpass({ emailNum, changeEmailNum }) {
           />
           <Typography
             sx={{
-              fontSize: "60px",
+              fontSize: "55px",
               fontWeight: "300",
               fontFamily: "Outfit",
               position: "relative",
               width: "783px",
-              height: "88px",
+              height: "60px",
               margin: "0 197px 40px 55px",
             }}
           >
@@ -215,7 +215,7 @@ function Fpass({ emailNum, changeEmailNum }) {
           <Divider
             sx={{
               width: "500px",
-              margin: "100px 0 0 59px",
+              margin: "65px 0 0 59px",
               border: "2px solid #f4f4f4",
               background: "#f4f4f4",
             }}
@@ -229,9 +229,14 @@ function Fpass({ emailNum, changeEmailNum }) {
             }}
           >
             Need more Help?
-            <Link to="/" className="learnmore">
+            <span
+              onClick={() => {
+                window.location.href = "https://heatpumpdesigner.com/faqs/";
+              }}
+              className="learnmore"
+            >
               <span>Learn more</span>
-            </Link>
+            </span>
           </div>
         </Box>
         <Box class="fpRectangle-side">

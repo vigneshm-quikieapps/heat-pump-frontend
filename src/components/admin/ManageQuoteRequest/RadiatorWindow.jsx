@@ -87,9 +87,11 @@ const RadiatorWindow = (props) => {
     window.scrollTo(0, 0);
   }, []);
   const updateRad = (e) => {
-    UpdateJob(props?.quoteId, inputList).then((res) => {
-      toast.success("Updated successfully");
-    });
+    UpdateJob(props?.quoteId, { radiator_and_window_sizes: inputList }).then(
+      (res) => {
+        toast.success("Updated successfully");
+      }
+    );
   };
   const onAddBtnClick = (event) => {
     let temp = [...inputList];

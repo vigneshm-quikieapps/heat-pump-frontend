@@ -473,11 +473,19 @@ function AdminCommon({ adminFirstPageStatus }) {
       <div style={{ width: "100%" }}>
         <div className={`${collapse ? "adminnavbar1" : "adminnavbar"}`}>
           <div style={{ marginTop: "1%" }}>
-            <img
-              src={require("../../Img/toggleSideBar.png")}
-              onClick={() => setCollapse(!collapse)}
-              className="collapse-icon"
-            />
+            {!collapse ? (
+              <img
+                src={require("../../Img/toggleSideBar.png")}
+                onClick={() => setCollapse(!collapse)}
+                className="collapse-icon"
+              />
+            ) : (
+              <img
+                src={require("../../Img/icon Menu with back.png")}
+                onClick={() => setCollapse(!collapse)}
+                className="collapse-icon"
+              />
+            )}
             {!adminFirstPageStatus ? (
               <img
                 src={require("../../Img/toggleback.png")}

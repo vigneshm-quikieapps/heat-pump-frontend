@@ -14,11 +14,11 @@
 }
 
 .firstHalf1 {
-  min-width: 700px;
+  min-width: 60%;
   display: inline-block;
 }
 .HPD-Existing-Logo {
-  margin: 5.4vh 0 6vh 3vw;
+  margin: 6vh 0 6vh 3.5vw;
   height: 6vh;
   width: 3vw;
   display: inline-block;
@@ -62,9 +62,11 @@
 }
 
 .Rectangle-side {
-  min-width: 40.36vw;
+  width: 40%;
   height: 100vh;
-  margin-left: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
 
   background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
 }
@@ -78,11 +80,8 @@
   } */
 
 .RACAcouplesideImg {
-  width: 28.64vw;
-  height: 35vh;
-  margin-left: 6.2vw;
-  position: absolute;
-  bottom: 1px;
+  width: 439px;
+  height: 328px;
 }
 
 .ellipse {

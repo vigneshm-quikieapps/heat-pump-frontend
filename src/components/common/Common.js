@@ -206,11 +206,19 @@ function Common({ firstPageStatus }) {
       <div style={{ width: "100%" }}>
         <div className={`${collapse ? "navbar1" : "navbar"}`}>
           <div>
-            <img
-              src={require("../../Img/toggleSideBar.png")}
-              onClick={() => setCollapse(!collapse)}
-              className="collapse-icon"
-            />
+            {!collapse ? (
+              <img
+                src={require("../../Img/toggleSideBar.png")}
+                onClick={() => setCollapse(!collapse)}
+                className="collapse-icon"
+              />
+            ) : (
+              <img
+                src={require("../../Img/icon Menu with back.png")}
+                onClick={() => setCollapse(!collapse)}
+                className="collapse-icon"
+              />
+            )}
             {!firstPageStatus /* {<Link 
                 to="servicerequest"
                 style={{ textDecoration: "none", color: "black" }} >} */ ? (

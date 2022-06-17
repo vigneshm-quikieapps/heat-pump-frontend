@@ -69,14 +69,14 @@ function RequestACustomerAccount() {
             sx={{
               display: "flex",
               flexDirection: "column",
-              marginLeft: "20%",
-              marginTop: "20%",
+              marginLeft: "10%",
+              marginTop: "7%",
             }}
           >
             <h1 className="div1">Request a Customer Account</h1>
             <div
               style={{
-                marginBottom: "10%",
+                marginBottom: "7%",
                 // margin: "1.35vh 0px 0px 6.51vw",
                 width: "29vw",
                 fontSize: "17.07px",

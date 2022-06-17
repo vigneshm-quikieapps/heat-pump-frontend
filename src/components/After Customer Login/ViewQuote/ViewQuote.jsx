@@ -1021,7 +1021,11 @@ function ViewQuote({ FirstPageAction }) {
                     ml: 4,
                   }}
                 >
-                  {quoteData?.pricing && `£${quoteData?.pricing}`}
+                  {!quoteData?.pricing.discount
+                    ? `£${quoteData?.pricing.data.reduce(
+                        (a, b) => Number(a) + Number(b)
+                      )}`
+                    : "£349"}
                 </Typography>
               </Box>
               <Box>

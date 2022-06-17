@@ -11,6 +11,7 @@ import { TailSpin } from "react-loader-spinner";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
 import HPD from "../../../Img/HPDD.jpeg";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import OtpInput from "react-otp-input-rc-17";
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles({
     backgroundColor: "#f9f9f9",
     color: " #000",
     width: "200px",
+
     fontFamily: "Outfit",
     fontSize: "18px",
     height: "65px",
@@ -53,6 +55,10 @@ const useStyles = makeStyles({
       textTransform: "none",
       color: "#000",
     },
+  },
+  btn_color: {
+    color: "#FFF",
+    marginRight: "30px",
   },
 });
 
@@ -220,6 +226,7 @@ function OTP({ emailNum }) {
             className={classes.button}
             onClick={(e) => navigate("/forgotpassword")}
           >
+            <ArrowBackIosNewIcon className={classes.btn_color} />
             Back
           </Button>
           <Button className={classes.buttons}>Resend Code</Button>

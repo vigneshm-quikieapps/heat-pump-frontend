@@ -18,7 +18,10 @@ const EightStep = (props) => {
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
   const token = JSON.parse(localStorage.getItem("user"));
-  const [pricing, setPricing] = useState(0);
+  const [pricing, setPricing] = useState({
+    data: ["0", "0", "0", "0"],
+    discount: false,
+  });
   const [isDiscount, setIsDiscount] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,9 +63,11 @@ const EightStep = (props) => {
               disabled={isDiscount}
               // checked={pricing === 349 && !isDiscount}
               onChange={(e) => {
+                let temp = { ...pricing };
                 e.target.checked
-                  ? setPricing(pricing + 299)
-                  : setPricing(pricing - 299);
+                  ? (temp.data[0] = "299")
+                  : (temp.data[0] = "0");
+                setPricing(temp);
               }}
             />
             <Typography
@@ -94,9 +99,9 @@ const EightStep = (props) => {
               // checked={pricing !== 349 && isDiscount}
               // defaultChecked={}
               onChange={(e) => {
-                e.target.checked
-                  ? setPricing(pricing + 75)
-                  : setPricing(pricing - 75);
+                let temp = { ...pricing };
+                e.target.checked ? (temp.data[1] = "75") : (temp.data[1] = "0");
+                setPricing(temp);
               }}
             />
             <Typography
@@ -126,12 +131,10 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               disabled={isDiscount}
-              // checked={pricing !== 349 && isDiscount}
-              // defaultChecked={}
               onChange={(e) => {
-                e.target.checked
-                  ? setPricing(pricing + 10)
-                  : setPricing(pricing - 10);
+                let temp = { ...pricing };
+                e.target.checked ? (temp.data[2] = "10") : (temp.data[2] = "0");
+                setPricing(temp);
               }}
             />
             <Typography
@@ -164,9 +167,9 @@ const EightStep = (props) => {
               disabled={isDiscount}
               // checked={pricing !== 349 && isDiscount}
               onChange={(e) => {
-                e.target.checked
-                  ? setPricing(pricing + 10)
-                  : setPricing(pricing - 10);
+                let temp = { ...pricing };
+                e.target.checked ? (temp.data[3] = "10") : (temp.data[3] = "0");
+                setPricing(temp);
               }}
             />
             <Typography
@@ -197,13 +200,16 @@ const EightStep = (props) => {
             <Checkbox
               // defaultChecked={}
               onChange={(e) => {
+                let temp = { ...pricing };
                 if (e.target.checked) {
-                  setPricing(349);
                   setIsDiscount(true);
+                  temp.discount = true;
+                  temp.data = [];
                 } else {
-                  setPricing(0);
                   setIsDiscount(false);
+                  temp.discount = false;
                 }
+                setPricing(temp);
               }}
             />
             <Typography
@@ -260,7 +266,11 @@ const EightStep = (props) => {
                 // float: "right",
               }}
             >
-              £{pricing}
+              {pricing.discount
+                ? "£349"
+                : pricing.data.length > 0
+                ? `£${pricing.data.reduce((a, b) => Number(a) + Number(b))}`
+                : "£0"}
             </Typography>
           </Box>
         </div>

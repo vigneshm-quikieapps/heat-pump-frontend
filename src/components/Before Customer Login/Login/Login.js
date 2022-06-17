@@ -148,7 +148,7 @@ const Login = () => {
               style={{
                 width: "70px",
                 height: "70px",
-                margin: "40px 965px 60px 45px",
+                margin: "3px 965px 60px 40px",
               }}
               src={HPD}
               alt="HPD"
@@ -411,6 +411,9 @@ const Login = () => {
                 fontFamily: "Outfit",
                 color: "#000",
               }}
+              onClick={() => {
+                window.location.href = "https://heatpumpdesigner.com/services/";
+              }}
             >
               Terms of Service
             </Typography>
@@ -421,6 +424,10 @@ const Login = () => {
                 fontSize: "14px",
                 fontFamily: "Outfit",
                 color: "#000",
+              }}
+              onClick={() => {
+                window.location.href =
+                  "https://heatpumpdesigner.com/privacy-policy-2/";
               }}
             >
               Privacy Policy
