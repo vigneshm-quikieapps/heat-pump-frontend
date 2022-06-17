@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Modal from "react-modal";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Box } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
 import "./AdminCommon.css";
@@ -327,38 +327,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                   />
                 </li>
               </Link>
-              <Link
-                to="internalType"
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                  marginBottom: "5%",
-                }}
-              >
-                <li
-                  style={
-                    display == "redbar6"
-                      ? { fontWeight: "600" }
-                      : { fontWeight: "300" }
-                  }
-                  className="navList"
-                  onClick={() => setDisplay("redbar6")}
-                >
-                  <span style={{ marginLeft: "20%" }}>Internal Wall Type</span>
 
-                  <img
-                    src={require("../../Img/redbar.png")}
-                    height="40px"
-                    width="8px"
-                    // className="adminredbar1"
-                    style={
-                      display == "redbar6"
-                        ? { visibility: "visible" }
-                        : { visibility: "hidden" }
-                    }
-                  />
-                </li>
-              </Link>
               <Link
                 to="roofType"
                 style={{
@@ -441,7 +410,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                   onClick={() => setDisplay("redbar9")}
                 >
                   <span style={{ marginLeft: "20%" }}>
-                    Suspended Floor Type
+                    External Floors Type
                   </span>
 
                   <img
@@ -474,7 +443,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                   className="navList"
                   onClick={() => setDisplay("redbar10")}
                 >
-                  <span style={{ marginLeft: "20%" }}>Internal Floor Type</span>
+                  <span style={{ marginLeft: "20%" }}>Roof Light Type</span>
 
                   <img
                     src={require("../../Img/redbar.png")}
@@ -503,13 +472,11 @@ function AdminCommon({ adminFirstPageStatus }) {
 
       <div style={{ width: "100%" }}>
         <div className={`${collapse ? "adminnavbar1" : "adminnavbar"}`}>
-          <div>
+          <div style={{ marginTop: "1%" }}>
             <img
               src={require("../../Img/toggleSideBar.png")}
               onClick={() => setCollapse(!collapse)}
-              /*     height="5.5vh"
-              width={"2.6vw"} */
-              className="admincollapse-icon"
+              className="collapse-icon"
             />
             {!adminFirstPageStatus ? (
               <img
@@ -517,42 +484,37 @@ function AdminCommon({ adminFirstPageStatus }) {
                 onClick={() => {
                   window.history.back();
                 }}
-                /*     height="40px"
-                width={"40px"} */
-                className="admincollapse-left"
+                className="collapse-left"
               />
             ) : null}
 
-            <div style={{ float: "right", marginRight: "10.41vw" }}>
-              <img
-                src={require("../../Img/homeIcon.png")}
-                className="adminhome-icon"
-              />
-              <img
-                src={require("../../Img/bell.png")}
-                className="adminbell-icon"
-              />
+            <div
+              style={{
+                float: "right",
 
-              <div className="adminname-icon">
-                <span
-                  style={{
-                    position: "relative",
-                    // top: "0.3vh",
-                    // color: "rgba(0, 0, 0, 0.6)",
-                    // fontSize: "18px",
-                    // fontWeight: "600",
-                    // float: "right",
-                    marginLeft: "70px",
-                    color: "rgba(0, 0, 0, 0.6)",
-                    fontSize: "18px",
-                    fontWeight: "600",
-                    top: "23px",
+                width: "300px",
+              }}
+            >
+              <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <img
+                  className="home-icon"
+                  onClick={() => {
+                    Navigate("/common/HomePage");
+                  }}
+                  src={require("../../Img/homeIcon.png")}
+                  // className="home-icon"
+                />
+                {/* <img src={require("../../Img/bell.png")} /> */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: "20px",
                   }}
                 >
-                  {userInfo.name}
-                </span>
-
-                <div>
+                  {/* <div> */}
+                  <span style={{}}>{userInfo.name}</span>
+                  {/* <div> */}
                   <Button
                     ref={anchorRef}
                     id="composition-button"
@@ -560,19 +522,11 @@ function AdminCommon({ adminFirstPageStatus }) {
                     aria-expanded={open ? "true" : undefined}
                     aria-haspopup="true"
                     onClick={handleToggle}
-                    style={{
-                      // width: "3.25vw",
-                      // height: "6.71vh",
-                      marginLeft: "7.81vw",
-                      position: "relative",
-                      bottom: "3vh",
-                      display: "inline-block",
-                      left: "3vw",
-                    }}
+                    size="small"
                   >
                     <img
                       src={require("../../Img/account.png")}
-                      className="adminaccount-icon"
+                      // className="account-icon"
                     />
                   </Button>
                   <Popper
@@ -600,32 +554,45 @@ function AdminCommon({ adminFirstPageStatus }) {
                               id="composition-menu"
                               aria-labelledby="composition-button"
                               onKeyDown={handleListKeyDown}
+                              sx={{ width: "150px" }}
                             >
                               <MenuItem
                                 style={{
+                                  // margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
+                                  // width: "150px",
+                                  justifyContent: "flex-start",
                                 }}
-                                onClick={handleClose}
+                                onClick={() => {
+                                  Navigate("/common/MyProfile");
+                                }}
                               >
-                                Profile
+                                <img
+                                  style={{ marginRight: "8px" }}
+                                  // className="home-icon"
+                                  src={require("../../Img/icon my account.png")}
+                                  // className="home-icon"
+                                />{" "}
+                                My Profile
                               </MenuItem>
+
                               <MenuItem
                                 style={{
+                                  // margin: "8px 8px 8px 20px",
                                   fontWeight: 600,
                                   fontSize: "18px",
-                                }}
-                                onClick={handleClose}
-                              >
-                                My Account
-                              </MenuItem>
-                              <MenuItem
-                                style={{
-                                  fontWeight: 600,
-                                  fontSize: "18px",
+                                  // width: "150px",
+                                  justifyContent: "flex-start",
                                 }}
                                 onClick={() => toggleModal()}
                               >
+                                <img
+                                  // className="home-icon"
+                                  style={{ marginRight: "8px" }}
+                                  src={require("../../Img/icon logout 1.png")}
+                                  // className="home-icon"
+                                />{" "}
                                 Logout
                               </MenuItem>
                             </MenuList>
@@ -634,8 +601,8 @@ function AdminCommon({ adminFirstPageStatus }) {
                       </Grow>
                     )}
                   </Popper>
-                </div>
-              </div>
+                </Box>
+              </Box>
             </div>
           </div>
         </div>

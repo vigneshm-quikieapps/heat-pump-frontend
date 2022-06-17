@@ -251,6 +251,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           const newName = [...efname];
           newName.splice(index, 1);
           SetEFname(newName);
+          fetchData();
           fetchSeconddata();
         } else {
           toast.error(res.data.message);
@@ -292,10 +293,12 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
+          console.log(res);
           if (res.success) {
             fetchData();
             fetchSeconddata();
-            toggleModal();
+
+            // toggleModal();
             toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
@@ -303,7 +306,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         })
         .catch((err) => {
           setLoader(false);
-          // toggleModal();
+
           toast.error("Something Went Wrong");
         });
     } else {
@@ -408,7 +411,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       axios({
         method: "post",
         url: URL + globalAPI.addnotes + `?srid=${state}`,
-        data: { description: closetext, type: 1, title: "--closed--" },
+        data: { description: closetext, type: 4, title: "--closed--" },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -418,8 +421,11 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           togglesrModal();
           const res = response.data;
           if (res.success) {
-            fetchData();
-            fetchSeconddata();
+            let temp = { ...details };
+            temp.status = 4;
+            setDetails(temp);
+            // fetchData();
+            // fetchSeconddata();
             toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
@@ -728,13 +734,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               onChange={(e) => setClosetext(e.target.value)}
               placeholder="Reason for closing"
             />
-            {/* <textarea
-              className="modeltextarea"
-              value={closetext}
-              onChange={(e) => setClosetext(e.target.value)}
-              placeholder="Reason for closing"
-              required
-            ></textarea> */}
+
             {noclose && (
               <span style={{ color: "red", display: "block" }}>
                 No Reason Given
@@ -796,9 +796,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
                   </span>
                 }
               />
-
               <span className="or">OR</span>
-
               <span>
                 <FileUploader
                   handleChange={(e) => onFileUpload(e)}

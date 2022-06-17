@@ -31,9 +31,9 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   const [data, setData] = useState([]);
   const [dataArr, setDataArr] = useState([]);
   let [page, setPage] = useState(1);
-  const PER_PAGE = 10;
+
   const [count, setCount] = useState(1);
-  const _DATA = usePagination(data, PER_PAGE);
+
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
   const [type, setType] = useState("");
@@ -51,20 +51,12 @@ const ExternalWall = ({ adminFirstPageAction }) => {
         setError(error);
       },
     });
-  const setDataOfTens = (page) => {
-    let temp;
-    if (dataArr?.atlength > 10) {
-      temp = dataArr?.slice(page * 10 - 10, page * 10 + 1);
-      setLoader(true);
-      setBox(temp);
-    }
-  };
+
   useEffect(() => {
     adminFirstPageAction(true);
   }, []);
   useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
+    fetchSeconddata();
   }, []);
   function fetchData() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -78,24 +70,15 @@ const ExternalWall = ({ adminFirstPageAction }) => {
         setLoader(false);
         const res = response.data;
         setDataArr(res.data);
-        // fetchSeconddata();
+        setCount(res.total_pages);
+        setBox(response.data);
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
   }
-  useEffect(() => {
-    let temp;
 
-    if (dataArr?.length > 10) {
-      temp = dataArr?.slice(0, 10);
-
-      setBox(temp);
-    } else {
-      setBox(dataArr);
-    }
-  }, [dataArr]);
   // console.log("externalres", box);
 
   function fetchSeconddata() {
@@ -109,7 +92,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
       .get(
         URL +
           globalAPI.setup +
-          `?page=${page}&perPage=${PER_PAGE}&type=1&f_ftype=${type}&f_desc=${description}&f_status=${
+          `?page=${page}&perPage=10&type=1&f_ftype=${type}&f_desc=${description}&f_status=${
             status === 0 ? "" : status
           }`,
         config
@@ -118,8 +101,6 @@ const ExternalWall = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          // setCount(res.total_pages);
-          // setBox(res.data);
           console.log(response);
           setCount(res?.total_pages);
           setBox(res?.data);
@@ -134,7 +115,6 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   }
 
   const searchfilter = () => {
-    // setStatus("1,2,3,4");
     setPage(1);
     fetchSeconddata();
   };
@@ -162,7 +142,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
       .then((res) => {
         console.log(res);
         toast.success("Fabric deleted successfully");
-        fetchData();
+        fetchSeconddata();
       })
 
       .catch((error) => {
@@ -172,22 +152,27 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   };
 
   const tableRows = useMemo(() => {
-    return box?.map(({ fabric_type, _id, description, details, status }) => ({
-      items: [
-        fabric_type,
-        description,
-        details,
-        status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
-        <Actions
-          onDelete={(e) => deleteHandler(e, _id)}
-          onEdit={(e) => editHandler(e, _id)}
-        />,
-      ],
-    }));
+    return (
+      box &&
+      box?.map(({ fabric_type, _id, description, details, status }) => ({
+        items: [
+          fabric_type,
+          description,
+          details,
+          status === 1 ? "Active" : status === 2 ? "Inactive" : "-",
+          <Actions
+            onDelete={(e) => deleteHandler(e, _id)}
+            onEdit={(e) => editHandler(e, _id)}
+          />,
+        ],
+      }))
+    );
   }, [box, editHandler, deleteHandler]);
+  useEffect(() => {
+    fetchSeconddata();
+  }, [page]);
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
   };
   return (
     <div>
@@ -334,15 +319,11 @@ const ExternalWall = ({ adminFirstPageAction }) => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={Math.ceil(dataArr?.length / 10)}
+                count={count}
                 page={page}
                 /*  variant="outlined" */
                 // onChange={handleChange}
-                onChange={(e, p) => {
-                  console.log(p);
-                  setPage(p);
-                  setDataOfTens(p);
-                }}
+                onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>

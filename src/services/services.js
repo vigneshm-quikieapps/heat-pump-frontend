@@ -31,7 +31,7 @@ export const useAddQuote = (options) =>
 
 export async function getAllQuotes1(page) {
   try {
-    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=10`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?cst=true&page=${page}&perPage=10`;
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {
@@ -92,8 +92,16 @@ export async function updateCustomer(_id, payload) {
 export async function getQuote(qid) {
   try {
     const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/quote?qid=${qid}`;
-    // /api/v1/services/quote?qid=62665c1df521ea9cf0c4747c
     const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function UpdateJob(qid, payload) {
+  try {
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/services/quote/${qid}`;
+    const response = await axiosInstance.patch(api, payload);
     return response;
   } catch (error) {
     throw error;

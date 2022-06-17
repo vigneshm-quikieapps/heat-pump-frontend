@@ -71,18 +71,16 @@ const WindowWall = ({ adminFirstPageAction }) => {
     e.stopPropagation();
     delFabric(id)
       .then((res) => {
-        console.log(res);
         toast.success("Fabric deleted successfully");
-        fetchData();
+        fetchSeconddata();
       })
 
       .catch((error) => {
         toast.error("Something went wrong");
       });
-    // deleteExternalId(id);
   };
   const tableRows = useMemo(() => {
-    return box.map(({ fabric_type, _id, description, details, status }) => ({
+    return box?.map(({ fabric_type, _id, description, details, status }) => ({
       items: [
         fabric_type,
         description,
@@ -106,26 +104,15 @@ const WindowWall = ({ adminFirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setDataArr(res.data);
+        setCount(res.total_pages);
+        setBox(response.data);
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
   }
-  useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
-  }, []);
-  useEffect(() => {
-    let temp;
-    if (dataArr?.length > 10) {
-      temp = dataArr?.slice(0, 10);
-      setBox(temp);
-    } else {
-      setBox(dataArr);
-    }
-  }, [dataArr]);
+
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -146,9 +133,6 @@ const WindowWall = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          // setCount(res.total_pages);
-          // setBox(res.data);
-          console.log(response);
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -168,9 +152,10 @@ const WindowWall = ({ adminFirstPageAction }) => {
   };
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
   };
-  console.log("wimdowres", box);
+  useEffect(() => {
+    fetchSeconddata();
+  }, [page]);
   return (
     <div>
       {loader && (
@@ -315,15 +300,9 @@ const WindowWall = ({ adminFirstPageAction }) => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={Math.ceil(dataArr?.length / 10)}
+                count={count}
                 page={page}
-                /*  variant="outlined" */
-                // onChange={handleChange}
-                onChange={(e, p) => {
-                  console.log(p);
-                  setPage(p);
-                  setDataOfTens(p);
-                }}
+                onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>

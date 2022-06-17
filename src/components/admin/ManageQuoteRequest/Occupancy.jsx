@@ -26,7 +26,7 @@ import TableWeek from "../../After Customer Login/GetAQuote/SecondStep/TableWeek
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import StyledTextField from "../../../common/textfield";
-import { InsertEmoticon } from "@mui/icons-material";
+import { Co2Sharp, InsertEmoticon } from "@mui/icons-material";
 const StyledTableRow = withStyles((theme) => ({
   root: {
     height: 42,
@@ -40,45 +40,27 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 const Occupancy = (props) => {
   const [focused, setFocused] = React.useState("");
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const [weeklySlots, setWeeklySlots] = useState({
-    slot1: Array(2).fill(false),
-    slot2: Array(2).fill(false),
-    slot3: Array(2).fill(false),
-    slot4: Array(2).fill(false),
-    slot5: Array(2).fill(false),
-    slot6: Array(2).fill(false),
+    "0000 - 0600": Array(2).fill(false),
+    "0600 - 0800": Array(2).fill(false),
+    "0800 - 1000": Array(2).fill(false),
+    "1000 - 1400": Array(2).fill(false),
+    "1400 - 1800": Array(2).fill(false),
+    "1800 - 2359": Array(2).fill(false),
   });
-  const [yearlySlots, setYearlySlots] = useState({
-    Jan: [],
-    Feb: [],
-    Mar: [],
-    Apr: [],
-    May: [],
-    Jun: [],
-    Jul: [],
-    Aug: [],
-    Sep: [],
-    Oct: [],
-    Nov: [],
-    Dec: [],
-  });
+
   const [selectedAdultOccupants, setSelectedAdultOccupants] = useState("1");
   const [selectedChildOccupants, setSelectedChildOccupants] = useState("1");
-  const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState(1);
-  //   const [loader, setLoader] = useState(false);
-  //   const [focused, setFocused] = useState(false);
+  const [selectedNoPerBedroom, setSelectedNoPerBedroom] = useState("1");
+  const [propertyUsage, setPropertyUsage] = useState({ data: [], other: "" });
+  const [checkOtherToggle, setCheckOtherToggle] = useState([true]);
+
   const [selectedGuestInWinter, setSelectedGuestInWinter] = useState(0);
-  const [equipments, setEquipments] = useState({
-    tvs: "0",
-    laptops: "0",
-    monitors: "0",
-    itServers: "0",
-    PhotoCopiers: "0",
-  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -91,15 +73,27 @@ const Occupancy = (props) => {
   });
   const [questions, setQuestions] = useState({
     hotwater_importance: 1,
-    woodStove_importance: 1,
-    electricity_than_uk_average: 1,
+
     heating_then_uk_average: 1,
   });
-  const getEquipments = (equip, num) => {
-    let temp = equipments;
-    temp[equip] = num;
-    setEquipments(temp);
-  };
+  useEffect(() => {
+    setWeeklySlots(props?.quoteData?.occupancy?.weekly);
+    setSelectedAdultOccupants(
+      props?.quoteData?.occupancy?.number_of_adultOccupants
+    );
+    setSelectedChildOccupants(
+      props?.quoteData?.occupancy?.number_of_childrenOccupants
+    );
+    setSelectedNoPerBedroom(
+      props?.quoteData?.occupancy?.number_of_typicalOccupantsPerBedroom
+    );
+    setPropertyUsage(props?.quoteData?.occupancy?.property_usage);
+    setSelectedGuestInWinter(props?.quoteData?.number_of_guests);
+    setHighEnergyEquipments(props?.quoteData?.high_energy_equipments);
+    setQuestions(props?.quoteData?.questions);
+    setLoader(false);
+  }, [props?.quoteData]);
+
   const getHighEnergyEquipments = (equip, num) => {
     let temp = highEnergyEquipments;
     temp[equip] = num;
@@ -113,54 +107,20 @@ const Occupancy = (props) => {
     temp[`slot${slot}`][index] = !weeklySlots[`slot${slot}`][index];
     setWeeklySlots(temp);
   };
-  const getYearlySlots = (month, items) => {
-    let temp = yearlySlots;
-    temp[month] = [items];
-    setYearlySlots(temp);
-  };
+  console.log(props?.quoteData);
   const rows = [
     createData(
       "0000 - 0600",
       <Checkbox
-        defaultChecked={weeklySlots.slot1[0]}
+        defaultChecked={weeklySlots["0000 - 0600"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 1);
+          handleWeeklySlots(0, "0000 - 0600");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot1[1]}
+        defaultChecked={weeklySlots["0000 - 0600"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 1);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot1[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 1);
+          handleWeeklySlots(1, "0000 - 0600");
         }}
       />
     ),
@@ -168,225 +128,76 @@ const Occupancy = (props) => {
     createData(
       "0600 - 0800",
       <Checkbox
-        defaultChecked={weeklySlots.slot2[0]}
+        defaultChecked={weeklySlots["0600 - 0800"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 2);
+          handleWeeklySlots(0, "0600 - 0800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot2[1]}
+        defaultChecked={weeklySlots["0600 - 0800"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 2);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot2[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 2);
+          handleWeeklySlots(1, "0600 - 0800");
         }}
       />
     ),
     createData(
       "0800 - 1000",
       <Checkbox
-        defaultChecked={weeklySlots.slot3[0]}
+        defaultChecked={weeklySlots["0800 - 1000"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 3);
+          handleWeeklySlots(0, "0800 - 1000");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot3[1]}
+        defaultChecked={weeklySlots["0800 - 1000"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 3);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot3[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 3);
+          handleWeeklySlots(1, "0800 - 1000");
         }}
       />
     ),
     createData(
       "1000  -  1400",
       <Checkbox
-        defaultChecked={weeklySlots.slot4[0]}
+        defaultChecked={weeklySlots["1000 - 1400"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 4);
+          handleWeeklySlots(0, "1000 - 1400");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot4[1]}
+        defaultChecked={weeklySlots["1000 - 1400"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 4);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot4[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 4);
+          handleWeeklySlots(1, "1000 - 1400");
         }}
       />
     ),
     createData(
       "1400  -  1800",
       <Checkbox
-        defaultChecked={weeklySlots.slot5[0]}
+        defaultChecked={weeklySlots["1400 - 1800"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 4);
+          handleWeeklySlots(0, "1400 - 1800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot5[1]}
+        defaultChecked={weeklySlots["1400 - 1800"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 5);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot5[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 5);
+          handleWeeklySlots(1, "1400 - 1800");
         }}
       />
     ),
+
     createData(
       "1800  -  2359",
       <Checkbox
-        defaultChecked={weeklySlots.slot6[0]}
+        defaultChecked={weeklySlots["1800 - 2359"][0]}
         onChange={() => {
-          handleWeeklySlots(0, 6);
+          handleWeeklySlots(0, "1800 - 2359");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots.slot6[1]}
+        defaultChecked={weeklySlots["1800 - 2359"][1]}
         onChange={() => {
-          handleWeeklySlots(1, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[2]}
-        onChange={() => {
-          handleWeeklySlots(2, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[3]}
-        onChange={() => {
-          handleWeeklySlots(3, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[4]}
-        onChange={() => {
-          handleWeeklySlots(4, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[5]}
-        onChange={() => {
-          handleWeeklySlots(5, 6);
-        }}
-      />,
-      <Checkbox
-        defaultChecked={weeklySlots.slot6[6]}
-        onChange={() => {
-          handleWeeklySlots(6, 6);
+          handleWeeklySlots(1, "1800 - 2359");
         }}
       />
     ),
@@ -394,6 +205,11 @@ const Occupancy = (props) => {
 
   return (
     <>
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
       <Typography
         sx={{
           fontSize: "22px",
@@ -418,7 +234,7 @@ const Occupancy = (props) => {
         sx={{
           background: "#fcfcfc",
           borderRadius: "10px",
-          width: "50%",
+          width: "45%",
           height: "30%",
           margin: "20px 0px 45px 20px",
           padding: "18px 32px 5px 25px",
@@ -435,6 +251,7 @@ const Occupancy = (props) => {
                   fontWeight: "300",
                   fontFamily: "Outfit",
                   textAlign: "center",
+                  width: "100px",
                 }}
                 align="right"
               >
@@ -442,6 +259,7 @@ const Occupancy = (props) => {
               </StyledTableCell>
               <StyledTableCell
                 sx={{
+                  width: "100px",
                   borderBottom: "none",
                   fontSize: "22px",
                   fontWeight: "300",
@@ -459,6 +277,7 @@ const Occupancy = (props) => {
               <StyledTableRow
                 key={row.name}
                 sx={{
+                  width: "100px",
                   "&:last-child td, &:last-child th": { border: 0 },
                   fontSize: "22px",
                   fontWeight: "300",
@@ -496,6 +315,129 @@ const Occupancy = (props) => {
           fontFamily: "outfit",
         }}
       >
+        Please tick the property usage as appropriate
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          width: "50%",
+          height: "100px",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          mb: 5,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+            // sx={{ float: "center" }}
+            defaultChecked={propertyUsage.data[0] === "Main House"}
+            onChange={(e) => {
+              let temp = { ...propertyUsage };
+              e.target.checked
+                ? (temp.data[0] = "Main House")
+                : temp.data.splice(0, 1);
+              setPropertyUsage(temp);
+              // console.log(propertyUsage);
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Main House
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+            defaultChecked={propertyUsage.data[1] === "Holiday Home"}
+            onChange={(e) => {
+              let temp = { ...propertyUsage };
+              e.target.checked
+                ? (temp.data[1] = "Holiday Home")
+                : temp.data.splice(1, 1);
+              setPropertyUsage(temp);
+              // console.log(propertyUsage);
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Holiday Home
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Checkbox
+            defaultChecked={
+              propertyUsage.other === "" ? !checkOtherToggle[0] : false
+            }
+            onChange={(e) => {
+              let temp = [...checkOtherToggle];
+              let temp1 = { ...propertyUsage };
+              if (e.target.checked) {
+                temp[0] = false;
+              } else {
+                temp[0] = true;
+                temp1.other = "";
+                setPropertyUsage(temp1);
+              }
+              setCheckOtherToggle(temp);
+              //  console.log(propertyUsage);
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: "15px",
+              fontWeight: "bold",
+              fontFamily: "outfit",
+            }}
+          >
+            Other
+          </Typography>
+        </Box>
+        <StyledTextField
+          type="text"
+          disabled={checkOtherToggle[0]}
+          value={propertyUsage.other || ""}
+          placeholder="If other, please state"
+          onChange={(e) => {
+            let temp = { ...propertyUsage };
+            temp.other = e.target.value;
+            setPropertyUsage(temp);
+          }}
+        />
+      </Box>
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "bold",
+          fontFamily: "outfit",
+        }}
+      >
         Number of Adult Occupants
       </Typography>
       <StyledTextField
@@ -516,7 +458,7 @@ const Occupancy = (props) => {
         <MenuItem value="3">3 Adult</MenuItem>
         <MenuItem value="4">4 Adult</MenuItem>
         <MenuItem value="5">5 Adult</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 5">More than 5</MenuItem>
       </StyledTextField>
 
       <Typography
@@ -546,7 +488,7 @@ const Occupancy = (props) => {
         <MenuItem value="3">3 Child</MenuItem>
         <MenuItem value="4">4 Child</MenuItem>
         <MenuItem value="5">5 Child</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 5">More than 5</MenuItem>
       </StyledTextField>
       <Typography
         sx={{
@@ -569,7 +511,7 @@ const Occupancy = (props) => {
       </Typography>
       <StyledTextField
         select
-        sx={{ width: "30%", marginTop: "20px", marginBottom: "30px" }}
+        sx={{ width: "30%", marginTop: "20px", marginBottom: "20px" }}
         value={selectedNoPerBedroom}
         onChange={(e) => {
           setSelectedNoPerBedroom(e.target.value);
@@ -585,13 +527,12 @@ const Occupancy = (props) => {
         <MenuItem value="2">2</MenuItem>
         <MenuItem value="2.5">2.5</MenuItem>
         <MenuItem value="3">3</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 3">More than 3</MenuItem>
       </StyledTextField>
-
       <Typography
         sx={{
-          marginTop: "53px",
-          marginBottom: "20px",
+          marginTop: "20px",
+          marginBottom: "15px",
           fontSize: "22px",
           fontWeight: "bold",
           lineHeight: "normal",
@@ -844,48 +785,6 @@ const Occupancy = (props) => {
           </Box>
         </Box>
       </Box>
-      {/* <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "bold",
-          fontFamily: "Outfit",
-        }}
-      >
-        Equipment
-      </Typography> */}
-      {/* <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "300",
-          lineHeight: "1.2",
-          fontFamily: "Outfit",
-          color: "#767676",
-          letterSpacing: "0.03px",
-        }}
-      >
-        The internal heat gains can have some effect from equipment likely to be
-        found in the property. Please try & estimate of items if any of these
-        below
-      </Typography> */}
-      {/* <Equipment
-        equipments={equipments}
-        getEquipments={(equip, num) => getEquipments(equip, num)}
-      /> */}
-      {/* <Typography
-        sx={{
-          fontSize: "22px",
-          fontWeight: "bold",
-          fontFamily: "Outfit",
-        }}
-      >
-        High Energy Equipment
-      </Typography> */}
-      {/* <HighEquipment
-        highEnergyEquipments={highEnergyEquipments}
-        getHighEnergyEquipments={(equip, num) => {
-          getHighEnergyEquipments(equip, num);
-        }}
-      /> */}
 
       <Typography
         sx={{

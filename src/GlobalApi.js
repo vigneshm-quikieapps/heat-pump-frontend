@@ -18,7 +18,7 @@ const globalAPI = {
   adminedituser: "api/v1/services/users",
   adminstatus: "api/v1/admin/service-requests-count",
   adminreq: "api/v1/admin/service-requests",
-  externalType: "api/v1/services/fabric-details?type=1",
+  externalType: "api/v1/services/fabric-details?type=1&page=1",
   internalType: "api/v1/services/fabric-details?page=1&perPage=10&type=2",
   roofType: "api/v1/services/fabric-details?page=1&perPage=10&type=3",
   windowType: "api/v1/services/fabric-details?page=1&perPage=10&type=4",

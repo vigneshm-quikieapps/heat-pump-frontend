@@ -55,6 +55,7 @@ import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor"
 import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
 import HomePage from "./components/After Customer Login/HomePage/HomePage";
 import MyProfile from "./components/After Customer Login/MyProfile/MyProfile";
+import QuoteList from "./components/admin/MQRList/QuoteList";
 
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
@@ -228,7 +229,8 @@ function PriorityComponent() {
             <Route path="/admincommon" element={<AdminCommon />}>
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="adminRCA" element={<AdminRCA />} />
-              <Route path="MQR" element={<ManageQuoteRequest />} />
+              <Route path="MQR" element={<QuoteList />} />
+              <Route path="manageJob/:id" element={<ManageQuoteRequest />} />
               <Route path="adminmsr" element={<AdminManageService />} />
               <Route path="adminsrl" element={<AdminServiceList />} />
               <Route path="businessuser" element={<BusinessUser />} />

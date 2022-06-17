@@ -26,7 +26,7 @@ const NewEightStep = (props) => {
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
   const token = JSON.parse(localStorage.getItem("user"));
-  const [data, setData] = useState({ ventilation: [], drought: "", other: "" });
+  const [data, setData] = useState({ ventilation: [], draught: "", other: "" });
   const [toggleOther, setToggleOther] = useState({
     ventilation: true,
     drought: false,
@@ -110,6 +110,23 @@ const NewEightStep = (props) => {
               }}
             >
               Natural Ventilation
+            </Typography>
+          </Box>
+          <Box sx={{ margin: "0 0 1% 0" }}>
+            <Checkbox
+              name="Natural ventilation with trickle vents"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+            />
+            <Typography
+              sx={{
+                display: "inline",
+                fontFamily: "Outfit",
+                marginLeft: "1.6%",
+              }}
+            >
+              Natural ventilation with trickle vents
             </Typography>
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>

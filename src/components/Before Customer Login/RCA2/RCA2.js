@@ -232,7 +232,7 @@ function RCA2({
     if (searchValue.length > 2) {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWFQ-4NFQ9-PZY8R-574WR`
+          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&identifier=HPD`
         )
         //axios.get(`https://ws.postcoder.com/pcw/PCWFQ-4NFQ9-PZY8R-574WR/street/uk/${code}`)
         .then((res) => setSuggestionListAction(res.data));
@@ -248,7 +248,7 @@ function RCA2({
     if (!parseInt(e.target.id)) {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWBY-K73QV-5TPTP-7H75B&pathfilter=${e.target.id}`
+          `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}&identifier=HPD`
         )
         .then((res) => {
           setSuggestionListAction(res.data);
@@ -256,7 +256,7 @@ function RCA2({
     } else {
       axios
         .get(
-          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWBY-K73QV-5TPTP-7H75B&lines=3&include=posttown,postcode`
+          `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&lines=3&include=posttown,postcode&identifier=HPD`
         )
         .then((res) => res.data[0])
         .then((resp) => customerDetailsAutoSuggestion(resp));
@@ -554,8 +554,12 @@ function RCA2({
                 // variant="outlined"
                 // disabled={checked === true ? true : false}
               />
-              {/* <span className=" rca2inputError input8Error">{input8Error}</span>
-            {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />} */}
+              {/* <span className=" rca2inputError input8Error">{input8Error}</span> */}
+              {filtered2.length === 0 ? (
+                ""
+              ) : (
+                <ResultBlock results={filtered2} />
+              )}
 
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}

@@ -27,6 +27,12 @@ import {
   // Typography,
   TextField,
 } from "@mui/material";
+import axios from "axios";
+import URL from "../../../GlobalUrl";
+import globalAPI from "../../../GlobalApi";
+import { FileUploader } from "react-drag-drop-files";
+import { set } from "react-hook-form";
+const fileTypes = ["PDF", "PNG", "JPEG"];
 const useStyles = makeStyles({
   selectfield: {
     marginTop: "20px",
@@ -114,11 +120,13 @@ function AddEditInternalFloor({ adminFirstPageAction }) {
     fabric_type: "",
     status: "1",
     description: "",
-    image_url: "",
+    image_url: [],
     details: "",
     // longness_of_suspended_floor: "",
     // shortness_of_suspended_floor: "",
   });
+  const token = JSON.parse(localStorage.getItem("user"));
+
   const [cal, setCal] = useState("");
   useEffect(() => {
     adminFirstPageAction(false);
@@ -147,18 +155,56 @@ function AddEditInternalFloor({ adminFirstPageAction }) {
   };
   const createUpdateFabric = () => {
     fabricId
-      ? updateFabricType(fabricId, { ...innerFloorData, type: 4 })
+      ? updateFabricType(fabricId, { ...innerFloorData, type: 6 })
           .then((res) => {
             toast.success("This fabric updated successfully");
             // navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error))
-      : createFabricType({ ...innerFloorData, type: 4 })
+      : createFabricType({ ...innerFloorData, type: 6 })
           .then((res) => {
             toast.success("New fabric created successfully");
             // navigate(`/admincommon/internalFloorType/`);
           })
           .catch((error) => console.log(error));
+  };
+  const removeFile = (name, index) => {
+    let temp = { ...innerFloorData };
+    temp.image_url.splice(index, 1);
+    setInnerFloorData(temp);
+  };
+  const onFileUpload = (e) => {
+    if (e) {
+      let formData = new FormData();
+      formData.append("attachments", e);
+      setLoader(true);
+      axios({
+        method: "post",
+        url: URL + globalAPI.fileupload,
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          const res = response.data;
+          setLoader(false);
+          if (res.success) {
+            let temp = { ...innerFloorData };
+            temp.image_url.push(e.name);
+            setInnerFloorData(temp);
+          } else {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          setLoader(false);
+          toast.error("Something Went Wrong");
+        });
+    } else {
+      setLoader(false);
+      toast.error("Please add Attachments");
+    }
   };
   return (
     <>
@@ -223,7 +269,7 @@ function AddEditInternalFloor({ adminFirstPageAction }) {
               mb: 5,
             }}
             error={innerFloorData?.description === "" && isSavedStatus}
-            label="Floor Description"
+            label="Roof Light Description"
             variant="outlined"
             multiline
             rows={5}
@@ -307,7 +353,7 @@ function AddEditInternalFloor({ adminFirstPageAction }) {
               mb: 4,
             }}
             error={innerFloorData?.details === "" && isSavedStatus}
-            label="Floor Details"
+            label="Roof LightDetails"
             variant="outlined"
             multiline
             rows={5}
@@ -347,27 +393,79 @@ function AddEditInternalFloor({ adminFirstPageAction }) {
               }}
             />
             <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Box sx={{ width: "200px", mr: 10 }}>
-                <Typography
-                  sx={{
-                    fontWeight: "600",
-                    fontFamily: "Outfit",
-                    fontSize: "18px",
-                  }}
-                >
-                  Not Available
-                </Typography>
-              </Box>
-              <button
-                variant="contained"
-                className="btn-house btn-icon"
-                // onClick={props.prev()}
+              <Box
+                sx={{
+                  width: "300px",
+                  mr: 10,
+                  p: 5,
+                }}
               >
-                <span style={{ height: "27px", width: "27px" }}>
-                  <img src={require("../../../Img/icon attach.png")} />
-                </span>
-                <span>Add Image</span>
-              </button>
+                {innerFloorData?.image_url.length < 1 ? (
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      fontFamily: "Outfit",
+                      fontSize: "18px",
+                    }}
+                  >
+                    Not Available
+                  </Typography>
+                ) : (
+                  innerFloorData?.image_url.map((item, index) => {
+                    return (
+                      <div
+                        className="s4filemap"
+                        style={{ borderRadius: "1.8vw", width: "100%" }}
+                        key={index}
+                      >
+                        <span style={{ float: "left", marginLeft: "1vw" }}>
+                          <img
+                            src={require("../../../Img/attachIcon.png")}
+                            style={{
+                              marginLeft: "20px",
+                              height: "2.8vh",
+                              width: "1vw",
+                            }}
+                          />
+
+                          <span className="s4fileName">{item}</span>
+                        </span>
+
+                        <img
+                          src={require("../../../Img/iconDelete.png")}
+                          onClick={(e) => removeFile(e.target.name, index)}
+                          style={{
+                            marginRight: "20px",
+                            width: "1.3vw",
+                            height: "2.9vh",
+                          }}
+                          name="elevations"
+                        />
+                      </div>
+                    );
+                  })
+                )}
+              </Box>
+              <FileUploader
+                handleChange={(e) => onFileUpload(e)}
+                name="file"
+                types={fileTypes}
+                onTypeError={(err) =>
+                  toast.error("Only pdf, png, jpeg files are allowed")
+                }
+                children={
+                  <button
+                    variant="contained"
+                    className="btn-house btn-icon"
+                    // onClick={props.prev()}
+                  >
+                    <span style={{ height: "27px", width: "27px" }}>
+                      <img src={require("../../../Img/icon attach.png")} />
+                    </span>
+                    <span>Add Image</span>
+                  </button>
+                }
+              />
             </Box>
           </Box>
           <Box>

@@ -71,10 +71,18 @@ function RCA1({ customerDetails, customerDetailsAction }) {
       setInput4Error("Mandatory field cannot be empty");
       return false;
     }
-    if (!validator.isLength(customerDetails.mobile, { min: 10, max: 10 })) {
-      setInput4Error("Please enter a valid mobile number");
+    if (customerDetails.mobile.startsWith("0")) {
+      if (!validator.isLength(customerDetails.mobile, { min: 11, max: 11 })) {
+        setInput4Error("Please enter a valid mobile number");
 
-      return false;
+        return false;
+      }
+    } else {
+      if (!validator.isLength(customerDetails.mobile, { min: 10, max: 10 })) {
+        setInput4Error("Please enter a valid mobile number");
+
+        return false;
+      }
     }
     /*   if (!validator.isEmail(customerDetails.email)) {
     toast.error("Please enter valid Email");

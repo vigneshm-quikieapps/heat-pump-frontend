@@ -120,8 +120,7 @@ const RoofWall = ({ adminFirstPageAction }) => {
       });
   }
   useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
+    fetchSeconddata();
   }, []);
   useEffect(() => {
     let temp;
@@ -155,9 +154,6 @@ const RoofWall = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          // setCount(res.total_pages);
-          // setBox(res.data);
-          console.log(response);
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -169,9 +165,11 @@ const RoofWall = ({ adminFirstPageAction }) => {
         toast.error("Something went wrong");
       });
   }
+  useEffect(() => {
+    fetchSeconddata();
+  }, [page]);
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
   };
   return (
     <div>
@@ -317,15 +315,11 @@ const RoofWall = ({ adminFirstPageAction }) => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={Math.ceil(dataArr?.length / 10)}
+                count={count}
                 page={page}
                 /*  variant="outlined" */
                 // onChange={handleChange}
-                onChange={(e, p) => {
-                  console.log(p);
-                  setPage(p);
-                  setDataOfTens(p);
-                }}
+                onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>

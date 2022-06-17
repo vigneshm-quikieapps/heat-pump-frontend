@@ -336,8 +336,6 @@ function Common({ firstPageStatus }) {
                       </Grow>
                     )}
                   </Popper>
-                  {/* </div> */}
-                  {/* </div> */}
                 </Box>
               </Box>
             </div>

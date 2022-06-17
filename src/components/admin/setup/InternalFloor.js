@@ -52,8 +52,8 @@ const InternalFloor = ({ adminFirstPageAction }) => {
     adminFirstPageAction(true);
   }, []);
   useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
+    // fetchData();
+    fetchSeconddata();
   }, []);
   const setDataOfTens = (page) => {
     let temp;
@@ -75,22 +75,15 @@ const InternalFloor = ({ adminFirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setDataArr(res.data);
+        setCount(res?.total_pages);
+        setBox(res?.data);
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
   }
-  useEffect(() => {
-    let temp;
-    if (dataArr?.length > 10) {
-      temp = dataArr?.slice(0, 10);
-      setBox(temp);
-    } else {
-      setBox(dataArr);
-    }
-  }, [dataArr]);
+
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -111,9 +104,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          // setCount(res.total_pages);
-          // setBox(res.data);
-          console.log(response);
+
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -150,7 +141,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
       .then((res) => {
         console.log(res);
         toast.success("Fabric deleted successfully");
-        fetchData();
+        fetchSeconddata();
       })
 
       .catch((error) => {
@@ -175,9 +166,10 @@ const InternalFloor = ({ adminFirstPageAction }) => {
 
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
   };
-  console.log("internlfloorres", box);
+  useEffect(() => {
+    fetchSeconddata();
+  }, [page]);
   return (
     <div>
       {loader && (
@@ -284,7 +276,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
               fontFamily: "outfit",
             }}
           >
-            Internal Floor Types List
+            Roof Light Types List
             <hr className="ewallhr" />
           </Typography>
           <AddButton
@@ -300,8 +292,8 @@ const InternalFloor = ({ adminFirstPageAction }) => {
           <Table
             headers={[
               "Type",
-              "Internal Floors Description",
-              "Internal Floors Detail",
+              "Roof Light Types Description",
+              "Roof Light Types Detail",
               "Status",
               "Action",
             ]}
@@ -321,15 +313,11 @@ const InternalFloor = ({ adminFirstPageAction }) => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={Math.ceil(dataArr?.length / 10)}
+                count={count}
                 page={page}
                 /*  variant="outlined" */
                 // onChange={handleChange}
-                onChange={(e, p) => {
-                  console.log(p);
-                  setPage(p);
-                  setDataOfTens(p);
-                }}
+                onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>

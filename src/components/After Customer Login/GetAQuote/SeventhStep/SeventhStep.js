@@ -93,7 +93,7 @@ const SeventhStep = (props) => {
   const [existingData, setExistingData] = useState({ data: [], other: "" });
   const [proposedData, setProposedData] = useState({ data: [], other: "" });
   const [otherDesignData, setOtherDesignData] = useState([]);
-  const [checkOtherToggle, setCheckOtherToggle] = useState([false, false]);
+  const [checkOtherToggle, setCheckOtherToggle] = useState([true, true]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -255,7 +255,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={checkOtherToggle[0]}
+                // defaultChecked={!checkOtherToggle[0]}
                 onChange={(e) => {
                   let temp = [...checkOtherToggle];
                   let temp1 = { ...existingData };
@@ -283,7 +283,7 @@ const SeventhStep = (props) => {
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              disabled={!checkOtherToggle[0]}
+              disabled={checkOtherToggle[0]}
               value={existingData.other}
               placeholder="If other, please state"
               onChange={(e) => {
@@ -398,7 +398,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={checkOtherToggle[1]}
+                // defaultChecked={!checkOtherToggle[1]}
                 onChange={(e) => {
                   let temp = [...checkOtherToggle];
                   let temp1 = { ...proposedData };
@@ -426,7 +426,7 @@ const SeventhStep = (props) => {
             <StyledTextField
               sx={{ width: "30%", marginLeft: "3.5%" }}
               type="text"
-              disabled={!checkOtherToggle[1]}
+              disabled={checkOtherToggle[1]}
               value={proposedData.other}
               placeholder="If other, please state"
               onChange={(e) => {

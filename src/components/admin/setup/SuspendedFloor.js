@@ -75,7 +75,7 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
       .then((res) => {
         console.log(res);
         toast.success("Fabric deleted successfully");
-        fetchData();
+        fetchSeconddata();
       })
 
       .catch((error) => {
@@ -119,22 +119,15 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        setDataArr(res.data);
+        setCount(res?.total_pages);
+        setBox(res?.data);
       })
       .catch((e) => {
         setLoader(false);
         toast.error("Something went wrong");
       });
   }
-  useEffect(() => {
-    let temp;
-    if (dataArr?.length > 10) {
-      temp = dataArr?.slice(0, 10);
-      setBox(temp);
-    } else {
-      setBox(dataArr);
-    }
-  }, [dataArr]);
+
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -153,9 +146,7 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          // setCount(res.total_pages);
-          // setBox(res.data);
-          console.log(response);
+
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -168,8 +159,7 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
       });
   }
   useEffect(() => {
-    fetchData();
-    // fetchSeconddata();
+    fetchSeconddata();
   }, []);
   const searchfilter = () => {
     // setStatus("1,2,3,4");
@@ -178,9 +168,10 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
   };
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
   };
-  console.log("Suspendedres", box);
+  useEffect(() => {
+    fetchSeconddata();
+  }, [page]);
   return (
     <div>
       {loader && (
@@ -197,7 +188,7 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
           marginLeft: "40px",
         }}
       >
-        Suspended Floor Type
+        External Floor Type
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -288,7 +279,7 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
               fontFamily: "outfit",
             }}
           >
-            Suspended Floor Types List
+            External Floor Types List
             <hr className="ewallhr" />
           </Typography>
           <AddButton
@@ -325,15 +316,11 @@ const SuspendedFloor = ({ adminFirstPageAction }) => {
           >
             <ThemeProvider theme={theme}>
               <Pagination
-                count={Math.ceil(dataArr?.length / 10)}
+                count={count}
                 page={page}
                 /*  variant="outlined" */
                 // onChange={handleChange}
-                onChange={(e, p) => {
-                  console.log(p);
-                  setPage(p);
-                  setDataOfTens(p);
-                }}
+                onChange={handleChange}
                 color="primary"
               />
             </ThemeProvider>

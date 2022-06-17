@@ -5,13 +5,16 @@ import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../GlobalUrl";
 import globalAPI from "../../../GlobalApi";
-import { Button, Typography, Box } from "@mui/material";
+import { Button, Typography, Box, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Card, TextField } from "../../../common";
+import { Card, TextField, ImgIcon } from "../../../common";
 import StyledTextField from "../../../common/textfield";
+import DeleteIcon from "../../../Img/icon remove.png";
+import IconButton from "@mui/material/IconButton";
+import { getQuote, UpdateJob } from "../../../services/services";
 
 const useStyles = makeStyles({
   textfield: {
@@ -75,39 +78,20 @@ const RadiatorWindow = (props) => {
       window_size: "",
     },
   ]);
-  const Input = () => {
-    return (
-      <div style={{ marginTop: "2.5%" }}>
-        <StyledTextField
-          sx={{ marginRight: "40px", width: "20%" }}
-          label="Room Description"
-          value={""}
-          onChange={""}
-        />
-        <StyledTextField
-          sx={{ marginRight: "40px", width: "20%" }}
-          label="Radiator (H x W in mm)"
-          value={""}
-          onChange={""}
-        />
-        <StyledTextField
-          sx={{ width: "20%" }}
-          label="Window (H x W in mm)"
-          value={""}
-          onChange={""}
-        />
-      </div>
-    );
-  };
+  useEffect(() => {
+    props?.quoteData?.radiator_and_window_sizes &&
+      setInputList(props?.quoteData?.radiator_and_window_sizes);
+  }, [props?.quoteData]);
 
-  // useEffect(() => {
-  //   // setInputList(inputList.concat(<Input key={inputList.length} />));
-  // }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const updateRad = (e) => {
+    UpdateJob(props?.quoteId, inputList).then((res) => {
+      toast.success("Updated successfully");
+    });
+  };
   const onAddBtnClick = (event) => {
-    // setInputList(inputList.concat(<Input key={inputList.length} />));
     let temp = [...inputList];
     temp.push({
       room_desc: "",
@@ -124,7 +108,7 @@ const RadiatorWindow = (props) => {
   return (
     <>
       {/* {inputList} */}
-      {inputList.length &&
+      {inputList?.length &&
         inputList?.map((item, index) => (
           <div style={{ marginTop: "2.5%" }} key={`inputList${index}`}>
             <StyledTextField
@@ -166,6 +150,38 @@ const RadiatorWindow = (props) => {
               //   item?.window_size === "" && "Window size in mandatory"
               // }
             />
+            {index !== 0 && (
+              <Box sx={{ display: "inline", float: "right" }}>
+                <Tooltip
+                  title="Remove room"
+                  placement="bottom-start"
+                  componentsProps={{
+                    tooltip: {
+                      sx: {
+                        padding: "12px 22px 13px",
+                        width: "205px",
+                        height: "50px",
+                        fontSize: "20px",
+                        fontFamily: "Outfit",
+                        backgroundColor: "#fafafa",
+                        color: "black",
+                        textAlign: "center",
+                      },
+                    },
+                  }}
+                >
+                  <IconButton
+                    onClick={() => {
+                      let temp = [...inputList];
+                      temp.splice(index, 1);
+                      setInputList(temp);
+                    }}
+                  >
+                    <ImgIcon>{DeleteIcon}</ImgIcon>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            )}
           </div>
         ))}
 
@@ -179,18 +195,7 @@ const RadiatorWindow = (props) => {
           }}
           className={classes.button}
           onClick={() => {
-            // if (
-            //   inputList[inputList.length - 1]?.room_desc == "" ||
-            //   undefined ||
-            //   inputList[inputList.length]?.radiator_size == "" ||
-            //   undefined ||
-            //   inputList[inputList.length]?.window_size == "" ||
-            //   undefined
-            // ) {
-            //   return;
-            // } else {
             onAddBtnClick();
-            // }
           }}
           variant="contained"
           startIcon={<AddIcon style={{ height: "5vh", width: "2vw" }} />}
@@ -198,6 +203,11 @@ const RadiatorWindow = (props) => {
           Add Room
         </Button>
       </Typography>
+      <div style={{ marginTop: "6%", marginLeft: "-5px" }}>
+        <button className="browsebtn" onClick={updateRad}>
+          Save
+        </button>
+      </div>
     </>
   );
 };
