@@ -7,7 +7,12 @@ import { useGetAllQuotes, getAllQuotes1 } from "../../../services/services";
 import { useNavigate } from "react-router-dom";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 import { connect } from "react-redux";
-
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+const theme = createTheme({
+  palette: {
+    primary: { main: "#000000	" },
+  },
+});
 // const userData = JSON.parse(localStorage.getItem("userData"));
 // const userName = userData?.name;
 
@@ -86,7 +91,19 @@ const MyQuote = ({ FirstPageAction }) => {
                 site_details?.country ? site_details?.country + "," : ""
               } ${site_details?.postcode || ""} `,
               formatDate(updatedAt),
-              `${status === 1 ? "New" : "Propasal Ready"}`,
+              `${
+                status === 1
+                  ? "New-Unpaid"
+                  : status === 2
+                  ? "New-Paid"
+                  : status === 3
+                  ? "In Progress"
+                  : status === 4
+                  ? "Complete"
+                  : status === 5
+                  ? "Snagging"
+                  : "-"
+              }`,
               // <Button
               //   style={{
               //     background: "Black",
@@ -161,10 +178,43 @@ const MyQuote = ({ FirstPageAction }) => {
               "",
             ]}
             rows={tableRows}
-            pagination={pagination}
+            // pagination={pagination}
             isLoading={false}
             // isFetching={false}
           />
+          {dataArr.length == 0 && (
+            <h4
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "40px",
+              }}
+            >
+              No matching records found
+            </h4>
+          )}
+          {dataArr.length >= 1 && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "18px",
+              }}
+            >
+              <ThemeProvider theme={theme}>
+                <Pagination
+                  className="pagination"
+                  count={count}
+                  page={page}
+                  /*  variant="outlined" */
+                  onChange={(e, p) => {
+                    setPage(p);
+                  }}
+                  color="primary"
+                />
+              </ThemeProvider>
+            </div>
+          )}
         </Box>
       </Card>
     </Box>
