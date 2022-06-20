@@ -364,6 +364,9 @@ const Login = ({ customerDetailsReset }) => {
                 fontFamily: "Outfit",
                 color: "#000",
               }}
+              onClick={() => {
+                window.open("https://heatpumpdesigner.com/termsandconditions/");
+              }}
             >
               Terms of Service
             </Typography>
