@@ -405,7 +405,7 @@ function AdminRCA({ adminFirstPageAction }) {
                       name="email"
                     />
                   </Box>
-                  <Box>
+                  {/* <Box>
                     <StyledTextField
                       sx={{ width: "450px", height: "60px" }}
                       required
@@ -415,7 +415,7 @@ function AdminRCA({ adminFirstPageAction }) {
                       name="password"
                       label="Password"
                     />
-                  </Box>
+                  </Box> */}
                   <Box>
                     <StyledTextField
                       sx={{ width: "450px", height: "60px" }}
@@ -490,13 +490,11 @@ function AdminRCA({ adminFirstPageAction }) {
                       name="business_type"
                       label="Business Type"
                     >
-                      <MenuItem value="Limited Company">
-                        Limited Company
+                      <MenuItem value="1">Limited Company</MenuItem>
+                      <MenuItem value="2">
+                        Limited Liability Partnership
                       </MenuItem>
-                      <MenuItem value="Limited Liability Patnership">
-                        Limited Liability Patnership
-                      </MenuItem>
-                      <MenuItem value="Sole Trader">Sole Trader</MenuItem>
+                      <MenuItem value="3">Sole Trader</MenuItem>
                     </StyledTextField>
                   </Box>
                 </Grid>

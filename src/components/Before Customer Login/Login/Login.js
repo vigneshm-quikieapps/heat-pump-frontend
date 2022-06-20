@@ -14,13 +14,16 @@ import StyledTextField from "../Login/textfield";
 // import MailIcon from "../../../Img/icon.png";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
+import { customerDetailsReset } from "../../../Redux/customerDetails/customerDetails.action";
+import { connect } from "react-redux";
+
 const passwords = {
   value: "",
   type: "password",
   showpassword: false,
 };
 
-const Login = () => {
+const Login = ({ customerDetailsReset }) => {
   const [password, setPassword] = useState(passwords);
   const [emailValue, setEmailValue] = useState("");
   const [remember, setRemember] = useState(false);
@@ -117,6 +120,7 @@ const Login = () => {
               return;
             }
             navigate("/common/HomePage");
+            customerDetailsReset();
           } else {
             setLoader(false);
             toast.error(res.data.message);
@@ -270,21 +274,7 @@ const Login = () => {
                 alt=""
                 className="passwordIcon"
               />
-              {/* {password.showpassword ? (
-                <img
-                  src={require("../../../Img/iconEyeOpen.png")}
-                  alt=""
-                  className="npeyeIconOpen"
-                  onClick={togglePassword}
-                />
-              ) : (
-                <img
-                  src={require("../../../Img/icon3.png")}
-                  alt=""
-                  className="npeyeIcon"
-                  onClick={togglePassword}
-                />
-              )} */}
+
               <Typography
                 style={{
                   fontSize: "18px",
@@ -296,43 +286,6 @@ const Login = () => {
               >
                 {inputLogin2Error}
               </Typography>
-
-              {/* <input
-                type={password.type}
-                value={password.value}
-                onChange={changeHandler}
-                className="password"
-                name="password"
-                required
-                onBlur={blurFunc1}
-              />
-              <img
-                src={require("../../../Img/icon2.png")}
-                alt=""
-                className="passwordIcon"
-              />
-              {password.showpassword ? (
-                <img
-                  src={require("../../../Img/iconEyeOpen.png")}
-                  alt=""
-                  className="eyeIconOpen"
-                  onClick={togglePassword}
-                />
-              ) : (
-                <img
-                  src={require("../../../Img/icon3.png")}
-                  alt=""
-                  className="eyeIcon"
-                  onClick={togglePassword}
-                />
-              )}
-              <label className="password-label">Password</label>{" "}
-              <span className="inputLogin2Error inputLoginError">
-                {inputLogin2Error}
-              </span>
-              <span className="loginspan1" style={{ color: `${color}` }}>
-                Must be at least 8 characters
-              </span> */}
             </div>
             <div className="icontick">
               <div>
@@ -411,9 +364,6 @@ const Login = () => {
                 fontFamily: "Outfit",
                 color: "#000",
               }}
-              // onClick={() => {
-              //   window.open("https://heatpumpdesigner.com/services/");
-              // }}
             >
               Terms of Service
             </Typography>
@@ -444,5 +394,13 @@ const Login = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  customerDetails: state.cdr,
+});
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  customerDetailsReset: () => dispatch(customerDetailsReset()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default Login;

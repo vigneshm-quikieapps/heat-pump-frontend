@@ -5,7 +5,7 @@ import axios from "axios";
 // import Radio from "@mui/material/Radio";
 import { makeStyles, createStyles } from "@material-ui/core";
 import { setSuggestionListAction } from "../../../../Redux/suggestionList/suggestionList.action";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { customerDetailsAction } from "../../../../Redux/customerDetails/customerDetails.action";
 import { customerDetailsAutoSuggestion } from "../../../../Redux/customerDetails/customerDetails.action";
 import { customerDetailsReset } from "../../../../Redux/customerDetails/customerDetails.action";
@@ -14,17 +14,10 @@ import StyledTextField from "../../../../common/textfield";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card, Grid, Radio } from "../../../../common";
-// import { flexbox } from "@mui/system";
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
-
-// const schema = yup.object().shape({
-//   address_1: yup.string().required("Address is mandatory"),
-//   address_2: yup.string().notRequired(),
-//   city: yup.string().required("City name is mandatory"),
-//   postcode: yup.string().required("Postcode is mandatory"),
-// });
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -74,40 +67,6 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-// const StyledTextField = styled(TextField)(({ theme, value }) => ({
-//   "& .Mui-disabled": {
-//     color: `${theme.palette.text.secondary} !important`,
-//     WebkitTextFillColor: `${theme.palette.text.secondary} !important`,
-//   },
-//   justifyContent: "center",
-//   // applied to label of all variants
-//   "& label": {
-//     color: " #aaa",
-//     lineHeight: 1.3,
-//     "&.Mui-focused": {
-//       color: "#aaa",
-//       background: "#fff",
-//     },
-//   },
-//   "& .MuiInputBase-root": {
-//     height: "62px",
-//     borderRadius: "8px",
-//     border: "1px solid #cdcdcd",
-//     "&.Mui-focused": {
-//       border: "1px solid transparent !important",
-//     },
-
-//     "& .MuiOutlinedInput-input": { padding: "13px 16px" },
-//   },
-//   "& .MuiOutlinedInput-root": {
-//     backgroundColor: value ? "white" : "white",
-//     "& fieldset": { border: "1px solid #cdcdcd !important" },
-//   },
-//   "& .MuiInputLabel-outlined": {
-//     backgroundColor: value ? "white" : "white",
-//     padding: theme.spacing(0, 1),
-//   },
-// }));
 const FirstStep = ({
   customerDetails,
   customerDetailsAction,
@@ -117,15 +76,19 @@ const FirstStep = ({
   customerDetailsReset,
   myProps,
 }) => {
-  // console.log(myProps);
-
   const [plans, setPlans] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   const [checked, setChecked] = useState(false);
   const [show, setShow] = useState(true);
+  const [pathname, setPathname] = useState(window.location.pathname);
   const [searchValue, setsearchValue] = useState("");
-  const [site_details, setsite_details] = useState({});
+  const [site_details, setsite_details] = useState({
+    address_1: "",
+    address_2: "",
+    city: "",
+    postcode: "",
+  });
   const classes = useStyles();
   const filtered =
     searchValue &&
@@ -134,6 +97,9 @@ const FirstStep = ({
         .toLowerCase()
         .includes(searchValue.toLowerCase());
     });
+  useEffect(() => {
+    customerDetailsReset();
+  }, [window.location.pathname]);
 
   useEffect(() => {
     let temp = { ...customerDetails };
@@ -157,8 +123,7 @@ const FirstStep = ({
     setsearchValue(e.target.value);
     // console.log("ddd", e.target.value);
   };
-  // PCWV6-VMTG6-XKM5K-6ZHQ5
-  // PCWV6-VMTG6-XKM5K-6ZHQ5
+
   useEffect(() => {
     if (searchValue.length > 2) {
       axios
@@ -212,7 +177,7 @@ const FirstStep = ({
   };
   const ResultBlock = ({ results }) => {
     return (
-      <div className="result-block">
+      <div className="result-block11">
         <ul>
           {results.map((r, i) => (
             <Result key={i} result={r} />
@@ -228,13 +193,6 @@ const FirstStep = ({
     const temp = site_details;
     temp[e.target.name] = e.target.value;
     setsite_details(temp);
-    // setInput5Error("");
-    // setInput6Error("");
-
-    // setInput9Error("");
-    // setInput10Error("");
-    // setInput11Error("");
-    // setInput12Error("");
   };
   return (
     <Card>
@@ -258,21 +216,24 @@ const FirstStep = ({
         Site Details
       </Typography>
       <hr className="s1hr2" />
-      <Grid sx={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
-        <StyledTextField
-          // className="step1inputfields input1"
-          type="text"
-          // error={!checked && searchValue === "" && true}
-          value={searchValue}
-          onChange={changeHandler1}
-          name="startAddress"
-          label="Start typing address"
-          variant="outlined"
-          // disabled={checked === true ? true : false}
-          // helperText={!checked && searchValue === "" && "Address in mandatory"}
-        />
-        {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
-        {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
+      <Grid sx={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+        <Box sx={{ height: "65px" }}>
+          <StyledTextField
+            // className="step1inputfields input1"
+            sx={{ width: "100%" }}
+            type="text"
+            // error={!checked && searchValue === "" && true}
+            value={searchValue}
+            onChange={changeHandler1}
+            name="startAddress"
+            label="Start typing address"
+            variant="outlined"
+            // disabled={checked === true ? true : false}
+            // helperText={!checked && searchValue === "" && "Address in mandatory"}
+          />
+          {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
+          {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
+        </Box>
         <div style={{ padding: "0px", display: "flex" }}>
           <Typography
             style={{
@@ -298,7 +259,7 @@ const FirstStep = ({
             }}
           />
         </div>
-        <div></div>
+
         <Box
           sx={{
             display: "flex",
@@ -311,7 +272,7 @@ const FirstStep = ({
             // error={customerDetails.address_1 === "" ? true : false}
             type="text"
             variant="outlined"
-            value={customerDetails.address_1}
+            value={site_details.address_1}
             onChange={changeHandler}
             name="address_1"
             label="Address Line 1"
@@ -329,7 +290,7 @@ const FirstStep = ({
             // className="step1inputfields input2"
 
             type="text"
-            value={customerDetails.address_2}
+            value={site_details.address_2}
             onChange={changeHandler}
             name="address_2"
             label="Address Line 2"
@@ -343,7 +304,7 @@ const FirstStep = ({
             // className="step1inputfields input2"
             // error={customerDetails.city === "" ? true : false}
             type="text"
-            value={customerDetails.city}
+            value={site_details.city}
             onChange={changeHandler}
             name="city"
             label="City/Town"
@@ -360,7 +321,7 @@ const FirstStep = ({
             sx={{ mb: 1.5 }}
             // required
             // error={customerDetails.postcode === "" ? true : false}
-            value={customerDetails.postcode}
+            value={site_details.postcode}
             type="text"
             onChange={changeHandler}
             name="postcode"
@@ -377,27 +338,10 @@ const FirstStep = ({
         </Box>
       </Grid>
       <Box sx={{ display: "flex" }}>
-        {/* <button
-          variant="contained"
-          className="btn-house btn-icon"
-          // onClick={props.prev()}
-        >
-          <span style={{ height: "27px", width: "27px" }}>
-            <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
-          </span>
-          <span style={{ marginLeft: "100px" }}>Previous</span>
-        </button> */}
         <button
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            // if (
-            //   customerDetails.address_1 === "" ||
-            //   customerDetails.postcode === "" ||
-            //   customerDetails.city === ""
-            // ) {
-            //   return;
-            // } else {
             const { address_1, address_2, city, postcode } = site_details;
             myProps.getPayloadData(
               ["site_details"],
@@ -410,7 +354,7 @@ const FirstStep = ({
                 },
               ]
             );
-
+            // customerDetailsReset();
             myProps.next();
             // }
           }}
@@ -429,6 +373,7 @@ const FirstStep = ({
 const mapStateToProps = (state, ownProps) => {
   // console.log("ownProps", ownProps);
   return {
+    bookJobDetails: state.bkjb,
     customerDetails: state.cdr,
     suggestionList: state.sl,
     myProps: ownProps,
@@ -437,6 +382,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   customerDetailsAction: (keypair) => dispatch(customerDetailsAction(keypair)),
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
   setSuggestionListAction: (list) => dispatch(setSuggestionListAction(list)),
   customerDetailsAutoSuggestion: (singleList) =>
     dispatch(customerDetailsAutoSuggestion(singleList)),

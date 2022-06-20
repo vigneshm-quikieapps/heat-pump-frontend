@@ -1,5 +1,5 @@
 import "./MainQuote.css";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 import { Typography, Button } from "@material-ui/core";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -17,9 +17,12 @@ import ThirdStep from "./ThirdStep/ThirdStep";
 import SeventhStep from "./SeventhStep/SeventhStep";
 import EightStep from "./EightStep/EightStep";
 import NewEightStep from "./NewEightStep/NewEightStep";
+import { customerDetailsReset } from "../../../Redux/customerDetails/customerDetails.action";
+import { connect, useDispatch } from "react-redux";
 
 import NinethStep from "./NinethStep/NinethStep";
 import ViewQuote from "../ViewQuote/ViewQuote";
+
 const useStyles = makeStyles({
   radio: {
     height: "1vh",
@@ -60,7 +63,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MainQuote = () => {
+const MainQuote = ({ customerDetailsReset }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
@@ -71,9 +74,14 @@ const MainQuote = () => {
     username: "",
     password: "",
   });
+  const myRef = useRef(null);
+  useEffect(() => {
+    myRef.current.scrollIntoView();
+  }, [currentStep]);
   const [res, setres] = useState();
   const { isLoading: isLoading, mutate: addQuote } = useAddQuote({
     onSuccess: (response) => {
+      customerDetailsReset();
       setres(response?.data?.data?.quote_reference_number);
       setCurrentStep(10);
     },
@@ -82,23 +90,7 @@ const MainQuote = () => {
       setError(error);
     },
   });
-  // class MainQuote extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       currentStep: 0,
-  //       email: "",
-  //       username: "",
-  //       password: "",
-  //     };
-  //   }
 
-  /*     handleChange = event => {
-      const {name, value} = event.target
-      this.setState({
-        [name]: value
-      })    
-    } */
   const _jumpToFirst = () => {
     setCurrentStep(0);
   };
@@ -126,40 +118,12 @@ const MainQuote = () => {
 
     console.log(temp);
   };
-  /*
-   * the functions for our button
-   */
-  /*   previousButton() {
-    let currentStep = currentStep;
-    if(currentStep !==1){
-      return (
-        <button 
-          className="btn btn-secondary" 
-          type="button" onClick={_prev}>
-        Previous
-        </button>
-      )
-    }
-    return null;
-  } */
 
-  /*   nextButton(){
-    let currentStep = currentStep;
-    if(currentStep <3){
-      return (
-        <button 
-          className="btn btn-primary float-right" 
-          type="button" onClick={_next}>
-        Next
-        </button>        
-      )
-    }
-    return null;
-  } */
-  // console.log(payload);
   return (
     <React.Fragment>
-      <h1 className="get-a-quote">Book a Job</h1>
+      <h1 ref={myRef} className="get-a-quote">
+        Book a Job
+      </h1>
       <hr className="quote-hr" />
 
       {currentStep === 0 && (
@@ -259,68 +223,13 @@ const MainQuote = () => {
     </React.Fragment>
   );
 };
+const mapStateToProps = (state) => ({
+  customerDetails: state.cdr,
+});
 
-// function Step1(props) {
-//   if (props.currentStep !== 1) {
-//     return null;
-//   }
-//   return (
-//     <div className="form-group">
-//       <label htmlFor="email">Email address</label>
-//       <input
-//         className="form-control"
-//         id="email"
-//         name="email"
-//         type="text"
-//         placeholder="Enter email"
-//         value={props.email}
-//         onChange={props.handleChange}
-//       />
-//     </div>
-//   );
-// }
+const mapDispatchToProps = (dispatch) => ({
+  customerDetailsReset: () => dispatch(customerDetailsReset()),
+});
 
-// function Step2(props) {
-//   if (props.currentStep !== 2) {
-//     return null;
-//   }
-//   return (
-//     <div className="form-group">
-//       <label htmlFor="username">Username</label>
-//       <input
-//         className="form-control"
-//         id="username"
-//         name="username"
-//         type="text"
-//         placeholder="Enter username"
-//         value={props.username}
-//         onChange={props.handleChange}
-//       />
-//     </div>
-//   );
-// }
-
-// function Step3(props) {
-//   if (props.currentStep !== 3) {
-//     return null;
-//   }
-//   return (
-//     <React.Fragment>
-//       <div className="form-group">
-//         <label htmlFor="password">Password</label>
-//         <input
-//           className="form-control"
-//           id="password"
-//           name="password"
-//           type="password"
-//           placeholder="Enter password"
-//           value={props.password}
-//           onChange={props.handleChange}
-//         />
-//       </div>
-//       <button className="btn btn-success btn-block">Sign up</button>
-//     </React.Fragment>
-//   );
-// }
-
-export default MainQuote;
+export default connect(mapStateToProps, mapDispatchToProps)(MainQuote);
+// export default MainQuote;

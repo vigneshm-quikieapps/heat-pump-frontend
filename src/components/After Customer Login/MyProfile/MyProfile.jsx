@@ -122,7 +122,7 @@ const MyProfile = (
   const userName = userData.name;
 
   const [searchValue, setsearchValue] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const [show, setShow] = useState(true);
   const [businesstypecolor, setBusinesstypecolor] = useState(true);
@@ -485,6 +485,7 @@ const MyProfile = (
               type="text"
               sx={{ width: "450px", height: "60px" }}
               label="Business Trade Name"
+              disabled
               value={userData?.business_trade_name || ""}
             />
             <StyledTextField
@@ -495,7 +496,8 @@ const MyProfile = (
               value={data1?.business_type || ""}
             >
               <MenuItem value="1">Limited Company</MenuItem>
-              <MenuItem value="2">Limited Liability Patnership</MenuItem>
+              <MenuItem value="2">Limited Liability Partnership</MenuItem>
+              <MenuItem value="3">Sole Trader</MenuItem>
             </StyledTextField>
           </Grid>
         </Box>
@@ -512,8 +514,8 @@ const MyProfile = (
               border: "2px solid #f2f3f2",
             }}
           />
-          <Grid sx={{ gridTemplateColumns: "repeat(3, 1fr)" }}>
-            <StyledTextField
+          <Grid sx={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+            {/* <StyledTextField
               // className="step1inputfields input1"
               type="text"
               // error={!checked && searchValue === "" && true}
@@ -524,10 +526,10 @@ const MyProfile = (
               variant="outlined"
               // disabled={checked === true ? true : false}
               // helperText={!checked && searchValue === "" && "Address in mandatory"}
-            />
+            /> */}
             {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
-            {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
-            <div style={{ padding: "0px", display: "flex" }}>
+            {/* {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />} */}
+            {/* <div style={{ padding: "0px", display: "flex" }}>
               <Typography
                 style={{
                   fontSize: "22px",
@@ -552,7 +554,7 @@ const MyProfile = (
                 }}
               />
             </div>
-            <div></div>
+            <div></div> */}
             <Box
               sx={{
                 display: "flex",

@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 import { customerDetailsAction } from "../../../Redux/customerDetails/customerDetails.action";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
+import { customerDetailsReset } from "../../../Redux/customerDetails/customerDetails.action";
+
 import Modal from "react-modal";
 
 import validator from "validator";
@@ -26,7 +28,11 @@ const inputnames = {
   mobileNumber: "",
 };
 
-function RCA1({ customerDetails, customerDetailsAction }) {
+function RCA1({
+  customerDetails,
+  customerDetailsAction,
+  customerDetailsReset,
+}) {
   const Navigate = useNavigate();
 
   const [inputValues, setInputValues] = useState(inputnames);
@@ -84,19 +90,10 @@ function RCA1({ customerDetails, customerDetailsAction }) {
         return false;
       }
     }
-    /*   if (!validator.isEmail(customerDetails.email)) {
-    toast.error("Please enter valid Email");
-    return false;
-  }
-  if (!validator.isLength(customerDetails.password,{min:8,max:undefined})) {
-    toast.error("Password must be 8 characters");
-    return false;
-  }
-  if (!validator.isLength(customerDetails.mobile,{min:10,max:10})) {
-    toast.error("Mobile Number must be 10 characters");
-    
-    return false;
-  } */
+    if (!validator.isEmail(customerDetails.email)) {
+      return false;
+    }
+
     if (
       customerDetails.name != "" &&
       customerDetails.email != "" &&
@@ -337,6 +334,7 @@ function RCA1({ customerDetails, customerDetailsAction }) {
               className="btn-house btn-icon"
               onClick={() => {
                 Navigate("/signup");
+                customerDetailsReset();
               }}
             >
               <span style={{ height: "27px", width: "27px" }}>
@@ -394,6 +392,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   customerDetailsAction: (keypair) => dispatch(customerDetailsAction(keypair)),
+  customerDetailsReset: () => dispatch(customerDetailsReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RCA1);

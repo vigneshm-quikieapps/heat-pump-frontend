@@ -243,6 +243,7 @@ const EightStep = (props) => {
                 fontFamily: "Outfit",
                 marginLeft: "20%",
                 textAlign: "right",
+                mt: 4,
                 // float: "right",
               }}
             >

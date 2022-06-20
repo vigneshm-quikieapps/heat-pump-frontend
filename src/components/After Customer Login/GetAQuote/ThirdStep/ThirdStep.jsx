@@ -39,7 +39,6 @@ const TableHeading = (
   </Typography>
 );
 
-
 const useStyles = makeStyles({
   textfield: {
     "& label.Mui-focused": {
@@ -142,9 +141,9 @@ const ThirdStep = (props) => {
 
   const [count, setCount] = useState(1);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   const addNewFabric = () => {
     let temp = [...dataArr];

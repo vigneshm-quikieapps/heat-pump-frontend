@@ -17,6 +17,12 @@ import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import StyledTextField from "../../../../common/textfield";
 import { InsertEmoticon } from "@mui/icons-material";
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
+
 const StyledTableRow = withStyles((theme) => ({
   root: {
     height: 42,
@@ -28,12 +34,12 @@ const StyledTableCell = withStyles((theme) => ({
     padding: "0px 16px",
   },
 }))(TableCell);
-const SecondStep = (props) => {
+const SecondStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const [focused, setFocused] = React.useState("");
   const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   const [weeklySlots, setWeeklySlots] = useState({
     "0000 - 0600": Array(2).fill(false),
     "0600 - 0800": Array(2).fill(false),
@@ -55,18 +61,31 @@ const SecondStep = (props) => {
     temp[`${slot}`][index] = !weeklySlots[`${slot}`][index];
     setWeeklySlots(temp);
   };
-
+  // console.log(bookJobDetails);
+  useEffect(() => {
+    setWeeklySlots(bookJobDetails?.occupancy?.weekly);
+    setPropertyUsage(bookJobDetails?.occupancy?.property_usage);
+    setSelectedAdultOccupants(
+      bookJobDetails?.occupancy?.number_of_adultOccupants
+    );
+    setSelectedChildOccupants(
+      bookJobDetails?.occupancy?.number_of_childrenOccupants
+    );
+    setSelectedNoPerBedroom(
+      bookJobDetails?.occupancy?.number_of_typicalOccupantsPerBedroom
+    );
+  }, [bookJobDetails]);
   const rows = [
     createData(
       "0000 - 0600",
       <Checkbox
-        defaultChecked={weeklySlots["0000 - 0600"][0]}
+        checked={Boolean(weeklySlots["0000 - 0600"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0000 - 0600");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0000 - 0600"][1]}
+        checked={Boolean(weeklySlots["0000 - 0600"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0000 - 0600");
         }}
@@ -76,13 +95,13 @@ const SecondStep = (props) => {
     createData(
       "0600 - 0800",
       <Checkbox
-        defaultChecked={weeklySlots["0600 - 0800"][0]}
+        checked={Boolean(weeklySlots["0600 - 0800"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0600 - 0800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0600 - 0800"][1]}
+        checked={Boolean(weeklySlots["0600 - 0800"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0600 - 0800");
         }}
@@ -91,13 +110,13 @@ const SecondStep = (props) => {
     createData(
       "0800 - 1000",
       <Checkbox
-        defaultChecked={weeklySlots["0800 - 1000"][0]}
+        checked={Boolean(weeklySlots["0800 - 1000"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0800 - 1000");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0800 - 1000"][1]}
+        checked={Boolean(weeklySlots["0800 - 1000"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0800 - 1000");
         }}
@@ -106,13 +125,13 @@ const SecondStep = (props) => {
     createData(
       "1000  -  1400",
       <Checkbox
-        defaultChecked={weeklySlots["1000 - 1400"][0]}
+        checked={Boolean(weeklySlots["1000 - 1400"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1000 - 1400");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1000 - 1400"][1]}
+        checked={Boolean(weeklySlots["1000 - 1400"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1000 - 1400");
         }}
@@ -121,13 +140,13 @@ const SecondStep = (props) => {
     createData(
       "1400  -  1800",
       <Checkbox
-        defaultChecked={weeklySlots["1400 - 1800"][0]}
+        checked={Boolean(weeklySlots["1400 - 1800"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1400 - 1800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1400 - 1800"][1]}
+        checked={Boolean(weeklySlots["1400 - 1800"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1400 - 1800");
         }}
@@ -137,13 +156,13 @@ const SecondStep = (props) => {
     createData(
       "1800  -  2359",
       <Checkbox
-        defaultChecked={weeklySlots["1800 - 2359"][0]}
+        checked={Boolean(weeklySlots["1800 - 2359"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1800 - 2359");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1800 - 2359"][1]}
+        checked={Boolean(weeklySlots["1800 - 2359"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1800 - 2359");
         }}
@@ -300,14 +319,13 @@ const SecondStep = (props) => {
         >
           <Checkbox
             // sx={{ float: "center" }}
-            defaultChecked={propertyUsage.data[0]}
+            checked={propertyUsage.data[0] === "Main House"}
             onChange={(e) => {
               let temp = { ...propertyUsage };
               e.target.checked
                 ? (temp.data[0] = "Main House")
                 : temp.data.splice(0, 1);
               setPropertyUsage(temp);
-              // console.log(propertyUsage);
             }}
           />
           <Typography
@@ -328,7 +346,7 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-            defaultChecked={propertyUsage.data[1]}
+            checked={propertyUsage.data[1] === "Holiday Home"}
             onChange={(e) => {
               let temp = { ...propertyUsage };
               e.target.checked
@@ -356,7 +374,7 @@ const SecondStep = (props) => {
           }}
         >
           <Checkbox
-            defaultChecked={!checkOtherToggle[0]}
+            checked={!checkOtherToggle[0]}
             onChange={(e) => {
               let temp = [...checkOtherToggle];
               let temp1 = { ...propertyUsage };
@@ -495,7 +513,7 @@ const SecondStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={myProps.prev}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -506,7 +524,7 @@ const SecondStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(
+            myProps.getPayloadData(
               ["occupancy"],
               [
                 {
@@ -518,8 +536,17 @@ const SecondStep = (props) => {
                 },
               ]
             );
+            bookJobAction({
+              occupancy: {
+                weekly: weeklySlots,
+                property_usage: propertyUsage,
+                number_of_adultOccupants: selectedAdultOccupants,
+                number_of_childrenOccupants: selectedChildOccupants,
+                number_of_typicalOccupantsPerBedroom: selectedNoPerBedroom,
+              },
+            });
 
-            props.next();
+            myProps.next();
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>
@@ -531,5 +558,15 @@ const SecondStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default SecondStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SecondStep);

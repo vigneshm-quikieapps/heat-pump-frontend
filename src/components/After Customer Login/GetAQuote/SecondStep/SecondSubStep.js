@@ -19,20 +19,16 @@ import StyledTextField from "../../../../common/textfield";
 import Equipment from "./Equipment";
 import HighEquipment from "./HighEquipment";
 
-const SecondSubStep = (props) => {
-  const [loader, setLoader] = useState(false);
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
+const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
+  const [loader, setLoader] = useState(true);
   const [focused, setFocused] = useState(false);
-  const [selectedGuestInWinter, setSelectedGuestInWinter] = useState(0);
-  const [equipments, setEquipments] = useState({
-    tvs: "0",
-    laptops: "0",
-    monitors: "0",
-    itServers: "0",
-    PhotoCopiers: "0",
-  });
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const [selectedGuestInWinter, setSelectedGuestInWinter] = useState("0");
+
   const [highEnergyEquipments, setHighEnergyEquipments] = useState({
     sauna: "0",
     swimmingPool: "0",
@@ -42,19 +38,27 @@ const SecondSubStep = (props) => {
   });
   const [questions, setQuestions] = useState({
     hotwater_importance: 1,
-
     heating_then_uk_average: 1,
   });
-  const getEquipments = (equip, num) => {
-    let temp = equipments;
-    temp[equip] = num;
-    setEquipments(temp);
-  };
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   const getHighEnergyEquipments = (equip, num) => {
     let temp = highEnergyEquipments;
     temp[equip] = num;
     setHighEnergyEquipments(temp);
   };
+  useEffect(() => {
+    let temp = { ...questions };
+    temp.hotwater_importance = bookJobDetails.questions.hotwater_importance;
+    temp.heating_then_uk_average =
+      bookJobDetails.questions.heating_then_uk_average;
+    setQuestions(temp);
+    setSelectedGuestInWinter(bookJobDetails.number_of_guests);
+    setHighEnergyEquipments(bookJobDetails.high_energy_equipments);
+    setLoader(false);
+  }, [bookJobDetails]);
+  console.log(bookJobDetails);
   return (
     <>
       <Card>
@@ -162,11 +166,11 @@ const SecondSubStep = (props) => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="position"
-              defaultValue="1"
+              defaultValue={questions.hotwater_importance}
             >
               <FormControlLabel
                 sx={{}}
-                value="1"
+                value={1}
                 control={
                   <Radio
                     onChange={() => {
@@ -183,7 +187,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="2"
+                value={2}
                 control={
                   <Radio
                     onChange={() => {
@@ -197,7 +201,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="3"
+                value={3}
                 control={
                   <Radio
                     onChange={() => {
@@ -211,7 +215,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="4"
+                value={4}
                 control={
                   <Radio
                     onChange={() => {
@@ -225,7 +229,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="5"
+                value={5}
                 control={
                   <Radio
                     onChange={() => {
@@ -239,7 +243,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="6"
+                value={6}
                 control={
                   <Radio
                     onChange={() => {
@@ -253,7 +257,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="7"
+                value={7}
                 control={
                   <Radio
                     onChange={() => {
@@ -267,7 +271,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="8"
+                value={8}
                 control={
                   <Radio
                     onChange={() => {
@@ -281,7 +285,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="9"
+                value={9}
                 control={
                   <Radio
                     onChange={() => {
@@ -295,7 +299,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="10"
+                value={10}
                 control={
                   <Radio
                     onChange={() => {
@@ -414,11 +418,11 @@ const SecondSubStep = (props) => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="position"
-              defaultValue="1"
+              defaultValue={questions.heating_then_uk_average}
             >
               <FormControlLabel
                 sx={{}}
-                value="1"
+                value={1}
                 control={
                   <Radio
                     onChange={() => {
@@ -435,7 +439,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="2"
+                value={2}
                 control={
                   <Radio
                     onChange={() => {
@@ -449,7 +453,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="3"
+                value={3}
                 control={
                   <Radio
                     onChange={() => {
@@ -463,7 +467,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="4"
+                value={4}
                 control={
                   <Radio
                     onChange={() => {
@@ -477,7 +481,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="5"
+                value={5}
                 control={
                   <Radio
                     onChange={() => {
@@ -491,7 +495,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="6"
+                value={6}
                 control={
                   <Radio
                     onChange={() => {
@@ -505,7 +509,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="7"
+                value={7}
                 control={
                   <Radio
                     onChange={() => {
@@ -519,7 +523,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="8"
+                value={8}
                 control={
                   <Radio
                     onChange={() => {
@@ -533,7 +537,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="9"
+                value={9}
                 control={
                   <Radio
                     onChange={() => {
@@ -547,7 +551,7 @@ const SecondSubStep = (props) => {
                 labelPlacement="top"
               />
               <FormControlLabel
-                value="10"
+                value={10}
                 control={
                   <Radio
                     onChange={() => {
@@ -605,7 +609,7 @@ const SecondSubStep = (props) => {
           <button
             variant="contained"
             className="btn-house btn-icon"
-            onClick={props.prev}
+            onClick={myProps.prev}
           >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -616,7 +620,7 @@ const SecondSubStep = (props) => {
             variant="contained"
             className="btn-house Add btn-icon"
             onClick={() => {
-              props.getPayloadData(
+              myProps.getPayloadData(
                 [
                   // "equipments",
                   "high_energy_equipments",
@@ -630,8 +634,12 @@ const SecondSubStep = (props) => {
                   questions,
                 ]
               );
-
-              props.next();
+              bookJobAction({
+                high_energy_equipments: highEnergyEquipments,
+                number_of_guests: selectedGuestInWinter,
+                questions: questions,
+              });
+              myProps.next();
             }}
           >
             <span style={{ marginRight: "100px" }}>Continue</span>
@@ -644,5 +652,15 @@ const SecondSubStep = (props) => {
     </>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default SecondSubStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SecondSubStep);

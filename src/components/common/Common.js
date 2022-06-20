@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, Outlet, NavLink } from "react-router-dom";
 
 import Modal from "react-modal";
@@ -17,13 +17,17 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
+import { customerDetailsReset } from "../../Redux/customerDetails/customerDetails.action";
 
-function Common({ firstPageStatus }) {
+function Common({ firstPageStatus, customerDetailsReset }) {
   const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
   const [display, setDisplay] = useState("");
   const [logout, setLogout] = useState(false);
-
+  const myRef = useRef(null);
+  // useEffect(() => {
+  //   myRef.current.scrollIntoView();
+  // }, []);
   useEffect(() => {
     setDisplay("");
   }, [window.location.pathname]);
@@ -38,6 +42,7 @@ function Common({ firstPageStatus }) {
   const signout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("userData");
+    customerDetailsReset();
     /* localStorage.clear(); */
     Navigate("/");
   };
@@ -77,7 +82,6 @@ function Common({ firstPageStatus }) {
     prevOpen.current = open;
   }, [open]);
 
-  console.log(window.location.pathname);
   return (
     <div style={{ display: "flex", height: "100%", overflow: "hidden" }}>
       <div className={`${collapse ? " sidebar1" : "sidebar"}`}>
@@ -238,7 +242,10 @@ function Common({ firstPageStatus }) {
                 width: "310px",
               }}
             >
-              <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
+              <Box
+                ref={myRef}
+                sx={{ display: "flex", alignItems: "center", gap: "20px" }}
+              >
                 <img
                   className="home-icon"
                   onClick={() => {
@@ -394,6 +401,10 @@ function Common({ firstPageStatus }) {
 
 const mapStatetoProps = (state) => ({
   firstPageStatus: state.fpr.firstPageStatus,
+  customerDetails: state.cdr,
 });
 
-export default connect(mapStatetoProps)(Common);
+const mapDispatchToProps = (dispatch) => ({
+  customerDetailsReset: () => dispatch(customerDetailsReset()),
+});
+export default connect(mapStatetoProps, mapDispatchToProps)(Common);

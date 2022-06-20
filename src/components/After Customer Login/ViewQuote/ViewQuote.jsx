@@ -899,25 +899,29 @@ function ViewQuote({ FirstPageAction }) {
                 columnGap="10px"
                 columnCount={3}
               >
+                <Box>
+                  <Typography className="Output">Room Description</Typography>
+                </Box>
+                <Box>
+                  <Typography className="Output">Radiator</Typography>
+                </Box>
+                <Box>
+                  <Typography className="Output">Window</Typography>
+                </Box>
                 {quoteData?.radiator_and_window_sizes.map((item, index) => (
                   // <Box key={index}>
                   <>
                     <Box key={index}>
-                      <Typography className="Output">
-                        Room Description
-                      </Typography>
                       <Typography className="Output2">
                         {item.room_desc}
                       </Typography>
                     </Box>
                     <Box key={index}>
-                      <Typography className="Output">Radiator</Typography>
                       <Typography className="Output2">
                         {item?.radiator_size}
                       </Typography>
                     </Box>
                     <Box key={index}>
-                      <Typography className="Output">Window</Typography>
                       <Typography className="Output2">
                         {item?.window_size}
                       </Typography>
@@ -1002,31 +1006,169 @@ function ViewQuote({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <Box sx={{ mb: 4 }}>
-                <Typography
-                  sx={{
-                    display: "inline",
-                    fontFamily: "Outfit",
-                    fontWeight: "900",
-                    fontSize: "20px",
-                  }}
-                >
-                  Heat Loss Calculation
-                </Typography>
-                <Typography
-                  sx={{
-                    display: "inline",
-                    fontFamily: "Outfit",
-                    fontWeight: "600",
-                    ml: 4,
-                  }}
-                >
-                  {!quoteData?.pricing.discount
-                    ? `£${quoteData?.pricing.data.reduce(
-                        (a, b) => Number(a) + Number(b)
-                      )}`
-                    : "£349"}
-                </Typography>
+              <Box sx={{ mb: 4, width: "31%" }}>
+                <Grid sx={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    Heat Loss Calculation
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      textAlign: "right",
+
+                      ml: 4,
+                    }}
+                  >
+                    {!quoteData?.pricing.discount
+                      ? `£${quoteData?.pricing.data[0]}`
+                      : "£0"}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    Emitter Size
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      ml: 4,
+                      textAlign: "right",
+                    }}
+                  >
+                    {!quoteData?.pricing.discount
+                      ? `£${quoteData?.pricing.data[1]}`
+                      : "£0"}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    Noise Assessment
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      ml: 4,
+                      textAlign: "right",
+                    }}
+                  >
+                    {!quoteData?.pricing.discount
+                      ? `£${quoteData?.pricing.data[2]}`
+                      : "£0"}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    DNO Application
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      textAlign: "right",
+
+                      ml: 4,
+                    }}
+                  >
+                    {!quoteData?.pricing.discount
+                      ? `£${quoteData?.pricing.data[3]}`
+                      : "£0"}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    Discount For All 4
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      textAlign: "right",
+
+                      ml: 4,
+                    }}
+                  >
+                    {!quoteData?.pricing.discount ? `£0` : "£349"}
+                  </Typography>
+                  <div></div>
+                  <div>
+                    <hr
+                      style={{
+                        width: "60%",
+                        backgroundColor: "#ccc",
+                        border: "1px solid #ccc",
+                        float: "right",
+                      }}
+                    />
+                  </div>
+
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "300",
+                      fontSize: "15px",
+                      // textAlign: "right",
+                    }}
+                  >
+                    Total
+                  </Typography>
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      fontFamily: "Outfit",
+                      fontWeight: "600",
+                      ml: 4,
+                      textAlign: "right",
+                    }}
+                  >
+                    £
+                    {!quoteData?.pricing.discount
+                      ? quoteData?.pricing.data.reduce(
+                          (a, b) => Number(a) + Number(b)
+                        )
+                      : "349"}
+                  </Typography>
+                </Grid>
               </Box>
               <Box>
                 <Typography className="Output">Any Other Comments</Typography>

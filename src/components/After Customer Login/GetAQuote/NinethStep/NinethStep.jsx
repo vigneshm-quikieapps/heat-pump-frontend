@@ -19,7 +19,9 @@ const NinethStep = (props) => {
   const [loader, setLoader] = useState(false);
   //   const [text, setText] = useState("");
   //   const token = JSON.parse(localStorage.getItem("user"));
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Card>
       {loader && (

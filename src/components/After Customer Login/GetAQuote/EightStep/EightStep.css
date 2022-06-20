@@ -29,5 +29,8 @@
   padding-left: 0.61vw;
   padding-top: 2.01vh;
   height: 26.08vh;
-  font-size: 1vw;
+  font-size: 18px;
+}
+.quotetextarea ~ ::placeholder {
+  font-size: 18px;
 }

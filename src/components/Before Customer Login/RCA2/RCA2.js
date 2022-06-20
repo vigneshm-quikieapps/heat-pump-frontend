@@ -239,10 +239,6 @@ function RCA2({
     }
   }, [searchValue]);
 
-  useEffect(() => {
-    console.log(customerDetails);
-  }, [customerDetails]);
-
   const clickHandler1 = (e) => {
     //Request failed with status code 403PCWBY-K73QV-5TPTP-7H75B
     if (!parseInt(e.target.id)) {
@@ -251,6 +247,7 @@ function RCA2({
           `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}&identifier=HPD`
         )
         .then((res) => {
+          // console.log(res);
           setSuggestionListAction(res.data);
         });
     } else {
@@ -259,12 +256,16 @@ function RCA2({
           `https://ws.postcoder.com/pcw/autocomplete/retrieve/?id=${e.target.id}&query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&lines=3&include=posttown,postcode&identifier=HPD`
         )
         .then((res) => res.data[0])
-        .then((resp) => customerDetailsAutoSuggestion(resp));
+
+        .then((resp) => {
+          console.log(resp);
+          customerDetailsAutoSuggestion(resp);
+        });
       /* .then(respo => setpostc(respo.postcode)) */
 
       //setInputAddress(state => ({...state,posttown:resp.posttown ,address_1:resp.addresslane1,address_2:resp.addresslane2 }))
 
-      console.log("hello");
+      // console.log("hello");
       setSuggestionListAction([]);
       setsearchValue("");
       setShow(false);
@@ -353,12 +354,13 @@ function RCA2({
           navigate("/rca3");
         } else {
           toast.error(response?.data?.message);
+          customerDetailsReset();
         }
       })
       .catch((error) => {
-        console.log(error?.response);
         setLoader(false);
         toast.error(error?.response?.data?.data?.message);
+        customerDetailsReset();
       });
     // } else {
     //   toast.error("Something Went Wrong");
@@ -489,7 +491,8 @@ function RCA2({
               value={customerDetails.business_type}
             >
               <MenuItem value="1">Limited Company</MenuItem>
-              <MenuItem value="2">Limited Liability Patnership</MenuItem>
+              <MenuItem value="2">Limited Liability Partnership</MenuItem>
+              <MenuItem value="3">Sole Trader</MenuItem>
             </StyledTextField>
             <Typography
               style={{
@@ -651,6 +654,7 @@ function RCA2({
               variant="contained"
               className="btn-house btn-icon"
               onClick={() => {
+                // customerDetailsReset();
                 navigate("/rca1");
               }}
             >
