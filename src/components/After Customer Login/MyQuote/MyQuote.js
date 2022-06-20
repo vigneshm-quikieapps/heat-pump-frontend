@@ -169,20 +169,22 @@ const MyQuote = ({ FirstPageAction }) => {
         <hr className="hrFirst" />
 
         <Box sx={{ marginTop: "5%" }}>
-          <Table
-            headers={[
-              "Job Reference",
-              "Site Details",
-              "Submitted Date",
-              "Status",
-              "",
-            ]}
-            rows={tableRows}
-            // pagination={pagination}
-            isLoading={false}
-            // isFetching={false}
-          />
-          {dataArr.length == 0 && (
+          {dataArr?.length >= 1 && (
+            <Table
+              headers={[
+                "Job Reference",
+                "Site Details",
+                "Submitted Date",
+                "Status",
+                "",
+              ]}
+              rows={tableRows}
+              // pagination={pagination}
+              isLoading={false}
+              // isFetching={false}
+            />
+          )}
+          {dataArr?.length == 0 && (
             <h4
               style={{
                 display: "flex",
@@ -193,7 +195,7 @@ const MyQuote = ({ FirstPageAction }) => {
               No matching records found
             </h4>
           )}
-          {dataArr.length >= 1 && (
+          {dataArr?.length >= 1 && (
             <div
               style={{
                 display: "flex",
