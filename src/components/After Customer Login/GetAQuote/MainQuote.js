@@ -18,8 +18,12 @@ import SeventhStep from "./SeventhStep/SeventhStep";
 import EightStep from "./EightStep/EightStep";
 import NewEightStep from "./NewEightStep/NewEightStep";
 import { customerDetailsReset } from "../../../Redux/customerDetails/customerDetails.action";
-import { connect, useDispatch } from "react-redux";
 
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 import NinethStep from "./NinethStep/NinethStep";
 import ViewQuote from "../ViewQuote/ViewQuote";
 
@@ -63,7 +67,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MainQuote = ({ customerDetailsReset }) => {
+const MainQuote = ({ customerDetailsReset, bookJobReset }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState("");
@@ -82,6 +86,7 @@ const MainQuote = ({ customerDetailsReset }) => {
   const { isLoading: isLoading, mutate: addQuote } = useAddQuote({
     onSuccess: (response) => {
       customerDetailsReset();
+      bookJobReset();
       setres(response?.data?.data?.quote_reference_number);
       setCurrentStep(10);
     },
@@ -229,6 +234,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   customerDetailsReset: () => dispatch(customerDetailsReset()),
+  bookJobReset: () => dispatch(bookJobReset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainQuote);

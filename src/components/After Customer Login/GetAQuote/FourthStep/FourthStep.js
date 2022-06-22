@@ -11,10 +11,15 @@ import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
 import { set } from "react-hook-form";
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 // let flag = false;
-const FourthStep = (props) => {
+const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const [plans, setPlans] = useState([]);
   const [pattachments, setPattachments] = useState([]);
   const [elevations, setElevations] = useState([]);
@@ -23,10 +28,11 @@ const FourthStep = (props) => {
   const [sattachments, setSattachments] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  // const [flag, setFlag] = useState(false);
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    setPlans(bookJobDetails.drawings.plans);
+    setElevations(bookJobDetails.drawings.elevations);
+    setSections(bookJobDetails.drawings.sections);
+  }, [bookJobDetails]);
   const onFileUpload = (e, name) => {
     console.log(name);
     if (e) {
@@ -161,7 +167,7 @@ const FourthStep = (props) => {
       </div>
 
       {plans &&
-        plans.map((item, index) => {
+        plans?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -237,7 +243,7 @@ const FourthStep = (props) => {
         />
       </div>
       {elevations &&
-        elevations.map((item, index) => {
+        elevations?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -313,7 +319,7 @@ const FourthStep = (props) => {
         />
       </div>
       {sections &&
-        sections.map((item, index) => {
+        sections?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -355,7 +361,16 @@ const FourthStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={() => {
+            bookJobAction({
+              drawings: {
+                plans: plans,
+                elevations: elevations,
+                sections: sections,
+              },
+            });
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -375,11 +390,18 @@ const FourthStep = (props) => {
             //   setFlag(true);
             // } else {
             //   setFlag(false);
-            props.getPayloadData(
+            myProps.getPayloadData(
               ["drawings"],
               [{ plans: plans, elevations: elevations, sections: sections }]
             );
-            props.next();
+            bookJobAction({
+              drawings: {
+                plans: plans,
+                elevations: elevations,
+                sections: sections,
+              },
+            });
+            myProps.next();
             // }
           }}
         >
@@ -392,5 +414,16 @@ const FourthStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default FourthStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FourthStep);
+// export default FourthStep;

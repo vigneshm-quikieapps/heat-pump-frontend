@@ -10,10 +10,14 @@ import { makeStyles } from "@mui/styles";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card, Checkbox } from "../../../../common";
-
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 const useStyles = makeStyles({});
 
-const EightStep = (props) => {
+const EightStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
@@ -27,8 +31,13 @@ const EightStep = (props) => {
     window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
-    props.getPayloadData(["pricing", "other_details"], [pricing, text]);
+    myProps.getPayloadData(["pricing", "other_details"], [pricing, text]);
   }, [pricing, text]);
+  useEffect(() => {
+    setPricing(bookJobDetails.pricing);
+    setText(bookJobDetails.other_details);
+    setIsDiscount(bookJobDetails.pricing.disabled);
+  }, [bookJobDetails]);
   return (
     <Card>
       {loader && (
@@ -61,7 +70,7 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               disabled={isDiscount}
-              // checked={pricing === 349 && !isDiscount}
+              checked={pricing.data[0] === "299"}
               onChange={(e) => {
                 let temp = { ...pricing };
                 e.target.checked
@@ -96,7 +105,7 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               disabled={isDiscount}
-              // checked={pricing !== 349 && isDiscount}
+              checked={pricing.data[1] === "75"}
               // defaultChecked={}
               onChange={(e) => {
                 let temp = { ...pricing };
@@ -131,6 +140,7 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               disabled={isDiscount}
+              checked={pricing.data[2] === "10"}
               onChange={(e) => {
                 let temp = { ...pricing };
                 e.target.checked ? (temp.data[2] = "10") : (temp.data[2] = "0");
@@ -165,7 +175,7 @@ const EightStep = (props) => {
             <Checkbox
               // defaultChecked={}
               disabled={isDiscount}
-              // checked={pricing !== 349 && isDiscount}
+              checked={pricing.data[3] === "10"}
               onChange={(e) => {
                 let temp = { ...pricing };
                 e.target.checked ? (temp.data[3] = "10") : (temp.data[3] = "0");
@@ -199,6 +209,7 @@ const EightStep = (props) => {
           <Box>
             <Checkbox
               // defaultChecked={}
+              checked={pricing.discount}
               onChange={(e) => {
                 let temp = { ...pricing };
                 if (e.target.checked) {
@@ -269,7 +280,7 @@ const EightStep = (props) => {
             >
               {pricing.discount
                 ? "£349"
-                : pricing.data.length > 0
+                : pricing?.data?.length > 0
                 ? `£${pricing.data.reduce((a, b) => Number(a) + Number(b))}`
                 : "£0"}
             </Typography>
@@ -309,7 +320,10 @@ const EightStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={() => {
+            bookJobAction({ pricing: pricing, other_details: text });
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -320,7 +334,7 @@ const EightStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props._addNewQuote();
+            myProps._addNewQuote();
           }}
         >
           <span style={{ marginRight: "100px" }}>Submit</span>
@@ -332,5 +346,16 @@ const EightStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default EightStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EightStep);
+// export default EightStep;

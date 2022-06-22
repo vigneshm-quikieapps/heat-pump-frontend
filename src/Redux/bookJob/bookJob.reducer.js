@@ -5,38 +5,38 @@ const INITIAL_STATE = {
   existing: { data: [], other: "" },
   fabric_details: [
     {
-      Age: "",
       label: "Main Building",
       "External Walls": {
+        fabric_type: "",
         description: "",
         detail: "",
-        fabric_type: null,
       },
       "Internal Walls": {
+        fabric_type: "",
         description: "",
         detail: "",
-        fabric_type: null,
-      },
-      "Inner Floors": {
-        description: "",
-        detail: "",
-        fabric_type: null,
       },
       "Roof Type": {
+        fabric_type: "",
         description: "",
         detail: "",
-        fabric_type: null,
       },
       Windows: {
+        fabric_type: "",
         description: "",
         detail: "",
-        fabric_type: null,
       },
       "Suspended Floors": {
+        fabric_type: "",
         description: "",
-        fabric_type: null,
+        detail: "",
       },
-      _id: "62afdfdab4b3479f2a806036",
+      "Inner Floors": {
+        fabric_type: "",
+        description: "",
+        detail: "",
+      },
+      Age: "",
     },
   ],
   high_energy_equipments: {
@@ -80,8 +80,8 @@ const INITIAL_STATE = {
     other: "",
   },
   questions: {
-    hotwater_importance: 5,
-    heating_then_uk_average: 5,
+    hotwater_importance: 1,
+    heating_then_uk_average: 1,
   },
   radiator_and_window_sizes: [
     {
@@ -102,6 +102,9 @@ const INITIAL_STATE = {
     other: "",
   },
   number_of_guests: "0",
+  other_details: "",
+  other_design_factor: [],
+  heating_system: "1",
 };
 
 const bookJobReducer = (state = INITIAL_STATE, action) => {

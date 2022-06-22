@@ -21,7 +21,11 @@ import { getFabricDetails } from "../../../../services/services";
 import StyledTextField from "../../../../common/textfield";
 import DeleteIcon from "../../../../Img/icon remove.png";
 import { MenuItem } from "@material-ui/core";
-
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 const style = {
   position: "absolute",
   top: "50%",
@@ -91,7 +95,7 @@ const aka = {
   "Suspended Floors": 5,
   "Inner Floors": 6,
 };
-const ThirdStep = (props) => {
+const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -164,7 +168,7 @@ const ThirdStep = (props) => {
     setLoader(true);
     getFabricDetails(fabric_type, page).then((res) => {
       if (res?.success) {
-        console.log(res);
+        // console.log(res);
         let temp = [...res?.data];
         setFabricDetails(temp);
         setCount(res?.total_pages);
@@ -200,6 +204,9 @@ const ThirdStep = (props) => {
       onChange={handleChange}
     />
   );
+  useEffect(() => {
+    setDataArr(bookJobDetails.fabric_details);
+  }, [bookJobDetails]);
   const tableRows = useMemo(() => {
     return (
       (fabricDetails &&
@@ -239,7 +246,7 @@ const ThirdStep = (props) => {
       []
     );
   }, [onSelect, onClose]);
-  // console.log(dataArr);
+  // console.log(bookJobDetails);
   return (
     <>
       <Card>
@@ -267,7 +274,7 @@ const ThirdStep = (props) => {
           Fabric details
         </Typography>
         <hr className="quote" />
-        {dataArr.map((fabric, index) => (
+        {dataArr?.map((fabric, index) => (
           <Box sx={{ marginTop: "2%" }} key={index}>
             {index !== 0 && (
               <Box sx={{ float: "right" }}>
@@ -462,116 +469,7 @@ const ThirdStep = (props) => {
                   </Box>
                 )}
               </Box>
-              {/* <Box
-                sx={{
-                  display: "flex !important",
-                  flexDirection: "row !important",
-                  alignItems: "center",
-                  width: "100%",
-                  // justifyContent: "center",
-                }}
-              >
-                <Box>
-                  <button
-                    style={{
-                      fontFamily: "Outfit",
-                    }}
-                    variant="contained"
-                    className="btn-house"
-                    onClick={() => {
-                      setSelectedFabricType("Internal Walls");
-                      setSelectedBuildingIndex(index);
-                      getFabricData(2);
-                      setOpenModal(true);
-                    }}
-                  >
-                    Internal Walls 
-                  </button>
-                </Box>
-                {fabric["Internal Walls"]?.fabric_type && (
-                  <Box
-                    sx={{
-                      width: "100%",
-                      marginLeft: "110px",
-                      display: "flex",
-                      alignItems: "center",
-                      // justifyContent: "space-around",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        maxWidth: "120px",
-                        minWidth: "120px",
-                        borderRight: "2px solid #d3d3d3",
-                        padding: "2%",
-                        margin: "16.5px 0 16.5px 0",
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          color: "#fa5e00",
-                          fontWeight: "bold",
-                          fontFamily: "Outfit",
-                          lineHeight: "normal",
-                        }}
-                      >
-                        Type {fabric["Internal Walls"]?.fabric_type}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx={{
-                        marginLeft: "5%",
-                        fontWeight: "500",
-                        fontFamily: "Outfit",
-                        lineHeight: "normal",
-                      }}
-                    >
-                      {fabric["Internal Walls"]?.description && (
-                        <Typography
-                          sx={{
-                            fontWeight: "500",
-                            fontFamily: "Outfit",
-                            lineHeight: "normal",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontWeight: "bold",
-                              fontFamily: "Outfit",
-                              lineHeight: "normal",
-                            }}
-                          >
-                            Description:{" "}
-                          </span>
-                          {fabric["Internal Walls"].description}
-                        </Typography>
-                      )}
 
-                      {fabric["Internal Walls"]?.detail && (
-                        <Typography
-                          sx={{
-                            fontWeight: "500",
-                            fontFamily: "Outfit",
-                            lineHeight: "normal",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontWeight: "bold",
-                              fontFamily: "Outfit",
-                              lineHeight: "normal",
-                            }}
-                          >
-                            Details:{" "}
-                          </span>{" "}
-                          {fabric["Internal Walls"].detail}
-                        </Typography>
-                      )}
-                    </Box>
-                  </Box>
-                )}
-              </Box> */}
               <Box
                 sx={{
                   display: "flex !important",
@@ -991,7 +889,12 @@ const ThirdStep = (props) => {
           <button
             variant="contained"
             className="btn-house btn-icon"
-            onClick={props.prev}
+            onClick={() => {
+              bookJobAction({
+                fabric_details: dataArr,
+              });
+              myProps.prev();
+            }}
           >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -1002,8 +905,12 @@ const ThirdStep = (props) => {
             variant="contained"
             className="btn-house Add btn-icon"
             onClick={() => {
-              props.getPayloadData(["fabric_details"], [dataArr]);
-              props.next();
+              myProps.getPayloadData(["fabric_details"], [dataArr]);
+              bookJobAction({
+                fabric_details: dataArr,
+              });
+              // console.log(bookJobDetails);
+              myProps.next();
             }}
           >
             <span style={{ marginRight: "100px" }}>Continue</span>
@@ -1069,5 +976,16 @@ const ThirdStep = (props) => {
     </>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default ThirdStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThirdStep);
+// export default ThirdStep;

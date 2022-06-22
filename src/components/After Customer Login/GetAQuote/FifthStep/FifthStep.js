@@ -10,10 +10,14 @@ import { Box, Typography } from "@mui/material";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../../common";
-
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
-const FifthStep = (props) => {
+const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const [walls, setWalls] = useState([]);
   const [wattachments, setWattachments] = useState([]);
   const [roof, setRoof] = useState([]);
@@ -29,6 +33,14 @@ const FifthStep = (props) => {
   const [loader, setLoader] = useState(false);
   // const [flag, setFlag] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    setRoof(bookJobDetails.photos.roof);
+    setWalls(bookJobDetails.photos.walls);
+    setWindows(bookJobDetails.photos.windows);
+    setEB(bookJobDetails.photos.existing_boiler);
+    setER(bookJobDetails.photos.existing_radiator);
+    setPW(bookJobDetails.photos.pipework);
+  }, [bookJobDetails]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -203,7 +215,7 @@ const FifthStep = (props) => {
         />
       </div>
       {walls &&
-        walls.map((item, index) => {
+        walls?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -279,7 +291,7 @@ const FifthStep = (props) => {
         />
       </div>
       {roof &&
-        roof.map((item, index) => {
+        roof?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -355,7 +367,7 @@ const FifthStep = (props) => {
         />
       </div>
       {windows &&
-        windows.map((item, index) => {
+        windows?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -431,7 +443,7 @@ const FifthStep = (props) => {
         />
       </div>
       {eb &&
-        eb.map((item, index) => {
+        eb?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -507,7 +519,7 @@ const FifthStep = (props) => {
         />
       </div>
       {er &&
-        er.map((item, index) => {
+        er?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -583,7 +595,7 @@ const FifthStep = (props) => {
         />
       </div>
       {pw &&
-        pw.map((item, index) => {
+        pw?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -625,7 +637,19 @@ const FifthStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={() => {
+            bookJobAction({
+              photos: {
+                walls: walls,
+                roof: roof,
+                windows: windows,
+                existing_boiler: eb,
+                existing_radiator: er,
+                pipework: pw,
+              },
+            });
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -636,18 +660,7 @@ const FifthStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            // if (
-            //   walls.length < 1 ||
-            //   roof.length < 1 ||
-            //   windows.length < 1 ||
-            //   er.length < 1 ||
-            //   eb.length < 1 ||
-            //   pw.length < 1
-            // ) {
-            //   setFlag(true);
-            // } else {
-            //   setFlag(false);
-            props.getPayloadData(
+            myProps.getPayloadData(
               ["photos"],
               [
                 {
@@ -660,7 +673,17 @@ const FifthStep = (props) => {
                 },
               ]
             );
-            props.next();
+            bookJobAction({
+              photos: {
+                walls: walls,
+                roof: roof,
+                windows: windows,
+                existing_boiler: eb,
+                existing_radiator: er,
+                pipework: pw,
+              },
+            });
+            myProps.next();
             // }
           }}
         >
@@ -673,5 +696,16 @@ const FifthStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default FifthStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FifthStep);
+// export default FifthStep;

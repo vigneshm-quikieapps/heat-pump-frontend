@@ -513,7 +513,19 @@ const SecondStep = ({ myProps, bookJobDetails, bookJobAction }) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={myProps.prev}
+          onClick={() => {
+            bookJobAction({
+              occupancy: {
+                weekly: weeklySlots,
+                property_usage: propertyUsage,
+                number_of_adultOccupants: selectedAdultOccupants,
+                number_of_childrenOccupants: selectedChildOccupants,
+                number_of_typicalOccupantsPerBedroom: selectedNoPerBedroom,
+              },
+            });
+            sessionStorage.setItem("customerCheck", true);
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />

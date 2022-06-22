@@ -97,9 +97,6 @@ const FirstStep = ({
         .toLowerCase()
         .includes(searchValue.toLowerCase());
     });
-  useEffect(() => {
-    customerDetailsReset();
-  }, [window.location.pathname]);
 
   useEffect(() => {
     let temp = { ...customerDetails };
@@ -109,6 +106,13 @@ const FirstStep = ({
     temp.postcode = customerDetails.postcode;
     setsite_details(temp);
   }, [customerDetails]);
+  useEffect(() => {
+    if (!sessionStorage.getItem("customerCheck")) {
+      customerDetailsReset();
+    } else {
+      sessionStorage.removeItem("customerCheck");
+    }
+  }, []);
   const filtered1 =
     searchValue &&
     suggestionList.suggestionList.filter((suggestion) => {
@@ -354,7 +358,14 @@ const FirstStep = ({
                 },
               ]
             );
-            // customerDetailsReset();
+            bookJobAction({
+              site_details: {
+                address_1: address_1 || "",
+                address_2: address_2 || "",
+                city: city || "",
+                postcode: postcode || "",
+              },
+            });
             myProps.next();
             // }
           }}

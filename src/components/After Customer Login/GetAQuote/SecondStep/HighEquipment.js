@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import StyledTextField from "../../../../common/textfield";
@@ -6,21 +6,20 @@ import { Box, MenuItem } from "@mui/material";
 
 const HighEquipment = (props) => {
   const [focused, setFocused] = useState(false);
-  const [selectedSauna, setSelectedSauna] = useState(
-    props?.highEnergyEquipments.sauna
-  );
-  const [selectedHotTub, setSelectedHotTub] = useState(
-    props?.highEnergyEquipments.hotTub
-  );
-  const [selectedSwimmingPool, setSelectedSwimmingPool] = useState(
-    props?.highEnergyEquipments.swimmingPool
-  );
-  const [selectedKilns, setSelectedKilns] = useState(
-    props?.highEnergyEquipments.kilns
-  );
-  const [selectedOther, setSelectedOther] = useState(
-    props?.highEnergyEquipments.other
-  );
+  const [loader, setLoader] = useState(true);
+
+  const [selectedSauna, setSelectedSauna] = useState("");
+  const [selectedHotTub, setSelectedHotTub] = useState("");
+  const [selectedSwimmingPool, setSelectedSwimmingPool] = useState("");
+  const [selectedKilns, setSelectedKilns] = useState("");
+  const [selectedOther, setSelectedOther] = useState("");
+  useEffect(() => {
+    setSelectedSauna(props?.highEnergyEquipments.sauna);
+    setSelectedHotTub(props?.highEnergyEquipments.hotTub);
+    setSelectedSwimmingPool(props?.highEnergyEquipments.swimmingPool);
+    setSelectedKilns(props?.highEnergyEquipments.kilns);
+    setSelectedOther(props?.highEnergyEquipments.other);
+  }, [props]);
   return (
     <>
       <Box sx={{ width: "80%" }}>

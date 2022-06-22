@@ -40,25 +40,25 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     hotwater_importance: 1,
     heating_then_uk_average: 1,
   });
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+
   const getHighEnergyEquipments = (equip, num) => {
     let temp = highEnergyEquipments;
     temp[equip] = num;
     setHighEnergyEquipments(temp);
   };
   useEffect(() => {
-    let temp = { ...questions };
-    temp.hotwater_importance = bookJobDetails.questions.hotwater_importance;
-    temp.heating_then_uk_average =
-      bookJobDetails.questions.heating_then_uk_average;
-    setQuestions(temp);
+    // let temp = { ...questions };
+    // temp.hotwater_importance = bookJobDetails.questions.hotwater_importance;
+    // temp.heating_then_uk_average =
+    //   bookJobDetails.questions.heating_then_uk_average;
     setSelectedGuestInWinter(bookJobDetails.number_of_guests);
     setHighEnergyEquipments(bookJobDetails.high_energy_equipments);
     setLoader(false);
+    setQuestions(bookJobDetails.questions);
   }, [bookJobDetails]);
-  console.log(bookJobDetails);
+  useEffect(() => {
+    console.log(questions);
+  }, [questions]);
   return (
     <>
       <Card>
@@ -166,15 +166,16 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="position"
-              defaultValue={questions.hotwater_importance}
+              // defaultValue={questions.hotwater_importance}
             >
               <FormControlLabel
                 sx={{}}
                 value={1}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 1}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 1;
                       setQuestions(temp);
                     }}
@@ -190,8 +191,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={2}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 2}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 2;
                       setQuestions(temp);
                     }}
@@ -204,8 +206,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={3}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 3}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 3;
                       setQuestions(temp);
                     }}
@@ -218,8 +221,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={4}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 4}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 4;
                       setQuestions(temp);
                     }}
@@ -232,8 +236,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={5}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 5}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 5;
                       setQuestions(temp);
                     }}
@@ -246,8 +251,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={6}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 6}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 6;
                       setQuestions(temp);
                     }}
@@ -260,8 +266,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={7}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 7}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 7;
                       setQuestions(temp);
                     }}
@@ -274,8 +281,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={8}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 8}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 8;
                       setQuestions(temp);
                     }}
@@ -288,8 +296,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={9}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 9}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 9;
                       setQuestions(temp);
                     }}
@@ -302,8 +311,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={10}
                 control={
                   <Radio
+                    checked={questions.hotwater_importance === 10}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.hotwater_importance = 10;
                       setQuestions(temp);
                     }}
@@ -418,15 +428,16 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               row
               aria-labelledby="demo-form-control-label-placement"
               name="position"
-              defaultValue={questions.heating_then_uk_average}
+              // defaultValue={questions.heating_then_uk_average}
             >
               <FormControlLabel
                 sx={{}}
                 value={1}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 1}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 1;
                       setQuestions(temp);
                     }}
@@ -442,8 +453,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={2}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 2}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 2;
                       setQuestions(temp);
                     }}
@@ -456,8 +468,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={3}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 3}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 3;
                       setQuestions(temp);
                     }}
@@ -470,8 +483,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={4}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 4}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 4;
                       setQuestions(temp);
                     }}
@@ -484,8 +498,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={5}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 5}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 5;
                       setQuestions(temp);
                     }}
@@ -498,8 +513,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={6}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 6}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 6;
                       setQuestions(temp);
                     }}
@@ -512,8 +528,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={7}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 7}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 7;
                       setQuestions(temp);
                     }}
@@ -526,8 +543,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={8}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 8}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 8;
                       setQuestions(temp);
                     }}
@@ -540,8 +558,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={9}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 9}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 9;
                       setQuestions(temp);
                     }}
@@ -554,8 +573,9 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 value={10}
                 control={
                   <Radio
+                    checked={questions.heating_then_uk_average === 10}
                     onChange={() => {
-                      let temp = questions;
+                      let temp = { ...questions };
                       temp.heating_then_uk_average = 10;
                       setQuestions(temp);
                     }}
@@ -609,7 +629,14 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           <button
             variant="contained"
             className="btn-house btn-icon"
-            onClick={myProps.prev}
+            onClick={() => {
+              bookJobAction({
+                high_energy_equipments: highEnergyEquipments,
+                number_of_guests: selectedGuestInWinter,
+                questions: questions,
+              });
+              myProps.prev();
+            }}
           >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />

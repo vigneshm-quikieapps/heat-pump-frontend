@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./RCA1.css";
@@ -42,7 +42,22 @@ function RCA1({
   const [input2Error, setInput2Error] = useState("");
   const [input3Error, setInput3Error] = useState("");
   const [input4Error, setInput4Error] = useState("");
-
+  // useEffect(() => {
+  //   if (
+  //     window.location.pathname !== "/rca1" ||
+  //     window.location.pathname !== "/rca2"
+  //   ) {
+  //     customerDetailsReset();
+  //   }
+  // }, [window.location.pathname]);
+  useEffect(() => {
+    let retainData = sessionStorage.getItem("retainData");
+    if (!retainData) {
+      customerDetailsReset();
+    } else {
+      sessionStorage.removeItem("retainData");
+    }
+  }, []);
   const clickHandler = (e) => {
     e.preventDefault();
     /* if(customerDetails.name == "" && customerDetails.email =="" && customerDetails.password == "" && customerDetails.mobile == ""){
@@ -346,7 +361,10 @@ function RCA1({
             <button
               variant="contained"
               className="btn-house Add btn-icon"
-              onClick={clickHandler}
+              onClick={(e) => {
+                sessionStorage.setItem("retainData", true);
+                clickHandler(e);
+              }}
             >
               <span style={{ marginRight: "100px" }}>Continue</span>
               <span style={{ height: "27px", width: "27px" }}>

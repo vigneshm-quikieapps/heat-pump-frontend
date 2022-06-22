@@ -163,6 +163,22 @@ function RCA2({
   const [show, setShow] = useState(true);
   const [businesstypecolor, setBusinesstypecolor] = useState(true);
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (
+  //     window.location.pathname !== "/rca1" ||
+  //     window.location.pathname !== "/rca2"
+  //   ) {
+  //     customerDetailsReset();
+  //   }
+  // }, [window.location.pathname]);
+  useEffect(() => {
+    let retainData = sessionStorage.getItem("retainData");
+    if (!retainData) {
+      customerDetailsReset();
+    } else {
+      sessionStorage.removeItem("retainData");
+    }
+  }, []);
   const filtered =
     searchValue &&
     suggestionList.suggestionList.filter((suggestion) => {
@@ -362,9 +378,6 @@ function RCA2({
         toast.error(error?.response?.data?.data?.message);
         customerDetailsReset();
       });
-    // } else {
-    //   toast.error("Something Went Wrong");
-    // }
   };
 
   const Result = ({ result }) => {
@@ -654,7 +667,7 @@ function RCA2({
               variant="contained"
               className="btn-house btn-icon"
               onClick={() => {
-                // customerDetailsReset();
+                sessionStorage.setItem("retainData", true);
                 navigate("/rca1");
               }}
             >

@@ -18,6 +18,11 @@ import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 // import { Card, TextField } from "../../../../common";
 import StyledTextField from "../../../../common/textfield";
 // import { TempleHinduOutlined } from "@mui/icons-material";
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   textfield: {
@@ -79,14 +84,21 @@ const heatValue = {
   Oil: 4,
   LPG: 5,
 };
-const SeventhStep = (props) => {
+const heatValueRev = {
+  1: "Gas",
+  2: "Heat Pump",
+  3: "Wood",
+  4: "Oil",
+  5: "LPG",
+};
+const SeventhStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   const [focused, setFocused] = React.useState("");
   const [priority, setPriority] = useState("Gas");
-  const [priorityValue, setPriorityValue] = useState();
-  const [currnetBills, setCurrentBills] = useState({
+  const [priorityValue, setPriorityValue] = useState("");
+  const [currentBills, setCurrentBills] = useState({
     amount_of_gas: "",
     cost_of_gas: "",
   });
@@ -98,6 +110,18 @@ const SeventhStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    setPriorityValue(bookJobDetails.heating_system);
+    let temp = { ...currentBills };
+    temp.amount_of_gas = bookJobDetails.amount_of_gas;
+    temp.cost_of_gas = bookJobDetails.cost_of_gas;
+    setExistingData(bookJobDetails.existing);
+    setProposedData(bookJobDetails.proposed);
+    setOtherDesignData(bookJobDetails.other_design_factor);
+    setPriority(heatValueRev[bookJobDetails.heating_system]);
+    setCurrentBills(temp);
+  }, [bookJobDetails]);
+  console.log(priority, priorityValue);
   return (
     <Card>
       {loader && (
@@ -171,7 +195,7 @@ const SeventhStep = (props) => {
           >
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={existingData.data[0]}
+                checked={existingData.data[0] === "Radiator"}
                 onChange={(e) => {
                   let temp = { ...existingData };
                   e.target.checked
@@ -192,7 +216,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={existingData.data[1]}
+                checked={existingData.data[1] === "Underfloor Heating"}
                 onChange={(e) => {
                   let temp = { ...existingData };
                   e.target.checked
@@ -213,7 +237,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={existingData.data[2]}
+                checked={existingData.data[2] === "Underfloor and Radiators"}
                 onChange={(e) => {
                   let temp = { ...existingData };
                   e.target.checked
@@ -234,7 +258,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={existingData.data[3]}
+                checked={existingData.data[3] === "Fan coils"}
                 onChange={(e) => {
                   let temp = { ...existingData };
                   e.target.checked
@@ -255,7 +279,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={!checkOtherToggle[0]}
+                // checked={!checkOtherToggle[0]}
                 onChange={(e) => {
                   let temp = [...checkOtherToggle];
                   let temp1 = { ...existingData };
@@ -314,7 +338,7 @@ const SeventhStep = (props) => {
           <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={proposedData.data[0]}
+                checked={proposedData.data[0]}
                 onChange={(e) => {
                   let temp = { ...proposedData };
                   e.target.checked
@@ -335,7 +359,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={proposedData.data[1]}
+                checked={proposedData.data[1] === "Underfloor Heating"}
                 onChange={(e) => {
                   let temp = { ...proposedData };
                   e.target.checked
@@ -356,7 +380,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={proposedData.data[2]}
+                checked={proposedData.data[2] === "Underfloor and Radiators"}
                 onChange={(e) => {
                   let temp = { ...proposedData };
                   e.target.checked
@@ -377,7 +401,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={proposedData.data[3]}
+                checked={proposedData.data[3] === "Fan coils"}
                 onChange={(e) => {
                   let temp = { ...proposedData };
                   e.target.checked
@@ -398,7 +422,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                // defaultChecked={!checkOtherToggle[1]}
+                // checked={!checkOtherToggle[1]}
                 onChange={(e) => {
                   let temp = [...checkOtherToggle];
                   let temp1 = { ...proposedData };
@@ -473,9 +497,9 @@ const SeventhStep = (props) => {
                   type="number"
                   sx={{ width: "100%" }}
                   label={`Amount of ${priority} (kWh)`}
-                  value={currnetBills?.amount_of_gas}
+                  value={currentBills?.amount_of_gas}
                   onChange={(e) => {
-                    let temp = { ...currnetBills };
+                    let temp = { ...currentBills };
                     temp["amount_of_gas"] = e.target.value;
                     setCurrentBills(temp);
                   }}
@@ -500,9 +524,9 @@ const SeventhStep = (props) => {
                   type="number"
                   sx={{ width: "100%" }}
                   label={`Cost of ${priority} (£)`}
-                  value={currnetBills?.cost_of_gas}
+                  value={currentBills?.cost_of_gas}
                   onChange={(e) => {
-                    let temp = { ...currnetBills };
+                    let temp = { ...currentBills };
                     temp["cost_of_gas"] = e.target.value;
                     setCurrentBills(temp);
                   }}
@@ -534,7 +558,7 @@ const SeventhStep = (props) => {
           <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={otherDesignData[0]}
+                checked={otherDesignData[0] === "High ceilings"}
                 onChange={(e) => {
                   let temp = [...otherDesignData];
                   e.target.checked
@@ -555,7 +579,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={otherDesignData[1]}
+                checked={otherDesignData[1] === "Intermittent Heating"}
                 onChange={(e) => {
                   let temp = [...otherDesignData];
                   e.target.checked
@@ -576,7 +600,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={otherDesignData[2]}
+                checked={otherDesignData[2] === "Exposed site"}
                 onChange={(e) => {
                   let temp = [...otherDesignData];
                   e.target.checked
@@ -597,7 +621,7 @@ const SeventhStep = (props) => {
             </Box>
             <Box sx={{ margin: "0 0 1% 0" }}>
               <Checkbox
-                defaultChecked={otherDesignData[3]}
+                checked={otherDesignData[3] === "Any microbore"}
                 onChange={(e) => {
                   let temp = [...otherDesignData];
                   e.target.checked
@@ -622,7 +646,17 @@ const SeventhStep = (props) => {
           <button
             variant="contained"
             className="btn-house btn-icon"
-            onClick={props.prev}
+            onClick={() => {
+              bookJobAction({
+                heating_system: priorityValue,
+                amount_of_gas: currentBills.amount_of_gas,
+                cost_of_gas: currentBills.cost_of_gas,
+                existing: existingData,
+                proposed: proposedData,
+                other_design_factor: otherDesignData,
+              });
+              myProps.prev();
+            }}
           >
             <span style={{ height: "27px", width: "27px" }}>
               <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -633,7 +667,7 @@ const SeventhStep = (props) => {
             variant="contained"
             className="btn-house Add btn-icon"
             onClick={() => {
-              props.getPayloadData(
+              myProps.getPayloadData(
                 [
                   "heating_system",
                   "amount_of_gas",
@@ -644,15 +678,22 @@ const SeventhStep = (props) => {
                 ],
                 [
                   priorityValue,
-                  currnetBills.amount_of_gas,
-                  currnetBills.cost_of_gas,
+                  currentBills.amount_of_gas,
+                  currentBills.cost_of_gas,
                   existingData,
                   proposedData,
                   otherDesignData,
                 ]
               );
-
-              props.next();
+              bookJobAction({
+                heating_system: priorityValue,
+                amount_of_gas: currentBills.amount_of_gas,
+                cost_of_gas: currentBills.cost_of_gas,
+                existing: existingData,
+                proposed: proposedData,
+                other_design_factor: otherDesignData,
+              });
+              myProps.next();
             }}
           >
             <span style={{ marginRight: "100px" }}>Continue</span>
@@ -665,5 +706,16 @@ const SeventhStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default SeventhStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SeventhStep);
+// export default SeventhStep;

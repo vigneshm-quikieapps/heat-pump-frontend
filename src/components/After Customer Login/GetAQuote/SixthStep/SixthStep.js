@@ -14,7 +14,11 @@ import { Card, TextField, ImgIcon } from "../../../../common";
 import StyledTextField from "../../../../common/textfield";
 import DeleteIcon from "../../../../Img/icon remove.png";
 import IconButton from "@mui/material/IconButton";
-
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 const useStyles = makeStyles({
   textfield: {
     "& label.Mui-focused": {
@@ -65,7 +69,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SixthStep = (props) => {
+const SixthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
@@ -102,9 +106,9 @@ const SixthStep = (props) => {
     );
   };
 
-  // useEffect(() => {
-  //   // setInputList(inputList.concat(<Input key={inputList.length} />));
-  // }, []);
+  useEffect(() => {
+    setInputList(bookJobDetails?.radiator_and_window_sizes);
+  }, [bookJobDetails]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -261,7 +265,10 @@ const SixthStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={() => {
+            bookJobAction({ radiator_and_window_sizes: inputList });
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -284,9 +291,9 @@ const SixthStep = (props) => {
             // if (temp) {
             //   return;
             // } else {
-            props.getPayloadData(["radiator_and_window_sizes"], [inputList]);
-            // console.log(inputList);
-            props.next();
+            myProps.getPayloadData(["radiator_and_window_sizes"], [inputList]);
+            bookJobAction({ radiator_and_window_sizes: inputList });
+            myProps.next();
             // }
           }}
         >
@@ -299,5 +306,16 @@ const SixthStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default SixthStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SixthStep);
+// export default SixthStep;

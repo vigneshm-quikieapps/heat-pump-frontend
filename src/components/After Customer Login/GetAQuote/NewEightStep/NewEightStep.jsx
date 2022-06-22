@@ -18,10 +18,14 @@ import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card, Checkbox, Radio } from "../../../../common";
 import StyledTextField from "../../../../common/textfield";
-
+import {
+  bookJobAction,
+  bookJobReset,
+} from "../../../../Redux/bookJob/bookJob.action";
+import { connect, useDispatch } from "react-redux";
 const useStyles = makeStyles({});
 
-const NewEightStep = (props) => {
+const NewEightStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
@@ -34,6 +38,9 @@ const NewEightStep = (props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    setData(bookJobDetails.ventilation_draught);
+  }, [bookJobDetails]);
   const handleChange = (e) => {
     let temp = { ...data };
 
@@ -97,6 +104,7 @@ const NewEightStep = (props) => {
         <Box sx={{ display: "flex", flexDirection: "column", mt: 2 }}>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={data.ventilation[0] === "Natural Ventilation"}
               name="Natural Ventilation"
               onChange={(e) => {
                 handleChange(e);
@@ -114,6 +122,9 @@ const NewEightStep = (props) => {
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={
+                data.ventilation[1] === "Natural ventilation with trickle vents"
+              }
               name="Natural ventilation with trickle vents"
               onChange={(e) => {
                 handleChange(e);
@@ -131,6 +142,10 @@ const NewEightStep = (props) => {
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={
+                data.ventilation[2] ===
+                "Intermittent extract fans in bathrooms/kitchen"
+              }
               name="Intermittent extract fans in bathrooms/kitchen"
               onChange={(e) => {
                 handleChange(e);
@@ -148,6 +163,7 @@ const NewEightStep = (props) => {
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={data.ventilation[3] === "Whole house extract"}
               name="Whole house extract"
               onChange={(e) => {
                 handleChange(e);
@@ -165,6 +181,7 @@ const NewEightStep = (props) => {
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={data.ventilation[4] === "Positive input Fan from Loft"}
               name="Positive input Fan from Loft"
               onChange={(e) => {
                 handleChange(e);
@@ -182,6 +199,10 @@ const NewEightStep = (props) => {
           </Box>
           <Box sx={{ margin: "0 0 1% 0" }}>
             <Checkbox
+              checked={
+                data.ventilation[5] ===
+                "Mechanical Ventilation with heat recovery (MVHR)"
+              }
               name="Mechanical Ventilation with heat recovery (MVHR)"
               onChange={(e) => {
                 handleChange(e);
@@ -269,6 +290,7 @@ const NewEightStep = (props) => {
               value="Airtight (less than 3m3/hr.m2)"
               control={
                 <Radio
+                  checked={data.draught === "Airtight (less than 3m3/hr.m2)"}
                   onChange={() => {
                     let temp = { ...data };
                     temp.draught = "Airtight (less than 3m3/hr.m2)";
@@ -296,6 +318,7 @@ const NewEightStep = (props) => {
               value="Sealed (less than 5m3/hr.m2)"
               control={
                 <Radio
+                  checked={data.draught === "Sealed (less than 5m3/hr.m2)"}
                   onChange={() => {
                     let temp = { ...data };
                     temp.draught = "Sealed (less than 5m3/hr.m2)";
@@ -323,6 +346,7 @@ const NewEightStep = (props) => {
               value="Normal (5-10m3/hr.m2)"
               control={
                 <Radio
+                  checked={data.draught === "Normal (5-10m3/hr.m2)"}
                   onChange={() => {
                     let temp = { ...data };
                     temp.draught = "Normal (5-10m3/hr.m2)";
@@ -350,6 +374,7 @@ const NewEightStep = (props) => {
               value="Draughty (more than 10m3/hr.m2)"
               control={
                 <Radio
+                  checked={data.draught === "Draughty (more than 10m3/hr.m2)"}
                   onChange={() => {
                     let temp = { ...data };
                     temp.draught = "Draughty (more than 10m3/hr.m2)";
@@ -377,6 +402,7 @@ const NewEightStep = (props) => {
               value="Not sure"
               control={
                 <Radio
+                  checked={data.draught === "Not sure"}
                   onChange={() => {
                     let temp = { ...data };
                     temp.draught = "Not sure";
@@ -404,7 +430,10 @@ const NewEightStep = (props) => {
         <button
           variant="contained"
           className="btn-house btn-icon"
-          onClick={props.prev}
+          onClick={() => {
+            bookJobAction({ ventilation_draught: data });
+            myProps.prev();
+          }}
         >
           <span style={{ height: "27px", width: "27px" }}>
             <ChevronLeftSharpIcon sx={{ height: "27px", width: "27px" }} />
@@ -415,9 +444,9 @@ const NewEightStep = (props) => {
           variant="contained"
           className="btn-house Add btn-icon"
           onClick={() => {
-            props.getPayloadData(["ventilation_draught"], [data]);
-            // props.getPayloadData(["draught"], data.draught);
-            props.next();
+            myProps.getPayloadData(["ventilation_draught"], [data]);
+            bookJobAction({ ventilation_draught: data });
+            myProps.next();
           }}
         >
           <span style={{ marginRight: "100px" }}>Continue</span>
@@ -429,5 +458,16 @@ const NewEightStep = (props) => {
     </Card>
   );
 };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    myProps: ownProps,
+    bookJobDetails: state.bkjb,
+  };
+};
 
-export default NewEightStep;
+const mapDispatchToProps = (dispatch) => ({
+  bookJobAction: (keypair) => dispatch(bookJobAction(keypair)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewEightStep);
+// export default NewEightStep;
