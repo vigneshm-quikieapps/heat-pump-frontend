@@ -10,10 +10,12 @@ import { Box, Typography } from "@mui/material";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
 import { Card } from "../../../common";
+import { getQuote, UpdateJob } from "../../../services/services";
 
+import { connect, useDispatch } from "react-redux";
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
-const Photos = (props) => {
+const FifthStep = (props) => {
   const [walls, setWalls] = useState([]);
   const [wattachments, setWattachments] = useState([]);
   const [roof, setRoof] = useState([]);
@@ -30,10 +32,17 @@ const Photos = (props) => {
   // const [flag, setFlag] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
+    setWalls(props?.quoteData?.photos?.walls || walls);
+    setRoof(props?.quoteData?.photos?.roof || roof);
+    setWindows(props?.quoteData?.photos?.windows || windows);
+    setEB(props?.quoteData?.photos?.existing_boiler || eb);
+    setER(props?.quoteData?.photos?.existing_radiator || er);
+    setPW(props?.quoteData?.photos?.pipework || pw);
+  }, [props]);
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const onFileUpload = (e, name) => {
-    console.log(name);
     if (e) {
       let formData = new FormData();
       formData.append("attachments", e);
@@ -52,27 +61,27 @@ const Photos = (props) => {
           if (res.success) {
             if (name == "walls") {
               wattachments.push(res.data.message[0]);
-              setWalls([...walls, e]);
+              setWalls([...walls, e.name]);
             }
             if (name == "roof") {
               rattachments.push(res.data.message[0]);
-              setRoof([...roof, e]);
+              setRoof([...roof, e.name]);
             }
             if (name == "windows") {
               wiattachments.push(res.data.message[0]);
-              setWindows([...windows, e]);
+              setWindows([...windows, e.name]);
             }
             if (name == "eb") {
               ebattachments.push(res.data.message[0]);
-              setEB([...eb, e]);
+              setEB([...eb, e.name]);
             }
             if (name == "er") {
               erattachments.push(res.data.message[0]);
-              setER([...er, e]);
+              setER([...er, e.name]);
             }
             if (name == "pw") {
               pwattachments.push(res.data.message[0]);
-              setPW([...pw, e]);
+              setPW([...pw, e.name]);
             }
           } else {
             toast.error(res.data.message);
@@ -138,8 +147,29 @@ const Photos = (props) => {
       setPWattachments(newAttachments);
     }
   };
+  const updateStatus = (e) => {
+    UpdateJob(props?.quoteData?._id, {
+      photos: {
+        walls,
+        roof,
+        windows,
+        existing_boiler: eb,
+        existing_radiator: er,
+        pipework: pw,
+      },
+    }).then((res) => {
+      toast.success("Updated successfully");
+    });
+  };
   return (
     <>
+      {/* <Card> */}
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
+
       <h4 className="s5name1">Walls</h4>
       <hr className="s5hr2" />
       <div>
@@ -182,7 +212,7 @@ const Photos = (props) => {
         />
       </div>
       {walls &&
-        walls.map((item, index) => {
+        walls?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -199,7 +229,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -258,7 +288,7 @@ const Photos = (props) => {
         />
       </div>
       {roof &&
-        roof.map((item, index) => {
+        roof?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -275,7 +305,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -334,7 +364,7 @@ const Photos = (props) => {
         />
       </div>
       {windows &&
-        windows.map((item, index) => {
+        windows?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -351,7 +381,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -410,7 +440,7 @@ const Photos = (props) => {
         />
       </div>
       {eb &&
-        eb.map((item, index) => {
+        eb?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -427,7 +457,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -486,7 +516,7 @@ const Photos = (props) => {
         />
       </div>
       {er &&
-        er.map((item, index) => {
+        er?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -503,7 +533,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -562,7 +592,7 @@ const Photos = (props) => {
         />
       </div>
       {pw &&
-        pw.map((item, index) => {
+        pw?.map((item, index) => {
           return (
             <div
               className="s5filemap"
@@ -579,7 +609,7 @@ const Photos = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.name}</span>
+                <span className="s5fileName">{item}</span>
               </span>
 
               <img
@@ -595,13 +625,19 @@ const Photos = (props) => {
             </div>
           );
         })}
-      {/* {flag && (
-        <span style={{ fontSize: "20px", color: "red", marginBottom: "5%" }}>
-          At least 1 photo is mandatory for each topics
-        </span>
-      )} */}
+      <button
+        className="browsebtn"
+        name="status"
+        style={{ marginTop: "5%", marginLeft: "-5px" }}
+        onClick={(e) => {
+          updateStatus(e);
+        }}
+      >
+        Save
+      </button>
+      {/* </Card> */}
     </>
   );
 };
 
-export default Photos;
+export default FifthStep;

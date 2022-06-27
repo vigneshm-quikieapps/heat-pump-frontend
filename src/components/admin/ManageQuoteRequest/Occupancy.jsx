@@ -5,6 +5,8 @@ import step2ProgressBar from "../../../Img/step2.png";
 import { Box, MenuItem, Table, Typography } from "@mui/material";
 // import "./SecondStep.css";
 // import { Card, Radio } from "../../../common";
+import { getQuote, UpdateJob } from "../../../services/services";
+import { toast } from "react-toastify";
 
 import {
   // Box,
@@ -61,64 +63,98 @@ const Occupancy = (props) => {
 
   const [selectedGuestInWinter, setSelectedGuestInWinter] = useState(0);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-  const [highEnergyEquipments, setHighEnergyEquipments] = useState({
-    sauna: "0",
-    swimmingPool: "0",
-    hotTub: "0",
-    kilns: "0",
-    other: "0",
-  });
+  const [selectedSauna, setSelectedSauna] = useState("0");
+  const [selectedHotTub, setSelectedHotTub] = useState("0");
+  const [selectedSwimmingPool, setSelectedSwimmingPool] = useState("0");
+  const [selectedKilns, setSelectedKilns] = useState("0");
+  const [selectedOther, setSelectedOther] = useState("0");
+
   const [questions, setQuestions] = useState({
     hotwater_importance: 1,
-
     heating_then_uk_average: 1,
   });
   useEffect(() => {
-    setWeeklySlots(props?.quoteData?.occupancy?.weekly);
+    setWeeklySlots(props?.quoteData?.occupancy?.weekly || weeklySlots);
     setSelectedAdultOccupants(
-      props?.quoteData?.occupancy?.number_of_adultOccupants
+      props?.quoteData?.occupancy?.number_of_adultOccupants ||
+        selectedAdultOccupants
     );
     setSelectedChildOccupants(
-      props?.quoteData?.occupancy?.number_of_childrenOccupants
+      props?.quoteData?.occupancy?.number_of_childrenOccupants ||
+        selectedChildOccupants
     );
     setSelectedNoPerBedroom(
-      props?.quoteData?.occupancy?.number_of_typicalOccupantsPerBedroom
+      props?.quoteData?.occupancy?.number_of_typicalOccupantsPerBedroom ||
+        selectedNoPerBedroom
     );
-    setPropertyUsage(props?.quoteData?.occupancy?.property_usage);
-    setSelectedGuestInWinter(props?.quoteData?.number_of_guests);
-    setHighEnergyEquipments(props?.quoteData?.high_energy_equipments);
-    setQuestions(props?.quoteData?.questions);
+    setPropertyUsage(
+      props?.quoteData?.occupancy?.property_usage || propertyUsage
+    );
+    setSelectedGuestInWinter(
+      props?.quoteData?.number_of_guests || selectedGuestInWinter
+    );
+    setSelectedSauna(
+      props?.quoteData?.high_energy_equipments?.sauna || selectedSauna
+    );
+    setSelectedHotTub(
+      props?.quoteData?.high_energy_equipments?.hotTub || selectedHotTub
+    );
+    setSelectedSwimmingPool(
+      props?.quoteData?.high_energy_equipments?.swimmingPool ||
+        selectedSwimmingPool
+    );
+    setSelectedKilns(
+      props?.quoteData?.high_energy_equipments?.kilns || selectedKilns
+    );
+    setSelectedOther(
+      props?.quoteData?.high_energy_equipments?.other || selectedOther
+    );
+    setQuestions(props?.quoteData?.questions || questions);
     setLoader(false);
-  }, [props?.quoteData]);
+  }, [props]);
 
-  const getHighEnergyEquipments = (equip, num) => {
-    let temp = highEnergyEquipments;
-    temp[equip] = num;
-    setHighEnergyEquipments(temp);
-  };
   function createData(name, Weekday, Weekend) {
     return { name, Weekday, Weekend };
   }
   const handleWeeklySlots = (index, slot) => {
-    let temp = weeklySlots;
-    temp[`slot${slot}`][index] = !weeklySlots[`slot${slot}`][index];
+    let temp = { ...weeklySlots };
+    temp[`${slot}`][index] = !weeklySlots[`${slot}`][index];
     setWeeklySlots(temp);
   };
-  console.log(props?.quoteData);
+  const updateStatus = (e) => {
+    UpdateJob(props?.quoteData?._id, {
+      occupancy: {
+        number_of_adultOccupants: selectedAdultOccupants,
+        number_of_childrenOccupants: selectedChildOccupants,
+        number_of_typicalOccupantsPerBedroom: selectedNoPerBedroom,
+        property_usage: propertyUsage,
+        weekly: weeklySlots,
+      },
+      high_energy_equipments: {
+        sauna: selectedSauna,
+        swimmingPool: selectedSwimmingPool,
+        hotTub: selectedHotTub,
+        kilns: selectedKilns,
+        other: selectedOther,
+      },
+      questions: questions,
+      number_of_guests: selectedGuestInWinter,
+    }).then((res) => {
+      toast.success("Updated successfully");
+    });
+  };
+
   const rows = [
     createData(
       "0000 - 0600",
       <Checkbox
-        defaultChecked={weeklySlots["0000 - 0600"][0]}
+        checked={Boolean(weeklySlots["0000 - 0600"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0000 - 0600");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0000 - 0600"][1]}
+        checked={Boolean(weeklySlots["0000 - 0600"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0000 - 0600");
         }}
@@ -128,13 +164,13 @@ const Occupancy = (props) => {
     createData(
       "0600 - 0800",
       <Checkbox
-        defaultChecked={weeklySlots["0600 - 0800"][0]}
+        checked={Boolean(weeklySlots["0600 - 0800"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0600 - 0800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0600 - 0800"][1]}
+        checked={Boolean(weeklySlots["0600 - 0800"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0600 - 0800");
         }}
@@ -143,13 +179,13 @@ const Occupancy = (props) => {
     createData(
       "0800 - 1000",
       <Checkbox
-        defaultChecked={weeklySlots["0800 - 1000"][0]}
+        checked={Boolean(weeklySlots["0800 - 1000"][0])}
         onChange={() => {
           handleWeeklySlots(0, "0800 - 1000");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["0800 - 1000"][1]}
+        checked={Boolean(weeklySlots["0800 - 1000"][1])}
         onChange={() => {
           handleWeeklySlots(1, "0800 - 1000");
         }}
@@ -158,13 +194,13 @@ const Occupancy = (props) => {
     createData(
       "1000  -  1400",
       <Checkbox
-        defaultChecked={weeklySlots["1000 - 1400"][0]}
+        checked={Boolean(weeklySlots["1000 - 1400"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1000 - 1400");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1000 - 1400"][1]}
+        checked={Boolean(weeklySlots["1000 - 1400"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1000 - 1400");
         }}
@@ -173,13 +209,13 @@ const Occupancy = (props) => {
     createData(
       "1400  -  1800",
       <Checkbox
-        defaultChecked={weeklySlots["1400 - 1800"][0]}
+        checked={Boolean(weeklySlots["1400 - 1800"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1400 - 1800");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1400 - 1800"][1]}
+        checked={Boolean(weeklySlots["1400 - 1800"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1400 - 1800");
         }}
@@ -189,13 +225,13 @@ const Occupancy = (props) => {
     createData(
       "1800  -  2359",
       <Checkbox
-        defaultChecked={weeklySlots["1800 - 2359"][0]}
+        checked={Boolean(weeklySlots["1800 - 2359"][0])}
         onChange={() => {
           handleWeeklySlots(0, "1800 - 2359");
         }}
       />,
       <Checkbox
-        defaultChecked={weeklySlots["1800 - 2359"][1]}
+        checked={Boolean(weeklySlots["1800 - 2359"][1])}
         onChange={() => {
           handleWeeklySlots(1, "1800 - 2359");
         }}
@@ -336,14 +372,13 @@ const Occupancy = (props) => {
         >
           <Checkbox
             // sx={{ float: "center" }}
-            defaultChecked={propertyUsage.data[0] === "Main House"}
+            checked={propertyUsage.data[0] === "Main House"}
             onChange={(e) => {
               let temp = { ...propertyUsage };
               e.target.checked
                 ? (temp.data[0] = "Main House")
                 : temp.data.splice(0, 1);
               setPropertyUsage(temp);
-              // console.log(propertyUsage);
             }}
           />
           <Typography
@@ -364,7 +399,7 @@ const Occupancy = (props) => {
           }}
         >
           <Checkbox
-            defaultChecked={propertyUsage.data[1] === "Holiday Home"}
+            checked={propertyUsage.data[1] === "Holiday Home"}
             onChange={(e) => {
               let temp = { ...propertyUsage };
               e.target.checked
@@ -392,9 +427,7 @@ const Occupancy = (props) => {
           }}
         >
           <Checkbox
-            defaultChecked={
-              propertyUsage.other === "" ? !checkOtherToggle[0] : false
-            }
+            checked={!checkOtherToggle[0]}
             onChange={(e) => {
               let temp = [...checkOtherToggle];
               let temp1 = { ...propertyUsage };
@@ -422,7 +455,7 @@ const Occupancy = (props) => {
         <StyledTextField
           type="text"
           disabled={checkOtherToggle[0]}
-          value={propertyUsage.other || ""}
+          value={propertyUsage.other}
           placeholder="If other, please state"
           onChange={(e) => {
             let temp = { ...propertyUsage };
@@ -511,7 +544,7 @@ const Occupancy = (props) => {
       </Typography>
       <StyledTextField
         select
-        sx={{ width: "30%", marginTop: "20px", marginBottom: "20px" }}
+        sx={{ width: "30%", marginTop: "20px", marginBottom: "30px" }}
         value={selectedNoPerBedroom}
         onChange={(e) => {
           setSelectedNoPerBedroom(e.target.value);
@@ -531,8 +564,8 @@ const Occupancy = (props) => {
       </StyledTextField>
       <Typography
         sx={{
-          marginTop: "20px",
-          marginBottom: "15px",
+          marginTop: "53px",
+          marginBottom: "20px",
           fontSize: "22px",
           fontWeight: "bold",
           lineHeight: "normal",
@@ -561,8 +594,8 @@ const Occupancy = (props) => {
         <MenuItem value="2">2</MenuItem>
         <MenuItem value="2.5">2.5</MenuItem>
         <MenuItem value="3">3</MenuItem>
-        <MenuItem value="MORE THAN 3">more than 3</MenuItem>
-        <MenuItem value="OTHER">Other</MenuItem>
+        <MenuItem value="More than 3">More than 3</MenuItem>
+        <MenuItem value="Not sure">Other</MenuItem>
       </StyledTextField>
       <Typography
         sx={{
@@ -597,15 +630,16 @@ const Occupancy = (props) => {
             row
             aria-labelledby="demo-form-control-label-placement"
             name="position"
-            defaultValue="1"
+            // defaultValue={questions.hotwater_importance}
           >
             <FormControlLabel
               sx={{}}
-              value="1"
+              value={1}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 1}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 1;
                     setQuestions(temp);
                   }}
@@ -618,11 +652,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="2"
+              value={2}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 2}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 2;
                     setQuestions(temp);
                   }}
@@ -632,11 +667,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="3"
+              value={3}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 3}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 3;
                     setQuestions(temp);
                   }}
@@ -646,11 +682,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="4"
+              value={4}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 4}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 4;
                     setQuestions(temp);
                   }}
@@ -660,11 +697,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="5"
+              value={5}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 5}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 5;
                     setQuestions(temp);
                   }}
@@ -674,11 +712,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="6"
+              value={6}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 6}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 6;
                     setQuestions(temp);
                   }}
@@ -688,11 +727,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="7"
+              value={7}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 7}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 7;
                     setQuestions(temp);
                   }}
@@ -702,11 +742,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="8"
+              value={8}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 8}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 8;
                     setQuestions(temp);
                   }}
@@ -716,11 +757,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="9"
+              value={9}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 9}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 9;
                     setQuestions(temp);
                   }}
@@ -730,11 +772,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="10"
+              value={10}
               control={
                 <Radio
+                  checked={questions.hotwater_importance === 10}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.hotwater_importance = 10;
                     setQuestions(temp);
                   }}
@@ -790,6 +833,163 @@ const Occupancy = (props) => {
         sx={{
           fontSize: "22px",
           fontWeight: "bold",
+          fontFamily: "Outfit",
+        }}
+      >
+        High Energy Equipment
+      </Typography>
+      <Box sx={{ width: "80%" }}>
+        <StyledTextField
+          select
+          label="Sauna"
+          variant="outlined"
+          sx={{ width: "30%", marginTop: "20px", marginBottom: "20px" }}
+          value={selectedSauna}
+          onChange={(e) => {
+            setSelectedSauna(e.target.value);
+            props?.getHighEnergyEquipments("sauna", e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          IconComponent={() =>
+            focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+          }
+        >
+          <MenuItem value="0">0</MenuItem>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
+        </StyledTextField>
+        <StyledTextField
+          select
+          label="Swimming Pool"
+          variant="outlined"
+          sx={{
+            width: "30%",
+            marginTop: "20px",
+            marginBottom: "20px",
+            marginLeft: "20px",
+          }}
+          value={selectedSwimmingPool}
+          onChange={(e) => {
+            setSelectedSwimmingPool(e.target.value);
+            props?.getHighEnergyEquipments("swimmingPool", e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          IconComponent={() =>
+            focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+          }
+        >
+          <MenuItem value="0">0</MenuItem>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
+        </StyledTextField>
+        <StyledTextField
+          select
+          label="Hot Tub"
+          variant="outlined"
+          sx={{
+            width: "30%",
+            marginTop: "20px",
+            marginBottom: "20px",
+            marginLeft: "20px",
+          }}
+          value={selectedHotTub}
+          onChange={(e) => {
+            setSelectedHotTub(e.target.value);
+            props?.getHighEnergyEquipments("hotTub", e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          IconComponent={() =>
+            focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+          }
+        >
+          <MenuItem value="0">0</MenuItem>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
+        </StyledTextField>
+      </Box>
+      <Box sx={{ width: "80%" }}>
+        <StyledTextField
+          select
+          label="Kilns"
+          variant="outlined"
+          sx={{
+            width: "30%",
+            marginTop: "20px",
+            marginBottom: "30px",
+          }}
+          value={selectedKilns}
+          onChange={(e) => {
+            setSelectedKilns(e.target.value);
+            props?.getHighEnergyEquipments("kilns", e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          IconComponent={() =>
+            focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+          }
+        >
+          <MenuItem value="0">0</MenuItem>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
+        </StyledTextField>
+        <StyledTextField
+          select
+          label="Other"
+          variant="outlined"
+          sx={{
+            width: "30%",
+            marginTop: "20px",
+            marginBottom: "30px",
+            marginLeft: "20px",
+          }}
+          value={selectedOther}
+          onChange={(e) => {
+            setSelectedOther(e.target.value);
+            props?.getHighEnergyEquipments("other", e.target.value);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          IconComponent={() =>
+            focused ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+          }
+        >
+          <MenuItem value="0">0</MenuItem>
+          <MenuItem value="1">1</MenuItem>
+          <MenuItem value="2">2</MenuItem>
+          <MenuItem value="3">3</MenuItem>
+          <MenuItem value="4">4</MenuItem>
+          <MenuItem value="5">5</MenuItem>
+          <MenuItem value="6">6</MenuItem>
+          <MenuItem value="More than 6">More than 6</MenuItem>
+        </StyledTextField>
+      </Box>
+      <Typography
+        sx={{
+          fontSize: "22px",
+          fontWeight: "bold",
           lineHeight: "normal",
           fontFamily: "Outfit",
           letterSpacing: "0.03px",
@@ -833,15 +1033,16 @@ const Occupancy = (props) => {
             row
             aria-labelledby="demo-form-control-label-placement"
             name="position"
-            defaultValue="1"
+            // defaultValue={questions.heating_then_uk_average}
           >
             <FormControlLabel
               sx={{}}
-              value="1"
+              value={1}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 1}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 1;
                     setQuestions(temp);
                   }}
@@ -854,11 +1055,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="2"
+              value={2}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 2}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 2;
                     setQuestions(temp);
                   }}
@@ -868,11 +1070,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="3"
+              value={3}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 3}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 3;
                     setQuestions(temp);
                   }}
@@ -882,11 +1085,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="4"
+              value={4}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 4}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 4;
                     setQuestions(temp);
                   }}
@@ -896,11 +1100,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="5"
+              value={5}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 5}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 5;
                     setQuestions(temp);
                   }}
@@ -910,11 +1115,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="6"
+              value={6}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 6}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 6;
                     setQuestions(temp);
                   }}
@@ -924,11 +1130,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="7"
+              value={7}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 7}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 7;
                     setQuestions(temp);
                   }}
@@ -938,11 +1145,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="8"
+              value={8}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 8}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 8;
                     setQuestions(temp);
                   }}
@@ -952,11 +1160,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="9"
+              value={9}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 9}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 9;
                     setQuestions(temp);
                   }}
@@ -966,11 +1175,12 @@ const Occupancy = (props) => {
               labelPlacement="top"
             />
             <FormControlLabel
-              value="10"
+              value={10}
               control={
                 <Radio
+                  checked={questions.heating_then_uk_average === 10}
                   onChange={() => {
-                    let temp = questions;
+                    let temp = { ...questions };
                     temp.heating_then_uk_average = 10;
                     setQuestions(temp);
                   }}
@@ -1020,6 +1230,16 @@ const Occupancy = (props) => {
           </Box>
         </Box>
       </Box>
+      <button
+        className="browsebtn"
+        name="status"
+        style={{ marginTop: "5%", marginLeft: "-5px" }}
+        onClick={(e) => {
+          updateStatus(e);
+        }}
+      >
+        Save
+      </button>
     </>
   );
 };

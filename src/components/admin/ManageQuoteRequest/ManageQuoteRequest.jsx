@@ -26,12 +26,15 @@ import FabricType from "./FabricType";
 import Drawings from "./Drawings";
 import RadiatorWindow from "./RadiatorWindow";
 import { TailSpin } from "react-loader-spinner";
+import SeventhStep from "./SeventhStep";
+import NewEightStep from "./NewEightStep";
+import EightStep from "./EightStep";
 
 // const userData = JSON.parse(localStorage.getItem("userData"));
 // const userName = userData?.name;
 function ManageQuoteRequest({ FirstPageAction }) {
   const { id: quoteId } = useParams();
-  const [quoteData, setQuoteData] = useState();
+  const [quoteData, setQuoteData] = useState({});
   const [userData1, setUserData1] = useState();
   const [status, setStatus] = useState("");
   const [site_details, setSite_details] = useState({});
@@ -47,6 +50,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     acc6: false,
     acc7: false,
     acc8: false,
+    acc9: false,
   });
   const [pricing, setPricing] = useState({ data: [], discount: false });
   const [isDiscount, setIsDiscount] = useState(false);
@@ -59,6 +63,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     getQuote(quoteId).then((res) => {
       console.log("res", res?.data?.data);
       setQuoteData(res?.data?.data);
+      setLoader(false);
     });
   }, [quoteId]);
   useEffect(() => {
@@ -89,7 +94,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
     temp[`${e.target.name}`] = e.target.value;
     setSite_details(temp);
   };
-
+  console.log(quoteData);
   return (
     <>
       {loader && (
@@ -115,6 +120,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -192,6 +199,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -289,6 +298,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -304,7 +315,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              {/* <Occupancy quoteData={quoteData} /> */}
+              <Occupancy quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -320,6 +331,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -335,16 +348,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <FabricType />
-              <button
-                className="browsebtn"
-                onClick={() => {
-                  // setIsSavedStatus(true);
-                  // createUpdateFabric();
-                }}
-              >
-                Save
-              </button>
+              <FabricType quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -360,6 +364,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -375,17 +381,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <Drawings />
-
-              <button
-                className="browsebtn"
-                onClick={() => {
-                  // setIsSavedStatus(true);
-                  // createUpdateFabric();
-                }}
-              >
-                Save
-              </button>
+              <Drawings quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -401,6 +397,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -417,171 +415,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
               {/* <FourthStep /> */}
-              <Photos />
-              {/* <Grid
-                gridTemplateColumns="repeat(1, 1fr)"
-                columnGap="10px"
-                columnCount={2}
-              ></Grid> */}
-              {/* <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <Box>
-                  <Typography className="Output Heading">Walls</Typography>
-                  <Box>
-                    {quoteData?.photos?.walls.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography className="Output Heading">Roof</Typography>
-                  <Box>
-                    {quoteData?.photos?.roof.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography className="Output Heading">Windows</Typography>
-                  <Box>
-                    {quoteData?.photos?.windows.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography className="Output Heading">
-                    Existing Boiler
-                  </Typography>
-                  <Box>
-                    {quoteData?.photos?.existing_boiler.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography className="Output Heading">
-                    Existing Radiator
-                  </Typography>
-                  <Box>
-                    {quoteData?.photos?.existing_radiator.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-                <Box>
-                  <Typography className="Output Heading">Pipework</Typography>
-                  <Box>
-                    {quoteData?.photos?.pipework.map((item, index) => (
-                      <div
-                        className="file1"
-                        style={{ borderRadius: "1.9vw" }}
-                        key={index}
-                      >
-                        <span style={{ float: "left", marginLeft: "1vw" }}>
-                          <img
-                            src={require("../../../Img/attachIcon.png")}
-                            style={{
-                              height: "2.8vh",
-                              width: "1vw",
-                            }}
-                          />
-
-                          <span className="fileName">{item}</span>
-                        </span>
-                      </div>
-                    ))}
-                  </Box>
-                </Box>
-              </Box> */}
-              <button
-                className="browsebtn"
-                onClick={() => {
-                  // setIsSavedStatus(true);
-                  // createUpdateFabric();
-                }}
-              >
-                Save
-              </button>
+              <Photos quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -597,6 +431,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc1 = false;
               temp.acc7 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -612,101 +448,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              {/* <Grid
-                gridTemplateColumns="repeat(1, 1fr)"
-                columnGap="10px"
-                columnCount={3}
-                rowGap="20px"
-              > */}
-              <div style={{ marginBottom: "6%" }}>
-                <div style={{ marginTop: "2.5%" }}>
-                  <StyledTextField
-                    select
-                    sx={{ width: "20%" }}
-                    value={"Gas"}
-                    // onChange={(e) => {
-                    //   setPriority(e.target.value);
-                    //   setPriorityValue(heatValue[e.target.value]);
-                    // }}
-                    // onFocus={() => setFocused(true)}
-                    // onBlur={() => setFocused(false)}
-                    // IconComponent={() =>
-                    //   focused ? (
-                    //     <KeyboardArrowUpIcon />
-                    //   ) : (
-                    //     <KeyboardArrowDownIcon />
-                    //   )
-                    // }
-                  >
-                    <MenuItem value="Gas">Gas</MenuItem>
-                    <MenuItem value="Heat Pump">Heat Pump</MenuItem>
-                    <MenuItem value="Wood">Wood</MenuItem>
-                    <MenuItem value="Oil">Oil</MenuItem>
-                    <MenuItem value="LPG">LPG</MenuItem>
-                  </StyledTextField>
-                </div>
-
-                <div>
-                  <Typography
-                    style={{
-                      fontSize: "22px",
-                      fontFamily: "Outfit",
-                      fontWeight: "300",
-                      marginTop: "2%",
-                      color: "#fa5e00",
-                    }}
-                  >
-                    Gas Annual Usage
-                  </Typography>
-
-                  <Typography sx={{ marginTop: "2vh" }}>
-                    <TextField
-                      sx={{ width: "30%" }}
-                      label={`Amount of Gas (kWh)`}
-                      // value={currnetBills?.amount_of_gas}
-                      // onChange={(e) => {
-                      //   let temp = currnetBills;
-                      //   temp["amount_of_gas"] = e.target.value;
-                      //   setCurrentBills(temp);
-                      // }}
-                    />
-                  </Typography>
-                  <h3
-                    style={{
-                      fontSize: "22px",
-                      fontFamily: "Outfit",
-                      fontWeight: "300",
-                      marginTop: "2%",
-                      color: "#fa5e00",
-                    }}
-                  >
-                    Gas Annual Spend
-                  </h3>
-
-                  <Typography sx={{ marginTop: "2vh" }}>
-                    <TextField
-                      sx={{ width: "30%" }}
-                      label={`Cost of Gas (£)`}
-                      // value={currnetBills?.cost_of_gas}
-                      // onChange={(e) => {
-                      //   let temp = currnetBills;
-                      //   temp["cost_of_gas"] = e.target.value;
-                      //   setCurrentBills(temp);
-                      // }}
-                    />
-                  </Typography>
-                </div>
-              </div>
-              {/* </Grid> */}
-              <button
-                className="browsebtn"
-                onClick={() => {
-                  // setIsSavedStatus(true);
-                  // createUpdateFabric();
-                }}
-              >
-                Save
-              </button>
+              <SeventhStep quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
           <Accordion
@@ -722,6 +464,8 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc6 = false;
               temp.acc1 = false;
               temp.acc8 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -737,10 +481,10 @@ function ManageQuoteRequest({ FirstPageAction }) {
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <RadiatorWindow quoteData={quoteData} quoteId={quoteId} />
+              <RadiatorWindow quoteData={quoteData} />
             </AccordionDetails>
           </Accordion>
-          {/* <Accordion
+          <Accordion
             expanded={checkAccordion.acc8}
             onChange={() => {
               let temp = { ...checkAccordion };
@@ -751,8 +495,10 @@ function ManageQuoteRequest({ FirstPageAction }) {
               temp.acc4 = false;
               temp.acc5 = false;
               temp.acc6 = false;
-              temp.acc7 = false;
               temp.acc1 = false;
+              temp.acc7 = false;
+              temp.acc9 = false;
+
               setCheckAccordion({ ...temp });
             }}
           >
@@ -764,262 +510,46 @@ function ManageQuoteRequest({ FirstPageAction }) {
                   fontFamily: "Outfit !important",
                 }}
               >
-                Pricing
+                Ventilation and Draught
               </Typography>
             </AccordionSummary>
             <AccordionDetails sx={{ p: 0 }}>
-              <Grid
-                sx={{ mb: 6 }}
-                gridTemplateColumns="repeat(1, 1fr)"
-                columnGap="10px"
-                columnCount={2}
-              >
-                <Box>
-                  <div style={{ marginTop: "1.5%" }}>
-                    <Box>
-                      <Checkbox
-                        disabled={isDiscount}
-                        // checked={
-                        //   (pricing && pricing >= 394) || pricing >= 299
-                        //     ? true
-                        //     : false
-                        // }
-                        onChange={(e) => {
-                          e.target.checked
-                            ? setPricing(pricing + 299)
-                            : setPricing(pricing - 299);
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          width: "30%",
-                          mt: 2,
-                          ml: 2,
-                        }}
-                      >
-                        Heat Loss Calculation
-                      </Typography>
-                      <Typography
-                        sx={{
-                          width: "40px",
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          fontWeight: "900",
-                          textAlign: "right",
-                        }}
-                      >
-                        £299
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Checkbox
-                        disabled={isDiscount}
-                        // checked={
-                        //   (pricing && pricing >= 394) ||
-                        //   (pricing >= 75 && 75 >= pricing - 299)
-                        //     ? true
-                        //     : false
-                        // }
-                        // defaultChecked={}
-                        onChange={(e) => {
-                          e.target.checked
-                            ? setPricing(pricing + 75)
-                            : setPricing(pricing - 75);
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          width: "30%",
-                          mt: 2,
-                          ml: 2,
-                        }}
-                      >
-                        Emitter Sizing
-                      </Typography>
-                      <Typography
-                        sx={{
-                          width: "40px",
-
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          fontWeight: "900",
-                          textAlign: "right",
-                        }}
-                      >
-                        £75
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Checkbox
-                        disabled={isDiscount}
-                        // checked={
-                        //   (pricing && pricing >= 394) ||
-                        //   (pricing >= 10 && 10 >= pricing - (299 + 75))
-                        //     ? true
-                        //     : false
-                        // }
-                        // defaultChecked={}
-                        onChange={(e) => {
-                          e.target.checked
-                            ? setPricing(pricing + 10)
-                            : setPricing(pricing - 10);
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          width: "30%",
-                          mt: 2,
-                          ml: 2,
-                        }}
-                      >
-                        Noise Assessment
-                      </Typography>
-                      <Typography
-                        sx={{
-                          width: "40px",
-
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          fontWeight: "900",
-                          textAlign: "right",
-                        }}
-                      >
-                        £10
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Checkbox
-                        // defaultChecked={}
-                        disabled={isDiscount}
-                        checked={pricing && pricing >= 394 ? true : false}
-                        onChange={(e) => {
-                          e.target.checked
-                            ? setPricing(pricing + 10)
-                            : setPricing(pricing - 10);
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          width: "30%",
-                          mt: 2,
-                          ml: 2,
-                        }}
-                      >
-                        DNO Application
-                      </Typography>
-                      <Typography
-                        sx={{
-                          width: "40px",
-
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          fontWeight: "900",
-                          textAlign: "right",
-                        }}
-                      >
-                        £10
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Checkbox
-                        checked={pricing.discount}
-                        // defaultChecked={false}
-                        onChange={(e) => {
-                          let temp = { ...pricing };
-                          if (e.target.checked) {
-                            setIsDiscount(true);
-                            temp.discount = true;
-                            temp.data = [];
-                          } else {
-                            setIsDiscount(false);
-                            temp.discount = false;
-                          }
-                          setPricing(temp);
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          width: "30%",
-                          mt: 2,
-                          ml: 2,
-                        }}
-                      >
-                        Discount for all 4
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          width: "40px",
-
-                          display: "inline-block",
-                          fontFamily: "Outfit",
-                          fontWeight: "900",
-                          textAlign: "right",
-                        }}
-                      >
-                        £349
-                      </Typography>
-                      <Typography
-                        sx={{
-                          width: "40px",
-                          // display: "inline-block",
-                          fontFamily: "Outfit",
-                          marginLeft: "36%",
-                          textAlign: "right",
-                          // float: "right",
-                        }}
-                      >
-                        Total
-                      </Typography>
-                      <hr
-                        style={{
-                          width: "41%",
-                          backgroundColor: "#f2f3f2",
-                          border: "0.1vh solid #f2f3f2",
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          width: "40px",
-                          // display: "inline-block",
-                          fontFamily: "Outfit",
-                          marginLeft: "36%",
-                          fontWeight: "900",
-                          textAlign: "right",
-                          // float: "right",
-                        }}
-                      >
-                        £{pricing || 0}
-                      </Typography>
-                    </Box>
-                  </div>
-                  <div style={{ marginTop: "1.5%" }}>
-                    <textarea
-                      className="quotetextarea"
-                      value={other_details}
-                      onChange={(e) => {
-                        setOther_details(e.target.value);
-                      }}
-                      placeholder="Comments"
-                    ></textarea>
-                  </div>
-                </Box>
-              </Grid>
-              <button className="browsebtn" onClick={updatePricing}>
-                Save
-              </button>
+              <NewEightStep quoteData={quoteData} />
             </AccordionDetails>
-          </Accordion> */}
+          </Accordion>
+          <Accordion
+            expanded={checkAccordion.acc9}
+            onChange={() => {
+              let temp = { ...checkAccordion };
+              temp.acc9 = !temp.acc9;
+              temp.acc = false;
+              temp.acc2 = false;
+              temp.acc3 = false;
+              temp.acc4 = false;
+              temp.acc5 = false;
+              temp.acc6 = false;
+              temp.acc1 = false;
+              temp.acc7 = false;
+              temp.acc8 = false;
+
+              setCheckAccordion({ ...temp });
+            }}
+          >
+            <AccordionSummary expandIcon={<ImgIcon>{DropdownIcon}</ImgIcon>}>
+              <Typography
+                sx={{
+                  fontSize: "25px !important",
+                  fontWeight: "900 !important",
+                  fontFamily: "Outfit !important",
+                }}
+              >
+                Pricing and Other Details
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ p: 0 }}>
+              <EightStep quoteData={quoteData} />
+            </AccordionDetails>
+          </Accordion>
         </Box>
       </Card>
     </>

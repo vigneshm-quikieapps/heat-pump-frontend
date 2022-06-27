@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 // import "./FourthStep.css";
 import { FileUploader } from "react-drag-drop-files";
 import { toast } from "react-toastify";
-// import { TailSpin } from "react-loader-spinner";
+import { TailSpin } from "react-loader-spinner";
 import axios from "axios";
 import URL from "../../../GlobalUrl";
-import globalAPI from "../../../GlobalUrl";
+import globalAPI from "../../../GlobalApi";
 import { Box, Typography } from "@mui/material";
 import ChevronRightSharpIcon from "@mui/icons-material/ChevronRightSharp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-// import { Card } from "../../../../common";
-// import { set } from "react-hook-form";
+import { Card } from "../../../common";
+import { set } from "react-hook-form";
+import { getQuote, UpdateJob } from "../../../services/services";
+
+import { connect, useDispatch } from "react-redux";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 // let flag = false;
-const Drawings = (props) => {
+const FourthStep = (props) => {
   const [plans, setPlans] = useState([]);
   const [pattachments, setPattachments] = useState([]);
   const [elevations, setElevations] = useState([]);
@@ -23,12 +26,19 @@ const Drawings = (props) => {
   const [sattachments, setSattachments] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  // const [flag, setFlag] = useState(false);
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    setElevations(props?.quoteData?.drawings?.elevations || elevations);
+    setSections(props?.quoteData?.drawings?.sections || sections);
+    setPlans(props?.quoteData?.drawings?.plans || plans);
+  }, [props]);
+  const updateStatus = (e) => {
+    UpdateJob(props?.quoteData?._id, {
+      drawings: { plans: plans, sections: sections, elevations: elevations },
+    }).then((res) => {
+      toast.success("Updated successfully");
+    });
+  };
   const onFileUpload = (e, name) => {
-    console.log(name);
     if (e) {
       let formData = new FormData();
       formData.append("attachments", e);
@@ -39,22 +49,21 @@ const Drawings = (props) => {
         data: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-          // Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDFmNTFlZDYxZTAxNTg3ZGY3MTNlMCIsIm5hbWUiOiJCcmVuZGFuIERlbmVzaWsiLCJlbWFpbCI6ImN1c3RvbWVyQGdtYWlsLmNvbSIsImFkbWluIjpmYWxzZSwiYnVzaW5lc3NfYWRtaW4iOmZhbHNlLCJpYXQiOjE2NTA5NzYyNDIsImV4cCI6MTY1MTAxOTQ0Mn0.8eLacwL7GghZFr4lfeWdfzS1fQWBKy6-oejq3ojBvEQ`,
         },
       })
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          if (res.success) {
+          if (res?.success) {
             if (name == "plans") {
               pattachments.push(res.data.message[0]);
-              setPlans([...plans, e]);
+              setPlans([...plans, e.name]);
             } else if (name == "sections") {
               sattachments.push(res.data.message[0]);
-              setSections([...sections, e]);
+              setSections([...sections, e.name]);
             } else {
               eattachments.push(res.data.message[0]);
-              setElevations([...elevations, e]);
+              setElevations([...elevations, e.name]);
             }
           } else {
             toast.error(res.data.message);
@@ -62,6 +71,7 @@ const Drawings = (props) => {
         })
         .catch((err) => {
           setLoader(false);
+
           toast.error("Something Went Wrong");
         });
     } else {
@@ -95,15 +105,21 @@ const Drawings = (props) => {
       setSattachments(newAttachments);
     }
   };
-  console.log(plans);
+
   return (
     <>
-      <h4 className="s4name1">Plans-GF/1F/2F</h4>
+      {/* <Card sx={{ m: 0 }}> */}
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
+      <h4 className="s4name1">Plans</h4>
       <hr className="s4hr2" />
       <div>
         <FileUploader
           handleChange={(e) => onFileUpload(e, "plans")}
-          name="file"
+          name="plans"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -127,7 +143,7 @@ const Drawings = (props) => {
 
         <FileUploader
           handleChange={(e) => onFileUpload(e, "plans")}
-          name="file"
+          name="plans"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -141,7 +157,7 @@ const Drawings = (props) => {
       </div>
 
       {plans &&
-        plans.map((item, index) => {
+        plans?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -158,7 +174,7 @@ const Drawings = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img
@@ -180,7 +196,7 @@ const Drawings = (props) => {
       <div>
         <FileUploader
           handleChange={(e) => onFileUpload(e, "elevations")}
-          name="file"
+          name="elevations"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -204,7 +220,7 @@ const Drawings = (props) => {
 
         <FileUploader
           handleChange={(e) => onFileUpload(e, "elevations")}
-          name="file"
+          name="elevations"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -217,7 +233,7 @@ const Drawings = (props) => {
         />
       </div>
       {elevations &&
-        elevations.map((item, index) => {
+        elevations?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -234,7 +250,7 @@ const Drawings = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img
@@ -256,7 +272,7 @@ const Drawings = (props) => {
       <div>
         <FileUploader
           handleChange={(e) => onFileUpload(e, "sections")}
-          name="file"
+          name="sections"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -280,7 +296,7 @@ const Drawings = (props) => {
 
         <FileUploader
           handleChange={(e) => onFileUpload(e, "sections")}
-          name="file"
+          name="sections"
           types={fileTypes}
           onTypeError={(err) =>
             toast.error("Only pdf, png, jpeg files are allowed")
@@ -293,7 +309,7 @@ const Drawings = (props) => {
         />
       </div>
       {sections &&
-        sections.map((item, index) => {
+        sections?.map((item, index) => {
           return (
             <div
               className="s4filemap"
@@ -310,7 +326,7 @@ const Drawings = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.name}</span>
+                <span className="s4fileName">{item}</span>
               </span>
 
               <img
@@ -326,13 +342,21 @@ const Drawings = (props) => {
             </div>
           );
         })}
-      {/* {flag && (
-        <span style={{ fontSize: "20px", color: "red", marginBottom: "5%" }}>
-          At least 1 drawing is mandatory for each topics
-        </span>
-      )} */}
+
+      <Box sx={{ display: "flex" }}></Box>
+      {/* </Card> */}
+      <button
+        className="browsebtn"
+        name="status"
+        style={{ marginTop: "5%", marginLeft: "-5px" }}
+        onClick={(e) => {
+          updateStatus(e);
+        }}
+      >
+        Save
+      </button>
     </>
   );
 };
 
-export default Drawings;
+export default FourthStep;

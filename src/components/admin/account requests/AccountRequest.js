@@ -198,6 +198,8 @@ const AccountRequest = ({ adminFirstPageAction }) => {
                 ? "Inprogress"
                 : item?.status === 3
                 ? "Active"
+                : item?.status === 5
+                ? "Rejected"
                 : "-",
             ],
           })
@@ -323,7 +325,11 @@ const AccountRequest = ({ adminFirstPageAction }) => {
               </MenuItem>
               <MenuItem value="3" style={{ fontWeight: 600 }}>
                 {" "}
-                Active{" "}
+                Active (Approved)
+              </MenuItem>
+              <MenuItem value="5" style={{ fontWeight: 600 }}>
+                {" "}
+                Rejected
               </MenuItem>
               {/* <MenuItem value="0" style={{ fontWeight: 600 }}>
                 {" "}

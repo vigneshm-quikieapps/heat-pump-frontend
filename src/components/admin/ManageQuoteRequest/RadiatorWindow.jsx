@@ -16,6 +16,7 @@ import DeleteIcon from "../../../Img/icon remove.png";
 import IconButton from "@mui/material/IconButton";
 import { getQuote, UpdateJob } from "../../../services/services";
 
+import { connect, useDispatch } from "react-redux";
 const useStyles = makeStyles({
   textfield: {
     "& label.Mui-focused": {
@@ -66,7 +67,7 @@ const useStyles = makeStyles({
   },
 });
 
-const RadiatorWindow = (props) => {
+const SixthStep = (props) => {
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
@@ -78,21 +79,37 @@ const RadiatorWindow = (props) => {
       window_size: "",
     },
   ]);
-  useEffect(() => {
-    props?.quoteData?.radiator_and_window_sizes &&
-      setInputList(props?.quoteData?.radiator_and_window_sizes);
-  }, [props?.quoteData]);
+  const Input = () => {
+    return (
+      <div style={{ marginTop: "2.5%" }}>
+        <StyledTextField
+          sx={{ marginRight: "40px", width: "20%" }}
+          label="Room Description"
+          value={""}
+          onChange={""}
+        />
+        <StyledTextField
+          sx={{ marginRight: "40px", width: "20%" }}
+          label="Radiator (H x W in mm)"
+          value={""}
+          onChange={""}
+        />
+        <StyledTextField
+          sx={{ width: "20%" }}
+          label="Window (H x W in mm)"
+          value={""}
+          onChange={""}
+        />
+      </div>
+    );
+  };
 
+  useEffect(() => {
+    setInputList(props?.quoteData?.radiator_and_window_sizes || inputList);
+  }, [props]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const updateRad = (e) => {
-    UpdateJob(props?.quoteId, { radiator_and_window_sizes: inputList }).then(
-      (res) => {
-        toast.success("Updated successfully");
-      }
-    );
-  };
   const onAddBtnClick = (event) => {
     let temp = [...inputList];
     temp.push({
@@ -107,10 +124,28 @@ const RadiatorWindow = (props) => {
     temp[index][field] = newValue;
     setInputList(temp);
   };
+  const updateStatus = (e) => {
+    UpdateJob(props?.quoteData?._id, {
+      radiator_and_window_sizes: inputList,
+    }).then((res) => {
+      toast.success("Updated successfully");
+    });
+  };
   return (
     <>
+      {/* <Card> */}
+      {loader && (
+        <div className="customLoader">
+          <TailSpin color="#fa5e00" height="100" width="100" />
+        </div>
+      )}
+
+      <Typography sx={{ color: "gray", fontFamily: "Outfit" }}>
+        Please fill in the details for rooms with multiple radiators or windows
+        by adding another room.
+      </Typography>
       {/* {inputList} */}
-      {inputList?.length &&
+      {inputList.length &&
         inputList?.map((item, index) => (
           <div style={{ marginTop: "2.5%" }} key={`inputList${index}`}>
             <StyledTextField
@@ -205,13 +240,19 @@ const RadiatorWindow = (props) => {
           Add Room
         </Button>
       </Typography>
-      <div style={{ marginTop: "6%", marginLeft: "-5px" }}>
-        <button className="browsebtn" onClick={updateRad}>
-          Save
-        </button>
-      </div>
+      {/* </Card> */}
+      <button
+        className="browsebtn"
+        name="status"
+        style={{ marginTop: "5%", marginLeft: "-5px" }}
+        onClick={(e) => {
+          updateStatus(e);
+        }}
+      >
+        Save
+      </button>
     </>
   );
 };
 
-export default RadiatorWindow;
+export default SixthStep;
