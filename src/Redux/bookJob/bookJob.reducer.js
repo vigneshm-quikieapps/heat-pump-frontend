@@ -98,7 +98,7 @@ const INITIAL_STATE = {
   },
   ventilation_draught: {
     draught: "",
-    ventilation: [],
+    ventilation: ["", "", "", "", "", ""],
     other: "",
   },
   number_of_guests: "0",

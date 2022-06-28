@@ -27,7 +27,11 @@ const NewEightStep = (props) => {
   const [loader, setLoader] = useState(false);
   const [text, setText] = useState("");
   const token = JSON.parse(localStorage.getItem("user"));
-  const [data, setData] = useState({ ventilation: [], draught: "", other: "" });
+  const [data, setData] = useState({
+    ventilation: ["", "", "", "", "", ""],
+    draught: "",
+    other: "",
+  });
   const [toggleOther, setToggleOther] = useState({
     ventilation: true,
     draught: false,
@@ -38,14 +42,16 @@ const NewEightStep = (props) => {
   useEffect(() => {
     setData(props?.quoteData?.ventilation_draught || data);
   }, [props]);
-  const handleChange = (e) => {
+  const handleChange = (e, i) => {
     let temp = { ...data };
 
     if (e.target.name !== "Other") {
       e.target.checked
-        ? temp["ventilation"]?.push(e.target.name)
+        ? (temp["ventilation"][i] = e.target.name)
         : temp["ventilation"]?.map((item, index) => {
-            e.target.name === item && temp["ventilation"]?.splice(index, 1);
+            return e.target.name === item
+              ? (temp["ventilation"][index] = "")
+              : (temp["ventilation"][index] = item);
           });
     } else {
       if (!toggleOther.ventilation) {
@@ -96,7 +102,7 @@ const NewEightStep = (props) => {
               checked={data.ventilation[0] === "Natural Ventilation"}
               name="Natural Ventilation"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 0);
               }}
             />
             <Typography
@@ -116,7 +122,7 @@ const NewEightStep = (props) => {
               }
               name="Natural ventilation with trickle vents"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 1);
               }}
             />
             <Typography
@@ -137,7 +143,7 @@ const NewEightStep = (props) => {
               }
               name="Intermittent extract fans in bathrooms/kitchen"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 2);
               }}
             />
             <Typography
@@ -155,7 +161,7 @@ const NewEightStep = (props) => {
               checked={data.ventilation[3] === "Whole house extract"}
               name="Whole house extract"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 3);
               }}
             />
             <Typography
@@ -173,7 +179,7 @@ const NewEightStep = (props) => {
               checked={data.ventilation[4] === "Positive input Fan from Loft"}
               name="Positive input Fan from Loft"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 4);
               }}
             />
             <Typography
@@ -194,7 +200,7 @@ const NewEightStep = (props) => {
               }
               name="Mechanical Ventilation with heat recovery (MVHR)"
               onChange={(e) => {
-                handleChange(e);
+                handleChange(e, 5);
               }}
             />
             <Typography
