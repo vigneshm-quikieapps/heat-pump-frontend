@@ -241,7 +241,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
       </Typography>
       <hr className="arcontainerhr" />
       <Card>
-        <div className="arsecondrow">
+        <div className="arsecondrow" style={{ minWidth: "700px" }}>
           <div
             className="arouterbox"
             onClick={() => {
@@ -254,7 +254,9 @@ const QuoteList = ({ adminFirstPageAction }) => {
                 {data.newPaid || 0}
               </Typography>
             </div>
-            <div className="arsecond-row-text">New - Paid</div>
+            <div className="arsecond-row-text" style={{ width: "max-content" }}>
+              New - Paid
+            </div>
           </div>
           <div
             className="arouterbox"
@@ -269,7 +271,9 @@ const QuoteList = ({ adminFirstPageAction }) => {
                 {data.newUnpaid || 0}
               </Typography>
             </div>
-            <div className="arsecond-row-text">New - Unpaid</div>
+            <div className="arsecond-row-text" style={{ width: "max-content" }}>
+              New - Unpaid
+            </div>
           </div>
           <div
             className="arouterbox"
