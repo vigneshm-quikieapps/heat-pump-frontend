@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import StyledTextField from "../../../common/textfield";
 import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-toastify";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
 
 import Occupancy from "./Occupancy";
 import FabricType from "./FabricType";
@@ -32,7 +33,7 @@ import EightStep from "./EightStep";
 
 // const userData = JSON.parse(localStorage.getItem("userData"));
 // const userName = userData?.name;
-function ManageQuoteRequest({ FirstPageAction }) {
+function ManageQuoteRequest({ adminFirstPageAction }) {
   const { id: quoteId } = useParams();
   const [quoteData, setQuoteData] = useState({});
   const [userData1, setUserData1] = useState();
@@ -56,7 +57,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
   const [isDiscount, setIsDiscount] = useState(false);
   const [other_details, setOther_details] = useState("");
   useEffect(() => {
-    FirstPageAction(true);
+    adminFirstPageAction(false);
   }, []);
 
   useEffect(() => {
@@ -556,7 +557,7 @@ function ManageQuoteRequest({ FirstPageAction }) {
   );
 }
 const mapDispatchtoProps = (dispatch) => ({
-  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
 });
 
 export default connect(null, mapDispatchtoProps)(ManageQuoteRequest);

@@ -399,42 +399,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
               // isFetching={false}
             />
           </Box>
-          {/*<table>
-            <thead className="arthead">
-              <tr>
-                <th>Customer Name</th>
-                <th>Mobile Number</th>
-                <th scope="col">Email</th>
-                <th scope="col">Business Name</th>
-                <th scope="col">Submitted Date Time</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody className="artbody">
-              {_DATA &&
-                _DATA.currentData().map((item, index) => {
-                  console.log("itemmmm", item);
-                  return (
-                    <tr
-                      onClick={() => manageService(item)}
-                      key={index}
-                      className="arspecifictr"
-                    >
-                      <td scope="row"> {item.name}</td>
-                      <td>{item.mobile}</td>
-                      <td>{item.email}</td>
-                      <td>{item.business_registered_name}</td>
-                      <td>
-                        {moment(item.createdAt).format("DD/MM/YYYY h:mm a")}
-                      </td>
-                      {item.status == 1 && <td>New</td>}
-                      {item.status == 2 && <td>Inprogress</td>}
-                      {item.status == 3 && <td>Active</td>}
-                    </tr>
-                  );
-                })}
-            </tbody>
-              </table>*/}
+
 
           {_DATA.currentData().length == 0 && (
             <h4
