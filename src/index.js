@@ -26,14 +26,22 @@ ReactDOM.render(
       {isMobile ? (
         <div
           style={{
-            height: "max-content",
-            width: "max-content",
             minHeight: "100%",
             minWidth: "100%",
             backgroundImage:
               "linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%)",
           }}
         >
+          {/* <div style={{ position: "absolute", top: "110px", height: "60%" }}> */}
+          <img
+            src={require("./Img/ellipse.png")}
+            alt=""
+            style={{ position: "absolute", top: "24%", width: "40%" }}
+            // height={"100%"}
+            // width={"60%"}
+            // className="ellipse"
+          />
+          {/* </div> */}
           <div>
             <img
               style={{
@@ -54,8 +62,8 @@ ReactDOM.render(
           >
             <img
               style={{
-                width: "400px",
-                height: "400px",
+                width: "60%",
+                height: "60%",
               }}
               src={icon}
               alt="icon"
@@ -63,7 +71,7 @@ ReactDOM.render(
           </div>
           <div
             style={{
-              marginTop: "15%",
+              marginTop: "20%",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -73,7 +81,7 @@ ReactDOM.render(
             <div
               style={{
                 width: "70%",
-                height: "100px",
+                height: "85px",
                 flexGrow: "0",
                 borderRadius: "10px",
                 backgroundColor: "#f4f2ea",
@@ -114,14 +122,25 @@ ReactDOM.render(
                 this on a Desktop / Laptop.
               </div>
             </div>
-            <div>
+            <div
+              style={{
+                width: "60%",
+                minWidth: "200px",
+                maxWidth: "250px",
+              }}
+            >
               <a
                 href="https://heatpumpdesigner.com/"
                 target="_blank"
                 style={{ textDecoration: "none" }}
               >
                 <button
-                  style={{ color: "white", backgroundColor: "black" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "black",
+                    justifyContent: "space-around",
+                    width: "100%",
+                  }}
                   variant="contained"
                   className="btn-house btn-icon"
                 >
@@ -130,7 +149,9 @@ ReactDOM.render(
                       sx={{ height: "27px", width: "27px" }}
                     />
                   </span>
-                  <span style={{ marginLeft: "70px" }}>Back to Website</span>
+                  <span style={{ marginLeft: "5px", fontSize: "1.8vh" }}>
+                    Back to Website
+                  </span>
                 </button>
               </a>
             </div>
