@@ -284,7 +284,6 @@ const QuoteList = ({ adminFirstPageAction }) => {
           >
             <div className="arsquarebox">
               <Typography style={{ fontSize: "40px", fontWeight: "600" }}>
-                {/* {box.inprogress ? box.inprogress : 0} */}
                 {data.inprogress || 0}
               </Typography>
             </div>
