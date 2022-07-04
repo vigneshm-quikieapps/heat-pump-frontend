@@ -1,0 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.rca3 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0 0 0 0;
+  background-color: #fff;
+}
+
+.rca3firstHalf {
+  width: 964.455px;
+  display: inline-block;
+}
+
+.rca3HPD {
+  margin: 5.8vh 0 5.34vh 2.9vw;
+
+  display: inline-block;
+}
+.sandesh {
+  font-family: cursive;
+}
+
+.rca3left-bar {
+  width: 500.151px;
+  height: 7.254px;
+  background-color: rgba(250, 96, 0, 0.664);
+  margin: 0px 0px 0px 55px;
+  border-top-left-radius: 0.26vw;
+  border-bottom-left-radius: 0.26vw;
+  display: inline-block;
+  position: relative;
+}
+.greentick {
+  width: 1.41vw;
+  height: 3vh;
+  position: relative;
+  right: 0.66vw;
+  top: 1vh;
+}
+
+.rca3div1 {
+  width: 38.4vw;
+  margin: 0.67vh 0px 0px 6.51vw;
+  position: relative;
+  font-weight: 600;
+  font-family: Outfit;
+  color: #000000;
+  font-size: 2.8vw;
+  /* font-stretch: normal;
+    font-style: normal;
+    line-height: normal; */
+  /*   letter-spacing: 0.41px; */
+  text-align: left;
+}
+
+.rca3buttonstart {
+  margin-top: 8.05vh;
+  margin-left: 6.51vw;
+  border-radius: 4.36vw;
+  background-color: #000;
+  color: white;
+  width: 13.02vw;
+  height: 6.71vh;
+  position: absolute;
+}
+
+.rca3iconright {
+  margin-left: 5.86vw;
+}
+
+.rca3Rectangle-side {
+  width: 40%;
+  /* height: 100vh; */
+  margin-left: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: self-end;
+  background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
+}
+
+/*   @media screen and (max-height: 700px) {
+    .rca3Rectangle-side {
+      height: auto;
+    }
+  } */
+
+.rca3couplesideImg {
+  width: 31.9vw;
+  height: 400px;
+  /* margin-left: 6.51vw;
+  position: absolute;
+  bottom: 0px; */
+}
+
+.rca3buttonstart {
+  margin-top: 4.06vh;
+  margin-left: 6.51vw;
+  border-radius: 2.11vw;
+  background-color: #000;
+  color: white;
+  width: 13vw;
+  height: 6.71vh;
+  position: absolute;
+  border: none;
+  font-size: 0.9vw;
+}
+.Text {
+  width: 760px;
+  height: 56px;
+  flex-grow: 0;
+  margin: 4% 0 98px 6%;
+  font-family: Outfit;
+  font-size: 20px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.03px;
+  text-align: left;
+  color: #000;
+}

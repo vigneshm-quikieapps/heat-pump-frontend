@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+.-Login {
+  display: flex;
+  height: max-content;
+  min-height: 100%;
+}
+
+.HPD-Existing-Logo---01-11 {
+  margin: 5vh 0 6vh 1vw;
+  height: 5vh;
+  width: 2.5vw;
+  display: inline-block;
+}
+.Login {
+  width: 783px;
+  height: 88px;
+  flex-grow: 0;
+  margin: 0 197px 40px 75px;
+  position: relative;
+  font-family: Outfit;
+  font-size: 60px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 0.41px;
+  text-align: left;
+  color: #000;
+  /* fontSize: "60px",
+              fontWeight: "300",
+              fontFamily: "Outfit",
+              position: "relative",
+              width: "783px",
+              height: "88px",
+              margin: "0 197px 40px 55px", */
+}
+
+.firstHalf {
+  width: 60%;
+  /* display: inline-block; */
+}
+
+.email {
+  width: 28.64vw;
+  height: 6.45vh;
+  margin: 6.04vh 0px 0px 3.58vw;
+  padding-left: 2.2vw;
+  padding-top: 0.26vh;
+  position: relative;
+  border-radius: 0.66vw;
+  border: solid 0.13vh #cdcdcd;
+  background-color: #fff;
+  font-size: 1vw;
+}
+.email-label {
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 6vw;
+  top: 8.18vh;
+  transition: 0.2s;
+  font-size: 0.91vw;
+}
+.email:focus ~ .email-label,
+.email:valid ~ .email-label {
+  top: 4.95vh;
+  left: 5.2vw;
+  font-size: 0.8vw;
+  color: #525252;
+  background-color: #fff;
+  padding: 0 0.33vw 0 0.33vw;
+}
+.emailIcon {
+  position: relative;
+  right: 483.96px;
+  top: 17.612px;
+  height: 18.9766px;
+  width: 21.777px;
+}
+.password {
+  width: 28.64vw;
+  height: 6.45vh;
+  margin: 0.67vh 0px 0px 3.58vw;
+  padding-left: 2vw;
+  position: relative;
+  border-radius: 0.66vw;
+  border: solid 0.13vh #cdcdcd;
+  background-color: #fff;
+  font-size: 1vw;
+}
+
+.password-label {
+  color: #999;
+  position: absolute;
+  pointer-events: none;
+  left: 6vw;
+  top: 2.82vh;
+  transition: 0.2s;
+  font-size: 0.91vw;
+}
+.password:focus ~ .password-label,
+.password:valid ~ .password-label {
+  top: -0.53vh;
+  left: 5.2vw;
+  font-size: 0.8vw;
+  color: #525252;
+  background-color: #fff;
+  padding: 0 0.33vw 0 0.33vw;
+}
+.passwordIcon {
+  position: relative;
+  right: 483.96px;
+  top: 20.612px;
+  height: 24.9766px;
+  width: 21.777px;
+}
+
+.loginspan1 {
+  color: #a4a4a4;
+  font-size: 0.91vw;
+  margin-top: 1.34vh;
+  margin-left: 3.58vw;
+  margin-bottom: 0.67vh;
+  display: block;
+  font-weight: 300;
+}
+.loginspan2 {
+  color: red;
+  font-size: 0.91vw;
+  margin-top: 0.67vh;
+  margin-left: 6.51vw;
+  margin-bottom: 0.67vh;
+  display: block;
+  font-weight: 300;
+}
+.eyeIcon {
+  position: relative;
+  right: 3.255vw;
+  top: 0.27vh;
+  height: 1.75vh;
+  width: 1.04vw;
+}
+.eyeIconOpen {
+  position: relative;
+  right: 3.255vw;
+  top: 0.27vh;
+  height: 2.013vh;
+  width: 1.04vw;
+}
+.icontick {
+  /* margin: 4.3vh 0px 0px 3.58vw; */
+  margin: 0px;
+  margin-top: 2%;
+  margin-left: 75px;
+  display: inline-flex;
+  width: 500px;
+  /* display: flex; */
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remember {
+  width: 187px;
+  height: 18px;
+  flex-grow: 0;
+  margin: 10px;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.36px;
+  text-align: left;
+  color: #000;
+  /* padding-left: 0.33vw;
+  font-weight: 600;
+  font-size: 0.83vw;
+
+  margin-bottom: 1.34vh;
+  position: relative;
+  bottom: 0.134vh;
+  float: left; */
+}
+.remember-me1 {
+  width: 20px;
+  height: 20px;
+  /* flex-grow: 0; */
+  /* margin: 50px 10px 47px 6px; */
+  /* object-fit: contain;
+  background-color: #000; */
+  /* width: 0.78vw;
+  height: 1.61vh; */
+  float: left;
+  font-family: Outfit;
+  font-size: 18px;
+  /* margin-top: 0.08vw; */
+  margin-left: 15px;
+}
+
+.remember-me {
+  width: 0.78vw;
+  height: 1.61vh;
+  float: left;
+  margin-top: 0.08vw;
+}
+
+.Forgot-password {
+  float: right;
+  color: #fa5e00;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-block;
+  font-family: Outfit;
+  position: relative;
+  top: "0.2vw";
+  margin-bottom: 1.34vh;
+}
+
+.login-button {
+  width: 247px;
+  height: 65px;
+  flex-grow: 0;
+  margin: 47px 363px 25px 180px;
+  padding: 21px 74px 21px 73px;
+  border-radius: 32.5px;
+  background-color: #000;
+  color: #fff;
+  font-family: Outfit;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.terms-policies {
+  text-decoration: underline;
+  margin: 1% 0px 0px 205px;
+  font-size: 14px;
+  display: flex;
+  cursor: pointer;
+  color: #000;
+}
+
+.Rectangle-2 {
+  width: 40%;
+  /* height: 100vh; */
+  margin: 0px 0 0 0px;
+  display: flex;
+  justify-content: space-around;
+  /* padding: 487px 105px 31.2px 106px; */
+  background-image: linear-gradient(to bottom, #f4f2ea 0%, #d9d6c9 100%);
+}
+
+/* @media screen and (max-height: 700px) {
+  .Rectangle-2 {
+    height: auto;
+  }
+} */
+
+.couple1Img {
+  width: 439px;
+  height: 328px;
+  margin-left: 0vw;
+  position: absolute;
+  bottom: 0.15vh;
+}
+
+.inputLogin1Error {
+  color: rgba(255, 0, 0, 0.699);
+  font-size: 0.85vw;
+}
+
+.inputLogin2Error {
+  color: rgba(255, 0, 0, 0.699);
+  position: relative;
+  right: 1vw;
+  font-size: 0.85vw;
+}
+
+.Dont-have-an-account-Sign-Up {
+  font-family: Outfit;
+  font-size: 18px;
+}

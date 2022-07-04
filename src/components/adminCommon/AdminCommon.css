@@ -1,0 +1,163 @@
+.adminsidebar {
+  height: 806px;
+  margin-left: 0px;
+  background-color: linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-100%);
+  display: none;
+}
+.HPDSideBar1 {
+  margin: 4.4vh 0 12vh 2.5vw;
+  height: 5vh;
+  width: 2.5vw;
+  display: inline-block;
+}
+.adminfirstli {
+  margin-top: 54.001999999999995px;
+  font-size: 18px;
+}
+
+li {
+  list-style: none;
+  padding: 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.adminmyquotes-text {
+  font-size: 18px;
+}
+
+.adminmy-servicerequest {
+  font-size: 18px;
+}
+.adminsidebar1 {
+  background-image: linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);
+  max-width: 272px;
+  min-width: 272px;
+  height: 100;
+
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  background-color: #d9d6c9;
+}
+.navList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1% 0;
+}
+.adminHPDSideBar {
+  margin: 4.4vh 0 6vh 2.5vw;
+  height: 5vh;
+  width: 2.5vw;
+  display: inline-block;
+}
+.adminsidbar-icon {
+  margin-left: 5%;
+  height: 22px;
+  width: 22px;
+}
+
+.adminnavbar {
+  width: 100%;
+  background-color: #fff;
+  display: inline-block;
+  height: 10vh;
+
+  /* transition:all 0.5s ease; */
+}
+.adminnavbar1 {
+  width: 100%;
+  height: 10vh;
+
+  background-color: #fff;
+  display: inline-block;
+  /* transition:all 0.5s ease; */
+}
+
+.admincollapse-icon {
+  margin-top: 3vh;
+  margin-left: 2.44vw;
+  height: 55px;
+  width: 55px;
+}
+
+.admincollapse-left {
+  margin-top: 3vh;
+  margin-left: 0.61vw;
+  height: 55px;
+  width: 55px;
+}
+
+.adminhome-icon {
+  margin-top: 3vh;
+  margin-left: 8vw;
+  height: 55px;
+  width: 55px;
+}
+
+.adminbell-icon {
+  margin-top: 3.35vh;
+  margin-left: 0.61vw;
+  height: 55px;
+  width: 55px;
+}
+
+.adminname-icon {
+  display: inline-block;
+  position: relative;
+}
+
+.adminaccount-icon {
+  margin-left: 1.2vw;
+  height: 55px;
+  width: 55px;
+}
+
+.adminredbar1 {
+  position: relative;
+  left: 3.6vw;
+  visibility: visible;
+  height: 6.71vh;
+  width: 0.65vw;
+}
+
+.adminredbar2 {
+  position: relative;
+  left: 4.3vw;
+  visibility: visible;
+  height: 6.71vh;
+  width: 0.65vw;
+}
+
+.adminredbar3 {
+  position: relative;
+  left: 3.9vw;
+  visibility: visible;
+  height: 6.71vh;
+  width: 0.65vw;
+}
+
+.adminredbar4 {
+  position: relative;
+  left: 4.9vw;
+  visibility: visible;
+  height: 6.71vh;
+  width: 0.65vw;
+}
+
+.adminellipse {
+  position: absolute;
+  bottom: 0;
+  height: 48.4vh;
+  width: 12.3vw;
+}

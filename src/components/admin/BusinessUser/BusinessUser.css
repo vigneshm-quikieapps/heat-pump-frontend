@@ -1,0 +1,235 @@
+.bucontainer {
+  padding: 1.67vh 0.67vw;
+  /* margin-left: 2.7vw; */
+}
+.butitle {
+  font-weight: 300;
+  font-size: 2.9vw;
+}
+
+.bucontainerhr {
+  width: 77%;
+  margin-left: 11.26vw;
+  background-color: #f2f3f2;
+  border: 0.134vh solid #f2f3f2;
+  margin-top: 1.67vh;
+}
+
+.bubtn {
+  background-color: black;
+  color: aliceblue;
+  border: none;
+  height: 6.1vh;
+  width: 12vw;
+  border-radius: 2.11vw;
+  margin-top: 4vh;
+  font-size: 1vw;
+}
+
+.butable {
+  width: 65.1vw;
+  margin-top: 1.34vh;
+}
+
+.buhead {
+  width: 48.82vw;
+  border-bottom: 0.134vh solid #f2f3f2;
+  font-size: 1vw;
+}
+
+.buiemail {
+  width: 19.53vw;
+  font-weight: bold;
+}
+
+.buname {
+  width: 11.71vw;
+  font-weight: bold;
+}
+
+.buPassData {
+  width: 9.76vw;
+}
+
+.bunumber {
+  width: 11.71vw;
+  font-weight: bold;
+}
+
+.bustatus {
+  width: 13.67vw;
+  font-weight: bold;
+}
+.butr {
+  border-bottom: none;
+}
+
+.butr:hover {
+  background-color: #f2f2f2;
+}
+.buselecttag {
+  width: 11.71vw;
+  font-size: 1.17vw;
+  border-radius: 0.33vw;
+  border: solid 0.134vw #cdcdcd;
+  height: 30px;
+  padding-left: 0.66vw;
+  height: 4.7vh;
+  font-weight: 300;
+}
+
+.buselecttag:focus ~ .budropdownimg {
+  transform: rotate(180deg);
+}
+.buoption1,
+.buoption2 {
+  font-weight: 300;
+  padding-top: 1.34vh;
+}
+.budropdownimg {
+  height: 1vh;
+  width: 0.76vw;
+  position: relative;
+  right: 1.6vw;
+  transition: all 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.bausermodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  overflow: auto;
+  border-radius: 1.6vw;
+  outline: none;
+  padding: 2.8vh 1.33vw;
+  width: 55.38vw;
+  height: auto;
+  z-index: 1000;
+}
+
+.bauseroverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.bauserdialogclose {
+  text-align-last: right;
+}
+.bauserdialog-row1 {
+  margin-left: 1.8vw;
+}
+
+.bauserdialog-row2 {
+  margin-left: 1.8vw;
+}
+
+.bainput {
+  border-radius: 0.66vw;
+  border: solid 0.134vh #cfcece;
+  background-color: #fff;
+  width: 19.53vw;
+  height: 5.9vh;
+  margin-top: 2.8vh;
+  padding-left: 0.66vw;
+  color: #000;
+}
+
+.bainput-label {
+  color: #999;
+  position: relative;
+  pointer-events: none;
+  right: 18.94vw;
+  transition: 0.2s;
+  font-size: 1vw;
+}
+
+.bainput:focus ~ .bainput-label,
+.bainput:valid ~ .bainput-label {
+  bottom: 3.08vh;
+  right: 19.45vw;
+  position: relative;
+  font-size: 0.7vw;
+  color: #525252;
+  background-color: #fff;
+  padding: 0 0.33vw 0 0.33vw;
+}
+
+.ba2input {
+  border-radius: 0.66vw;
+  border: solid 0.134vh #cfcece;
+  background-color: #fff;
+  width: 19.53vw;
+  height: 6.1vh;
+  margin-top: 2.7vh;
+  margin-left: 1.5vw;
+  padding-left: 0.66vw;
+  color: #000;
+}
+
+.ba2input-label {
+  color: #999;
+  position: relative;
+  pointer-events: none;
+  right: 18.88vw;
+  transition: 0.2s;
+  font-size: 1vw;
+}
+
+.ba2input:focus ~ .ba2input-label,
+.ba2input:valid ~ .ba2input-label {
+  bottom: 3vh;
+  right: 18.88vw;
+  position: relative;
+  font-size: 0.7vw;
+  color: #525252;
+  background-color: #fff;
+  padding: 0 0.33vw 0 0.33vw;
+}
+
+.bustatusdata {
+  z-index: 1000;
+}
+
+.input1Error {
+  color: rgba(255, 0, 0, 0.699);
+  font-size: 0.85vw;
+}
+
+.input2Error {
+  color: rgba(255, 0, 0, 0.699);
+  position: relative;
+  right: 1vw;
+  font-size: 0.85vw;
+}
+.input4Error {
+  color: rgba(255, 0, 0, 0.699);
+  position: relative;
+  top: 0.2vw;
+  font-size: 0.85vw;
+}
+
+.eyeeIcon {
+  position: relative;
+  /* right: 3.255vw;
+  top: 3.27vh; */
+  margin-top: 22px;
+  margin-left: -36px;
+  height: 18.2px;
+  width: 22px;
+}
+.eyeeIconOpen {
+  position: relative;
+  /* right: 3.255vw;
+  top: 3.27vh; */
+  margin-top: 22px;
+  margin-left: -36px;
+  height: 18.2px;
+  width: 22px;
+}

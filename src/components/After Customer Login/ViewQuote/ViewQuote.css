@@ -1,0 +1,42 @@
+.Rectangle-31 {
+  width: 65% !important;
+  height: 1px !important;
+  margin: 1.5% 0 50px 2.7% !important;
+  background-color: #e7e7e7 !important;
+  border: solid 1px #e7e7e7 !important;
+}
+.Output {
+  font-family: Outfit !important;
+  font-size: 18px !important;
+  font-weight: 900 !important;
+  font-stretch: normal !important;
+  font-style: normal !important;
+  line-height: normal !important;
+  letter-spacing: 0.03px !important;
+  margin-bottom: 6px !important;
+}
+.Output2 {
+  font-weight: 300 !important;
+  font-family: Outfit !important;
+}
+
+.Heading {
+  padding: 0 !important;
+  border-bottom: 1px solid #e7e7e7 !important;
+  max-width: 200px !important;
+  color: #fa5e00 !important;
+  margin-bottom: 2% !important;
+  text-align: right !important;
+  font-size: 25px !important;
+}
+.file1 {
+  width: 27%;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #f6f6f6;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
