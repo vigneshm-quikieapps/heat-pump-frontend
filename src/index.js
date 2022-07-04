@@ -45,8 +45,8 @@ ReactDOM.render(
           <div>
             <img
               style={{
-                width: "10.1931878658861095vw",
-                height: " 7.237006237006237vh",
+                width: "10%",
+                height: "10%",
                 margin: "20px",
               }}
               src={HPD}
@@ -118,7 +118,7 @@ ReactDOM.render(
                   fontWeight: "600",
                 }}
               >
-                This app is not optimized for your Mobile / Tablet. Kindly check
+                This app is not optimised for your Mobile / Tablet. Kindly check
                 this on a Desktop / Laptop.
               </div>
             </div>
