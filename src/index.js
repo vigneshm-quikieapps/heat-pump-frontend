@@ -7,18 +7,11 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./Redux/store";
-import {
-  BrowserView,
-  MobileView,
-  isBrowser,
-  isMobile,
-} from "react-device-detect";
+import { isMobile } from "react-device-detect";
 import HPD from "./Img/HPDD.jpeg";
 import icon from "./Img/illustration moving.webp";
 import error from "./Img/icon error.webp";
 import ChevronLeftSharpIcon from "@mui/icons-material/ChevronLeftSharp";
-import { Link, useNavigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
 
 ReactDOM.render(
   <Provider store={store}>
