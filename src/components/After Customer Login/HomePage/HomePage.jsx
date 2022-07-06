@@ -118,9 +118,9 @@ const HomePage = ({ FirstPageAction }) => {
   //     // fetchSeconddata();
   //   }, [page, status]);
 
-  //   useEffect(() => {
-  //     FirstPageAction(true);
-  //   }, []);
+  useEffect(() => {
+    FirstPageAction(true);
+  }, []);
 
   //   function fetchData() {
   //     const token = JSON.parse(localStorage.getItem("user"));

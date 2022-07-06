@@ -86,7 +86,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
   const [site_details, setSite_details] = useState("");
   const [count, setCount] = useState(1);
   const [customerName, setCustomerName] = useState("");
-  const [status, setStatus] = useState(1);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     adminFirstPageAction(true);
@@ -170,7 +170,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
   //     [navigate]
   //   );
   function searchfilter() {
-    // setStatus("1,2,3,4");
+    setStatus("");
     setPage(1);
     fetchSeconddata();
   }

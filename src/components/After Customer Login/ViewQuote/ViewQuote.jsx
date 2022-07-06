@@ -441,6 +441,20 @@ function ViewQuote({ FirstPageAction }) {
                           {item["External Walls"].fabric_type && "Type"}{" "}
                           {item["External Walls"].fabric_type || ""}
                         </Typography>
+                        <Typography className="Output2">
+                          {item["External Walls"].description && (
+                            <span
+                              style={{
+                                fontFamily: "Outfit",
+                                fontWeight: "600",
+                                fontSize: "15px",
+                              }}
+                            >
+                              Description
+                            </span>
+                          )}{" "}
+                          {item["External Walls"].description || ""}
+                        </Typography>
                       </Box>
 
                       <Box>
@@ -449,6 +463,20 @@ function ViewQuote({ FirstPageAction }) {
                         <Typography className="Output2">
                           {item["Roof Type"]?.fabric_type && "Type"}{" "}
                           {item["Roof Type"]?.fabric_type}
+                          <Typography className="Output2">
+                            {item["Roof Type"]?.description && (
+                              <span
+                                style={{
+                                  fontFamily: "Outfit",
+                                  fontWeight: "600",
+                                  fontSize: "15px",
+                                }}
+                              >
+                                Description
+                              </span>
+                            )}{" "}
+                            {item["Roof Type"]?.description}
+                          </Typography>
                         </Typography>
                       </Box>
                       <Box>
@@ -457,6 +485,20 @@ function ViewQuote({ FirstPageAction }) {
                         <Typography className="Output2">
                           {item.Windows?.fabric_type && "Type"}{" "}
                           {item?.Windows?.fabric_type}
+                        </Typography>
+                        <Typography className="Output2">
+                          {item.Windows?.description && (
+                            <span
+                              style={{
+                                fontFamily: "Outfit",
+                                fontWeight: "600",
+                                fontSize: "15px",
+                              }}
+                            >
+                              Description
+                            </span>
+                          )}{" "}
+                          {item?.Windows?.description}
                         </Typography>
                       </Box>
                       <Box>
@@ -468,6 +510,20 @@ function ViewQuote({ FirstPageAction }) {
                           {item["Suspended Floors"]?.fabric_type && "Type"}{" "}
                           {item["Suspended Floors"]?.fabric_type}
                         </Typography>
+                        <Typography className="Output2">
+                          {item["Suspended Floors"]?.description && (
+                            <span
+                              style={{
+                                fontFamily: "Outfit",
+                                fontWeight: "600",
+                                fontSize: "15px",
+                              }}
+                            >
+                              Description
+                            </span>
+                          )}{" "}
+                          {item["Suspended Floors"]?.description}
+                        </Typography>
                       </Box>
                       <Box>
                         <Typography className="Output">
@@ -477,6 +533,20 @@ function ViewQuote({ FirstPageAction }) {
                         <Typography className="Output2">
                           {item["Inner Floors"]?.fabric_type && "Type"}{" "}
                           {item["Inner Floors"]?.fabric_type}
+                        </Typography>
+                        <Typography className="Output2">
+                          {item["Inner Floors"]?.description && (
+                            <span
+                              style={{
+                                fontFamily: "Outfit",
+                                fontWeight: "600",
+                                fontSize: "15px",
+                              }}
+                            >
+                              Description
+                            </span>
+                          )}{" "}
+                          {item["Inner Floors"]?.description}
                         </Typography>
                       </Box>
                     </Grid>
@@ -903,10 +973,14 @@ function ViewQuote({ FirstPageAction }) {
                   <Typography className="Output">Room Description</Typography>
                 </Box>
                 <Box>
-                  <Typography className="Output">Radiator</Typography>
+                  <Typography className="Output">
+                    Radiator (H X W in mm)
+                  </Typography>
                 </Box>
                 <Box>
-                  <Typography className="Output">Window</Typography>
+                  <Typography className="Output">
+                    Window (H X W in mm)
+                  </Typography>
                 </Box>
                 {quoteData?.radiator_and_window_sizes.map((item, index) => (
                   // <Box key={index}>
