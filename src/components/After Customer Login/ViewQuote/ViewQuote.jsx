@@ -422,7 +422,7 @@ function ViewQuote({ FirstPageAction }) {
             <AccordionDetails sx={{ p: 0 }}>
               {quoteData?.fabric_details?.map((item, index) => {
                 return (
-                  <Box key={`fab${index}`}>
+                  <Box key={`fab${index}`} sx={{ mb: 8 }}>
                     <Typography className="Output Heading">
                       {item.label}
                     </Typography>
