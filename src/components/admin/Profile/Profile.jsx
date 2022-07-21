@@ -444,7 +444,6 @@ const MyProfile = (
               sx={{ width: "450px", height: "60px" }}
               label="Password"
               name="password"
-              disabled
               onChange={changeHandler}
               value={data1?.password?.slice(0, 12) || ""}
             />

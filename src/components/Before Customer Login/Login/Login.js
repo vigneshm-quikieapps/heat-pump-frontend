@@ -116,7 +116,7 @@ const Login = ({ customerDetailsReset }) => {
             localStorage.setItem("user", JSON.stringify(res.data.token));
             setLoader(false);
             if (res.data.admin) {
-              navigate("/admincommon/accountrequest");
+              navigate("/admincommon/AdminHomePage");
               return;
             }
             navigate("/common/HomePage");
