@@ -97,7 +97,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
 
   useEffect(() => {
     fetchData();
-    // fetchSeconddata();
+    fetchSeconddata();
   }, [page, status]);
 
   function fetchData() {
@@ -112,7 +112,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
         setLoader(false);
         const res = response.data;
         setBox(res.data);
-        fetchSeconddata();
+        // fetchSeconddata();
       })
       .catch((e) => {
         setLoader(false);
@@ -240,7 +240,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
       </Typography>
       <Card>
         <Grid>
-          <div className="secondrow">
+          <div className="secondrow" style={{ minWidth: "max-content" }}>
             <div className="outerbox">
               <div
                 className="squarebox"
@@ -267,7 +267,9 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
                   {box.hpd_review}
                 </Typography>
               </div>
-              <div className="second-row-text">HPD To Review</div>
+              <div className="second-row-text" style={{ width: "max-content" }}>
+                HPD To Review
+              </div>
             </div>
             <div className="outerbox">
               <div
@@ -295,7 +297,9 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
                   {box.need_attention}
                 </Typography>
               </div>
-              <div className="second-row-text">Need Your Attention</div>
+              <div className="second-row-text" style={{ width: "max-content" }}>
+                Need Your Attention
+              </div>
             </div>
             <div className="outerbox">
               <div

@@ -49,7 +49,6 @@ const MyQuote = ({ FirstPageAction }) => {
     setLoader(true);
     getAllQuotes1(page).then((res) => {
       setDataArr(res?.data?.data);
-
       setLoader(false);
     });
   }, [page]);

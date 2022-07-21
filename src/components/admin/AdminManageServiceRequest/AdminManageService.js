@@ -60,8 +60,6 @@ const useStyles = makeStyles({
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
 const AdminManageService = ({ adminFirstPageAction }) => {
-  // const { isLoading, isError, error, allQuoteData, isFetching, isPreviousData } =
-  // useGetAllQuotes()
   const classes = useStyles();
   const { state } = useLocation();
   console.log(state);
@@ -87,7 +85,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const [focused1, setFocused1] = React.useState("");
   const [focused2, setFocused2] = React.useState("");
   const [baUser, setBauser] = useState([]);
-
+  const [creatorId, setCreatorId] = useState("");
   const [data, setData] = useState([]);
   let [page, setPage] = useState(1);
   const PER_PAGE = 3;
@@ -96,7 +94,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const [checkedtype, setCheckedType] = useState(2);
   const [open, setOpen] = useState(false);
   const [jobid, setJobid] = useState();
-  const [site, setSite] = useState("");
+  const [site, setSite] = useState({});
   const [fname, SetFname] = useState([]);
   const [efname, SetEFname] = useState([]);
 
@@ -137,13 +135,18 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     };
     setLoader(true);
     axios
-      .get(URL + globalAPI.myjobs + `?page=${page}&perPage=${PER_PAGE}`, config)
+
+      .get(
+        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=${PER_PAGE}&creatorId=${creatorId}`,
+        config
+      )
+
       .then((response) => {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          setCount(res.data.total_pages);
-          setData(res.data.data);
+          setCount(res.total_pages);
+          setData(res.data);
         } else {
           toast.error("Something went wrong");
           setOpen(!open);
@@ -156,7 +159,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       });
   };
   const settingJobref = (item) => {
-    setJobid(item.job_ref_number);
+    setJobid(item.quote_reference_number);
     setSite(item.site_details);
     setOpen(!open);
   };
@@ -181,8 +184,11 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   }
   const handleChange = (e, p) => {
     setPage(p);
-    _DATA.jump(p);
+    // _DATA.jump(p);
   };
+  useEffect(() => {
+    jbModal();
+  }, [page]);
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {
@@ -198,6 +204,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         setStatus(res.data.status);
         setPriority(res.data.priority);
         setAssigned(res.data.assigned_to);
+        setCreatorId(res.data.creator_id);
         console.log("details", details);
         setavailableFiles(res.data.attachments);
         const newArray = [];
@@ -774,7 +781,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
             <div className="admindisplaygrid">
               <div className="miniadmindisplaygrid1">Site</div>
-              <div className="minidisplaygrid1">{site || "-"}</div>
+              <div className="minidisplaygrid1">{site.address_1 || "-"}</div>
             </div>
 
             <div style={{ marginTop: "1.5vh" }}>
@@ -1262,24 +1269,32 @@ const AdminManageService = ({ adminFirstPageAction }) => {
                         className="sortabletr"
                       >
                         <td style={{ fontSize: "18px" }}>
-                          {item.job_ref_number}
+                          {item?.quote_reference_number}
                         </td>
                         <td style={{ fontSize: "18px" }}>
-                          {item.site_details}
+                          {"" +
+                            item?.site_details?.address_1 +
+                            (item?.site_details?.address_1 === "" &&
+                            item?.site_details?.address_2 === ""
+                              ? ""
+                              : ", ") +
+                            item?.site_details?.address_2 +
+                            (item?.site_details?.address_2 === "" &&
+                            item?.site_details?.city === ""
+                              ? ""
+                              : ", ") +
+                            item?.site_details?.city +
+                            (item?.site_details?.city === "" &&
+                            item?.site_details?.postcode === ""
+                              ? ""
+                              : ", ") +
+                            item?.site_details?.postcode}
                         </td>
-                        {item.status == 1 && (
-                          <td style={{ fontSize: "18px" }}>New</td>
+                        {item?.status == 1 && (
+                          <td style={{ fontSize: "18px" }}>Active</td>
                         )}
-                        {item.status == 2 && (
-                          <td style={{ fontSize: "18px" }}>HPD Working</td>
-                        )}
-                        {item.status == 3 && (
-                          <td style={{ fontSize: "18px" }}>
-                            Need Your Attention
-                          </td>
-                        )}
-                        {item.status == 4 && (
-                          <td style={{ fontSize: "18px" }}>Resolved</td>
+                        {item?.status == 2 && (
+                          <td style={{ fontSize: "18px" }}>Not Active</td>
                         )}
                       </tr>
                     );

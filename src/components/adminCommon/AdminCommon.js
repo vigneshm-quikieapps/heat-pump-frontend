@@ -24,18 +24,18 @@ import "./AdminCommon.css";
 import { connect } from "react-redux";
 // import * as React from 'react';
 import Button from "@mui/material/Button";
+import MenuList from "@mui/material/MenuList";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 
 function AdminCommon({ adminFirstPageStatus }) {
   const Navigate = useNavigate();
   const [collapse, setCollapse] = useState(false);
-  const [display, setDisplay] = useState("redbar1");
+  const [display, setDisplay] = useState("");
   const [logout, setLogout] = useState(false);
   const [toggleSetup, setToggleSetup] = useState(false);
   const userInfo = JSON.parse(localStorage.getItem("userData"));
@@ -85,7 +85,9 @@ function AdminCommon({ adminFirstPageStatus }) {
 
   // console.log(adminFirstPageStatus);
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div
+      style={{ display: "flex", minHeight: "100%", maxHeight: "max-content" }}
+    >
       <div className={`${collapse ? " adminsidebar1" : "adminsidebar"}`}>
         <div className="HPDSideBar1">
           <img
@@ -217,7 +219,6 @@ function AdminCommon({ adminFirstPageStatus }) {
             />
           </li>
         </Link>
-
         <Link
           to="businessuser"
           style={{
@@ -239,7 +240,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             }}
           >
             <img
-              src={require("../../Img/sidebaradmin41.jpg")}
+              src={require("../../Img/sideadmin69.png")}
               className="adminsidbar-icon"
             />{" "}
             <span style={{ marginRight: "27%" }}>Business Users</span>
@@ -297,8 +298,7 @@ function AdminCommon({ adminFirstPageStatus }) {
             <AccordionDetails
               sx={{
                 p: 0,
-                backgroundImage:
-                  "linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%)",
+                backgroundImage: "linear-gradient(to right,  #d9d6c9 100%)",
               }}
             >
               <Link
@@ -469,11 +469,11 @@ function AdminCommon({ adminFirstPageStatus }) {
         </div>
         {/* <Drawer>Setup</Drawer> */}
 
-        <img
+        {/* <img
           src={require("../../Img/ellipse.png")}
           alt=""
           className="adminellipse"
-        />
+        /> */}
       </div>
 
       <div style={{ width: "100%", height: "100%", overflow: "auto" }}>
@@ -513,7 +513,8 @@ function AdminCommon({ adminFirstPageStatus }) {
                 <img
                   className="home-icon"
                   onClick={() => {
-                    Navigate("/common/HomePage");
+                    // setDisplay("");
+                    Navigate("/admincommon/AdminHomePage");
                   }}
                   src={require("../../Img/homeIcon.png")}
                   // className="home-icon"
@@ -534,8 +535,8 @@ function AdminCommon({ adminFirstPageStatus }) {
                     id="composition-button"
                     aria-controls={open ? "composition-menu" : undefined}
                     aria-expanded={open ? "true" : undefined}
-                    aria-haspopup="true"
                     onClick={handleToggle}
+                    aria-haspopup="true"
                     size="small"
                   >
                     <img
@@ -579,7 +580,8 @@ function AdminCommon({ adminFirstPageStatus }) {
                                   justifyContent: "flex-start",
                                 }}
                                 onClick={() => {
-                                  Navigate("/common/MyProfile");
+                                  setDisplay("");
+                                  Navigate("/admincommon/Profile");
                                 }}
                               >
                                 <img

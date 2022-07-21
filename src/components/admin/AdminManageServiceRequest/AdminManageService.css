@@ -233,6 +233,8 @@
   padding: 20px 20px 20px 20px;
   width: 700px;
   height: 360px;
+  max-height: max-content;
+  overflow: hidden;
   z-index: 1000;
 }
 

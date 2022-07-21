@@ -213,7 +213,10 @@ const CreateList = ({ FirstPageAction }) => {
     };
     setLoader(true);
     axios
-      .get(URL + globalAPI.myjobs + `?page=${page}&perPage=${PER_PAGE}`, config)
+      .get(
+        URL + globalAPI.myjobs + `?cst=true&page=${page}&perPage=${PER_PAGE}`,
+        config
+      )
       .then((response) => {
         setLoader(false);
         const res = response.data;

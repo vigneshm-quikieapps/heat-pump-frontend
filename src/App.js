@@ -54,8 +54,11 @@ import AddEditSuspendedFloor from "./components/admin/setup/AddEditSuspendedFloo
 import AddEditInternalFloor from "./components/admin/setup/AddEditInternalFloor";
 import ManageQuoteRequest from "./components/admin/ManageQuoteRequest/ManageQuoteRequest";
 import HomePage from "./components/After Customer Login/HomePage/HomePage";
+import AdminHomePage from "./components/admin/HomePage/HomePage";
+
 import MyProfile from "./components/After Customer Login/MyProfile/MyProfile";
 import QuoteList from "./components/admin/MQRList/QuoteList";
+import Profile from "./components/admin/Profile/Profile";
 
 export const queryClient = new QueryClient();
 function App({ name, changeName, addName }) {
@@ -99,15 +102,10 @@ function PriorityComponent() {
     }
     if (window.location.pathname == "/admincommon") {
       console.log(window.location.pathname);
-      navigate("/admincommon/accountrequest");
+      navigate("/admincommon/AdminHomePage");
     }
   }, []);
-  // const token = localStorage.getItem("tt");
-  // const { isExpired } = useJwt(token);
-  // // const history = useHistory();
-  // if (isExpired === true) {
-  //   window.location.replace("/");
-  // }
+
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
@@ -118,7 +116,7 @@ function PriorityComponent() {
               !token ? (
                 <Login />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -130,7 +128,7 @@ function PriorityComponent() {
               !token ? (
                 <RequestACustomerAccount />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -142,7 +140,7 @@ function PriorityComponent() {
               !token ? (
                 <RCA1 />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -154,7 +152,7 @@ function PriorityComponent() {
               !token ? (
                 <RCA2 />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -166,7 +164,7 @@ function PriorityComponent() {
               !token ? (
                 <RCA3 />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -178,7 +176,7 @@ function PriorityComponent() {
               !token ? (
                 <ForgotPassword />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -190,7 +188,7 @@ function PriorityComponent() {
               !token ? (
                 <OTP />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
@@ -202,13 +200,12 @@ function PriorityComponent() {
               !token ? (
                 <NewPassword />
               ) : userData.admin ? (
-                <Navigate to="/admincommon/accountrequest" />
+                <Navigate to="/admincommon/AdminHomePage" />
               ) : (
                 <Navigate to="/common/HomePage" />
               )
             }
           />
-          {/* <Route path="/fpass" element = {<Fpass/>} /> */}
 
           {userData && !userData.admin && (
             <Route path={"/common"} element={<Common />}>
@@ -227,7 +224,9 @@ function PriorityComponent() {
           )}
 
           {userData && userData.admin && (
-            <Route path="/admincommon" element={<AdminCommon />}>
+            <Route path={"/admincommon"} element={<AdminCommon />}>
+              <Route path="AdminHomePage" element={<AdminHomePage />} />
+              <Route path="Profile" element={<Profile />} />
               <Route path="accountrequest" element={<AccountRequest />} />
               <Route path="adminRCA" element={<AdminRCA />} />
               <Route path="MQR" element={<QuoteList />} />

@@ -178,7 +178,7 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   };
   const onSelect = (fabric_type, description, detail, short, long) => {
     // console.log(selectedFabricType, selectedBuildingIndex);
-    let temp = dataArr;
+    let temp = [...dataArr];
     temp[selectedBuildingIndex][selectedFabricType].fabric_type = fabric_type;
     temp[selectedBuildingIndex][selectedFabricType].description = description;
     temp[selectedBuildingIndex][selectedFabricType].detail = detail;
@@ -186,13 +186,20 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
       Number(short) + Number(long) || 0;
     setDataArr(temp);
   };
-
+  const onDelete = (index, fabricType) => {
+    let temp = [...dataArr];
+    temp[index][fabricType].fabric_type = "";
+    temp[index][fabricType].description = "";
+    temp[index][fabricType].detail = "";
+    temp[index][fabricType]["length"] = 0;
+    setDataArr(temp);
+  };
   const onClose = () => {
     setOpenModal(false);
   };
   useEffect(() => {
     getFabricData(aka[`${selectedFabricType}`], page);
-  }, [page]);
+  }, [selectedFabricType, page]);
   const handleChange = (e, p) => {
     setPage(p);
   };
@@ -468,6 +475,17 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     </Box>
                   </Box>
                 )}
+                {fabric["External Walls"]?.fabric_type && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        onDelete(index, "External Walls");
+                      }}
+                    >
+                      <ImgIcon>{DeleteIcon}</ImgIcon>
+                    </IconButton>
+                  </Box>
+                )}
               </Box>
 
               <Box
@@ -562,6 +580,17 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                         </Typography>
                       )}
                     </Box>
+                  </Box>
+                )}
+                {fabric["Roof Type"]?.fabric_type && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        onDelete(index, "Roof Type");
+                      }}
+                    >
+                      <ImgIcon>{DeleteIcon}</ImgIcon>
+                    </IconButton>
                   </Box>
                 )}
               </Box>
@@ -667,6 +696,17 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     </Box>
                   </Box>
                 )}
+                {fabric["Windows"]?.fabric_type && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        onDelete(index, "Windows");
+                      }}
+                    >
+                      <ImgIcon>{DeleteIcon}</ImgIcon>
+                    </IconButton>
+                  </Box>
+                )}
               </Box>
               <Box
                 sx={{
@@ -768,6 +808,17 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     </Box>
                   </Box>
                 )}
+                {fabric["Suspended Floors"]?.fabric_type && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        onDelete(index, "Suspended Floors");
+                      }}
+                    >
+                      <ImgIcon>{DeleteIcon}</ImgIcon>
+                    </IconButton>
+                  </Box>
+                )}
               </Box>
               <Box
                 sx={{
@@ -866,6 +917,17 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                         </Typography>
                       )}
                     </Box>
+                  </Box>
+                )}
+                {fabric["Inner Floors"]?.fabric_type && (
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        onDelete(index, "Inner Floors");
+                      }}
+                    >
+                      <ImgIcon>{DeleteIcon}</ImgIcon>
+                    </IconButton>
                   </Box>
                 )}
               </Box>

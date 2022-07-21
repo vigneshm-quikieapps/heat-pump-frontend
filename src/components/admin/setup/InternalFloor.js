@@ -186,7 +186,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
           marginLeft: "40px",
         }}
       >
-        Internal Floor Type
+        Roof Light Type
         <hr className="containerhr" />
       </Typography>
       <Card>
@@ -221,7 +221,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
 
           <StyledTextField
             sx={{ width: "275px", height: "63px" }}
-            label="Internal Floor Description"
+            label="Roof Light Description"
             // value={title}
             InputLabelProps={{ style: { background: "#FFF" } }}
             value={description}

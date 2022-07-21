@@ -41,7 +41,7 @@ export async function getAllQuotes1(page) {
 const getAllQuotes = () =>
   axiosInstance
     .get(
-      `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?status=1&cst=true`
+      `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?cst=true`
     )
     .then(({ data }) => data, {
       keepPreviousData: false,
@@ -56,7 +56,7 @@ export const useGetAllQuotes = (data, options) =>
 
 export async function getFabricDetails(type, page) {
   try {
-    const api = `https://heat-pump-backend-test.herokuapp.com/api/v1/services/fabric-details?page=${page}&perPage=3&type=${type}`;
+    const api = `https://heat-pump-backend-test.herokuapp.com/api/v1/services/fabric-details?page=${page}&perPage=3&type=${type}&f_status=1`;
     const response = await axiosInstance.get(api);
     return response.data;
   } catch (error) {

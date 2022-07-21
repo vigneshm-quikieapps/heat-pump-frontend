@@ -38,11 +38,14 @@ li {
   font-size: 18px;
 }
 .adminsidebar1 {
-  background-image: linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%);
+  /* background-image: linear-gradient(to right, #f4f2ea 0%, #d9d6c9 100%); */
+  background-image: url("../../Img/ellipse.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 0% 100%;
   max-width: 272px;
   min-width: 272px;
-  height: 100;
-
+  background-size: 13% 47%;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 

@@ -177,45 +177,46 @@ const QuoteList = ({ adminFirstPageAction }) => {
 
   const tableRows = useMemo(() => {
     return (
-      box &&
-      box?.map((item, index) => ({
-        onClick: () => manageJob(item?._id),
-        key: { index },
+      (box &&
+        box?.map((item, index) => ({
+          onClick: () => manageJob(item?._id),
+          key: { index },
 
-        items: [
-          item?.quote_reference_number || "",
-          item?.creator_customer_id.name || "",
-          "" +
-            item?.site_details.address_1 +
-            (item?.site_details.address_1 === "" &&
-            item?.site_details.address_2 === ""
-              ? ""
-              : ", ") +
-            item?.site_details.address_2 +
-            (item?.site_details.address_2 === "" &&
-            item?.site_details.city === ""
-              ? ""
-              : ", ") +
-            item?.site_details.city +
-            (item?.site_details.city === "" &&
-            item?.site_details.postcode === ""
-              ? ""
-              : ", ") +
-            item?.site_details.postcode,
-          moment(item?.updatedAt).format("DD/MM/YYYY h:mm a"),
-          item?.status === 1
-            ? "New-Unpaid"
-            : item?.status === 2
-            ? "New-Paid"
-            : item?.status === 3
-            ? "In Progress"
-            : item?.status === 4
-            ? "Complete"
-            : item?.status === 5
-            ? "Snaggy"
-            : "-",
-        ],
-      }))
+          items: [
+            item?.quote_reference_number || "",
+            item?.creator_customer_id?.name || "",
+            "" +
+              item?.site_details?.address_1 +
+              (item?.site_details?.address_1 === "" &&
+              item?.site_details?.address_2 === ""
+                ? ""
+                : ", ") +
+              item?.site_details?.address_2 +
+              (item?.site_details?.address_2 === "" &&
+              item?.site_details?.city === ""
+                ? ""
+                : ", ") +
+              item?.site_details?.city +
+              (item?.site_details?.city === "" &&
+              item?.site_details?.postcode === ""
+                ? ""
+                : ", ") +
+              item?.site_details?.postcode,
+            moment(item?.updatedAt).format("DD/MM/YYYY h:mm a"),
+            item?.status === 1
+              ? "New-Unpaid"
+              : item?.status === 2
+              ? "New-Paid"
+              : item?.status === 3
+              ? "In Progress"
+              : item?.status === 4
+              ? "Complete"
+              : item?.status === 5
+              ? "Snaggy"
+              : "-",
+          ],
+        }))) ||
+      []
     );
   }, [box, manageJob]);
   useEffect(() => {

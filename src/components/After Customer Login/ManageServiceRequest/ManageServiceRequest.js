@@ -297,8 +297,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
           if (res.success) {
             fetchData();
             fetchSeconddata();
-
-            // toggleModal();
+            setOpenupdate(!openupdate);
             toast.success("Updated Successfully");
           } else {
             toast.error(res.data.message);
