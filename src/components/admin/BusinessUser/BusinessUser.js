@@ -32,7 +32,10 @@ const passwords = {
 function BusinessUser({ adminFirstPageAction }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState({
+    type: "password",
+    showpassword: false,
+  });
   const [mob, setMob] = useState("");
   const [modifyUser, setModifyUser] = useState({});
   useEffect(() => {
@@ -57,7 +60,10 @@ function BusinessUser({ adminFirstPageAction }) {
     setInputLogin1Error("");
     setInputLogin2Error("");
     setInput4Error("");
-    setPassword("");
+    setPassword({
+      type: "password",
+      showpassword: false,
+    });
     setName("");
     setEmail("");
   };
@@ -138,7 +144,7 @@ function BusinessUser({ adminFirstPageAction }) {
         business_admin: true,
         status: 3,
         business_registered_name: "customerDetails",
-        business_trade_name: "ustomerDetails",
+        business_trade_name: "customerDetails",
         business_type: "customerDetails",
         address_1: "customerDetails",
         address_2: "customerDetails",
@@ -588,7 +594,7 @@ function BusinessUser({ adminFirstPageAction }) {
               />
 
               <StyledTextField
-                type="text"
+                type="password"
                 // className="bainput"
                 value={modifyUser.password}
                 onChange={modifyUserdetails}

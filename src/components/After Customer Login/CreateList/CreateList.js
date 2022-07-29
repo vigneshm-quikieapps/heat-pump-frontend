@@ -34,6 +34,7 @@ import InputLabel from "@mui/material/InputLabel";
 import { makeStyles } from "@mui/styles";
 import StyledTextField from "../../../../src/common/textfield";
 import StyledTextArea from "../../../../src/common/textarea";
+import { SixteenMpTwoTone } from "@mui/icons-material";
 Modal.setAppElement("#root");
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
@@ -214,15 +215,15 @@ const CreateList = ({ FirstPageAction }) => {
     setLoader(true);
     axios
       .get(
-        URL + globalAPI.myjobs + `?cst=true&page=${page}&perPage=${PER_PAGE}`,
+        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?cst=true&page=${page}&perPage=3`,
         config
       )
       .then((response) => {
         setLoader(false);
         const res = response.data;
         if (res.success) {
-          setCount(res.data.total_pages);
-          setData(res.data.data);
+          setCount(res.total_pages);
+          setData(res.data);
         } else {
           toast.error("Something went wrong");
           setOpen(!open);
@@ -233,6 +234,7 @@ const CreateList = ({ FirstPageAction }) => {
         toast.error("Something went wrong");
         setOpen(!open);
       });
+    console.log(data);
   };
 
   const onFileUpload = (e) => {
@@ -330,6 +332,7 @@ const CreateList = ({ FirstPageAction }) => {
         attachments: attachments,
         priority: priority,
         job_reference_id: id,
+        job_reference_number: jobid,
         site_details: site,
         type: servicetype,
         status: 1,
@@ -367,7 +370,7 @@ const CreateList = ({ FirstPageAction }) => {
     window.location.reload(false);
   };
   const settingJobref = (item) => {
-    setJobid(item.job_ref_number);
+    setJobid(item.quote_reference_number);
     setSite(item.site_details);
     setId(item._id);
     setOpen(!open);
@@ -423,7 +426,22 @@ const CreateList = ({ FirstPageAction }) => {
                         Site
                       </div>
                       <div style={{ fontSize: "18px" }}>
-                        {site ? site : "-"}
+                        {site
+                          ? "" +
+                            site?.address_1 +
+                            (site?.address_1 === "" && site?.address_2 === ""
+                              ? ""
+                              : ", ") +
+                            site?.address_2 +
+                            (site?.address_2 === "" && site?.city === ""
+                              ? ""
+                              : ", ") +
+                            site?.city +
+                            (site?.city === "" && site?.postcode === ""
+                              ? ""
+                              : ", ") +
+                            site?.postcode
+                          : "-"}
                       </div>
                       <div style={{ fontSize: "18px", fontWeight: 600 }}>
                         Job ID
@@ -783,10 +801,26 @@ const CreateList = ({ FirstPageAction }) => {
                           className="sortabletr"
                         >
                           <td style={{ fontSize: "18px" }}>
-                            {item.job_ref_number}
+                            {item.quote_reference_number}
                           </td>
                           <td style={{ fontSize: "18px" }}>
-                            {item.site_details}
+                            {"" +
+                              item?.site_details?.address_1 +
+                              (item?.site_details?.address_1 === "" &&
+                              item?.site_details?.address_2 === ""
+                                ? ""
+                                : ", ") +
+                              item?.site_details?.address_2 +
+                              (item?.site_details?.address_2 === "" &&
+                              item?.site_details?.city === ""
+                                ? ""
+                                : ", ") +
+                              item?.site_details?.city +
+                              (item?.site_details?.city === "" &&
+                              item?.site_details?.postcode === ""
+                                ? ""
+                                : ", ") +
+                              item?.site_details?.postcode}
                           </td>
                           {item.status == 1 && (
                             <td style={{ fontSize: "18px" }}>New</td>

@@ -13,7 +13,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField, Typography, Grid, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { connect } from "react-redux";
-import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+// import { adminFirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -97,7 +99,7 @@ const useStyles = makeStyles({
   },
 });
 
-const HomePage = ({ FirstPageAction }) => {
+const HomePage = ({ adminFirstPageAction }) => {
   const anchorRef = React.useRef(null);
   const arrowRef = React.useRef(null);
 
@@ -158,7 +160,7 @@ const HomePage = ({ FirstPageAction }) => {
   //   }, [page, status]);
 
   useEffect(() => {
-    FirstPageAction(true);
+    adminFirstPageAction(true);
   }, []);
 
   //   function fetchData() {
@@ -585,7 +587,7 @@ const HomePage = ({ FirstPageAction }) => {
 };
 
 const mapDispatchtoProps = (dispatch) => ({
-  FirstPageAction: (value) => dispatch(FirstPageAction(value)),
+  adminFirstPageAction: (value) => dispatch(adminFirstPageAction(value)),
 });
 
 export default connect(null, mapDispatchtoProps)(HomePage);

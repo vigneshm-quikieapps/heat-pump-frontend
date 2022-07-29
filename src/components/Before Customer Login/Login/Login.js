@@ -11,7 +11,6 @@ import validator from "validator";
 import HPD from "../../../Img/HPDD.jpeg";
 import { Box, Button, InputAdornment, Typography } from "@mui/material";
 import StyledTextField from "../Login/textfield";
-// import MailIcon from "../../../Img/icon.png";
 import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import { customerDetailsReset } from "../../../Redux/customerDetails/customerDetails.action";

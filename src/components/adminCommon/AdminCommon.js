@@ -15,6 +15,8 @@ import {
 
   // ListItemButton,
 } from "@mui/material";
+// import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Modal from "react-modal";
 import { IconButton, Typography, Box } from "@mui/material";
@@ -514,6 +516,7 @@ function AdminCommon({ adminFirstPageStatus }) {
                   className="home-icon"
                   onClick={() => {
                     // setDisplay("");
+                    // FirstPageAction(false);
                     Navigate("/admincommon/AdminHomePage");
                   }}
                   src={require("../../Img/homeIcon.png")}

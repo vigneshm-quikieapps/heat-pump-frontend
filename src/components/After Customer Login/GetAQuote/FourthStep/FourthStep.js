@@ -174,7 +174,9 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               style={{ borderRadius: "1.8vw" }}
               key={index}
             >
-              <span style={{ float: "left", marginLeft: "1vw" }}>
+              <span
+                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+              >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
                   style={{
@@ -250,7 +252,9 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               style={{ borderRadius: "1.8vw" }}
               key={index}
             >
-              <span style={{ float: "left", marginLeft: "1vw" }}>
+              <span
+                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+              >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
                   style={{
@@ -326,7 +330,9 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               style={{ borderRadius: "1.8vw" }}
               key={index}
             >
-              <span style={{ float: "left", marginLeft: "1vw" }}>
+              <span
+                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+              >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
                   style={{

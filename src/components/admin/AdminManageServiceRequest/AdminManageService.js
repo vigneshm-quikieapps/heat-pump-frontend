@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+
 // import { useGetAllQuotes } from "../../../services/services";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -161,6 +162,15 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   const settingJobref = (item) => {
     setJobid(item.quote_reference_number);
     setSite(item.site_details);
+    setDetails((details) => ({
+      ...details,
+      job_reference_id: item._id,
+      job_reference_number: item.quote_reference_number,
+      // job_reference_id: {
+      //   ...details.job_reference_id,
+      //   job_ref_number: item.quote_reference_number,
+      // },
+    }));
     setOpen(!open);
   };
   function fetchData() {
@@ -548,7 +558,6 @@ const AdminManageService = ({ adminFirstPageAction }) => {
   };
 
   const stateHandler2 = (e) => {
-    /* setInputData(inputData => ({...inputData,job_reference_id:{...inputData.job_reference_id,job_ref_number:e.target.value}})) */
     setDetails((details) => ({
       ...details,
       job_ref_number: e.target.value,
@@ -752,7 +761,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
               <StyledTextField
                 text
                 sx={{ width: "285px", height: "35px" }}
-                value={jobid}
+                value={details?.job_reference_number}
                 onChange={stateHandler2}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}

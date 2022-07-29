@@ -364,6 +364,7 @@ const MyProfile = (
       setLoader(false);
     });
   }, []);
+  console.log(customerDetails.password);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -445,7 +446,7 @@ const MyProfile = (
               label="Password"
               name="password"
               onChange={changeHandler}
-              value={data1?.password?.slice(0, 12) || ""}
+              value={data1?.password || ""}
             />
             <StyledTextField
               sx={{ width: "450px", height: "60px" }}

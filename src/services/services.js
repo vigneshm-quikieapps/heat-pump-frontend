@@ -74,7 +74,7 @@ export async function getCustomer() {
 }
 export async function updateCustomer(_id, payload) {
   try {
-    const api = `http://heat-pump-backend.herokuapp.com/api/v1/services/users?id=${_id}`;
+    const api = `https://heat-pump-backend-test.herokuapp.com/api/v1/services/users?id=${_id}`;
     const response = await axiosInstance.patch(api, payload);
     return response;
   } catch (error) {
