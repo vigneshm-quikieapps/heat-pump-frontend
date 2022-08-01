@@ -138,7 +138,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     axios
 
       .get(
-        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=${PER_PAGE}&creatorId=${creatorId}`,
+        `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=${PER_PAGE}&creatorId=${creatorId}`,
         config
       )
 

@@ -215,7 +215,7 @@ const CreateList = ({ FirstPageAction }) => {
     setLoader(true);
     axios
       .get(
-        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?cst=true&page=${page}&perPage=3`,
+        `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?cst=true&page=${page}&perPage=3`,
         config
       )
       .then((response) => {
