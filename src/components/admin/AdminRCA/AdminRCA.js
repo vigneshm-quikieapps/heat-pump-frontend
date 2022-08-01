@@ -47,7 +47,7 @@ function AdminRCA({ adminFirstPageAction }) {
   const [isOpend, setIsOpend] = useState(false);
   const [inputData, setInputData] = useState(useLocation().state);
   const [show, setShow] = useState(true);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const token = JSON.parse(localStorage.getItem("user"));
   const initialStatus = inputData.status;
   const [status, setStatus] = useState(initialStatus);
@@ -527,7 +527,7 @@ function AdminRCA({ adminFirstPageAction }) {
                   columnGap="10px"
                   columnCount={2}
                 >
-                  <Box>
+                  {/* <Box>
                     <StyledTextField
                       sx={{ width: "450px", height: "60px" }}
                       required
@@ -539,8 +539,8 @@ function AdminRCA({ adminFirstPageAction }) {
                       name="name"
                       label="Full Name"
                     />
-                  </Box>
-                  <Box
+                  </Box> */}
+                  {/* <Box
                     sx={{
                       display: "flex",
                       flexDirection: "row",
@@ -568,7 +568,7 @@ function AdminRCA({ adminFirstPageAction }) {
                     >
                       Enter Address manually
                     </Typography>
-                  </Box>
+                  </Box> */}
                   <Box>
                     <StyledTextField
                       sx={{ width: "450px", height: "60px" }}

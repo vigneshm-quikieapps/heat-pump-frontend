@@ -158,7 +158,7 @@ function RCA2({
   // const [inputBusiness, setInputBusiness] = useState(business);
   // const [inputAddress, setInputAddress] = useState(address);
   const [searchValue, setsearchValue] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [loader, setLoader] = useState(false);
   const [show, setShow] = useState(true);
   const [businesstypecolor, setBusinesstypecolor] = useState(true);
@@ -309,15 +309,15 @@ function RCA2({
       return false;
     }
 
-    // if (
-    //   !validator.isLength(customerDetails.business_type, {
-    //     min: 1,
-    //     max: undefined,
-    //   })
-    // ) {
-    //   setInput7Error("Mandatory field cannot be empty");
-    //   return false;
-    // }
+    if (
+      !validator.isLength(customerDetails.business_type, {
+        min: 1,
+        max: undefined,
+      })
+    ) {
+      setInput7Error("Mandatory field cannot be empty");
+      return false;
+    }
     if (customerDetails.address_1 == "") {
       setInput9Error("Mandatory field cannot be empty");
       return false;
@@ -497,7 +497,6 @@ function RCA2({
               sx={{ width: "500px", height: "63px", margin: "8px 0 0 60px" }}
               required
               label="Business Type"
-              // onBlur={blurFunc3}
               placeholder="Business Type"
               onChange={changeHandler}
               name="business_type"
@@ -529,7 +528,7 @@ function RCA2({
             >
               Address
             </Typography>
-            <div style={{ display: "inline-block" }}>
+            {/* <div style={{ display: "inline-block" }}>
               <Typography
                 style={{
                   display: "inline",
@@ -551,9 +550,9 @@ function RCA2({
                   checked ? setChecked(false) : setChecked(true);
                 }}
               />
-            </div>
+            </div> */}
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <StyledTextField
+              {/* <StyledTextField
                 // className="step1inputfields input1"
                 sx={{
                   width: "500px",
@@ -569,11 +568,11 @@ function RCA2({
                 // disabled={checked === true ? true : false}
               />
               {/* <span className=" rca2inputError input8Error">{input8Error}</span> */}
-              {filtered2.length === 0 ? (
+              {/* {filtered2.length === 0 ? (
                 ""
               ) : (
                 <ResultBlock results={filtered2} />
-              )}
+              )}{" "} */}
 
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
@@ -611,7 +610,6 @@ function RCA2({
                 placeholder={checked === false ? "Address line 2" : ""}
                 disabled={checked === false ? true : false}
               />
-
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}
                 required

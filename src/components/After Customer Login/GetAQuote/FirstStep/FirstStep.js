@@ -79,7 +79,7 @@ const FirstStep = ({
   const [plans, setPlans] = useState([]);
   const [loader, setLoader] = useState(false);
   const token = JSON.parse(localStorage.getItem("user"));
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [show, setShow] = useState(true);
   const [pathname, setPathname] = useState(window.location.pathname);
   const [searchValue, setsearchValue] = useState("");
@@ -221,7 +221,7 @@ const FirstStep = ({
       </Typography>
       <hr className="s1hr2" />
       <Grid sx={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
-        <Box sx={{ height: "65px" }}>
+        {/* <Box sx={{ height: "65px" }}>
           <StyledTextField
             // className="step1inputfields input1"
             sx={{ width: "100%" }}
@@ -235,10 +235,10 @@ const FirstStep = ({
             // disabled={checked === true ? true : false}
             // helperText={!checked && searchValue === "" && "Address in mandatory"}
           />
-          {/* <span className=' rca2inputError input8Error' >{input8Error}</span> */}
+
           {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
-        </Box>
-        <div style={{ padding: "0px", display: "flex" }}>
+        </Box> */}
+        {/* <div style={{ padding: "0px", display: "flex" }}>
           <Typography
             style={{
               fontSize: "22px",
@@ -262,7 +262,7 @@ const FirstStep = ({
               checked ? setChecked(false) : setChecked(true);
             }}
           />
-        </div>
+        </div> */}
 
         <Box
           sx={{
