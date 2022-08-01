@@ -72,7 +72,7 @@ function OTP({ emailNum }) {
 
   const changeHandler = (e) => {
     if (otp === "") {
-      setOtp(otp + e);
+      setOtp(otp + e.target.value);
     }
 
     setOtp(e);

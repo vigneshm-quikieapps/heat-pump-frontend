@@ -504,9 +504,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               </div>
               <div className="displayleft">Job Reference</div>
               <div className="displaygrid1">
-                {details.job_reference_id
-                  ? details.job_reference_id.job_ref_number
-                  : "-"}
+                {details.job_reference_number || "-"}
               </div>
               <div className="displayleft">Site</div>
               <div className="displaygrid1">
