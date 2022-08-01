@@ -85,7 +85,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
-  const [status, setStatus] = useState("1");
+  const [status, setStatus] = useState("1,2,3,4,5");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
@@ -160,7 +160,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
     _DATA.jump(p);
   };
   const searchfilter = () => {
-    setStatus("1,2,3,4");
+    setStatus("1,2,3,4,5");
     setPage(1);
     fetchSeconddata();
   };
