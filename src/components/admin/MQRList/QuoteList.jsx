@@ -122,7 +122,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
     setLoader(true);
     axios
       .get(
-        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/quote-status`,
+        `https://heat-pump-back-end.herokuapp.com/api/v1/services/quote-status`,
         config
       )
       .then((response) => {
@@ -143,7 +143,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
     setLoader(true);
     axios
       .get(
-        `https://heat-pump-backend-test.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=10&siteDetails=${site_details}&customerName=${customerName}&status=${status}`,
+        `https://heat-pump-back-end.herokuapp.com/api/v1/services/all-quote?page=${page}&perPage=10&siteDetails=${site_details}&customerName=${customerName}&status=${status}`,
         config
       )
       .then((response) => {

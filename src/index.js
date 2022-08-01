@@ -126,6 +126,7 @@ ReactDOM.render(
                 href="https://heatpumpdesigner.com/"
                 target="_blank"
                 style={{ textDecoration: "none" }}
+                rel="noreferrer"
               >
                 <button
                   style={{
