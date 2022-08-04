@@ -211,7 +211,27 @@ const ServiceList = ({ FirstPageAction }) => {
               ),
               service_ref_number,
               title,
-              `${job_reference_id ? job_reference_id.site_details : "-"}`,
+              `${
+                job_reference_id
+                  ? `${
+                      job_reference_id.site_details?.address_1
+                        ? job_reference_id.site_details?.address_1 + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.address_2
+                        ? job_reference_id.site_details?.address_2 + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.city
+                        ? job_reference_id.site_details?.city + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.country
+                        ? job_reference_id.site_details?.country + ","
+                        : ""
+                    } ${job_reference_id.site_details?.postcode || ""} `
+                  : "-"
+              }`,
               `${type ? type : "-"}`,
               moment(updatedAt).format("DD/MM/YYYY h:mm a"),
 

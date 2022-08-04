@@ -175,7 +175,15 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -186,7 +194,12 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span
+                  style={{ width: "60%" }}
+                  // className="s4fileName"
+                >
+                  {item}
+                </span>
               </span>
 
               <img
@@ -253,7 +266,15 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -264,7 +285,13 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span
+                  style={{
+                    width: "60%",
+                  }}
+                >
+                  {item}
+                </span>
               </span>
 
               <img
@@ -331,7 +358,15 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -342,7 +377,13 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span
+                  style={{
+                    width: "60%",
+                  }}
+                >
+                  {item}
+                </span>
               </span>
 
               <img

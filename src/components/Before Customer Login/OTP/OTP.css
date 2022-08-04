@@ -71,8 +71,8 @@ body {
 }
 
 .otpInput {
-  width: 70px;
-  height: 63px;
+  width: 70px !important;
+  height: 63px !important;
   flex-grow: 0;
   margin: 40px 30px 50px 15px;
   padding: 17px 28px 16px 29px;

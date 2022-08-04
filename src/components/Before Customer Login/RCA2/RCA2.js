@@ -158,7 +158,7 @@ function RCA2({
   // const [inputBusiness, setInputBusiness] = useState(business);
   // const [inputAddress, setInputAddress] = useState(address);
   const [searchValue, setsearchValue] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [loader, setLoader] = useState(false);
   const [show, setShow] = useState(true);
   const [businesstypecolor, setBusinesstypecolor] = useState(true);
@@ -529,7 +529,7 @@ function RCA2({
             >
               Address
             </Typography>
-            <div style={{ display: "inline-block" }}>
+            {/* <div style={{ display: "inline-block" }}>
               <Typography
                 style={{
                   display: "inline",
@@ -551,9 +551,9 @@ function RCA2({
                   checked ? setChecked(false) : setChecked(true);
                 }}
               />
-            </div>
+            </div> */}
             <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <StyledTextField
+              {/* <StyledTextField
                 // className="step1inputfields input1"
                 sx={{
                   width: "500px",
@@ -567,13 +567,13 @@ function RCA2({
                 label="Start typing address"
                 // variant="outlined"
                 // disabled={checked === true ? true : false}
-              />
-              {/* <span className=" rca2inputError input8Error">{input8Error}</span> */}
-              {filtered2.length === 0 ? (
+              /> */}
+
+              {/* {filtered2.length === 0 ? (
                 ""
               ) : (
                 <ResultBlock results={filtered2} />
-              )}
+              )} */}
 
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}

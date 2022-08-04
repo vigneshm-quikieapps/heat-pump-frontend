@@ -85,8 +85,9 @@
 .s5fileName {
   font-weight: 300;
   font-size: medium;
-  align-items: center;
+  width: 60%;
+  /* align-items: center;
   position: relative;
   left: 0.66vw;
-  bottom: 0.67vh;
+  bottom: 0.67vh; */
 }
