@@ -568,11 +568,11 @@ function RCA2({
                 // disabled={checked === true ? true : false}
               />
               {/* <span className=" rca2inputError input8Error">{input8Error}</span> */}
-              {/* {filtered2.length === 0 ? (
+              {filtered2.length === 0 ? (
                 ""
               ) : (
                 <ResultBlock results={filtered2} />
-              )}{" "} */}
+              )}
 
               <StyledTextField
                 sx={{ width: "500px", height: "63px", margin: "0 0 15px 60px" }}

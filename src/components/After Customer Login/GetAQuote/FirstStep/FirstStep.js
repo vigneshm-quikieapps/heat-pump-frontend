@@ -235,9 +235,9 @@ const FirstStep = ({
             // disabled={checked === true ? true : false}
             // helperText={!checked && searchValue === "" && "Address in mandatory"}
           />
-
-          {filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}
-        </Box> */}
+          
+          ??{filtered2.length === 0 ? "" : <ResultBlock results={filtered2} />}??
+        </Box>  */}
         {/* <div style={{ padding: "0px", display: "flex" }}>
           <Typography
             style={{

@@ -35,6 +35,7 @@ import { makeStyles } from "@mui/styles";
 import StyledTextField from "../../../../src/common/textfield";
 import StyledTextArea from "../../../../src/common/textarea";
 import { SixteenMpTwoTone } from "@mui/icons-material";
+
 Modal.setAppElement("#root");
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
@@ -125,6 +126,8 @@ const useStyles = makeStyles({
 });
 const CreateList = ({ FirstPageAction }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
   const [high, setHigh] = useState(false);
   const [medium, setMedium] = useState(false);
   const [low, setLow] = useState(true);
@@ -367,7 +370,7 @@ const CreateList = ({ FirstPageAction }) => {
 
   const closeSubmitted = (e) => {
     setSubmitted(false);
-    window.location.reload(false);
+    navigate("/common/servicerequest");
   };
   const settingJobref = (item) => {
     setJobid(item.quote_reference_number);

@@ -72,10 +72,35 @@ function OTP({ emailNum }) {
 
   const changeHandler = (e) => {
     if (otp === "") {
-      setOtp(otp + e.target.value);
+      setOtp(otp + e);
     }
 
     setOtp(e);
+  };
+  const resend = () => {
+    const data = {
+      email: emailNum,
+    };
+
+    axios
+      .post(URL + globalAPI.forgotPassword, data)
+      .then((response) => {
+        const res = response.data;
+        setLoader(false);
+        console.log(res.otp_not_to_display);
+        if (res.success) {
+          toast.success(response.data.data.message);
+          localStorage.setItem("otp_token", JSON.stringify(res.data.otp_token));
+          setLoader(false);
+          // navigate("/otp");
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+        toast.error("Something Went Wrong");
+      });
   };
   useEffect(() => {
     /* if (otp.length < 4) {
@@ -121,7 +146,7 @@ function OTP({ emailNum }) {
     }
   }, [otp]);
 
-  console.log(status);
+  // console.log(otp);
   return (
     <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
       {loader && (
@@ -168,7 +193,7 @@ function OTP({ emailNum }) {
         >
           Enter the code we just sent to {emailNum}.
         </Typography>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", gap: "100px", alignContent: "center" }}>
           <div className="otpdiv">
             <OtpInput
               style={{ borderRadius: "10px" }}
@@ -181,45 +206,51 @@ function OTP({ emailNum }) {
               inputStyle={`otpInput ${status === false ? "ootp" : ""}`}
             />
           </div>
-          <Box
-            sx={{ display: "flex" }}
-            style={{ display: `${status === true ? "inline-block" : "none"}` }}
-          >
-            <img
-              src={require("../../../Img/greentick.png")}
-              className="greentick1"
-            />
-            <Typography
+          <Box>
+            <Box
+              sx={{ display: "flex", padding: "25px" }}
               style={{
-                margin: "5px 0 10px 0px",
-                fontSize: "18px",
-                fontFamily: "Outfit",
-                fontWeight: "normal",
-                position: "relative",
+                display: `${status === true ? "inline-block" : "none"}`,
               }}
             >
-              Verification Complete
-            </Typography>
-          </Box>
-          <Box
-            sx={{ display: "flex" }}
-            style={{ display: `${status === false ? "inline-block" : "none"}` }}
-          >
-            <img
-              src={require("../../../Img/cross.png")}
-              className="greentick1"
-            />
-            <Typography
+              <img
+                src={require("../../../Img/greentick.png")}
+                className="greentick1"
+              />
+              <Typography
+                style={{
+                  margin: "5px 0 10px 0px",
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                Verification Complete
+              </Typography>
+            </Box>
+            <Box
+              sx={{ display: "flex", padding: "25px" }}
               style={{
-                margin: "5px 0 10px 0px",
-                fontSize: "18px",
-                fontFamily: "Outfit",
-                position: "relative",
-                fontWeight: "normal",
+                display: `${status === false ? "inline-block" : "none"}`,
               }}
             >
-              Invalid Code
-            </Typography>
+              <img
+                src={require("../../../Img/cross.png")}
+                className="greentick1"
+              />
+              <Typography
+                style={{
+                  margin: "5px 0 10px 0px",
+                  fontSize: "18px",
+                  fontFamily: "Outfit",
+                  position: "relative",
+                  fontWeight: "normal",
+                }}
+              >
+                Invalid Code
+              </Typography>
+            </Box>
           </Box>
         </Box>
         <div style={{ marginTop: "20px" }}>
@@ -232,7 +263,9 @@ function OTP({ emailNum }) {
             />
             Back
           </Button>
-          <Button className={classes.buttons}>Resend Code</Button>
+          <Button className={classes.buttons} onClick={resend}>
+            Resend Code
+          </Button>
         </div>
       </Box>
       <Box class="otpRectangle-side">

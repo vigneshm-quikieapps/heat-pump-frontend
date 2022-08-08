@@ -223,7 +223,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -301,7 +309,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -379,7 +395,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -457,7 +481,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -535,7 +567,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               key={index}
             >
               <span
-                style={{ float: "left", marginLeft: "1vw", display: "flex" }}
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
               >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
@@ -612,7 +652,17 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               style={{ borderRadius: "1.8vw" }}
               key={index}
             >
-              <span style={{ float: "left", marginLeft: "1vw" }}>
+              <span
+                style={{
+                  // float: "left",
+                  // marginLeft: "1vw",
+                  width: "80%",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "centers",
+                  gap: "20px",
+                }}
+              >
                 <img
                   src={require("../../../../Img/attachIcon.png")}
                   style={{

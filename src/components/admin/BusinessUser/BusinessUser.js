@@ -53,12 +53,15 @@ function BusinessUser({ adminFirstPageAction }) {
   const [loader, setLoader] = useState(false);
   const [inputLogin1Error, setInputLogin1Error] = useState("");
   const [inputLogin2Error, setInputLogin2Error] = useState("");
-  const [input4Error, setInput4Error] = useState("");
+  const [inputLogin3Error, setInputLogin3Error] = useState("");
 
+  const [input4Error, setInput4Error] = useState("");
+  const [f, setF] = useState(false);
   const onPopup = () => {
     setPop(!popup);
     setInputLogin1Error("");
     setInputLogin2Error("");
+    setInputLogin3Error("");
     setInput4Error("");
     setPassword({
       type: "password",
@@ -66,6 +69,7 @@ function BusinessUser({ adminFirstPageAction }) {
     });
     setName("");
     setEmail("");
+    setMob("");
   };
   const onPopup1 = () => {
     console.log(modifyUser);
@@ -106,7 +110,7 @@ function BusinessUser({ adminFirstPageAction }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    e.preventDefault();
+    // e.preventDefault();
 
     if (email == "") {
       setInputLogin1Error("Email Address cannot be Empty");
@@ -116,6 +120,10 @@ function BusinessUser({ adminFirstPageAction }) {
     }
     if (password.value == "") {
       setInputLogin2Error("Password cannot be Empty");
+    }
+    if (mob == "") {
+      setInputLogin3Error("Mobile cannot be empty");
+      return false;
     }
     if (name == "") {
       setInput4Error("Name cannot be empty");
@@ -132,14 +140,24 @@ function BusinessUser({ adminFirstPageAction }) {
       setInputLogin2Error("Must be at least 8 characters");
       return false;
     }
+    if (!validator.isLength(mob, { min: 10, max: 11 })) {
+      setInputLogin3Error("Must be at least 10 or 11 digits");
+      return false;
+    }
 
-    if (email !== "" && password.value !== "" && name !== "" && !loader) {
+    if (
+      email !== "" &&
+      password.value !== "" &&
+      name !== "" &&
+      mob !== "" &&
+      !loader
+    ) {
       setLoader(true);
       const data = {
         email: email,
         password: password.value,
         name: name,
-        mobile: mob.length > 0 ? mob : "1234567890",
+        mobile: mob.length > 0 ? mob : "",
         admin: true,
         business_admin: true,
         status: 3,
@@ -175,13 +193,14 @@ function BusinessUser({ adminFirstPageAction }) {
     setPage(p);
     _DATA.jump(p);
   };
-  const statusChange = (item, e) => {
-    e.preventDefault();
-    setLoader(true);
+  const statusChange = (item, temp) => {
+    // e.preventDefault();
+    // setLoader(true);
     const token = JSON.parse(localStorage.getItem("user"));
     const data = {
-      status: parseInt(e.target.value),
+      status: parseInt(temp),
     };
+    console.log(data.status);
     axios({
       method: "patch",
       url: URL + globalAPI.adminedituser + `?id=${item}`,
@@ -255,6 +274,8 @@ function BusinessUser({ adminFirstPageAction }) {
   const changeHandler = (e) => {
     setInputLogin1Error("");
     setInputLogin2Error("");
+    setInputLogin3Error("");
+
     if (e.target.name === "password") {
       setPassword((state) => ({ ...state, value: e.target.value }));
     } else if (e.target.name === "email") {
@@ -264,7 +285,10 @@ function BusinessUser({ adminFirstPageAction }) {
 
   const blurFunc = () => {
     if (email == "") {
+      setInputLogin1Error("Email cannot be empty");
       return false;
+    } else {
+      setInputLogin1Error("");
     }
     if (!validator.isEmail(email)) {
       setInputLogin1Error("Please enter a valid Email");
@@ -274,6 +298,7 @@ function BusinessUser({ adminFirstPageAction }) {
 
   const blurFunc1 = () => {
     if (password.value == "") {
+      setInputLogin1Error("Password cannot be empty");
       return false;
     }
     if (!validator.isLength(password.value, { min: 8, max: undefined })) {
@@ -285,6 +310,15 @@ function BusinessUser({ adminFirstPageAction }) {
     if (name == "") {
       setInput4Error("Name cannot be empty");
       return false;
+    } else {
+      setInput4Error("");
+      return true;
+    }
+  };
+  const blurFunc3 = () => {
+    if (mob == "") {
+      setInputLogin3Error("Mobile cannot be empty");
+      return false;
     }
   };
   console.log("_DATA.currentData().map", _DATA.currentData());
@@ -295,9 +329,15 @@ function BusinessUser({ adminFirstPageAction }) {
         ?.currentData()
         .map((item, index, { email, _id, name, mobile, status }) => ({
           //  onClick: () => manageService(_id),
-          onClick: () => {
+          onClick: (e) => {
+            // if (!f) {
+            // e.preventDefault();
+            // e.stopPropagation();
             setModifyUser(item);
             onPopup1();
+            // } else {
+            //   setF(false);
+            // }
           },
           key: { _id },
           items: [
@@ -308,7 +348,14 @@ function BusinessUser({ adminFirstPageAction }) {
               select
               sx={{ width: "200px" }}
               value={item.status}
-              onChange={(e) => statusChange(item?._id, e)}
+              onClick={(e) => {
+                let temp = e.target.getAttribute("data-value");
+                e.stopPropagation();
+                e.preventDefault();
+
+                // setF(true);
+                statusChange(item?._id, temp);
+              }}
             >
               <MenuItem value="3">Active</MenuItem>
               <MenuItem value="6">Inactive</MenuItem>
@@ -529,11 +576,24 @@ function BusinessUser({ adminFirstPageAction }) {
               sx={{ width: "370px" }}
               type="text"
               label="Mobile No"
+              onBlur={blurFunc3}
               // className="ba2input"
               value={mob}
               onChange={(e) => setMob(e.target.value)}
               required
             />
+            <Typography
+              style={{
+                fontSize: "18px",
+                fontWeight: "300",
+                fontFamily: "Outfit",
+                marginLeft: "20px",
+                color: "rgba(255, 0, 0, 0.699)",
+                position: "relative",
+              }}
+            >
+              {inputLogin3Error}
+            </Typography>
           </Box>
         </Grid>
         <div style={{ marginTop: "40px" }}>

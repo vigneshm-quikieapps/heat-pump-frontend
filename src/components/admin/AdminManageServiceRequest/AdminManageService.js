@@ -790,7 +790,31 @@ const AdminManageService = ({ adminFirstPageAction }) => {
 
             <div className="admindisplaygrid">
               <div className="miniadmindisplaygrid1">Site</div>
-              <div className="minidisplaygrid1">{site.address_1 || "-"}</div>
+              <div className="minidisplaygrid1">
+                {details.job_reference_id
+                  ? `${
+                      details.job_reference_id.site_details?.address_1
+                        ? details.job_reference_id.site_details?.address_1 + ","
+                        : ""
+                    } ${
+                      details.job_reference_id.site_details?.address_2
+                        ? details.job_reference_id.site_details?.address_2 + ","
+                        : ""
+                    } ${
+                      details.job_reference_id.site_details?.city
+                        ? details.job_reference_id.site_details?.city + ","
+                        : ""
+                    } ${
+                      details.job_reference_id.site_details?.country
+                        ? details.job_reference_id.site_details?.country + ","
+                        : ""
+                    } ${details.job_reference_id.site_details?.postcode || ""} `
+                  : `${site?.address_1 ? site?.address_1 + "," : ""} ${
+                      site?.address_2 ? site?.address_2 + "," : ""
+                    } ${site?.city ? site?.city + "," : ""} ${
+                      site?.country ? site?.country + "," : ""
+                    } ${site?.postcode || ""} ` || "-"}
+              </div>
             </div>
 
             <div style={{ marginTop: "1.5vh" }}>

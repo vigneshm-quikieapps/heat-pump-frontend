@@ -509,7 +509,26 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
               <div className="displayleft">Site</div>
               <div className="displaygrid1">
                 {details.job_reference_id
-                  ? details.job_reference_id.site_details
+                  ? `${
+                      details.job_reference_id.site_details?.address_1
+                        ? details.job_reference_id.site_details?.address_1 + ","
+                        : ""
+                    } 
+                   ${
+                     details.job_reference_id.site_details?.address_2
+                       ? details.job_reference_id.site_details?.address_2 + ","
+                       : ""
+                   } ${
+                      details.job_reference_id.site_details?.city
+                        ? details.job_reference_id.site_details?.city + ","
+                        : ""
+                    } ${
+                      details.job_reference_id.site_details?.country
+                        ? details.job_reference_id.site_details?.country + ","
+                        : ""
+                    } ${details.job_reference_id.site_details?.postcode || ""} 
+                    
+                    `
                   : "-"}
               </div>
             </div>

@@ -85,7 +85,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
   const PER_PAGE = 10;
   const [count, setCount] = useState(1);
   const _DATA = usePagination(data, PER_PAGE);
-  const [status, setStatus] = useState("1");
+  const [status, setStatus] = useState("1,2,3,4,5");
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const userName = userData.name;
@@ -160,7 +160,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
     _DATA.jump(p);
   };
   const searchfilter = () => {
-    setStatus("1,2,3,4");
+    setStatus("1,2,3,4,5");
     setPage(1);
     fetchSeconddata();
   };
@@ -198,7 +198,27 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
               ),
               service_ref_number,
               title,
-              `${job_reference_id ? job_reference_id.site_details : "-"}`,
+              `${
+                job_reference_id
+                  ? `${
+                      job_reference_id.site_details?.address_1
+                        ? job_reference_id.site_details?.address_1 + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.address_2
+                        ? job_reference_id.site_details?.address_2 + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.city
+                        ? job_reference_id.site_details?.city + ","
+                        : ""
+                    } ${
+                      job_reference_id.site_details?.country
+                        ? job_reference_id.site_details?.country + ","
+                        : ""
+                    } ${job_reference_id.site_details?.postcode || ""} `
+                  : ""
+              }`,
               `${type ? type : "-"}`,
               creator_name,
               moment(updatedAt).format("DD/MM/YYYY h:mm a"),
