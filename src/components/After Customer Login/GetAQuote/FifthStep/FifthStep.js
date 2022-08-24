@@ -15,6 +15,8 @@ import {
   bookJobReset,
 } from "../../../../Redux/bookJob/bookJob.action";
 import { connect, useDispatch } from "react-redux";
+import fileDownload from "js-file-download";
+
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
 const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
@@ -64,27 +66,27 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           if (res.success) {
             if (name == "walls") {
               wattachments.push(res.data.message[0]);
-              setWalls([...walls, e.name]);
+              setWalls([...walls, res.data.message[0]]);
             }
             if (name == "roof") {
               rattachments.push(res.data.message[0]);
-              setRoof([...roof, e.name]);
+              setRoof([...roof, res.data.message[0]]);
             }
             if (name == "windows") {
               wiattachments.push(res.data.message[0]);
-              setWindows([...windows, e.name]);
+              setWindows([...windows, res.data.message[0]]);
             }
             if (name == "eb") {
               ebattachments.push(res.data.message[0]);
-              setEB([...eb, e.name]);
+              setEB([...eb, res.data.message[0]]);
             }
             if (name == "er") {
               erattachments.push(res.data.message[0]);
-              setER([...er, e.name]);
+              setER([...er, res.data.message[0]]);
             }
             if (name == "pw") {
               pwattachments.push(res.data.message[0]);
-              setPW([...pw, e.name]);
+              setPW([...pw, res.data.message[0]]);
             }
           } else {
             toast.error(res.data.message);
@@ -99,7 +101,31 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
       toast.error("Please add Attachments");
     }
   };
-
+  const download = (item) => {
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      // downloadAPI(item)
+      .then((res) => {
+        fileDownload(
+          res.data,
+          `downloaded.${
+            res.data.type.split("/")[res.data.type.split("/").length - 1]
+          }`
+        );
+        console.log(
+          res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const removeFile = (name, index) => {
     if (name == "walls") {
       const newValue = [...walls];
@@ -221,6 +247,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -242,12 +273,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -307,6 +341,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -328,12 +367,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -393,6 +435,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -414,12 +461,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -479,6 +529,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -500,12 +555,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -565,6 +623,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -586,12 +649,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -651,6 +717,11 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s5filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -672,12 +743,15 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   }}
                 />
 
-                <span className="s5fileName">{item}</span>
+                <span className="s5fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
