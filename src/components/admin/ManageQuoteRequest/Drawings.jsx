@@ -14,6 +14,7 @@ import { set } from "react-hook-form";
 import { getQuote, UpdateJob } from "../../../services/services";
 
 import { connect, useDispatch } from "react-redux";
+import fileDownload from "js-file-download";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 // let flag = false;
@@ -57,13 +58,13 @@ const FourthStep = (props) => {
           if (res?.success) {
             if (name == "plans") {
               pattachments.push(res.data.message[0]);
-              setPlans([...plans, e.name]);
+              setPlans([...plans, res.data.message[0]]);
             } else if (name == "sections") {
               sattachments.push(res.data.message[0]);
-              setSections([...sections, e.name]);
+              setSections([...sections, res.data.message[0]]);
             } else {
               eattachments.push(res.data.message[0]);
-              setElevations([...elevations, e.name]);
+              setElevations([...elevations, res.data.message[0]]);
             }
           } else {
             toast.error(res.data.message);
@@ -79,7 +80,31 @@ const FourthStep = (props) => {
       toast.error("Please add Attachments");
     }
   };
-
+  const download = (item) => {
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      // downloadAPI(item)
+      .then((res) => {
+        fileDownload(
+          res.data,
+          `downloaded.${
+            res.data.type.split("/")[res.data.type.split("/").length - 1]
+          }`
+        );
+        console.log(
+          res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const removeFile = (name, index) => {
     if (name == "plans") {
       const newValue = [...plans];
@@ -163,6 +188,11 @@ const FourthStep = (props) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span style={{ float: "left", marginLeft: "1vw" }}>
                 <img
@@ -174,12 +204,15 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span className="s4fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -239,6 +272,11 @@ const FourthStep = (props) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span style={{ float: "left", marginLeft: "1vw" }}>
                 <img
@@ -250,12 +288,15 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span className="s4fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -315,6 +356,11 @@ const FourthStep = (props) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span style={{ float: "left", marginLeft: "1vw" }}>
                 <img
@@ -326,12 +372,15 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item}</span>
+                <span className="s4fileName">{item.split("/")[1]}</span>
               </span>
 
               <img
                 src={require("../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
