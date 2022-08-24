@@ -641,7 +641,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -670,7 +670,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -699,7 +699,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -766,7 +766,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -795,7 +795,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -824,7 +824,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -855,7 +855,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -886,7 +886,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -915,7 +915,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
