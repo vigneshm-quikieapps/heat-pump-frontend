@@ -93,12 +93,13 @@ const FourthStep = (props) => {
       .then((res) => {
         fileDownload(
           res.data,
-          `downloaded.${
-            res.data.type.split("/")[res.data.type.split("/").length - 1]
-          }`
-        );
-        console.log(
-          res.data.type.split("/")[res.data.type.split("/").length - 1]
+          item.split("/")[1]
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
         );
       })
       .catch((err) => {
