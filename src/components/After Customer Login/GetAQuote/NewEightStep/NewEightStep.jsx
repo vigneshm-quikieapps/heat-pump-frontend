@@ -64,7 +64,7 @@ const NewEightStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     setData(temp);
   };
   // const handleChange1 = (e) => {
-  //   // console.log(e);
+  //   // //console.log(e);
   //   let temp = { ...data };
   //   e.target.checked
   //     ? e.target.name === "Not sure"
@@ -75,7 +75,7 @@ const NewEightStep = ({ myProps, bookJobDetails, bookJobAction }) => {
   //       });
   //   setData(temp);
   // };
-  console.log(data);
+  //console.log(data);
   return (
     <Card>
       {loader && (
@@ -237,7 +237,7 @@ const NewEightStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   setData(temp1);
                 }
                 setToggleOther(temp);
-                //  console.log(propertyUsage);
+                //  //console.log(propertyUsage);
               }}
             />
             <Typography

@@ -121,7 +121,7 @@ const SeventhStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     setPriority(heatValueRev[bookJobDetails.heating_system]);
     setCurrentBills(temp);
   }, [bookJobDetails]);
-  console.log(priority, priorityValue);
+  //console.log(priority, priorityValue);
   return (
     <Card>
       {loader && (
@@ -291,7 +291,7 @@ const SeventhStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     setExistingData(temp1);
                   }
                   setCheckOtherToggle(temp);
-                  //  console.log(propertyUsage);
+                  //  //console.log(propertyUsage);
                 }}
               />
               <Typography
@@ -434,7 +434,7 @@ const SeventhStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     setProposedData(temp1);
                   }
                   setCheckOtherToggle(temp);
-                  //  console.log(propertyUsage);
+                  //  //console.log(propertyUsage);
                 }}
               />
               <Typography

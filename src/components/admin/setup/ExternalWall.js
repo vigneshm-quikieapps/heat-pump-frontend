@@ -43,7 +43,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   const { isLoading: isDeleteLoading, mutate: deleteExternalId } =
     useDeleteExternalId({
       onSuccess: (res) => {
-        console.log(res);
+        //console.log(res);
         toast.success(res?.message);
       },
       onError: (error) => {
@@ -79,7 +79,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
       });
   }
 
-  // console.log("externalres", box);
+  // //console.log("externalres", box);
 
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -101,7 +101,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
         setLoader(false);
         if (response.data.success) {
           const res = response.data;
-          console.log(response);
+          //console.log(response);
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -127,7 +127,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
   //   e.stopPropagation();
   //   delFabric(id)
   //     .then((res) => {
-  //       console.log(res);
+  //       //console.log(res);
   //       toast.error(res?.message);
   //     })
   //     .catch((error) => {
@@ -140,7 +140,7 @@ const ExternalWall = ({ adminFirstPageAction }) => {
     e.stopPropagation();
     delFabric(id)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         toast.success("Fabric deleted successfully");
         fetchSeconddata();
       })

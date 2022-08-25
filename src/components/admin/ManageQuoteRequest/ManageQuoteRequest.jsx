@@ -40,7 +40,7 @@ function ManageQuoteRequest({ adminFirstPageAction }) {
   const [status, setStatus] = useState("");
   const [site_details, setSite_details] = useState({});
   const [loader, setLoader] = useState(true);
-  console.log(quoteId);
+  //console.log(quoteId);
   const [checkAccordion, setCheckAccordion] = useState({
     acc: false,
     acc1: false,
@@ -62,7 +62,7 @@ function ManageQuoteRequest({ adminFirstPageAction }) {
 
   useEffect(() => {
     getQuote(quoteId).then((res) => {
-      console.log("res", res?.data?.data);
+      //console.log("res", res?.data?.data);
       setQuoteData(res?.data?.data);
       setLoader(false);
     });

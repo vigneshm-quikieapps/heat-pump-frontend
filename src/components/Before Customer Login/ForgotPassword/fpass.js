@@ -89,7 +89,7 @@ function Fpass({ emailNum, changeEmailNum }) {
         .then((response) => {
           const res =response.data
           setLoader(false);
-          console.log(res.otp_not_to_display);
+          //console.log(res.otp_not_to_display);
           if (res.success) {
             localStorage.setItem("otp_token", JSON.stringify(res.data.otp_token));
             setLoader(false);

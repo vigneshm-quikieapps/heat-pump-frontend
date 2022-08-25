@@ -288,7 +288,7 @@ const SeventhStep = (props) => {
                     setExistingData(temp1);
                   }
                   setCheckOtherToggle(temp);
-                  //  console.log(propertyUsage);
+                  //  //console.log(propertyUsage);
                 }}
               />
               <Typography
@@ -431,7 +431,7 @@ const SeventhStep = (props) => {
                     setProposedData(temp1);
                   }
                   setCheckOtherToggle(temp);
-                  //  console.log(propertyUsage);
+                  //  //console.log(propertyUsage);
                 }}
               />
               <Typography

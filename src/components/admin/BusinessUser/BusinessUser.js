@@ -72,7 +72,7 @@ function BusinessUser({ adminFirstPageAction }) {
     setMob("");
   };
   const onPopup1 = () => {
-    console.log(modifyUser);
+    //console.log(modifyUser);
     setPop1(!popup1);
   };
 
@@ -200,7 +200,7 @@ function BusinessUser({ adminFirstPageAction }) {
     const data = {
       status: parseInt(temp),
     };
-    console.log(data.status);
+    //console.log(data.status);
     axios({
       method: "patch",
       url: URL + globalAPI.adminedituser + `?id=${item}`,
@@ -321,7 +321,7 @@ function BusinessUser({ adminFirstPageAction }) {
       return false;
     }
   };
-  console.log("_DATA.currentData().map", _DATA.currentData());
+  //console.log("_DATA.currentData().map", _DATA.currentData());
   const tableRows = useMemo(() => {
     return (
       _DATA &&

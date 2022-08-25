@@ -34,7 +34,7 @@ function Common({ firstPageStatus, customerDetailsReset }) {
 
   const userInfo = JSON.parse(localStorage.getItem("userData"));
 
-  console.log(userInfo.name);
+  //console.log(userInfo.name);
 
   const toggleModal = () => {
     setLogout(!logout);
@@ -46,7 +46,7 @@ function Common({ firstPageStatus, customerDetailsReset }) {
     /* localStorage.clear(); */
     Navigate("/");
   };
-  console.log(firstPageStatus);
+  //console.log(firstPageStatus);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);

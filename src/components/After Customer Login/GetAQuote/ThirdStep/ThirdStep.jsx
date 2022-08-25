@@ -168,7 +168,7 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     setLoader(true);
     getFabricDetails(fabric_type, page).then((res) => {
       if (res?.success) {
-        // console.log(res);
+        // //console.log(res);
         let temp = [...res?.data];
         setFabricDetails(temp);
         setCount(res?.total_pages);
@@ -177,7 +177,7 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     });
   };
   const onSelect = (fabric_type, description, detail, short, long) => {
-    // console.log(selectedFabricType, selectedBuildingIndex);
+    // //console.log(selectedFabricType, selectedBuildingIndex);
     let temp = [...dataArr];
     temp[selectedBuildingIndex][selectedFabricType].fabric_type = fabric_type;
     temp[selectedBuildingIndex][selectedFabricType].description = description;
@@ -253,7 +253,7 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
       []
     );
   }, [onSelect, onClose]);
-  // console.log(bookJobDetails);
+  // //console.log(bookJobDetails);
   return (
     <>
       <Card>
@@ -971,7 +971,7 @@ const ThirdStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               bookJobAction({
                 fabric_details: dataArr,
               });
-              // console.log(bookJobDetails);
+              // //console.log(bookJobDetails);
               myProps.next();
             }}
           >

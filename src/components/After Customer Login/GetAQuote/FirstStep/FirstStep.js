@@ -125,7 +125,7 @@ const FirstStep = ({
   const changeHandler1 = (e) => {
     e.preventDefault();
     setsearchValue(e.target.value);
-    // console.log("ddd", e.target.value);
+    // //console.log("ddd", e.target.value);
   };
 
   useEffect(() => {
@@ -160,10 +160,10 @@ const FirstStep = ({
 
       //setInputAddress(state => ({...state,posttown:resp.posttown ,address_1:resp.addresslane1,address_2:resp.addresslane2 }))
 
-      // console.log("hello");
+      // //console.log("hello");
       setSuggestionListAction([]);
       setsearchValue("");
-      // console.log("dfdd", searchValue);
+      // //console.log("dfdd", searchValue);
       setShow(false);
     }
   };
@@ -382,7 +382,7 @@ const FirstStep = ({
 };
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log("ownProps", ownProps);
+  // //console.log("ownProps", ownProps);
   return {
     bookJobDetails: state.bkjb,
     customerDetails: state.cdr,

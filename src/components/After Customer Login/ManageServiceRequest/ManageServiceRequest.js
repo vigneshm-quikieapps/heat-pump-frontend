@@ -112,7 +112,7 @@ const useStyles = makeStyles({
 const ManageServiceRequest = ({ FirstPageAction }) => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  console.log(state);
+  //console.log(state);
   const classes = useStyles();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -188,7 +188,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         const res = response.data;
         //
         setDetails(res.data);
-        console.log("details", details);
+        //console.log("details", details);
         setavailableFiles(res.data.attachments);
         const newArray = [];
         res.data.attachments &&
@@ -204,7 +204,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             }
           });
         SetEFname(newArray);
-        console.log(efname);
+        //console.log(efname);
       })
       .catch((e) => {
         setLoader(false);
@@ -293,7 +293,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          console.log(res);
+          //console.log(res);
           if (res.success) {
             fetchData();
             fetchSeconddata();
@@ -367,7 +367,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
     if (attachments.length >= 1) {
       setLoader(true);
       const token = JSON.parse(localStorage.getItem("user"));
-      console.log(attachments);
+      //console.log(attachments);
       axios({
         method: "post",
         url: URL + globalAPI.addnotes + `?srid=${state}`,

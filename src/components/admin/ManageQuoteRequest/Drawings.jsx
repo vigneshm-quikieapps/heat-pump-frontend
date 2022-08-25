@@ -98,12 +98,12 @@ const FourthStep = (props) => {
           //     res.data.type.split("/")[res.data.type.split("/").length - 1]
           //   }`
           // );
-          // console.log(
+          // //console.log(
           //   res.data.type.split("/")[res.data.type.split("/").length - 1]
         );
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const removeFile = (name, index) => {

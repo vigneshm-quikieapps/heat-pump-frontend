@@ -139,7 +139,7 @@ const InternalFloor = ({ adminFirstPageAction }) => {
     e.stopPropagation();
     delFabric(id)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         toast.success("Fabric deleted successfully");
         fetchSeconddata();
       })

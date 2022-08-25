@@ -60,7 +60,7 @@ function AdminRCA({ adminFirstPageAction }) {
   }, []);
 
   useEffect(() => {
-    console.log("inputdata", inputData);
+    //console.log("inputdata", inputData);
     const newArray = [];
     inputData &&
       inputData.evidences.map((item, index) => {
@@ -120,7 +120,7 @@ function AdminRCA({ adminFirstPageAction }) {
         .then((response) => {
           setLoader(false);
           const res = response.data;
-          console.log(res);
+          //console.log(res);
           if (res.success) {
             toast.success("Status changed");
           } else {
@@ -226,7 +226,7 @@ function AdminRCA({ adminFirstPageAction }) {
       .then((response) => {
         setLoader(false);
         const res = response.data;
-        console.log(res);
+        //console.log(res);
         if (res.success) {
           toast.success("Updated successfully");
         } else {

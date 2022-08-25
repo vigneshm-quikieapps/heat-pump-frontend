@@ -85,7 +85,7 @@ function AdminCommon({ adminFirstPageStatus }) {
     prevOpen.current = open;
   }, [open]);
 
-  // console.log(adminFirstPageStatus);
+  // //console.log(adminFirstPageStatus);
   return (
     <div
       style={{ display: "flex", minHeight: "100%", maxHeight: "max-content" }}

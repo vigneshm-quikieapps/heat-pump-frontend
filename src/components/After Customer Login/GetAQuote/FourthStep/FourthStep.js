@@ -35,7 +35,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     setSections(bookJobDetails.drawings.sections);
   }, [bookJobDetails]);
   const onFileUpload = (e, name) => {
-    console.log(name);
+    //console.log(name);
     if (e) {
       let formData = new FormData();
       formData.append("attachments", e);
@@ -92,12 +92,12 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           //     res.data.type.split("/")[res.data.type.split("/").length - 1]
           //   }`
           // );
-          // console.log(
+          // //console.log(
           //   res.data.type.split("/")[res.data.type.split("/").length - 1]
         );
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const removeFile = (name, index) => {
@@ -125,7 +125,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
       setSattachments(newAttachments);
     }
   };
-  console.log(plans);
+  //console.log(plans);
   return (
     <Card>
       {loader && (

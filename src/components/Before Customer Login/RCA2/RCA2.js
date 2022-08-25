@@ -232,7 +232,7 @@ function RCA2({
   };
 
   const changeHandler2 = (e) => {
-    console.log(e.target.innerHTML);
+    //console.log(e.target.innerHTML);
     e.preventDefault();
     customerDetailsAction({ business_type: e.target.innerHTML });
     setBusinesstypecolor(false);
@@ -263,7 +263,7 @@ function RCA2({
           `https://ws.postcoder.com/pcw/autocomplete/find?query=${searchValue}&country=uk&apikey=PCWV6-VMTG6-XKM5K-6ZHQ5&pathfilter=${e.target.id}&identifier=HPD`
         )
         .then((res) => {
-          // console.log(res);
+          // //console.log(res);
           setSuggestionListAction(res.data);
         });
     } else {
@@ -274,14 +274,14 @@ function RCA2({
         .then((res) => res.data[0])
 
         .then((resp) => {
-          console.log(resp);
+          //console.log(resp);
           customerDetailsAutoSuggestion(resp);
         });
       /* .then(respo => setpostc(respo.postcode)) */
 
       //setInputAddress(state => ({...state,posttown:resp.posttown ,address_1:resp.addresslane1,address_2:resp.addresslane2 }))
 
-      // console.log("hello");
+      // //console.log("hello");
       setSuggestionListAction([]);
       setsearchValue("");
       setShow(false);

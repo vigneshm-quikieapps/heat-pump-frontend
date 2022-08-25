@@ -104,7 +104,7 @@ function Fpass({ emailNum, changeEmailNum }) {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          console.log(res.otp_not_to_display);
+          //console.log(res.otp_not_to_display);
           if (res.success) {
             toast.success(response.data.message);
             localStorage.setItem(

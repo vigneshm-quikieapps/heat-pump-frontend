@@ -182,7 +182,7 @@ const ServiceList = ({ FirstPageAction }) => {
     (id) => navigate("/common/manageservice", { state: id }),
     [navigate]
   );
-  console.log("_DATA.currentData().map", _DATA.currentData());
+  //console.log("_DATA.currentData().map", _DATA.currentData());
   const tableRows = useMemo(() => {
     return (
       _DATA &&
@@ -253,7 +253,7 @@ const ServiceList = ({ FirstPageAction }) => {
   }, [_DATA, manageService]);
 
   // const manageService = (item) => {
-  //   console.log("item", item);
+  //   //console.log("item", item);
   //   navigate("/common/manageservice", { state: item._id });
   // };
   return (

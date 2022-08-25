@@ -87,7 +87,7 @@ function OTP({ emailNum }) {
       .then((response) => {
         const res = response.data;
         setLoader(false);
-        console.log(res.otp_not_to_display);
+        //console.log(res.otp_not_to_display);
         if (res.success) {
           toast.success(response.data.data.message);
           localStorage.setItem("otp_token", JSON.stringify(res.data.otp_token));
@@ -108,13 +108,13 @@ function OTP({ emailNum }) {
     } */
     if (otp.length === 4) {
       const otp_token = JSON.parse(localStorage.getItem("otp_token"));
-      console.log(otp_token);
+      //console.log(otp_token);
       const data = {
         email: emailNum,
         otp: parseInt(otp),
         otp_token: otp_token,
       };
-      console.log(data);
+      //console.log(data);
       setLoader(true);
 
       axios
@@ -146,7 +146,7 @@ function OTP({ emailNum }) {
     }
   }, [otp]);
 
-  // console.log(otp);
+  // //console.log(otp);
   return (
     <Box sx={{ display: "flex", minHeight: "100%", height: "max-content" }}>
       {loader && (

@@ -57,7 +57,7 @@ const SecondSubStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     setQuestions(bookJobDetails.questions);
   }, [bookJobDetails]);
   useEffect(() => {
-    console.log(questions);
+    //console.log(questions);
   }, [questions]);
   return (
     <>

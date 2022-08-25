@@ -237,7 +237,7 @@ const CreateList = ({ FirstPageAction }) => {
         toast.error("Something went wrong");
         setOpen(!open);
       });
-    console.log(data);
+    //console.log(data);
   };
 
   const onFileUpload = (e) => {

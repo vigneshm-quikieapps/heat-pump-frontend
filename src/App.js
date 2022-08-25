@@ -87,8 +87,8 @@ function PriorityComponent() {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("user"));
   const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log(userData);
-  console.log(window.location.pathname);
+  //console.log(userData);
+  //console.log(window.location.pathname);
 
   const { isExpired } = useJwt(token);
   useEffect(() => {
@@ -97,11 +97,11 @@ function PriorityComponent() {
       window.location.replace("/");
     }
     if (window.location.pathname == "/common") {
-      console.log(window.location.pathname);
+      //console.log(window.location.pathname);
       navigate("/common/HomePage");
     }
     if (window.location.pathname == "/admincommon") {
-      console.log(window.location.pathname);
+      //console.log(window.location.pathname);
       navigate("/admincommon/AdminHomePage");
     }
   }, []);

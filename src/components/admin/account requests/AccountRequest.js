@@ -163,7 +163,7 @@ const AccountRequest = ({ adminFirstPageAction }) => {
     setPage(1);
     fetchSeconddata();
   };
-  // console.log("_DATA.currentData()ssss", _DATA.currentData());
+  // //console.log("_DATA.currentData()ssss", _DATA.currentData());
   const tableRows = useMemo(() => {
     return (
       _DATA &&
@@ -399,7 +399,6 @@ const AccountRequest = ({ adminFirstPageAction }) => {
               // isFetching={false}
             />
           </Box>
-
 
           {_DATA.currentData().length == 0 && (
             <h4

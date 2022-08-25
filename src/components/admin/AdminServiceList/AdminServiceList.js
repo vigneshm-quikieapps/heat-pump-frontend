@@ -152,7 +152,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
   }
 
   const manageService = (item) => {
-    console.log(item);
+    //console.log(item);
     navigate("/admincommon/adminmsr", { state: item });
   };
   const handleChange = (e, p) => {
@@ -168,7 +168,7 @@ const AdminServiceList = ({ adminFirstPageAction }) => {
   //   (id) => navigate("/admincommon/adminmsr", { state: id }),
   //   [navigate]
   // );
-  console.log("_DATA.currentData().map", _DATA.currentData());
+  //console.log("_DATA.currentData().map", _DATA.currentData());
   const tableRows = useMemo(() => {
     return (
       _DATA &&

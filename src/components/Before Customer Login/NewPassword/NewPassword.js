@@ -109,7 +109,7 @@ function NewPassword() {
   };
 
   const submitHandler = () => {
-    console.log("hello");
+    //console.log("hello");
     if (password.newPassword.length < 8) {
       setColor("red");
       return;

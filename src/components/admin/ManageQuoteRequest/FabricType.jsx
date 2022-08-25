@@ -164,7 +164,7 @@ const ThirdStep = (props) => {
     setLoader(true);
     getFabricDetails(fabric_type, page).then((res) => {
       if (res?.success) {
-        // console.log(res);
+        // //console.log(res);
         let temp = [...res?.data];
         setFabricDetails(temp);
         setCount(res?.total_pages);
@@ -173,7 +173,7 @@ const ThirdStep = (props) => {
     });
   };
   const onSelect = (fabric_type, description, detail, short, long) => {
-    // console.log(selectedFabricType, selectedBuildingIndex);
+    // //console.log(selectedFabricType, selectedBuildingIndex);
     let temp = [...dataArr];
     temp[selectedBuildingIndex][selectedFabricType].fabric_type = fabric_type;
     temp[selectedBuildingIndex][selectedFabricType].description = description;

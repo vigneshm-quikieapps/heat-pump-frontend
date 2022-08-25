@@ -75,7 +75,7 @@ const InternalWall = ({ adminFirstPageAction }) => {
     e.stopPropagation();
     delFabric(id)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         toast.success("Fabric deleted successfully");
         fetchData();
       })
@@ -153,7 +153,7 @@ const InternalWall = ({ adminFirstPageAction }) => {
           const res = response.data;
           // setCount(res.total_pages);
           // setBox(res.data);
-          console.log(response);
+          //console.log(response);
           setCount(res?.total_pages);
           setBox(res?.data);
         } else {
@@ -176,7 +176,7 @@ const InternalWall = ({ adminFirstPageAction }) => {
     setPage(p);
     _DATA.jump(p);
   };
-  console.log("internalres", box);
+  //console.log("internalres", box);
   return (
     <div>
       {loader && (
@@ -320,7 +320,7 @@ const InternalWall = ({ adminFirstPageAction }) => {
                 /*  variant="outlined" */
                 // onChange={handleChange}
                 onChange={(e, p) => {
-                  console.log(p);
+                  //console.log(p);
                   setPage(p);
                   setDataOfTens(p);
                 }}

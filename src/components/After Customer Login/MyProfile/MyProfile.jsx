@@ -185,7 +185,7 @@ const MyProfile = (
   };
 
   const changeHandler2 = (e) => {
-    console.log(e.target.innerHTML);
+    //console.log(e.target.innerHTML);
     e.preventDefault();
     customerDetailsAction({ business_type: e.target.innerHTML });
     setBusinesstypecolor(false);
@@ -209,7 +209,7 @@ const MyProfile = (
   }, [searchValue]);
 
   useEffect(() => {
-    console.log(customerDetails);
+    //console.log(customerDetails);
   }, [customerDetails]);
 
   const clickHandler1 = (e) => {
@@ -233,7 +233,7 @@ const MyProfile = (
 
       //setInputAddress(state => ({...state,posttown:resp.posttown ,address_1:resp.addresslane1,address_2:resp.addresslane2 }))
 
-      console.log("hello");
+      //console.log("hello");
       setSuggestionListAction([]);
       setsearchValue("");
       setShow(false);
@@ -325,7 +325,7 @@ const MyProfile = (
         }
       })
       .catch((error) => {
-        console.log(error?.response);
+        //console.log(error?.response);
         setLoader(false);
         toast.error(error?.response?.data?.data?.message);
       });

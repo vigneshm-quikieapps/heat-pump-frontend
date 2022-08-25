@@ -121,7 +121,7 @@ const MainQuote = ({ customerDetailsReset, bookJobReset }) => {
     }
     setPayload(temp);
 
-    console.log(temp);
+    //console.log(temp);
   };
 
   return (

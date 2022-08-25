@@ -406,7 +406,7 @@ const Occupancy = (props) => {
                 ? (temp.data[1] = "Holiday Home")
                 : temp.data.splice(1, 1);
               setPropertyUsage(temp);
-              // console.log(propertyUsage);
+              // //console.log(propertyUsage);
             }}
           />
           <Typography
@@ -439,7 +439,7 @@ const Occupancy = (props) => {
                 setPropertyUsage(temp1);
               }
               setCheckOtherToggle(temp);
-              //  console.log(propertyUsage);
+              //  //console.log(propertyUsage);
             }}
           />
           <Typography

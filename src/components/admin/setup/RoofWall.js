@@ -72,7 +72,7 @@ const RoofWall = ({ adminFirstPageAction }) => {
     e.stopPropagation();
     delFabric(id)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         toast.success("Fabric deleted successfully");
         fetchData();
       })
@@ -133,7 +133,7 @@ const RoofWall = ({ adminFirstPageAction }) => {
       setBox(dataArr);
     }
   }, [dataArr]);
-  // console.log("Roofres", box);
+  // //console.log("Roofres", box);
   function fetchSeconddata() {
     const token = JSON.parse(localStorage.getItem("user"));
     const config = {

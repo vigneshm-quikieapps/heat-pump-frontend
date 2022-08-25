@@ -63,7 +63,7 @@ const fileTypes = ["PDF", "PNG", "JPEG"];
 const AdminManageService = ({ adminFirstPageAction }) => {
   const classes = useStyles();
   const { state } = useLocation();
-  console.log(state);
+  //console.log(state);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -215,7 +215,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         setPriority(res.data.priority);
         setAssigned(res.data.assigned_to);
         setCreatorId(res.data.creator_id);
-        console.log("details", details);
+        //console.log("details", details);
         setavailableFiles(res.data.attachments);
         const newArray = [];
         res.data.attachments &&
@@ -230,7 +230,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             }
           });
         SetEFname(newArray);
-        console.log(efname);
+        //console.log(efname);
       })
       .catch((e) => {
         setLoader(false);
@@ -326,7 +326,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     SetFname(newName);
   };
 
-  console.log(state);
+  //console.log(state);
   const addUpdate = (e) => {
     e.preventDefault();
 
@@ -345,7 +345,7 @@ const AdminManageService = ({ adminFirstPageAction }) => {
         .then((response) => {
           const res = response.data;
           setLoader(false);
-          console.log(res);
+          //console.log(res);
           if (res.success) {
             setText("");
             setOpenupdate(!openupdate);
@@ -568,17 +568,17 @@ const AdminManageService = ({ adminFirstPageAction }) => {
     }));
   };
 
-  console.log(inputData);
+  //console.log(inputData);
   const handleChecked = (e) => {
     if (e.target.checked) {
       setCheckedType(3);
-      console.log("checked");
+      //console.log("checked");
     } else {
       setCheckedType(2);
-      console.log("not checked");
+      //console.log("not checked");
     }
   };
-  console.log("detaillll", details);
+  //console.log("detaillll", details);
 
   return (
     <div>

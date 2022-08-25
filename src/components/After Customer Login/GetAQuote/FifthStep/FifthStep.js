@@ -47,7 +47,7 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     window.scrollTo(0, 0);
   }, []);
   const onFileUpload = (e, name) => {
-    console.log(name);
+    //console.log(name);
     if (e) {
       let formData = new FormData();
       formData.append("attachments", e);
@@ -119,12 +119,12 @@ const FifthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           //     res.data.type.split("/")[res.data.type.split("/").length - 1]
           //   }`
           // );
-          // console.log(
+          // //console.log(
           //   res.data.type.split("/")[res.data.type.split("/").length - 1]
         );
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   const removeFile = (name, index) => {

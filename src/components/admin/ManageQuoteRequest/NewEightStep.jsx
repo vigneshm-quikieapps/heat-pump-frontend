@@ -226,7 +226,7 @@ const NewEightStep = (props) => {
                   setData(temp1);
                 }
                 setToggleOther(temp);
-                //  console.log(propertyUsage);
+                //  //console.log(propertyUsage);
               }}
             />
             <Typography

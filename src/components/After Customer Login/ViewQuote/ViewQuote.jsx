@@ -40,12 +40,12 @@ function ViewQuote({ FirstPageAction }) {
   }, [localStorage.getItem("userData")]);
   useEffect(() => {
     getQuote(quoteId).then((res) => {
-      // console.log(res);
+      // //console.log(res);
       setQuoteData(res?.data?.data);
       setLoader(false);
     });
   }, [quoteId]);
-  console.log(quoteData);
+  //console.log(quoteData);
   const download = (item) => {
     axios({
       url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
@@ -64,12 +64,12 @@ function ViewQuote({ FirstPageAction }) {
           //     res.data.type.split("/")[res.data.type.split("/").length - 1]
           //   }`
           // );
-          // console.log(
+          // //console.log(
           //   res.data.type.split("/")[res.data.type.split("/").length - 1]
         );
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
   return (

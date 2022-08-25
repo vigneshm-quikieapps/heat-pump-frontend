@@ -109,7 +109,7 @@ const Login = ({ customerDetailsReset }) => {
         .post(URL + globalAPI.login, data)
         .then((response) => {
           const res = response.data;
-          console.log(res);
+          //console.log(res);
           if (res.sucess) {
             localStorage.setItem("userData", JSON.stringify(res.data));
             localStorage.setItem("user", JSON.stringify(res.data.token));
@@ -134,7 +134,7 @@ const Login = ({ customerDetailsReset }) => {
   };
 
   /* useEffect(() => {
-    console.log(emailValue);
+    //console.log(emailValue);
   }, [emailValue]); */
 
   return (

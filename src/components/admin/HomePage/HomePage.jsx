@@ -225,7 +225,7 @@ const HomePage = ({ adminFirstPageAction }) => {
   //     (id) => navigate("/common/manageservice", { state: id }),
   //     [navigate]
   //   );
-  //   console.log("_DATA.currentData().map", _DATA.currentData());
+  //   //console.log("_DATA.currentData().map", _DATA.currentData());
   //   const tableRows = useMemo(() => {
   //     return (
   //       _DATA &&
@@ -276,7 +276,7 @@ const HomePage = ({ adminFirstPageAction }) => {
   //   }, [_DATA, manageService]);
 
   // const manageService = (item) => {
-  //   console.log("item", item);
+  //   //console.log("item", item);
   //   navigate("/common/manageservice", { state: item._id });
   // };
   return (
@@ -315,7 +315,7 @@ const HomePage = ({ adminFirstPageAction }) => {
             <div
               className="tiles"
               onClick={() => {
-                // console.log("LOL");
+                // //console.log("LOL");
                 navigate("/admincommon/accountrequest");
               }}
             >
@@ -340,7 +340,7 @@ const HomePage = ({ adminFirstPageAction }) => {
             <div
               className="tiles"
               onClick={() => {
-                // console.log("LOL");
+                // //console.log("LOL");
                 navigate("/admincommon/MQR");
               }}
             >
@@ -360,7 +360,7 @@ const HomePage = ({ adminFirstPageAction }) => {
             <div
               className="tiles"
               onClick={() => {
-                // console.log("LOL");
+                // //console.log("LOL");
                 navigate("/admincommon/adminsrl");
               }}
             >
@@ -380,7 +380,7 @@ const HomePage = ({ adminFirstPageAction }) => {
             <div
               className="tiles"
               onClick={() => {
-                // console.log("LOL");
+                // //console.log("LOL");
                 navigate("/admincommon/businessuser");
               }}
             >

@@ -126,7 +126,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
         config
       )
       .then((response) => {
-        console.log(response?.data?.data);
+        //console.log(response?.data?.data);
         setLoader(false);
         setData(response?.data?.data);
       })
@@ -147,7 +147,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
         config
       )
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setLoader(false);
         setCount(response?.data?.total_pages);
         setBox(response?.data?.data);
@@ -222,7 +222,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
   useEffect(() => {
     fetchSeconddata();
   }, [page, status]);
-  console.log(box);
+  //console.log(box);
   return (
     <div className="arcontainer">
       {loader && (

@@ -61,7 +61,7 @@ const SecondStep = ({ myProps, bookJobDetails, bookJobAction }) => {
     temp[`${slot}`][index] = !weeklySlots[`${slot}`][index];
     setWeeklySlots(temp);
   };
-  // console.log(bookJobDetails);
+  // //console.log(bookJobDetails);
   useEffect(() => {
     setWeeklySlots(bookJobDetails?.occupancy?.weekly);
     setPropertyUsage(bookJobDetails?.occupancy?.property_usage);
@@ -353,7 +353,7 @@ const SecondStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 ? (temp.data[1] = "Holiday Home")
                 : temp.data.splice(1, 1);
               setPropertyUsage(temp);
-              // console.log(propertyUsage);
+              // //console.log(propertyUsage);
             }}
           />
           <Typography
@@ -386,7 +386,7 @@ const SecondStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                 setPropertyUsage(temp1);
               }
               setCheckOtherToggle(temp);
-              //  console.log(propertyUsage);
+              //  //console.log(propertyUsage);
             }}
           />
           <Typography
