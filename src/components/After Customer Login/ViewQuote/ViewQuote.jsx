@@ -9,6 +9,8 @@ import { getQuote } from "../../../services/services";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
 import { connect } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
+import fileDownload from "js-file-download";
+import axios from "axios";
 
 // const userData = JSON.parse(localStorage.getItem("userData"));
 // const userName = userData?.name;
@@ -17,7 +19,7 @@ function ViewQuote({ FirstPageAction }) {
   const [quoteData, setQuoteData] = useState();
   const [userData1, setUserData1] = useState();
   const [loader, setLoader] = useState(true);
-
+  const token = JSON.parse(localStorage.getItem("user"));
   const [checkAccordion, setCheckAccordion] = useState({
     acc1: false,
     acc2: false,
@@ -44,7 +46,32 @@ function ViewQuote({ FirstPageAction }) {
     });
   }, [quoteId]);
   console.log(quoteData);
-
+  const download = (item) => {
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      // downloadAPI(item)
+      .then((res) => {
+        fileDownload(
+          res.data,
+          item.split("/")[1]
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       {loader && (
@@ -600,6 +627,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -610,7 +642,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -624,6 +656,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -634,7 +671,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -648,6 +685,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -658,7 +700,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -710,6 +752,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -720,7 +767,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -734,6 +781,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -744,7 +796,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -758,6 +810,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -768,7 +825,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -784,6 +841,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -794,7 +856,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -810,6 +872,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -820,7 +887,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}
@@ -834,6 +901,11 @@ function ViewQuote({ FirstPageAction }) {
                         className="file1"
                         style={{ borderRadius: "1.9vw" }}
                         key={index}
+                        onClick={(e) => {
+                          download(item);
+                          // e.stopPropagation();
+                          e.preventDefault();
+                        }}
                       >
                         <span style={{ float: "left", marginLeft: "1vw" }}>
                           <img
@@ -844,7 +916,7 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item}</span>
+                          <span className="fileName">{item.split("/")[1]}</span>
                         </span>
                       </div>
                     ))}

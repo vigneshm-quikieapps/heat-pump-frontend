@@ -11,6 +11,15 @@ export async function getFabric() {
     throw error;
   }
 }
+export async function downloadAPI(fp) {
+  try {
+    const api = `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${fp}`;
+    const response = await axiosInstance.get(api);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
 // export async function getFabric() {
 //   try {
 //     const api = `v1/services/fabric-details?page=1&perPage=2&type=1`;

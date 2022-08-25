@@ -16,7 +16,8 @@ import {
   bookJobReset,
 } from "../../../../Redux/bookJob/bookJob.action";
 import { connect, useDispatch } from "react-redux";
-
+import { downloadAPI } from "../../../../services/services";
+import fileDownload from "js-file-download";
 const fileTypes = ["PDF", "PNG", "JPEG"];
 // let flag = false;
 const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
@@ -53,13 +54,13 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           if (res.success) {
             if (name == "plans") {
               pattachments.push(res.data.message[0]);
-              setPlans([...plans, e.name]);
+              setPlans([...plans, res.data.message[0]]);
             } else if (name == "sections") {
               sattachments.push(res.data.message[0]);
-              setSections([...sections, e.name]);
+              setSections([...sections, res.data.message[0]]);
             } else {
               eattachments.push(res.data.message[0]);
-              setElevations([...elevations, e.name]);
+              setElevations([...elevations, res.data.message[0]]);
             }
           } else {
             toast.error(res.data.message);
@@ -74,7 +75,31 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
       toast.error("Please add Attachments");
     }
   };
-
+  const download = (item) => {
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        fileDownload(
+          res.data,
+          item.split("/")[1]
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const removeFile = (name, index) => {
     if (name == "plans") {
       const newValue = [...plans];
@@ -132,7 +157,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
+            toast.error("Only  png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -156,7 +181,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
+            toast.error("Only  png, jpeg files are allowed")
           }
           children={
             <span className="s4browse">
@@ -173,6 +198,11 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -198,13 +228,16 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                   style={{ width: "60%" }}
                   // className="s4fileName"
                 >
-                  {item}
+                  {item.split("/")[1]}
                 </span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -224,7 +257,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
+            toast.error("Only  png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -248,7 +281,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
+            toast.error("Only  png, jpeg files are allowed")
           }
           children={
             <span className="s4browse">
@@ -264,6 +297,11 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -290,13 +328,16 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     width: "60%",
                   }}
                 >
-                  {item}
+                  {item.split("/")[1]}
                 </span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
@@ -316,7 +357,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           name="file"
           types={fileTypes}
           onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
+            toast.error("Only  png, jpeg files are allowed")
           }
           children={
             <span className="s4dragndrop">
@@ -339,9 +380,7 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
           handleChange={(e) => onFileUpload(e, "sections")}
           name="file"
           types={fileTypes}
-          onTypeError={(err) =>
-            toast.error("Only pdf, png, jpeg files are allowed")
-          }
+          onTypeError={(err) => toast.error("Only png, jpeg files are allowed")}
           children={
             <span className="s4browse">
               <button className="s4browsebtn">Browse</button>
@@ -356,6 +395,11 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
               className="s4filemap"
               style={{ borderRadius: "1.8vw" }}
               key={index}
+              onClick={(e) => {
+                download(item);
+                // e.stopPropagation();
+                e.preventDefault();
+              }}
             >
               <span
                 style={{
@@ -382,13 +426,16 @@ const FourthStep = ({ myProps, bookJobDetails, bookJobAction }) => {
                     width: "60%",
                   }}
                 >
-                  {item}
+                  {item.split("/")[1]}
                 </span>
               </span>
 
               <img
                 src={require("../../../../Img/iconDelete.png")}
-                onClick={(e) => removeFile(e.target.name, index)}
+                onClick={(e) => {
+                  removeFile(e.target.name, index);
+                  e.stopPropagation();
+                }}
                 style={{
                   marginRight: "20px",
                   width: "1.3vw",
