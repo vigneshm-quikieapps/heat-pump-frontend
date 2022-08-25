@@ -222,6 +222,7 @@ const QuoteList = ({ adminFirstPageAction }) => {
   useEffect(() => {
     fetchSeconddata();
   }, [page, status]);
+  console.log(box);
   return (
     <div className="arcontainer">
       {loader && (

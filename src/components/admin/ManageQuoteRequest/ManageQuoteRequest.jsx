@@ -95,7 +95,7 @@ function ManageQuoteRequest({ adminFirstPageAction }) {
     temp[`${e.target.name}`] = e.target.value;
     setSite_details(temp);
   };
-  console.log(quoteData);
+
   return (
     <>
       {loader && (
@@ -107,6 +107,73 @@ function ManageQuoteRequest({ adminFirstPageAction }) {
       <hr className="quote" />
 
       <Card className="mqr">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            ml: 5,
+          }}
+        >
+          <Box>
+            <Typography
+              style={{
+                color: "#fa5e00",
+                fontSize: "28px",
+                fontWeight: "600",
+                fontFamily: "Outfit",
+              }}
+            >
+              {quoteData?.creator_customer_id?.name}
+            </Typography>
+            <Typography
+              style={{
+                fontSize: "18px",
+
+                fontFamily: "Outfit",
+                fontWeight: "300",
+              }}
+            >
+              {quoteData?.creator_customer_id?.business_trade_name},{" "}
+              {quoteData?.creator_customer_id?.city}
+            </Typography>
+          </Box>
+          <Box>
+            <div
+              style={{
+                width: " 2px",
+                height: " 63px",
+                flexGrow: "0",
+                margin: "0 80px 5px 80px",
+                transform: " rotate(-180deg)",
+                backgroundColor: "#e7e7e7",
+              }}
+            ></div>
+          </Box>
+          <Box sx={{ width: "50%", display: "flex", flexDirection: "row" }}>
+            <Box>
+              <Typography className="Output">Job Status</Typography>
+              <Typography className="Output">Job Request No.</Typography>
+            </Box>
+            <Box sx={{ ml: 2.5 }}>
+              <Typography className="Output">
+                {quoteData?.status == 1
+                  ? "New-Unpaid"
+                  : quoteData?.status == 2
+                  ? "New-Paid"
+                  : quoteData?.status == 3
+                  ? "In Progress"
+                  : quoteData?.status == 4
+                  ? "Complete"
+                  : quoteData?.status == 5
+                  ? "Snagging"
+                  : "-"}
+              </Typography>
+              <Typography className="Output">
+                {quoteData?.quote_reference_number}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
         <Box>
           <Accordion
             expanded={checkAccordion.acc}
@@ -181,6 +248,7 @@ function ManageQuoteRequest({ adminFirstPageAction }) {
                 style={{ marginTop: "5%", marginLeft: "-5px" }}
                 onClick={(e) => {
                   updateStatus(e);
+                  window.location.reload();
                 }}
               >
                 Save
