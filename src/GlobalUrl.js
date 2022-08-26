@@ -1,3 +1,3 @@
-const URL = "https://heat-pump-backend-test.herokuapp.com/";
+const URL = "https://hpd-jsp-test.herokuapp.com/";
 
 export default URL;

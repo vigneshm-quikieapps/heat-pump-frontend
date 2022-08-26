@@ -82,7 +82,7 @@ const FourthStep = (props) => {
   };
   const download = (item) => {
     axios({
-      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      url: `https://hpd-jsp-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
       method: "get",
       responseType: "blob",
       headers: {
