@@ -260,7 +260,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -344,7 +346,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -428,7 +432,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -512,7 +518,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -596,7 +604,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -680,7 +690,9 @@ const FifthStep = (props) => {
                   }}
                 />
 
-                <span className="s5fileName">{item.split("/")[1]}</span>
+                <span className="s5fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img

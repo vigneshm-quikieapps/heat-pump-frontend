@@ -205,7 +205,9 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.split("/")[1]}</span>
+                <span className="s4fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -289,7 +291,9 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.split("/")[1]}</span>
+                <span className="s4fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
@@ -373,7 +377,9 @@ const FourthStep = (props) => {
                   }}
                 />
 
-                <span className="s4fileName">{item.split("/")[1]}</span>
+                <span className="s4fileName">
+                  {item.split("/")[1] === undefined ? item : item.split("/")[1]}
+                </span>
               </span>
 
               <img
