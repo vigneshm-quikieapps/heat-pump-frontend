@@ -667,7 +667,7 @@ select {
   height: 6.71vh;
   display: flex;
   flex-direction: row;
-
+  cursor: pointer;
   align-items: center;
   justify-content: space-between;
 }

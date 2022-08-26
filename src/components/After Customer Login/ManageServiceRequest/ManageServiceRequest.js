@@ -26,6 +26,7 @@ import { toast } from "react-toastify";
 
 import { connect } from "react-redux";
 import { FirstPageAction } from "../../../Redux/FirstPage/FirstPage.action";
+import fileDownload from "js-file-download";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 
@@ -313,6 +314,32 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       return false;
     }
   };
+  const download = (item) => {
+    const token = JSON.parse(localStorage.getItem("user"));
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        fileDownload(
+          res.data,
+          item.split("/")[1]
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const onFileUpload = (e) => {
     if (e) {
       let formData = new FormData();
@@ -439,7 +466,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
       setNoclose(true);
     }
   };
-
+  console.log(availableFiles);
   return (
     <div>
       {loader && (
@@ -536,7 +563,14 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
             <hr className="msrhr1" />
             {availableFiles &&
               availableFiles.map((item, index) => (
-                <div key={index} className="msrattachment">
+                <div
+                  key={index}
+                  className="msrattachment"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    download(item);
+                  }}
+                >
                   <img
                     src={require("../../../Img/attachIcon1.png")}
                     className="msrattachIcon"

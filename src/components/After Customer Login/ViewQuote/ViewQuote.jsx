@@ -642,7 +642,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -671,7 +675,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -700,7 +708,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -767,7 +779,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -796,7 +812,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -825,7 +845,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -856,7 +880,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -887,7 +915,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}
@@ -916,7 +948,11 @@ function ViewQuote({ FirstPageAction }) {
                             }}
                           />
 
-                          <span className="fileName">{item.split("/")[1]}</span>
+                          <span className="fileName">
+                            {item.split("/")[1] === undefined
+                              ? item
+                              : item.split("/")[1]}
+                          </span>
                         </span>
                       </div>
                     ))}

@@ -27,6 +27,7 @@ import axios from "axios";
 import DropdownIcon from "../../../Img/icon dropdown.png";
 import { connect } from "react-redux";
 import { adminFirstPageAction } from "../../../Redux/AdminFirstPage/adminFirstPage.action";
+import fileDownload from "js-file-download";
 
 const fileTypes = ["PDF", "PNG", "JPEG"];
 const useStyles = makeStyles({
@@ -54,7 +55,7 @@ function AdminRCA({ adminFirstPageAction }) {
   const [fname, SetFname] = useState([]);
   const [efname, SetEFname] = useState([]);
   // const ExistingLen = inputData.evidences.length;
-
+  const userData = JSON.parse(localStorage.getItem("userData"));
   useEffect(() => {
     adminFirstPageAction(false);
   }, []);
@@ -138,7 +139,32 @@ function AdminRCA({ adminFirstPageAction }) {
     setAddfiles(!addfiles);
     SetFname([]);
   };
-
+  const download = (item) => {
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${userData.id}/${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      // downloadAPI(item)
+      .then((res) => {
+        fileDownload(
+          res.data,
+          item
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const onFileUpload = (e) => {
     if (e) {
       let formData = new FormData();
@@ -240,7 +266,7 @@ function AdminRCA({ adminFirstPageAction }) {
   };
 
   const classess = useStyles();
-
+  // console.log(efname);
   return (
     <>
       <div className="adminRCAcontainer">
@@ -676,6 +702,10 @@ function AdminRCA({ adminFirstPageAction }) {
                             className="adminRCAfile"
                             style={{ borderRadius: "1.9vw" }}
                             key={index}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              download(item);
+                            }}
                           >
                             <span style={{ float: "left", marginLeft: "1vw" }}>
                               <img

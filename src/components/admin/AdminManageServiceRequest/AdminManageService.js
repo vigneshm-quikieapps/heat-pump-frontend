@@ -29,6 +29,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import StyledTextField from "../../../common/textfield";
 import usePagination from "../../Pagination/Pagination";
+import fileDownload from "js-file-download";
+
 const theme = createTheme({
   palette: {
     primary: { main: "#000000	" },
@@ -280,6 +282,32 @@ const AdminManageService = ({ adminFirstPageAction }) => {
       responseType: "arraybuffer",
     });
   }
+  const download = (item) => {
+    const token = JSON.parse(localStorage.getItem("user"));
+    axios({
+      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      method: "get",
+      responseType: "blob",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        fileDownload(
+          res.data,
+          item.split("/")[1]
+          //   `downloaded.${
+          //     res.data.type.split("/")[res.data.type.split("/").length - 1]
+          //   }`
+          // );
+          // console.log(
+          //   res.data.type.split("/")[res.data.type.split("/").length - 1]
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const removeFile = (index) => {
     const newValue = [...availableFiles];
@@ -921,7 +949,14 @@ const AdminManageService = ({ adminFirstPageAction }) => {
             <hr className="adminmsrhr1" />
             {efname &&
               efname.map((item, index) => (
-                <div key={index} className="adminmsrattachment">
+                <div
+                  key={index}
+                  className="adminmsrattachment"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    download(availableFiles[index]);
+                  }}
+                >
                   <img
                     src={require("../../../Img/attachIcon1.png")}
                     className="adminmsrattachIcon"
