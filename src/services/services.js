@@ -13,7 +13,7 @@ export async function getFabric() {
 }
 export async function downloadAPI(fp) {
   try {
-    const api = `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${fp}`;
+    const api = `https://heat-pump-back-end.herokuapp.com/api/v1/common/uploads/documents?fp=${fp}`;
     const response = await axiosInstance.get(api);
     return response;
   } catch (error) {

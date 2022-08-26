@@ -317,7 +317,7 @@ const ManageServiceRequest = ({ FirstPageAction }) => {
   const download = (item) => {
     const token = JSON.parse(localStorage.getItem("user"));
     axios({
-      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
+      url: `https://heat-pump-back-end.herokuapp.com/api/v1/common/uploads/documents?fp=${item}`,
       method: "get",
       responseType: "blob",
       headers: {

@@ -141,7 +141,7 @@ function AdminRCA({ adminFirstPageAction }) {
   };
   const download = (item) => {
     axios({
-      url: `https://heat-pump-backend-test.herokuapp.com/api/v1/common/uploads/documents?fp=${userData.id}/${item}`,
+      url: `https://heat-pump-back-end.herokuapp.com/api/v1/common/uploads/documents?fp=${userData.id}/${item}`,
       method: "get",
       responseType: "blob",
       headers: {
