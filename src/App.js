@@ -105,7 +105,16 @@ function PriorityComponent() {
       navigate("/admincommon/AdminHomePage");
     }
   }, []);
+  const signout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userData");
+  };
 
+  window.addEventListener("beforeunload", (ev) => {
+    ev.preventDefault();
+    signout();
+    return (ev.returnValue = "Are you sure you want to close?");
+  });
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
