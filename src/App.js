@@ -108,13 +108,8 @@ function PriorityComponent() {
   const signout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("userData");
-
-    /* localStorage.clear(); */
-    Navigate("/");
   };
-  // const closePing = () => {
-  //   window.addEventListener("onbeforeunload", signout);
-  // };
+
   window.addEventListener("beforeunload", (ev) => {
     ev.preventDefault();
     signout();
